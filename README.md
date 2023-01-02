@@ -1,4 +1,4 @@
-![HtmlScript](https://rosinfire.github.io/HtmlScript/Icon(500x500).png)
+![HtmlScript](https://raw.githubusercontent.com/Roseinfire/HtmlScript/main/Icon(500x500).png)
 ## About
 Was it ever boring to write typical HTML pages? <br>
 If you ever think about web pages, you probably stopped due it's boring creation. <br>
