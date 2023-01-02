@@ -51,8 +51,8 @@ Outer characteristics defined via script attributes:
 * my text is innerHTML and take any value exclude '#' and '*'
 * type takes standat tag name
 * style is link like &style:()
-Character '@' is also draw operator.<br>
-Even if style not specified, '@' must be marked.
+> Character '@' is also draw operator.
+> Even if style not specified, '@' must be marked.
 ```javascript
   # With no style *p @ 
 ```
