@@ -79,7 +79,7 @@ To specify child node, just begin command from "-"
 ## About safety
 Be careful with scripts connected from the internet. <br>
 HtmlScript is like html wrapper. <br>
-Your information never goes further your device. <br>
+> Your information never goes further your device. <br>
 However, when you connect outer script, it usually has control over your page. <br>
 Don't write confidicial information. Whenever posible check source code. <br>
 That's why HtmlScript have open code. <br>
