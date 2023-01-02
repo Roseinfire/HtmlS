@@ -19,7 +19,7 @@ When creating HTML document, connect HtmlScript.
 ```
 This form probably all HTML you will ever write.
   
-## Dealing with syntax..
+## Dealing with syntax
 ### Outer parametres
 HtmlScript automatically creates page, where load and resize events included. <br>
 Outer characteristics defined via script attributes:
