@@ -85,5 +85,5 @@ Don't write confidicial information. Whenever posible check source code. <br>
 That's why HtmlScript have open code. <br>
   
 ## About advertisment
-Accourding to our [rules](), HtmlScript itself never uses advertisment. <br>
+Accourding to our rules, HtmlScript itself never uses advertisment. <br>
 It does not mean nobody can't use ads on HtmlScript-based site. <br>
