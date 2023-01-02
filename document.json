@@ -34,8 +34,19 @@
     <div class="paper"> Document Empy </div>
     <div class="paper" id="Info">Learn more</div>
   </div>
-  <div id="load">Loading..</div>
-    <script type="text/javascript">
+ <div id="load">Loading..</div>
+ <script type="text/javascript">
+  function onlyNumbers(text) {
+     var res = ""
+     for(var i = 0; i < text.length; i++) {
+     for(var e = 0; e <= 9; e++) {
+     if(text[i] == e.toString()) { res += text[i]; }
+          }
+        }
+     if(res) { return eval(res) } else { return 0 }
+    }
+  </script>
+  <script type="text/javascript">
        var hand = document.getElementsByClassName("paper")[0]
        var resizebase = new Array()
        function onResize(e, f) { resizebase.push({ func: f, elem: e }); return resizebase }
@@ -58,9 +69,12 @@
                document.getElementsByClassName("paper")[1].style.width = (innerWidth*0.94) +"px"
                document.getElementsByClassName("paper")[1].style.marginLeft =  innerWidth*0.03 + "px"
               }
-          } else { 
+          } else {
+               var left = (innerWidth-onlyNumbers(paperWidth))/2 + "px"
+               e.style.width = paperWidth
+               e.style.marginLeft = left
                document.getElementsByClassName("paper")[1].style.width = paperWidth
-               document.getElementsByClassName("paper")[1].style.marginLeft = paperWidth
+               document.getElementsByClassName("paper")[1].style.marginLeft = left
              }
              if(e.offsetHeight < innerHeight) { 
                 e.style.marginTop = (innerHeight-e.offsetHeight - document.getElementsByClassName("paper")[1].offsetHeight)/2 + "px" 
@@ -231,12 +245,11 @@
                    eval("this." + data)
                  } catch { console.error("Can't declare attribute: ", data) }
           }
-       function truewrite() {
-              var i = nods.length-1
+       function truewrite(i) {
+              (i) ? (i=i) (i = nods.length-1)
                  if(nods[i].childhood) {
                        try {
                          for(var e = 0;  e <= i; e++) { 
-                        
                           if(nods[i-e].childhood == nods[i].childhood-1) {
                             nods[i-e].node.append(nods[i].node)
                               }
