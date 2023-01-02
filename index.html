@@ -1,0 +1,40 @@
+  <html>
+    <head>
+    <script>
+    function join() {
+       var form = `
+<html>
+   <head>` + `
+       <meta charset="UTF-8">` + `
+       <scr` + `ipt src="https://roseinfire.github.io/HtmlScript/begin.js">
+    
+       </scr`+"ipt>" +`
+    </head>` + `
+</ht`+"ml>"
+          navigator.clipboard.writeText(form);
+          document.getElementById("copy").innerHTML = "successfull"
+       }
+     </script>
+    <script src="https://roseinfire.github.io/HtmlScript/begin.js" style="border: 0;" screen="560px">
+         &join: (background-color: #502227;
+                     border-radius: 15px;
+                     font-size: 115%;
+                     color: white;
+                     padding: 9px;
+                     padding-left: 15px;
+                     padding-right: 15px;
+                     cursor: pointer;
+                 )
+         &copy: (font-size: 18px)
+         &power: (font-size: 11px; text-align: center)
+         &center: (text-align: center)
+         #*img @ { src="Icon(500x500).png" } [30]
+         #*div @center 
+          - # Copy outline to begin with HtmlScript *p @copy 
+          - # Join HtmlScript *div @join {id="copy"} {onclick=join } [90]
+         # Powered by github source: *p @power 
+          - # Roseinfire/HtmlScript *a @ { href="https://github.com/Roseinfire/HtmlScript" }
+     </script>
+   </head>
+  <body></body>
+ </html>
