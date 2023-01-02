@@ -74,8 +74,8 @@ To specify child node, just begin command from "-"
      -- # Hello child nods! *div @ 
 ```
 ### Congratulations! You understood HtmlScript. 
-### For this moment it cannot replace HTML.
-### Nevertheless, some things can became significanty easier.
+#### For this moment it cannot replace HTML.
+#### Nevertheless, some things can became significanty easier.
 ## About safety
 Be careful with scripts connected from the internet. <br>
 HtmlScript is like html wrapper. <br>
