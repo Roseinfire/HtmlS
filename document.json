@@ -44,6 +44,7 @@
          }
          var paperWidth = 1920
          onResize(document.getElementsByClassName("paper")[0], function(e) { 
+          if(typeof paperWidth == 'number') {
            var k = innerWidth/paperWidth
            if(innerWidth > paperWidth) { k = 1/k }
            if(innerHeight < innerWidth) {
@@ -57,6 +58,10 @@
                document.getElementsByClassName("paper")[1].style.width = (innerWidth*0.94) +"px"
                document.getElementsByClassName("paper")[1].style.marginLeft =  innerWidth*0.03 + "px"
               }
+          } else { 
+               document.getElementsByClassName("paper")[1].style.width = paperWidth
+               document.getElementsByClassName("paper")[1].style.marginLeft = paperWidth
+             }
              if(e.offsetHeight < innerHeight) { 
                 e.style.marginTop = (innerHeight-e.offsetHeight - document.getElementsByClassName("paper")[1].offsetHeight)/2 + "px" 
               } else { e.style.marginTop = "20px" }
@@ -72,8 +77,9 @@
            background.style.backgroundColor = color
            if(imageSource) { background.style.backgroundImage = "url('" + imageSource + "')" }
            if(paper_width) { 
-               try { paperWidth = eval(paper_width) } catch { 
-                   console.error("expected screen width is not a number", paper_width)
+               try { paperWidth = eval(paper_width) } catch {
+                   paperWidth = paper_width
+                   console.log("static measurement may not cover all devices", paper_width)
                     }
                  }
              };
