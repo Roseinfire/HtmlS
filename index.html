@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+ <html>
+   <head> 
+      <title>HtmlScript</title>
+      <link rel="stylesheet" href="index.css" />
+     </head>
+   <body style="text-align: center">
+    <div style="margin-top: 150px"> <p>Copy outline to connect HtmlScript</p> <button>Join HtmlScript</button> </div>
+    <p>Github source: <a href="https://github.com/Roseinfire/HtmlScript">https://github.com/Roseinfire/ManualGuide</a> </p>
+    <script>document.getElementsByTagName("button")[0].onclick=function() {
+       var form = `
+<html>
+   <head>` + `
+       <meta charset="UTF-8">` + `
+       <scr` + `ipt src="https://roseinfire.github.io/HtmlScript/begin.js">
+    
+       </scr`+"ipt>" +`
+    </head>` + `
+</ht`+"ml>"
+          navigator.clipboard.writeText(form);
+          this.innerHTML = "successfull"
+       }
+     </script>
+   </body>
+ </html>
