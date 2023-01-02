@@ -10,8 +10,8 @@ When creating HTML document, connect HtmlScript.
 <html>
       <head>
           <meta charset="utf-8">
-             <script src="https://roseinfire.github.io/HtmlScript/begin.js">
-             </script>
+            <script src="https://roseinfire.github.io/HtmlScript/begin.js">
+            </script>
         </head>
      </body>
 </html>
