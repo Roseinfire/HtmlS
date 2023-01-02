@@ -1,4 +1,4 @@
-## About HtmlScript?
+## About HtmlScript
 Was it ever boring to write typical HTML pages? <br>
 If you ever think about web pages, you probably stopped due it's boring creation. <br>
 Never stop. Just upgrade to new level. <br> 
