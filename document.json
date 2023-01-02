@@ -117,7 +117,9 @@
                 var image = getouter("background")
                 var style = getouter("style")
                 var width = getouter("screen")
+                var info = getouter("info")
                 background(color,  image, width)
+                if(!info) { document.getElementsByClassName("paper")[1].style.display = "none" }
                 document.getElementsByClassName("paper")[0].style = style
                 document.getElementsByClassName("paper")[1].style = style
                 document.getElementById("content").style.display = "block";
@@ -199,7 +201,8 @@
             })
             pushkeyword(["#"], ["*"], function(res) { tempotext = res; })
             pushkeyword(["*"], [" ", "@"], function(res) { tempotype = res;  })
-            pushkeyword(["@"], [" ", "{", "["], function(res) {
+            pushkeyword(["@"], [" ", "{", "[", `
+`], function(res) {
                   tempowrite = write(tempotext, tempotype, getvalue(res))
                   nods.push({ node: tempowrite, childhood: childhood })
                   truewrite()
@@ -246,7 +249,7 @@
                  } catch { console.error("Can't declare attribute: ", data) }
           }
        function truewrite(i) {
-              (i) ? (i=i) : (i = nods.length-1)
+              (i!=undefined) ? (i=i) : (i = nods.length-1)
                  if(nods[i].childhood) {
                        try {
                          for(var e = 0;  e <= i; e++) { 
