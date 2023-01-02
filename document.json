@@ -246,7 +246,7 @@
                  } catch { console.error("Can't declare attribute: ", data) }
           }
        function truewrite(i) {
-              (i) ? (i=i) (i = nods.length-1)
+              (i) ? (i=i) : (i = nods.length-1)
                  if(nods[i].childhood) {
                        try {
                          for(var e = 0;  e <= i; e++) { 
