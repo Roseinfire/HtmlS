@@ -67,7 +67,7 @@
                e.style.width = innerWidth*0.94+"px"
                e.style.marginLeft =  innerWidth*0.03 + "px"
                document.getElementsByClassName("paper")[1].style.width = (innerWidth*0.94) +"px"
-               document.getElementsByClassName("paper")[1].style.marginLeft =  innerWidth*0.03 + "px"
+               document.getElementsByClassName("paper")[1].style.marginLeft = (innerWidth*0.03) + "px"
               }
           } else {
                var left = (innerWidth-onlyNumbers(paperWidth))/2 + "px"
@@ -119,11 +119,11 @@
                 var width = getouter("screen")
                 var info = getouter("info")
                 background(color,  image, width)
-                if(!info) { document.getElementsByClassName("paper")[1].style.display = "none" }
                 document.getElementsByClassName("paper")[0].style = style
                 document.getElementsByClassName("paper")[1].style = style
                 document.getElementById("content").style.display = "block";
                 document.getElementById("load").style.display = "none";
+                if(!info) { document.getElementsByClassName("paper")[1].style.display = "none" }
                 if( window.onresize) { window.onresize() }  
             } catch { console.warn("iterations run was not standart") }
         }
@@ -216,9 +216,10 @@
             pushkeyword(["["], ["]"], function(res) {
              if(tempowrite) { onResize(tempowrite, function(e) {
                 try {
-                    var padding = eval(res)
-                    e.style.marginLeft = padding/2 + "px"
-                    e.style.width = (hand.offsetWidth-padding) + "px"
+                    var margin = eval(res)
+                    e.style.marginLeft = margin + "px"
+                    var padding = onlyNumbers(e.style.paddingRight) + onlyNumbers(e.style.paddingLeft)
+                    e.style.width = (hand.offsetWidth-2*margin-padding) + "px"
                       } catch { console.error("Invalid number: ", res) }
                            }); 
                        }
@@ -253,7 +254,6 @@
                  if(nods[i].childhood) {
                        try {
                          for(var e = 1;  e <= i; e++) {
-                          console.log(nods[i-e], nods[i])
                           if(nods[i-e].childhood == nods[i].childhood-1) {
                             nods[i-e].node.append(nods[i].node); break
                               }
