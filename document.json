@@ -253,7 +253,7 @@
                  if(nods[i].childhood) {
                        try {
                          for(var e = 1;  e <= i; e++) {
-                          console.log(nods[i-e], nod[i])
+                          console.log(nods[i-e], nods[i])
                           if(nods[i-e].childhood == nods[i].childhood-1) {
                             nods[i-e].node.append(nods[i].node)
                               }
