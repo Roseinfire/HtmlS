@@ -77,9 +77,9 @@ To specify child node, just begin command from "-"
 #### For this moment it cannot replace HTML.
 #### Nevertheless, some things can became significanty easier.
 ## About safety
-Be careful with scripts connected from the internet. <br>
-HtmlScript is like html wrapper. <br>
-> Your information never goes further your device. <br>
+##### Your information never goes further your device.
+Because HtmlScript works on the user side.
+##### Be careful with scripts connected from the internet.
 However, when you connect outer script, it usually has control over your page. <br>
 Don't write confidicial information. Whenever posible check source code. <br>
 That's why HtmlScript have open code. <br>
