@@ -172,14 +172,14 @@
             var childhood = 0
             var nods = new Array()
             var styles = new Array()
-         function modify(style) {
-           var adition = true
-            for(var i = style.length; i > 0; i--) {
-              if(style[i] == ";") { adition = false }
-              else if(style[i] != " ") { break }
+            function cssmodify(style) {
+              var adition = true;
+              for(var i = style.length-1; i > 0; i--) {
+                 if(style[i] == ";") { adition = false;}
+                 if(style[i] != " ") { break }
+                }
+               if(adition) { return style+";" } else { return style }
              }
-             if(adition) { return style+";" }
-           }
             function getvalue(name, err) {
               for(var i = 0; i < styles.length; i++) {
                 if(styles[i].name == name) { return cssmodify(styles[i].data) }
