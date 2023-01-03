@@ -31,5 +31,5 @@ window.getouter =  function(name) {
  })
 function estable(response) {
    console.group("compilation")
-   console.log("SOURCE: ", __manual__.innerHTML); document.write(response)
+   console.log("SOURCE: ", __manual__); document.write(response)
 }
