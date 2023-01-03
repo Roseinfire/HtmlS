@@ -31,7 +31,7 @@
      </head>
    <body style="background-color: white;">
   <div id="content" style="display: none">
-    <div class="paper"> Document Empy </div>
+    <div class="paper"></div>
     <div class="paper" id="Info">Learn more</div>
   </div>
  <div id="load">Loading..</div>
@@ -53,7 +53,7 @@
        window.onresize = function() {
         for(var i = 0; i < resizebase.length; i++) { resizebase[i].func(resizebase[i].elem); } 
          }
-         var paperWidth = 1920
+         var paperWidth = innerWidth*0.8
          onResize(document.getElementsByClassName("paper")[0], function(e) { 
           if(typeof paperWidth == 'number') {
            var k = innerWidth/paperWidth
@@ -97,20 +97,15 @@
                     }
                  }
              };
-           function getouter(name) { 
-               var list = __manual__.attributes
-               for(var i = 0; i < list.length; i++) { if(list[i].name == name) { return list[i].value } } 
-                  return undefined
-                }
      </script>
     <script type="text/javascript">
         var loads = 0
         function awaitload(endkey) {
           if( window.onresize) { window.onresize() }
           var papers = document.getElementsByClassName("paper")
-          if(!loads && papers.length) { papers[0].innerHTML = "" }
+          if(!loads && endkey != "") { papers[0].innerHTML = ""; }
           if(!endkey) { loads++ }
-          else { loads-- }
+          else if(endkey) { loads-- }
           if(!loads) {
               try {
                 var color = getouter("theme")
@@ -118,12 +113,13 @@
                 var style = getouter("style")
                 var width = getouter("screen")
                 var info = getouter("info")
-                background(color,  image, width)
-                document.getElementsByClassName("paper")[0].style = style
-                document.getElementsByClassName("paper")[1].style = style
+                background(color, image, width)
+                papers[0].style = style
+                papers[1].style = style
                 document.getElementById("content").style.display = "block";
                 document.getElementById("load").style.display = "none";
-                if(!info) { document.getElementsByClassName("paper")[1].style.display = "none" }
+                if(info == undefined) { papers[1].style.display = "none" }
+                if(!nods.length) { papers[0].inneHTML = `<p style="font-size: 35px; text-align: center"> Document Empy </p>` }
                 if( window.onresize) { window.onresize() }  
             } catch { console.warn("iterations run was not standart") }
         }
@@ -201,9 +197,16 @@
             })
             pushkeyword(["#"], ["*"], function(res) { tempotext = res; })
             pushkeyword(["*"], [" ", "@"], function(res) { tempotype = res;  })
-            pushkeyword(["@"], [" ", "{", "[", `
-`], function(res) {
-                  tempowrite = write(tempotext, tempotype, getvalue(res))
+            pushkeyword(["@"], ["."], function(res) {
+                  function separate(variables) {
+                      var variable = ""
+                      var result = ""
+                      for(var i = 0; i < variables.length; i++) {
+                        if(variables[i] == " ") { result += getvalue(variable); variable = "" }
+                        else { variable += variables[i] }
+                          }; if(variable) { result += getvalue(variable) }
+                      }
+                  tempowrite = write(tempotext, tempotype, separate(res))
                   nods.push({ node: tempowrite, childhood: childhood })
                   truewrite()
                   tempotext = null; tempotype = null; childhood = 0 
