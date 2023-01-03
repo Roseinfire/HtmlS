@@ -1,6 +1,7 @@
 
 function getscript(source1, source2) {
   var scripts = document.getElementsByTagName("script")
+     console.log(scripts[i].src, source1, source2)
      for(var i = 0; i < scripts.length; i++) {
         if(scripts[i].src == source1 || scripts[i].src == source2) { return scripts[i] }
       }
