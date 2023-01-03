@@ -172,9 +172,17 @@
             var childhood = 0
             var nods = new Array()
             var styles = new Array()
+            function cssmodify(style) {
+              var adition = true
+               for(var i = style.length; i > 0; i++) {
+                  if(style[i] == ";") { adition = false }
+                  else if(style[i] != " ") { break }
+               }
+             if(adition) { return style+";" }
+            }
             function getvalue(name, err) {
               for(var i = 0; i < styles.length; i++) {
-                if(styles[i].name == name) { return styles[i].data }
+                if(styles[i].name == name) { return cssmodify(styles[i].data) }
                 };
               if(err) { console.error("Can't find link @" + res) }
              }
