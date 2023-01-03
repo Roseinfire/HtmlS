@@ -36,18 +36,18 @@ Outer characteristics defined via script attributes:
 #### Just inside script.
 ```HTML
 <script screen="2200" theme="pink" style="border: 0">
-  Not specified text is a comment.
+  Not specified text is a comment
 </script>
 ```
 #### Creating style:
 ```javascript
 &my-style:( font-size:30px; text-align: center )  
 ```
-* variable can take any name exclude '&' and ':'
+* variable can take any name exclude '&', ':', ' ' and '.'
 * variable can take value exlude '(' and ')'
 #### Creating an element:
 ```javascript
-# My text *type @style
+# My text *type @style1 style2.
 ```
 * my text is innerHTML and take any value exclude '#' and '*'
 * type takes standat tag name
@@ -55,7 +55,7 @@ Outer characteristics defined via script attributes:
 > Character '@' is also draw operator.
 > Even if style not specified, '@' must be marked.
 ```javascript
-  # With no style *p @ 
+  # With no style *p @.
 ```
 #### Adding attributes:
 ```javascript
@@ -64,15 +64,15 @@ Outer characteristics defined via script attributes:
 * between symbols '{' and '}' mark standart attributes.
 #### Relative sizes:
 ```javascript
-#*img @ { src="https://my-image.com/img.png" } [20]
+#*img @. { src="https://my-image.com/img.png" } [20]
 ```
 * between symbols '[' and ']' mark margin from border.
 #### Child node:
 To specify child node, just begin command from "-"
 ```javascript
-# *div @my-style
-     - # *div @
-     -- # Hello child nods! *div @ 
+# *div @my-style.
+     - # *div @.
+     -- # Hello child nods! *div @.
 ```
 ### Congratulations! You understood HtmlScript. 
 #### For this moment it cannot replace HTML.
