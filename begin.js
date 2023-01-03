@@ -23,7 +23,7 @@ window.getouter =  function(name) {
         .then(text => estable(text))
     }
    else {
-    __manual__ = getscript("http://localhost:" + host + "/begin.js", "begin.js")
+    __manual__ = getscript("http://localhost:" + host + "/begin.js", "https://roseinfire.github.io/HtmlScript/begin.js")
 
     fetch("document.json")
       .then(response => response.text())
