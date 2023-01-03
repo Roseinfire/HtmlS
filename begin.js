@@ -29,4 +29,4 @@ window.getouter =  function(name) {
       .then(text => estable(text))
       }
  })
-function estable(response) { console.log(response); document.write(response) }
+function estable(response) { console.log(__manual__.innerHTML); document.write(response) }
