@@ -119,7 +119,7 @@
                 document.getElementById("content").style.display = "block";
                 document.getElementById("load").style.display = "none";
                 if(info == undefined) { papers[1].style.display = "none" }
-                if(!nods.length) { papers[0].inneHTML = `<p style="font-size: 35px; text-align: center"> Document Empy </p>` }
+                if(!nods.length) { papers[0].innerHTML = `<p style="font-size: 35px; text-align: center"> Document Empy </p>` }
                 if( window.onresize) { window.onresize() }  
             } catch { console.warn("iterations run was not standart") }
         }
