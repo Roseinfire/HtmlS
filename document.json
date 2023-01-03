@@ -205,6 +205,8 @@
                         if(variables[i] == " ") { result += getvalue(variable); variable = "" }
                         else { variable += variables[i] }
                           }; if(variable) { result += getvalue(variable) }
+                        console.log(result)
+                        return result
                       }
                   tempowrite = write(tempotext, tempotype, separate(res))
                   nods.push({ node: tempowrite, childhood: childhood })

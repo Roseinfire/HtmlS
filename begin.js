@@ -1,8 +1,8 @@
 
-function getscript(source) {
+function getscript(source1, source2) {
   var scripts = document.getElementsByTagName("script")
      for(var i = 0; i < scripts.length; i++) {
-        if(scripts[i].src == source) { return scripts[i] }
+        if(scripts[i].src == source1 || scripts[i].src == source2) { return scripts[i] }
       }
      var scr = document.createElement("script")
      return scr
@@ -15,14 +15,15 @@ window.getouter =  function(name) {
  window.addEventListener("load", function() {
    window.__manual__ = document.body.parentElement
    var host = getouter("localhost")
-   if(!host) {
+   if(host == undefined) {
      __manual__ = getscript("https://roseinfire.github.io/HtmlScript/begin.js")
      fetch("https://roseinfire.github.io/HtmlScript/document.json")
         .then(response => response.text())
         .then(text => estable(text))
     }
    else {
-    __manual__ = getscript("http://localhost:" + host + "/begin.js")
+    __manual__ = getscript("http://localhost:" + host + "/begin.js", "begin.js")
+
     fetch("document.json")
       .then(response => response.text())
       .then(text => estable(text))
