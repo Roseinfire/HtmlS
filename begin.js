@@ -31,6 +31,5 @@ window.getouter =  function(name) {
  })
 function estable(response) {
    console.group("compilation")
-   console.warn("compilating: ")
    console.log(__manual__.innerHTML); document.write(response)
 }
