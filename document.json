@@ -93,7 +93,7 @@
            if(paper_width) { 
                try { paperWidth = eval(paper_width) } catch {
                    paperWidth = paper_width
-                   console.log("static measurement may not cover all devices", paper_width)
+                   console.warn("static measurement may not cover all devices (", paper_width, ")")
                     }
                  }
              };
