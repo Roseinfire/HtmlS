@@ -59,7 +59,7 @@ Outer characteristics defined via script attributes:
 ```
 #### Adding attributes:
 ```javascript
- #*img @ { src="https://my-image.com/img.png" } 
+ #*img @. { src="https://my-image.com/img.png" } 
 ```
 * between symbols '{' and '}' mark standart attributes.
 #### Relative sizes:
