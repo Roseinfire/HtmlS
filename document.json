@@ -122,6 +122,7 @@
                 if(!nods.length) { papers[0].innerHTML = `<p style="font-size: 35px; text-align: center; color: maroon"> Document Empy </p>` }
                 if( window.onresize) { window.onresize() }  
             } catch { console.warn("iterations run was not standart") }
+             console.groupEnd("compilation")
         }
    }
      class keyword {
