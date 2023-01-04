@@ -55,32 +55,37 @@ Source to your h-script code, if want to store it separetely
 ```
 ### Creating style:
 ```javascript
-local style1 "font-size:30px; text-align: center"
-local style2 "border: 2px solid;"  
+local name "value"
 ```
 #### works like variable
-*  style can take any name exclude space " and .
-*  style can take value exlude "
+*  name: all chars exclude space " and .
+*  value: all chars exlude "
+#### Exapmle:
+```javascript
+local font "font-size:30px; text-align: center"
+local border "border: 2px solid;"
+```
 ### Creating an element:
 ```javascript
-# My text *type @style1 style2.
+# text *type @font border.
 ```
-* my text defines innerHTML, takes any value exclude # and *
-* type takes standart tag name
-* style1 and style2 is links like ' local style ".." '
-### Character '@' is also draw operator. Even if style not specified, '@.' must be marked.
+* text defines innerHTML, takes any value exclude # and *
+* type takes classic tag name
+* font and border is styles, defined as local name "value"
+
+#### Character '@' is also draw operator. Even if style not specified, '@.' must be marked.
 ```javascript
   # Element with no style *p @.
 ```
 ### Adding attributes:
 ```javascript
- #*img @. {id="new_image"}{src="https://my-image.com/img.png"} 
+ #*img @. { class="image" }
 ```
 * between symbols '{' and '}' mark standart attribute.
 * one attribute per bracket 
 ### Relative sizes and groups:
 ```javascript
-#*div @style2. [margin proportion quantity]
+#*div @border. [margin proportion quantity]
 ```
 #### separate arguments width spaces
 * margin from parent border
@@ -89,7 +94,7 @@ local style2 "border: 2px solid;"
 ### Child node:
 To specify child node, just begin command from "-"
 ```javascript
-# *div @style1.
+# *div @font.
      - # *div @.
      -- # Hello child nods! *div @.
 ```
