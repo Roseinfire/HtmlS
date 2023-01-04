@@ -34,9 +34,7 @@ Outer characteristics defined via script attributes:
 ```
 #### theme
 background-color of your page
-* pink
 #### backgroud
-* project/images/background_image.png
 background-image under your page
 #### screen
 Html layout.
