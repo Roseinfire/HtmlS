@@ -53,36 +53,43 @@
        window.onresize = function() {
         for(var i = 0; i < resizebase.length; i++) { resizebase[i].func(resizebase[i].elem); } 
          }
+      var planes = new Array()
+      planes.push({ content:
          var paperWidth = innerWidth*0.8
-         onResize(document.getElementsByClassName("paper")[0], function(e) { 
+          var papers = document.getElementsByClassName("paper")
+         onResize(papers[0], function(e) { 
           if(typeof paperWidth == 'number') {
            var k = innerWidth/paperWidth
            if(innerWidth > paperWidth) { k = 1/k }
            if(innerHeight < innerWidth) {
            e.style.marginLeft = (innerWidth-innerHeight)/2*k + "px"
            e.style.width = (innerWidth-2*e.offsetLeft)+"px";
-           document.getElementsByClassName("paper")[1].style.width = (innerWidth-2*e.offsetLeft)+"px"
-           document.getElementsByClassName("paper")[1].style.marginLeft = (innerWidth-innerHeight)/2*k + "px"
+           papers[1].style.width = (innerWidth-2*e.offsetLeft)+"px"
+           papers[1].style.marginLeft = (innerWidth-innerHeight)/2*k + "px"
             } else {
                e.style.width = innerWidth*0.94+"px"
                e.style.marginLeft =  innerWidth*0.03 + "px"
-               document.getElementsByClassName("paper")[1].style.width = (innerWidth*0.94) +"px"
-               document.getElementsByClassName("paper")[1].style.marginLeft = (innerWidth*0.03) + "px"
+               papers[1].style.width = (innerWidth*0.94) +"px"
+               papers[1].style.marginLeft = (innerWidth*0.03) + "px"
               }
           } else {
                var left = (innerWidth-onlyNumbers(paperWidth))/2 + "px"
                e.style.width = paperWidth
                e.style.marginLeft = left
-               document.getElementsByClassName("paper")[1].style.width = paperWidth
-               document.getElementsByClassName("paper")[1].style.marginLeft = left
+               papers[1].style.width = paperWidth
+               papers[1].style.marginLeft = left
              }
              if(e.offsetHeight < innerHeight) { 
-                e.style.marginTop = (innerHeight-e.offsetHeight - document.getElementsByClassName("paper")[1].offsetHeight)/2 + "px" 
+                e.style.marginTop = (innerHeight-e.offsetHeight - papers[1].offsetHeight)/2 + "px" 
               } else { e.style.marginTop = "20px" }
           })
         onResize(document.getElementById("load"), function(e) { 
               e.style.marginTop = (innerHeight-e.offsetHeight)/2 + "px"
-              })
+              }),
+             condition: function(paperwidth) {
+               if(paperwidth == "full") { return true }
+              }
+           })
         document.getElementsByClassName("paper")[1].onclick = function() {
            window.open("https://github.io/Roseinfire")
           }
@@ -92,11 +99,17 @@
            if(imageSource) { background.style.backgroundImage = "url('" + imageSource + "')" }
            if(paper_width) { 
                try { paperWidth = eval(paper_width) } catch {
-                   paperWidth = paper_width
-                   console.log("! static measurement may not cover all devices (", paper_width, ")")
+                   paperWidth = searchplanes(paper_width)
+                   //console.log("! static measurement may not cover all devices (", paper_width, ")")
                     }
                  }
              };
+          function searchplanes(screen) {
+            for(var i = 0;  i < screen.length; i++) {
+              var plan = plans[i].condition(screen)
+              if(plan) { plans(i).content() }
+              }
+           }
      </script>
     <script type="text/javascript">
         var loads = 0
@@ -171,6 +184,7 @@
             var tempotype = null
             var tempowrite = null
             var childhood = 0
+            var keycode = null
             var nods = new Array()
             var styles = new Array()
             function cssmodify(style) {
@@ -192,10 +206,31 @@
                 styles.push({ name: name, data: data })
                } else { console.error("variable didn't created: double name error") }
              }
-            pushkeyword(["&"], [":"], function(res) { tempovar = res; })
-            pushkeyword(["("], [")"], function(res) { 
+           function groupitem(element, command) {
+             
+            }
+           function importitem(command) {
+            
+             }
+            pushkeyword(["l"], ['"'], function(res) {
+             if(res[0]+res[1]+res[2]+res[4] == "ocal ") {
+               keycode = "local" 
+               var name = "" 
+               for(var i = 4; i < res.length; i++) {
+                if(res[i]!=" ") { name += res[i] }
+                 }
+                tempovar = name
+              }
+             tempovar = res; }
+            })
+            pushkeyword(['"'], ['"'], function(res) {
+                 if(keycode == "local") {
                    setvalue(tempovar, res)
-                   tempovar = null
+                   tempovar = null; keycode = null
+                  }
+                 else if(keycode=="import") {
+                   importitem(res); keycode = null
+                  }
                }) 
             pushkeyword(["-"], ["#"], function(res) {
              var result = 1;
@@ -222,21 +257,11 @@
                   tempotext = null; tempotype = null; childhood = 0 
                })
             pushkeyword(["{"], ["}"], function(res) {
-                 if(tempowrite) {
-                  tempowrite.attribute(res)
-                      }
+                 if(tempowrite) { tempowrite.attribute(res)  }
                })
             pushkeyword(["["], ["]"], function(res) {
-             if(tempowrite) { onResize(tempowrite, function(e) {
-                try {
-                    var margin = eval(res)
-                    e.style.marginLeft = margin + "px"
-                    var padding = onlyNumbers(e.style.paddingRight) + onlyNumbers(e.style.paddingLeft)
-                    e.style.width = (hand.offsetWidth-2*margin-padding) + "px"
-                      } catch { console.error("Invalid number: ", res) }
-                           }); 
-                       }
-               })
+             if(tempowrite) { groupitem(tempowrite, res) }
+            })
   
          function write(text, type, style) { 
           var element = (function () {
