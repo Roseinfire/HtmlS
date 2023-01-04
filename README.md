@@ -14,24 +14,24 @@ HtmlScript is decoration language above Html. <br>
       <head>
           <define layout="center"></define>
           <meta charset="utf-8">
-            <script src="https://roseinfire.github.io/HtmlScript/begin.js"></script>
+          <script src="https://roseinfire.github.io/HtmlScript/begin.js"></script>
         </head>
      </body>
 </html>
 ```
-### At the top of standart document connect HtmlScript and open `define` tag
-### Let's go codding!
+#### At the top of standart document connect HtmlScript and open `define` tag
+#### Let's go codding!
 # Dealing with syntax
  ## Outer code
  ```HTML
-<define layaout="center" style="border: 0" ></define>
+<define layaout="center" style="border: 0"></define>
  ```
-### Attributes show how page generally looks like. There are few.
-* `layout`
-* `style`
-* `theme`
-* `background`
-* `fetch`
+#### Attributes show how page generally looks like. There are few.
+* layout
+* style
+* theme
+* background
+* fetch
 
 ## Inner code
 #### Just inside
