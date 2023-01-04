@@ -79,9 +79,9 @@ local border "border: 2px solid;"
 ```
 ### Adding attributes:
 ```javascript
- #*img @. { class="image" }
+ #*img @. { class="image" } { id="example" }
 ```
-* between symbols '{' and '}' mark standart attribute.
+* between brackets { and } mark standart attribute.
 * one attribute per bracket 
 ### Relative sizes and groups:
 ```javascript
