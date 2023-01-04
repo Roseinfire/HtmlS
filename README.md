@@ -50,7 +50,7 @@ Source to your h-script code, if want to store it separetely
 #### Just inside script.
 ```HTML
 <script screen="2200" theme="pink" style="border: 0">
-  Not specified text is a comment
+  Looks like a comment
 </script>
 ```
 #### Creating style:
@@ -98,7 +98,19 @@ To specify child node, just begin command from "-"
   import "style.css"
 ```
 ### Congratulations! You understood HtmlScript. 
-## About safety
+### Give project a star if you want to see more!
+## Join development
+The simplest way to take part in this project is write new Html layout.
+Read wiki to understand additions.
+Create new branch, write your addition and apply for contribution.
+
+## Contacts
+### Roseinfire
+### 14box14@gmail.com
+### ko-fi.com/Roseinfire
+
+## Learn more
+### About safety
 HtmlScript works on the user side. <br>
 Your information never goes further your device. <br>
 However, be careful with scripts connected from the internet. <br>
@@ -106,6 +118,9 @@ When you connect outer script, it usually has control over your page. <br>
 Don't write confidicial information. Whenever posible check source code. <br>
 That's why HtmlScript have open code. <br>
   
-## About advertisment
+### About advertisment
 Accourding to our rules, HtmlScript itself never uses advertisment. <br>
 It does not mean nobody can't use ads on HtmlScript-based site. <br>
+
+## Licence
+This project licenced under MIT licence
