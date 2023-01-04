@@ -67,10 +67,10 @@ local border "border: 2px solid;"
 ```
 ### Creating an element:
 ```javascript
-# text *type @font border.
+# Hello World! *type @font border.
 ```
-* text defines innerHTML, takes any value exclude `#` and `*`
-* type takes classic tag name
+* after `#` goes innerHTML, takes any value exclude `#` and `*`
+* type takes classic tag name like `p` or `div`
 * font and border is styles, defined as `local name "value"`
 
 #### Character `@` is also draw operator. Even if style not specified, `@.` must be marked.
