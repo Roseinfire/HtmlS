@@ -1,145 +1,123 @@
- <!DOCTYPE html>
- <html>
-   <head> 
-      <title>HtmlScript</title>
-      <style type="text/css">
-         .paper {
-             background-color: rgba(255, 255, 255, 0.95);
-             border-radius: 20px;
-             padding-bottom: 10px;
-             padding-top: 15px;
-             border: 1px dotted;
-          }
-         #Info {
-               cursor: pointer;
-               text-align: center;
-               font-size: 104%;
-               margin-top: 8px;
-               mardin-bottom: 20px;
-               padding-top: 10px;
-               padding-bottom: 10px;
-           }
-         #Info:active {
-               border-bottom: 2px solid;
-           }
-         #load {
-             color: rgb(217, 206, 206);
-             font-size: 40px;
-             text-align: center;
-              }
-       </style>
-     </head>
-   <body style="background-color: white;">
-  <div id="content" style="display: none">
-    <div class="paper"></div>
-    <div class="paper" id="Info">Learn more</div>
-  </div>
- <div id="load">Loading..</div>
- <script type="text/javascript">
-  function onlyNumbers(text) {
-     var res = ""
-     for(var i = 0; i < text.length; i++) {
-     for(var e = 0; e <= 9; e++) {
-     if(text[i] == e.toString()) { res += text[i]; }
+<!DOCTYPE html>
+<html>
+<head> 
+<title>HtmlScript</title>
+<style type="text/css">
+ #paper {
+    background-color: rgba(255, 255, 255, 0.95);
+    border-radius: 20px;
+    padding-bottom: 10px;
+    padding-top: 15px;
+    border: 1px dotted;
+  }
+ #load {
+    color: rgb(217, 206, 206);
+    font-size: 40px;
+    text-align: center;
+  }
+</style>
+</head>
+<body style="background-color: white;">
+<div id="content" style="display: none">
+  <div id="paper"></div>
+</div>
+<div id="load">Loading..</div>
+<script type="text/javascript">
+function onlyNumbers(text) {
+  var res = ""
+  for(var i = 0; i < text.length; i++) {
+    for(var e = 0; e <= 9; e++) {
+      if(text[i] == e.toString()) { res += text[i]; }
           }
         }
-     if(res) { return eval(res) } else { return 0 }
+   if(res) { return eval(res) } else { return 0 }
+}
+</script>
+<script type="text/javascript">
+var hand = document.getElementById("paper")
+var resizebase = new Array()
+function onResize(e, f) { resizebase.push({ func: f, elem: e }); return resizebase }
+ window.onresize = function() {
+   for(var i = 0; i < resizebase.length; i++) { resizebase[i].func(resizebase[i].elem); } 
+ }
+var planes = new Array()
+/* outline center */
+planes.push({ content: function() {
+  var paperWidth = innerWidth*0.8
+  onResize(hand, function(e) { 
+    if(typeof paperWidth == 'number') {
+      var k = innerWidth/paperWidth
+      if(innerWidth > paperWidth) { k = 1/k } 
+      if(innerHeight < innerWidth) {
+        e.style.marginLeft = (innerWidth-innerHeight)/2*k + "px"
+        e.style.width = (innerWidth-2*e.offsetLeft)+"px";
+        hand.style.width = (innerWidth-2*e.offsetLeft)+"px"
+        hand.style.marginLeft = (innerWidth-innerHeight)/2*k + "px"
+      } else {
+        e.style.width = innerWidth*0.94+"px"
+        e.style.marginLeft =  innerWidth*0.03 + "px"
+      } 
+      if(e.offsetHeight < innerHeight) { 
+        e.style.marginTop = (innerHeight-e.offsetHeight - hand.offsetHeight)/2 + "px" 
+      } else { e.style.marginTop = "20px" }  
     }
-  </script>
-  <script type="text/javascript">
-       var hand = document.getElementsByClassName("paper")[0]
-       var resizebase = new Array()
-       function onResize(e, f) { resizebase.push({ func: f, elem: e }); return resizebase }
-       window.onresize = function() {
-        for(var i = 0; i < resizebase.length; i++) { resizebase[i].func(resizebase[i].elem); } 
-         }
-      var planes = new Array()
-      planes.push({ content:
-         var paperWidth = innerWidth*0.8
-          var papers = document.getElementsByClassName("paper")
-         onResize(papers[0], function(e) { 
-          if(typeof paperWidth == 'number') {
-           var k = innerWidth/paperWidth
-           if(innerWidth > paperWidth) { k = 1/k }
-           if(innerHeight < innerWidth) {
-           e.style.marginLeft = (innerWidth-innerHeight)/2*k + "px"
-           e.style.width = (innerWidth-2*e.offsetLeft)+"px";
-           papers[1].style.width = (innerWidth-2*e.offsetLeft)+"px"
-           papers[1].style.marginLeft = (innerWidth-innerHeight)/2*k + "px"
-            } else {
-               e.style.width = innerWidth*0.94+"px"
-               e.style.marginLeft =  innerWidth*0.03 + "px"
-               papers[1].style.width = (innerWidth*0.94) +"px"
-               papers[1].style.marginLeft = (innerWidth*0.03) + "px"
-              }
-          } else {
-               var left = (innerWidth-onlyNumbers(paperWidth))/2 + "px"
-               e.style.width = paperWidth
-               e.style.marginLeft = left
-               papers[1].style.width = paperWidth
-               papers[1].style.marginLeft = left
-             }
-             if(e.offsetHeight < innerHeight) { 
-                e.style.marginTop = (innerHeight-e.offsetHeight - papers[1].offsetHeight)/2 + "px" 
-              } else { e.style.marginTop = "20px" }
-          })
-        onResize(document.getElementById("load"), function(e) { 
-              e.style.marginTop = (innerHeight-e.offsetHeight)/2 + "px"
-              }),
-             condition: function(paperwidth) {
-               if(paperwidth == "full") { return true }
-              }
-           })
-        document.getElementsByClassName("paper")[1].onclick = function() {
-           window.open("https://github.io/Roseinfire")
-          }
-         function background(color, imageSource, paper_width) {
-           var background=document.body
-           background.style.backgroundColor = color
-           if(imageSource) { background.style.backgroundImage = "url('" + imageSource + "')" }
-           if(paper_width) { 
-               try { paperWidth = eval(paper_width) } catch {
-                   paperWidth = searchplanes(paper_width)
-                   //console.log("! static measurement may not cover all devices (", paper_width, ")")
-                    }
-                 }
-             };
-          function searchplanes(screen) {
-            for(var i = 0;  i < screen.length; i++) {
-              var plan = plans[i].condition(screen)
-              if(plan) { plans(i).content() }
-              }
-           }
-     </script>
-    <script type="text/javascript">
-       var loads = 0
-        function awaitload(endkey) {
-          if( window.onresize) { window.onresize() }
-          var papers = document.getElementsByClassName("paper")
-          if(!loads && endkey != "") { try { papers[0].innerHTML = ""; } catch{} }
-          if(!endkey) { loads++ }
-          else if(endkey) { loads-- }
-          if(!loads) {
-              try {
-                var color = getouter("theme")
-                var image = getouter("background")
-                var style = getouter("style")
-                var width = getouter("screen")
-                var info = getouter("info")
-                background(color, image, width)
-                papers[0].style = style
-                papers[1].style = style
-                document.getElementById("content").style.display = "block";
-                document.getElementById("load").style.display = "none";
-                if(info == undefined) { papers[1].style.display = "none" }
-                if(!nods.length) { papers[0].innerHTML = `
-                   <p style="font-size: 35px; text-align: center; color: maroon"> Document Empy </p>`
-                    }
-                if( window.onresize) { window.onresize() }  
-            } catch { console.warn("iterations run was not standart") }
-             console.groupEnd("compilation")
-        }
+  })
+  onResize(document.getElementById("load"), function(e) { 
+    e.style.marginTop = (innerHeight-e.offsetHeight)/2 + "px"
+  }), condition: function(paperwidth) {
+       if(paperwidth == "full") { return true }
+     }
+});
+             
+function background(color, imageSource, paper_width) {
+  var background=document.body
+  background.style.backgroundColor = color
+  if(imageSource) { 
+    background.style.backgroundImage = "url('" + imageSource + "')" 
    }
+  if(paper_width) { 
+    try { 
+      paperWidth = eval(paper_width)
+    } catch {
+      paperWidth = searchplanes(paper_width)
+      }
+   }
+};
+
+function searchplanes(screen) {
+  for(var i = 0;  i < screen.length; i++) {
+    var plan = plans[i].condition(screen)
+    if(plan) { plans(i).content() }
+   }
+ };
+
+</script>
+<script type="text/javascript">
+var loads = 0
+function awaitload(endkey) {
+  if( window.onresize) { window.onresize() }
+  if(!loads && endkey != "") { try { hand.innerHTML = ""; } catch{} }
+  if(!endkey) { loads++ }
+  else if(endkey) { loads-- }
+  if(!loads) {
+    try {
+      var color = getouter("theme")
+      var image = getouter("background")
+      var style = getouter("style")
+      var width = getouter("layout")
+      background(color, image, width)
+      hand.style = style
+      document.getElementById("content").style.display = "block";
+      document.getElementById("load").style.display = "none";
+      if(!nods.length) { 
+        hand.innerHTML = `<p style="font-size: 35px; text-align: center; color: maroon">Document Empy</p>`
+       }
+      if( window.onresize) { window.onresize() }  
+    } catch { console.warn("iterations run was not standart") }
+   console.groupEnd("compilation")
+  }
+};
+
      class keyword {
        constructor(start=[], end=[], recall=function() {}) {
           this.start = function(compl) {
