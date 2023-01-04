@@ -47,9 +47,9 @@ By default: "border: 1px dotted; border-radius: 20px"
 ### fetch
 Source to your h-script code, if want to store it separetely
 ## Inner parametres
-### Just inside script.
+### Just inside script:
 ```HTML
-<script screen="2200" theme="pink" style="border: 0">
+<script theme="pink" style="border: 0">
   Looks like a comment
 </script>
 ```
@@ -60,7 +60,7 @@ local name "value"
 #### works like variable
 *  name: all chars exclude space, `"` and `.`
 *  value: all chars exlude `"`
-#### Exapmle:
+#### Example:
 ```javascript
 local font "font-size:30px; text-align: center"
 local border "border: 2px solid;"
@@ -81,24 +81,23 @@ local border "border: 2px solid;"
 ```javascript
  #*img @. { class="image" } { id="example" }
 ```
-* between brackets `{` and `}` mark standart attribute.
-* one attribute per bracket 
+* between brackets `{` and `}` mark standart attribute. One attribute per bracket.
 ### Relative sizes and groups:
 ```javascript
 #*div @border. [margin proportion quantity]
 ```
 #### separate arguments width spaces
-* margin from parent border (=0 by defult)
-* proportion width/height (=1 by defaul)
-* quantity - how many elements will be created (=1 by default)
-### Child node:
+* margin from parent border (`0` by defult)
+* proportion width/height (`1` by defaul)
+* quantity - how many elements in group (`1` by default)
+### Child nodes:
 To specify child node, just begin command from `-`
 ```javascript
 # *div @font.
      - # *div @.
      -- # Hello child nods! *div @.
 ```
-### connecting files
+### Connecting files:
 ```javascript
   import "code.js"
   import "style.css"
