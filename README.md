@@ -4,7 +4,7 @@ If you ever think about write web pages, probably stopped due it's boring creati
 Never stop. Just upgrade. <br> 
 HtmlScript is decoration language above Html. <br>
 
-## Neeed knowledge
+## Need knowledge
 * CSS 3.0
 * basic HTML
   
