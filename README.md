@@ -2,7 +2,7 @@
 # Introdution
 `HTML` is technology used everywhere in the web. <br>
 It was writen more then thirty years ago. <br>
-In spite of updates, html too old to be comfortable.
+In spite of updates, html too old to be comfortable. <br>
 HtmlScript is decoration language above Html. <br>
 Writen to be `more` `flexible` and `comfortable`
 
