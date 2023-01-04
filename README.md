@@ -21,7 +21,7 @@ Writen to be more flexible and beatifull. <br>
 </html>
 ```
  At the top of classic html connect HtmlScript,<br>
- open `<define>` tag and `Let's go codding!`
+ create `<define>` tag and `Let's begin!`
 # Dealing with syntax
  ## Outer code
  ```HTML
