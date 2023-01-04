@@ -1,11 +1,11 @@
 ![HtmlScript](https://raw.githubusercontent.com/Roseinfire/HtmlScript/main/Icon(200x200).png)
-## Introdution
+# Introdution
 Was it ever boring to write typical HTML pages? <br>
 If you ever think about write web pages, probably stopped due it's boring creation. <br>
 Never stop. Just upgrade. <br> 
 HtmlScript is decoration language above Html. <br>
   
-## Installation
+# Installation
 When creating HTML document, connect HtmlScript.
 ```HTML
 <html>
@@ -19,7 +19,7 @@ When creating HTML document, connect HtmlScript.
 ```
 Probably all. Now start coding!
   
-## Dealing with syntax
+# Dealing with syntax
 ### Outer parametres
 HtmlScript automatically creates page, where load and resize events included. <br>
 Outer characteristics defined via script attributes:
@@ -105,12 +105,7 @@ The simplest way to take part in this project is write new Html layout.<br>
 Read wiki to understand additions. <br>
 Create new branch, write your addition and apply for contribution.<br>
 
-## Contacts
-##### Roseinfire
-##### 14box14@gmail.com
-##### ko-fi.com/Roseinfire
-
-## Learn more
+# Learn more
 ### About safety
 HtmlScript works on the user side. <br>
 Your information never goes further your device. <br>
@@ -123,5 +118,11 @@ That's why HtmlScript have open code. <br>
 Accourding to our rules, HtmlScript itself never uses advertisment. <br>
 It does not mean nobody can't use ads on HtmlScript-based site. <br>
 
-## Licence
+# Contacts
+##### Roseinfire
+##### 14box14@gmail.com
+##### ko-fi.com/Roseinfire
+
+
+# Licence
 This project licenced under MIT licence
