@@ -81,14 +81,14 @@ local border "border: 2px solid;"
 ```javascript
  #*img @. { class="image" } { id="example" }
 ```
-* between brackets `{` and `}` mark standart attribute. One attribute per bracket.
+#### between brackets `{` and `}` mark standart attribute. One attribute per bracket.
 ### Relative sizes and groups:
 ```javascript
 #*div @border. [margin proportion quantity]
 ```
-#### separate arguments width spaces
+#### Between brackets `{` and `}` mark the conditions. Separate arguments width spaces.
 * margin from parent border (`0` by defult)
-* proportion width/height (`1` by defaul)
+* proportion - width/height (`1` by defaul)
 * quantity - how many elements in group (`1` by default)
 ### Child nodes:
 To specify child node, just begin command from `-`
