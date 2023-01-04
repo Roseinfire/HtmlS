@@ -58,22 +58,23 @@ Source to your h-script code, if want to store it separetely
 local style1 "font-size:30px; text-align: center"
 local style2 "border: 2px solid;"  
 ```
-* variable can take any name exclude ' ', ' " ' and '.'
-* variable can take value exlude '"'
+##### works like variable
+*  style can take any name exclude space " and .
+*  style can take value exlude "
 #### Creating an element:
 ```javascript
 # My text *type @style1 style2.
 ```
-* my text is innerHTML and take any value exclude '#' and '*'
-* type takes standat tag name
-* style1 and style2 is links to variables like local style ""
+* my text defines innerHTML, takes any value exclude # and *
+* type takes standart tag name
+* style1 and style2 is links like ' local style ".." '
 #### Character '@' is also draw operator. Even if style not specified, '@.' must be marked.
 ```javascript
   # Element with no style *p @.
 ```
 #### Adding attributes:
 ```javascript
- #*img @. {id="new_image"}{ src="https://my-image.com/img.png" } 
+ #*img @. {id="new_image"}{src="https://my-image.com/img.png"} 
 ```
 * between symbols '{' and '}' mark standart attribute.
 * one attribute per bracket 
@@ -100,14 +101,14 @@ To specify child node, just begin command from "-"
 #### Congratulations! You understood HtmlScript. 
  Give project a star if you would like to see more!
 ## Join development
-The simplest way to take part in this project is write new Html layout.
-Read wiki to understand additions.
-Create new branch, write your addition and apply for contribution.
+The simplest way to take part in this project is write new Html layout.<br>
+Read wiki to understand additions. <br>
+Create new branch, write your addition and apply for contribution.<br>
 
 ## Contacts
-### Roseinfire
-### 14box14@gmail.com
-### ko-fi.com/Roseinfire
+##### Roseinfire
+##### 14box14@gmail.com
+##### ko-fi.com/Roseinfire
 
 ## Learn more
 ### About safety
