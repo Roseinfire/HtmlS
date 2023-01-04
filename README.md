@@ -102,14 +102,14 @@ Note that you can take part in the discussion about new featurs. <br>
 
 
 # Learn more
-## About safety
+### About safety
 Your page build with hsccript, not hscript build width your page. `This is a law.` <br>
 If your page build from local file, it stays local. Your page is public when hosted on public domain.<br>
 Keep in mind, that hscript will not take responsibility if you publish confidicial information on the public server.<br>
 When connect external scripts (include this one) you give it access to all your page.<br>
 Be sure that you can trust the script you connect. That's why HtmlScript open code project. <br>
   
-## About advertisment
+### About advertisment
 HtmlScript itself `never use advertisment`. <br>
 Anyone can use advertisment on his own site if it built with hscript. <br>
 We believe that best support is join project or just give it a star. <br>
