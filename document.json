@@ -140,54 +140,59 @@ function pushkeyword(start_symbol, end_symbol, result) {
   keywords.push( new keyword(start_symbol, end_symbol, result) )
  };
 
-         function read(data, response) {
-           awaitload()
-           var iteration = null
-           var res = ""
-           var pos = -1; while(data[pos+1]) {
-                 pos++; var change = null
-                 for(var i = 0; i < keywords.length; i++) {
-                   if(iteration && keywords[i] == iteration && keywords[i].end( data[pos] )) {
-                      iteration.recall(res, response); res = ""; iteration = null;
-                       }
-                   if(!iteration && keywords[i].start( data[pos] )) { 
-                     iteration = keywords[i]; change = true;
-                       }
-                     }
-         
-                   if(iteration && !change) { res += data[pos] }
-                   if(change) { change = null }
-    
-                   }; if(iteration) { iteration.recall(res, response) }
-                    awaitload(true)
-                } 
-            var tempovar = null
-            var tempotext = null
-            var tempotype = null
-            var tempowrite = null
-            var childhood = 0
-            var keycode = null
-            var nods = new Array()
-            var styles = new Array()
-            function cssmodify(style) {
-              var adition = true;
-              for(var i = style.length-1; i > 0; i--) {
-                 if(style[i] == ";") { adition = false;}
-                 if(style[i] != " ") { break }
-                }
-               if(adition) { return style+";" } else { return style }
-             }
-            function getvalue(name, err) {
-              for(var i = 0; i < styles.length; i++) {
-                if(styles[i].name == name) { return cssmodify(styles[i].data) }
-                };
-              if(err) { console.error("Can't find link @" + res) }
-             }
-            function setvalue(name, data) {
-              if( !getvalue(name) ) {
-                styles.push({ name: name, data: data })
-               } else { console.error("variable didn't created: double name error") }
-             }
+function read(data, response) {
+  awaitload()
+  var iteration = null
+  var res = ""
+  var pos = -1
+  while(data[pos+1]) {
+    pos++; var change = null
+    for(var i = 0; i < keywords.length; i++) {
+      if(iteration && keywords[i] == iteration && keywords[i].end( data[pos] )) {
+        iteration.recall(res, response); res = ""; iteration = null;
+       }
+      if(!iteration && keywords[i].start( data[pos] )) { 
+        iteration = keywords[i]; change = true;
+       }
+    }         
+    if(iteration && !change) { res += data[pos] }
+    if(change) { change = null }
+  }
+  if(iteration) { iteration.recall(res, response) }
+  awaitload(true)
+ };
+
+var tempovar = null
+var tempotext = null
+var tempotype = null
+var tempowrite = null
+var keycode = null
+var childhood = 0
+var nods = new Array()
+var styles = new Array()
+
+function cssmodify(style) {
+  var adition = true;
+  for(var i = style.length-1; i > 0; i--) {
+    if(style[i] == ";") { adition = false;}
+    if(style[i] != " ") { break }
+   }
+  if(adition) { return style+";" } else { return style }
+};
+
+function getvalue(name, err) {
+   for(var i = 0; i < styles.length; i++) {
+      if(styles[i].name == name) { return cssmodify(styles[i].data) }
+    }
+   if(err) { console.error("Can't find link @" + res) }
+};
+
+ function setvalue(name, data) {
+    if( !getvalue(name) ) {
+      styles.push({ name: name, data: data })
+    } else { console.error("variable didn't created: double name error") }
+ };
+
            function groupitem(element, command) {
             var num = 1
             var prop = 1
