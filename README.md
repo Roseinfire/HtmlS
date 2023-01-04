@@ -86,7 +86,7 @@ local border "border: 2px solid;"
 ```javascript
 #*div @border. [margin proportion quantity]
 ```
-#### Between brackets `{` and `}` mark the conditions. Separate arguments width spaces.
+#### Between brackets `[` and `]` mark the conditions. Separate arguments width spaces.
 * margin from parent border (`0` by defult)
 * proportion - width/height (`1` by defaul)
 * quantity - how many elements in group (`1` by default)
