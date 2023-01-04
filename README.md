@@ -23,7 +23,7 @@ Writen to be `more` `flexible` and more `comfortable`
 ```
 At the top of classic html connect HtmlScript and `let's begin!`
  
-# Dealing with syntax
+# Usage
 ## Outer code
 ### Optional head attributes show how page generally looks like
 ```HTML
