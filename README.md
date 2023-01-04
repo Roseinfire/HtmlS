@@ -102,7 +102,7 @@ To specify child node, just begin command from `-`
   import "code.js"
   import "style.css"
 ```
-File action will be defined automaticly by it's extension.
+File action will be defined automaticly by it's extension. <br>
 `.js` files become scripts <br>
 `.css` files become styles <br>
 ## Congratulations! You understood HtmlScript syntax!
