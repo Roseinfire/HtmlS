@@ -93,6 +93,7 @@ function searchplanes(screen) {
 
 </script>
 <script type="text/javascript">
+/* load */
 var loads = 0
 function awaitload(endkey) {
   if( window.onresize) { window.onresize() }
@@ -118,6 +119,7 @@ function awaitload(endkey) {
   }
 };
 
+/* core */
 class keyword {
   constructor(start=[], end=[], recall=function() {}) {
     this.start = function(compl) {
@@ -162,6 +164,7 @@ function read(data, response) {
   awaitload(true)
  };
 
+/* syntax */
 var tempovar = null
 var tempotext = null
 var tempotype = null
@@ -255,63 +258,54 @@ function importitem(command) {
    }
  };
  
-            pushkeyword(["l"], ['"'], function(res) {
-              console.error(res[0]+res[1]+res[2]+res[3]+res[4])
-             if(res[0]+res[1]+res[2]+res[3]+res[4] == "ocal ") {
-               keycode = "local"
-               var name = ""
-               for(var i = 4; i < res.length; i++) {
-               console.warn(res[i])
-                if(res[i]!=" ") { name += res[i] }
-                 }
-                tempovar = name
-              }
-            })
-          pushkeyword(["i"], ['"'], function(res) {
-              console.error(res[0]+res[1]+res[2]+res[3]+res[4]+res[5])
-             if(res[0]+res[1]+res[2]+res[3]+res[4]+res[5] == "mport ") {
-               keycode = "import"
-              }
-            })
-            pushkeyword(['"'], ['"'], function(res) {
-                 if(keycode == "local") {
-                   setvalue(tempovar, res)
-                   tempovar = null; keycode = null
-                  }
-                 else if(keycode=="import") {
-                   importitem(res); keycode = null; tempovar = null
-                  }
-               }) 
-            pushkeyword(["-"], ["#"], function(res) {
-             var result = 1;
-             for(var i = 0; i < res.length; i++) {
-              if(res[i] == "-") { result++ }
-              }
-             childhood = result;
-            })
-            pushkeyword(["#"], ["*"], function(res) { tempotext = res; })
-            pushkeyword(["*"], [" ", "@"], function(res) { tempotype = res;  })
-            pushkeyword(["@"], ["."], function(res) {
-                  function separate(variables) {
-                      var variable = ""
-                      var result = ""
-                      for(var i = 0; i < variables.length; i++) {
-                        if(variables[i] == " ") { result += getvalue(variable); variable = "" }
-                        else { variable += variables[i] }
-                          }; if(variable) { result += getvalue(variable) }
-                        return result
-                      }
-                  tempowrite = write(tempotext, tempotype, separate(res))
-                  nods.push({ node: tempowrite, childhood: childhood })
-                  truewrite()
-                  tempotext = null; tempotype = null; childhood = 0 
-               })
-            pushkeyword(["{"], ["}"], function(res) {
-                 if(tempowrite) { attribute(tempowrite, res)  }
-               })
-            pushkeyword(["["], ["]"], function(res) {
-             if(tempowrite) { groupitem(tempowrite, res) }
-            })
+pushkeyword(["l"], ['"'], function(res) {
+   if(res[0]+res[1]+res[2]+res[3]+res[4] == "ocal ") {
+     keycode = "local"
+     var name = ""
+     for(var i = 4; i < res.length; i++) {
+       if(res[i]!=" ") { name += res[i] }
+      }; tempovar = name
+    }
+ });
+pushkeyword(["i"], ['"'], function(res) {
+   if(res[0]+res[1]+res[2]+res[3]+res[4]+res[5] == "mport ") {
+     keycode = "import"
+    }
+ });
+pushkeyword(['"'], ['"'], function(res) {
+  if(keycode == "local") {
+    setvalue(tempovar, res)
+    tempovar = null; keycode = null
+   }
+  else if(keycode=="import") {
+    importitem(res); keycode = null; tempovar = null
+    }
+ });
+pushkeyword(["-"], ["#"], function(res) {
+  var result = 1;
+  for(var i = 0; i < res.length; i++) {
+    if(res[i] == "-") { result++ }
+   }; childhood = result;
+ });
+pushkeyword(["#"], ["*"], function(res) { tempotext = res; })
+pushkeyword(["*"], [" ", "@"], function(res) { tempotype = res;  })
+pushkeyword(["@"], ["."], function(res) {
+    function separate(variables) {
+      var variable = ""
+      var result = ""
+      for(var i = 0; i < variables.length; i++) {
+        if(variables[i] == " ") { result += getvalue(variable); variable = "" }
+        else { variable += variables[i] }
+       }; if(variable) { result += getvalue(variable) }
+      return result
+     }
+  tempowrite = write(tempotext, tempotype, separate(res))
+  nods.push({ node: tempowrite, childhood: childhood })
+  truewrite()
+  tempotext = null; tempotype = null; childhood = 0 
+});
+pushkeyword(["{"], ["}"], function(res) { if(tempowrite) { atribute(tempowrite, res) }})
+pushkeyword(["["], ["]"], function(res) { if(tempowrite) { groupitem(tempowrite, res) }})
   
          function write(text, type, style) { 
           var element = (function () {
