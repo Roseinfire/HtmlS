@@ -24,31 +24,34 @@ Writen to be `more` `flexible` and more `comfortable`
 At the top of classic html connect HtmlScript and `let's begin!`
  
 # Usage
-## Outer code
-### Optional head attributes show how page generally looks like
+## Set the attributes
 ```HTML
-<head layout="full"></head>
+<head layout="full">
+<script type="hscript"></script>
+</head>
 ```
-> There are only five
+> There are only five attributes
 ### layout
-General plan of the your page.
+General plan of the your page. Related to `<head>`.
 Currently support three layouts:
 * center
 * full
 * relative center
 By default set to `center`
 ### style
-Style attribute related to `hand` element. <br>
-Element can be found in the console typing `hand` <br>
+Style of hand element.<br>
+Hand Element can be found in the console typing `hand` <br>
+Related to `<head>` <br>
 By default set to `border-radius: 15px; border: 1px dotted`
 ### theme 
-background-color of the page.<br>
-By default set to `white`
+Indicates background-color of the page.<br>
+Related to `<head>`. By default set to `white`
 ### background
-background-image of the your page. <br>
-By default not set.
+Takes url and indicates background-image of your page. <br>
+Related to `<head>`. By default not set.
 ### fetch 
-link to hscript file, if you would like to store it separetely.
+Specific attribute related to `<script>`.
+Fetch contains link to code, if you would like to store it separetely.
 By default not set.
 
 ## Inner code
