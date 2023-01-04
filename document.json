@@ -193,29 +193,30 @@ function getvalue(name, err) {
     } else { console.error("variable didn't created: double name error") }
  };
 
-           function groupitem(element, command) {
-            var num = 1
-            var prop = 1
-            var mar = 0
-            var cnt = 1
-            var res = ""
-            for(var i = 0; i < command.length; i++) {
-             res += command[i]
-             if(command[i] == " " && cnt == 1) { cnt++;
-                try{ mar=eval(res); res = "" } catch {}
-                }
-             if(command[i] == " " && cnt == 2) { cnt++;
-                try{ prop=eval(res); res = "" } catch {}
-                }
-             if(command[i] == " " && cnt == 3) { cnt++;
-                try{ num=eval(res); res = "" } catch {}
-                }
-             onResize(element, function(e) {
-                    var margin = mar
-                    e.style.marginLeft = margin + "px"
-                    var padding = onlyNumbers(e.style.paddingRight) + onlyNumbers(e.style.paddingLeft)
-                    e.style.width = (hand.offsetWidth-2*margin-padding) + "px"
-                           });
+function groupitem(element, command) {
+  var num = 1
+  var prop = 1
+  var mar = 0
+  var cnt = 1
+  var res = ""
+  for(var i = 0; i < command.length; i++) {
+    es += command[i]
+    if(command[i] == " " && cnt == 1) { cnt++;
+      try{ mar=eval(res); res = "" } catch {}
+     }
+    if(command[i] == " " && cnt == 2) { cnt++;
+      try{ prop=eval(res); res = "" } catch {}
+     }
+    if(command[i] == " " && cnt == 3) { cnt++;
+      try{ num=eval(res); res = "" } catch {}
+    }
+   onResize(element, function(e) {
+       var margin = mar
+       e.style.marginLeft = margin + "px"
+       var padding = onlyNumbers(e.style.paddingRight) + onlyNumbers(e.style.paddingLeft)
+       e.style.width = (hand.offsetWidth-2*margin-padding) + "px"
+    })
+  };
            /* Need tests
              var parent = element.parentElement
              for(var i = 1; i < num; i++) {
@@ -229,25 +230,31 @@ function getvalue(name, err) {
                  }
                }
               */
-            }
-           function attribute(element, res) {}
-           function importitem(command) {
-            var ext = ""
-            for(var i = command.length; i > 0; i++) {
-              if(command[i] == ".") { break } else { ext+=command[i] }
-               }
-             if(ext == ".js") {
-               var script = document.createElement("script")
-               script.src = command
-               document.body.append(script)
-                }
-              else if(ext == "css") {
-               var style = document.createElement("link")
-               style.rel="stylesheet"
-               style.src = command
-               document.head.append(style)
-                }
-             }
+function attribute(element, res) {
+   try {
+    eval("element." + res)
+     } 
+   catch { console.error("failed to attribute", element, res) }
+ };
+ 
+function importitem(command) {
+  var ext = ""
+  for(var i = command.length; i > 0; i++) {
+    if(command[i] == ".") { break } else { ext+=command[i] }
+   }
+  if(ext == ".js") {
+    var script = document.createElement("script")
+    script.src = command
+    document.body.append(script)
+   }
+  else if(ext == "css") {
+    var style = document.createElement("link")
+    style.rel="stylesheet"
+    style.src = command
+    document.head.append(style)
+   }
+ };
+ 
             pushkeyword(["l"], ['"'], function(res) {
               console.error(res[0]+res[1]+res[2]+res[3]+res[4])
              if(res[0]+res[1]+res[2]+res[3]+res[4] == "ocal ") {
@@ -300,7 +307,7 @@ function getvalue(name, err) {
                   tempotext = null; tempotype = null; childhood = 0 
                })
             pushkeyword(["{"], ["}"], function(res) {
-                 if(tempowrite) { tempowrite.attribute(res)  }
+                 if(tempowrite) { attribute(tempowrite, res)  }
                })
             pushkeyword(["["], ["]"], function(res) {
              if(tempowrite) { groupitem(tempowrite, res) }
