@@ -19,8 +19,8 @@ HtmlScript is decoration language above Html. <br>
    </body>
 </html>
 ```
- At the top of classic html connect HtmlScript and open `<define>` tag
- `Let's go codding!`
+ At the top of classic html connect HtmlScript,<br>
+ open `<define>` tag and `Let's go codding!`
 # Dealing with syntax
  ## Outer code
  ```HTML
