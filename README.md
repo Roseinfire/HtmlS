@@ -25,7 +25,7 @@ At the top of classic html connect HtmlScript and `let's begin!`
 # Dealing with syntax
 ## Outer code
 #### Head attributes show how page generally looks like
-```
+```HTML
 <head layout="full"></head>
 ```
 #### There are a few.
