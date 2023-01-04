@@ -1,12 +1,15 @@
-![HtmlScript](https://raw.githubusercontent.com/Roseinfire/HtmlScript/main/Icon(200x200).png)
+![HtmlScript](https://raw.githubusercontent.com/Roseinfire/HtmlScript/main/Icon(500x500).png)
 # Introdution
-Was it ever boring to write typical HTML pages? <br>
 If you ever think about write web pages, probably stopped due it's boring creation. <br>
 Never stop. Just upgrade. <br> 
 HtmlScript is decoration language above Html. <br>
+
+# Necessary knowlege
+* CSS 3.0
+* basic HTML
   
 # Installation
-When creating HTML document, connect HtmlScript.
+## At the top of standart document connect HtmlScript
 ```HTML
 <html>
       <head>
@@ -17,35 +20,11 @@ When creating HTML document, connect HtmlScript.
      </body>
 </html>
 ```
-Probably all. Now start coding!
+## Let's go codding!
   
 # Dealing with syntax
 ## Outer parametres
-HtmlScript automatically creates page, where load and resize events included. <br>
-Outer characteristics defined via script attributes:
-* theme
-* background
-* screen
-* style
-* fetch
-### As example:
-```HTML
-<script screen="2200" theme="pink" style="border: 0"></script>
-```
-### theme
-background-color of your page
-### backgroud
-background-image under your page
-### screen
-Html layout.
-* full
-* static center
-* relative center
-### style
-Css style of content holder element.
-By default: "border: 1px dotted; border-radius: 20px"
-### fetch
-Source to your h-script code, if want to store it separetely
+
 ## Inner parametres
 #### Just inside script
 ```HTML
