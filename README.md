@@ -12,24 +12,23 @@ Writen to be more flexible and beatifull. <br>
 # Installation
 ```HTML
 <html>
-    <head>
-        <meta charset="utf-8">
-        <script src="https://roseinfire.github.io/HtmlScript/begin.js"></script>
-        <script>HtmlScript 1.1</script>
-      </head>
+    <head layout="center">
+      <meta charset="utf-8">
+     </head>
+     <body>
+      <script src="https://roseinfire.github.io/HtmlScript/begin.js"></script>
    </body>
 </html>
 ```
 At the top of classic html connect HtmlScript and `let's begin!`
  
 # Dealing with syntax
- ## Outer code
- ```HTML
-<script src="https://roseinfire.github.io/HtmlScript/begin.js"
-         layout="center" 
-         style="border: 0"></script>
- ```
-#### Attributes show how page generally looks like. There are not many.
+## Outer code
+#### Head attributes show how page generally looks like
+```
+<head layout="full"></head>
+```
+#### There are a few.
 * layout
 * style
 * theme
@@ -39,7 +38,7 @@ At the top of classic html connect HtmlScript and `let's begin!`
 ## Inner code
 #### Just inside
 ```HTML
-<script> Classic text works like a comment. </script>
+<script type="text/hscript"> Classic text works like a comment. </script>
 ```
 ### Creating style:
 ```javascript
