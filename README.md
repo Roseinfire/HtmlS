@@ -47,7 +47,7 @@ By default: "border: 1px dotted; border-radius: 20px"
 ### fetch
 Source to your h-script code, if want to store it separetely
 ## Inner parametres
-### Just inside script:
+#### Just inside script
 ```HTML
 <script theme="pink" style="border: 0">
   Looks like a comment
@@ -104,7 +104,7 @@ To specify child node, just begin command from `-`
 ```
 #### Congratulations! You understood HtmlScript. 
  Give project a star if you would like to see more!
-## Join development
+# Join development
 The simplest way to take part in this project is write new Html layout.<br>
 Read wiki to understand how to write additions. <br>
 Create new branch, write your addition and apply for contribution.<br>
