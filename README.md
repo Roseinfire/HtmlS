@@ -41,7 +41,7 @@ Html layout.
 * full
 * static center
 * relative center
-####style
+#### style
 Css style of content holder element.
 By default: "border: 1px dotted; border-radius: 20px"
 #### fetch
