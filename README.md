@@ -103,9 +103,9 @@ To specify child node, just begin command from `-`
   import "style.css"
 ```
 File action will be defined automaticly by it's extension.
-`.js` files become scripts
-`.css` files become styles
-### Congratulations! You understood HtmlScript syntax!
+`.js` files become scripts <br>
+`.css` files become styles <br>
+## Congratulations! You understood HtmlScript syntax!
  Give project a star if you would like to see more!
 # Join development
 The simplest way to take part in this project is write new Html layout.<br>
