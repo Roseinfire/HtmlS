@@ -118,26 +118,28 @@ function awaitload(endkey) {
   }
 };
 
-     class keyword {
-       constructor(start=[], end=[], recall=function() {}) {
-          this.start = function(compl) {
-              for(var i = 0; i < start.length; i++) { if(start[i]==compl) { return true } }
-              return false
-                  }
-          this.end = function(compl) {
-              for(var i = 0; i < end.length; i++) { if(end[i]==compl) { return true } }
-              return false
-              }
-          this.recall = function(event, response) { 
-              if(response) { console.log(event) }   
-              recall(event)
-                   }
-             }
+class keyword {
+  constructor(start=[], end=[], recall=function() {}) {
+    this.start = function(compl) {
+      for(var i = 0; i < start.length; i++) { if(start[i]==compl) { return true } }
+        return false
        }
-         var keywords = []
-         function pushkeyword(start_symbol, end_symbol, result) {
-           keywords.push( new keyword(start_symbol, end_symbol, result) )
-            }
+    this.end = function(compl) {
+      for(var i = 0; i < end.length; i++) { if(end[i]==compl) { return true } }
+        return false
+      }
+    this.recall = function(event, response) { 
+      if(response) { console.log(event) }   
+        recall(event)
+       }
+     }
+ };
+
+var keywords = []
+function pushkeyword(start_symbol, end_symbol, result) {
+  keywords.push( new keyword(start_symbol, end_symbol, result) )
+ };
+
          function read(data, response) {
            awaitload()
            var iteration = null
