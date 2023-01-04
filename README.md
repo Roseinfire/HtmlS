@@ -3,7 +3,7 @@
 HTML is technology used everywhere in the web. <br>
 Nevertheless it writen more then thirty years ago. <br>
 HtmlScript is decoration language above Html. <br>
-Writen to be more `flexible` and beatiful. <br>
+Writen to be more `flexible` and `beatiful`
 
 ## Needed knowledge
 * CSS 3.0
