@@ -28,7 +28,7 @@ At the top of classic html connect HtmlScript and `let's begin!`
 ```HTML
 <head layout="full"></head>
 ```
-> There are a few.
+> There are only five
 ### layout
 General plan of the your page.
 Currently support three layouts:
