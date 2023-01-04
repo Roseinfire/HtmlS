@@ -1,6 +1,6 @@
 ![HtmlScript](https://raw.githubusercontent.com/Roseinfire/HtmlScript/main/Icon(500x500).png)
 # Introdution
-HTML is technology used awerywhere in the web. <br>
+HTML is technology used everywhere in the web. <br>
 Nevertheless it writen more then thirty years ago. <br>
 HtmlScript is decoration language above Html. <br>
 Writen to be more flexible and beatifull. <br>
@@ -103,7 +103,10 @@ Note that you can take part in the discussion about new featurs. <br>
 
 # Learn more
 ## About safety
-
+Your page build with hsccript, not hscript build width your page. `This is a law.`
+Your page is local if build from local file and public when hosted on public domain.
+Keep in mind that hscript will not take responsibility if you publish confidicial information.
+When connect external scripts (include this one) you give it access to all your page.
   
 ## About advertisment
 
