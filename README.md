@@ -20,7 +20,7 @@ When creating HTML document, connect HtmlScript.
 Probably all. Now start coding!
   
 # Dealing with syntax
-### Outer parametres
+## Outer parametres
 HtmlScript automatically creates page, where load and resize events included. <br>
 Outer characteristics defined via script attributes:
 * theme
@@ -28,72 +28,72 @@ Outer characteristics defined via script attributes:
 * screen
 * style
 * fetch
-#### As example:
+### As example:
 ```HTML
 <script screen="2200" theme="pink" style="border: 0"></script>
 ```
-#### theme
+### theme
 background-color of your page
-#### backgroud
+### backgroud
 background-image under your page
-#### screen
+### screen
 Html layout.
 * full
 * static center
 * relative center
-#### style
+### style
 Css style of content holder element.
 By default: "border: 1px dotted; border-radius: 20px"
-#### fetch
+### fetch
 Source to your h-script code, if want to store it separetely
-### Inner parametres
-#### Just inside script.
+## Inner parametres
+### Just inside script.
 ```HTML
 <script screen="2200" theme="pink" style="border: 0">
   Looks like a comment
 </script>
 ```
-#### Creating style:
+### Creating style:
 ```javascript
 local style1 "font-size:30px; text-align: center"
 local style2 "border: 2px solid;"  
 ```
-##### works like variable
+#### works like variable
 *  style can take any name exclude space " and .
 *  style can take value exlude "
-#### Creating an element:
+### Creating an element:
 ```javascript
 # My text *type @style1 style2.
 ```
 * my text defines innerHTML, takes any value exclude # and *
 * type takes standart tag name
 * style1 and style2 is links like ' local style ".." '
-#### Character '@' is also draw operator. Even if style not specified, '@.' must be marked.
+### Character '@' is also draw operator. Even if style not specified, '@.' must be marked.
 ```javascript
   # Element with no style *p @.
 ```
-#### Adding attributes:
+### Adding attributes:
 ```javascript
  #*img @. {id="new_image"}{src="https://my-image.com/img.png"} 
 ```
 * between symbols '{' and '}' mark standart attribute.
 * one attribute per bracket 
-#### Relative sizes and groups:
+### Relative sizes and groups:
 ```javascript
 #*div @style2. [margin proportion quantity]
 ```
-##### separate arguments width spaces
+#### separate arguments width spaces
 * margin from parent border
 * proportion width/height
 * quantity = how many elements need
-#### Child node:
+### Child node:
 To specify child node, just begin command from "-"
 ```javascript
 # *div @style1.
      - # *div @.
      -- # Hello child nods! *div @.
 ```
-#### connecting other files
+### connecting files
 ```javascript
   import "code.js"
   import "style.css"
@@ -106,7 +106,7 @@ Read wiki to understand additions. <br>
 Create new branch, write your addition and apply for contribution.<br>
 
 # Learn more
-### About safety
+## About safety
 HtmlScript works on the user side. <br>
 Your information never goes further your device. <br>
 However, be careful with scripts connected from the internet. <br>
@@ -114,7 +114,7 @@ When you connect outer script, it usually has control over your page. <br>
 Don't write confidicial information. Whenever posible check source code. <br>
 That's why HtmlScript have open code. <br>
   
-### About advertisment
+## About advertisment
 Accourding to our rules, HtmlScript itself never uses advertisment. <br>
 It does not mean nobody can't use ads on HtmlScript-based site. <br>
 
