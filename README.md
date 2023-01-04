@@ -30,7 +30,7 @@ At the top of classic html connect HtmlScript and `let's begin!`
 <script type="hscript"></script>
 </head>
 ```
-> There are only five attributes
+> There are only five
 ### layout
 General plan of the your page. Related to `<head>`.
 Currently support three layouts:
