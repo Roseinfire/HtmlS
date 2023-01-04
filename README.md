@@ -26,8 +26,8 @@ At the top of classic html connect HtmlScript and `let's begin!`
  ## Outer code
  ```HTML
 <script src="https://roseinfire.github.io/HtmlScript/begin.js"
-        layout="center" 
-        style="border: 0"></script>
+         layout="center" 
+         style="border: 0"></script>
  ```
 #### Attributes show how page generally looks like. There are not many.
 * layout
