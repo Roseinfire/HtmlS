@@ -9,28 +9,35 @@ HtmlScript is decoration language above Html. <br>
 * basic HTML
   
 # Installation
-## At the top of standart document connect HtmlScript
+## At the top of standart document connect HtmlScript and open`define` tag
 ```HTML
 <html>
       <head>
           <meta charset="utf-8">
-            <script src="https://roseinfire.github.io/HtmlScript/begin.js">
-            </script>
+            <script src="https://roseinfire.github.io/HtmlScript/begin.js"></script>
+            <define layout="center"></define>
         </head>
      </body>
 </html>
 ```
-## Let's go codding!
-  
+### Let's go codding!
 # Dealing with syntax
-## Outer parametres
-
-## Inner parametres
-#### Just inside script
+ ## Outer code
+ ```HTML
+<define layaout="center" style="border: 0" ></define>
+ ```
+### attributes show how page generally looks like. There are few.
+* `layout`
+* `style`
+* `theme`
+* `background`
+* `fetch`
+## Inner code
+#### Just inside
 ```HTML
-<script theme="pink" style="border: 0">
-  Looks like a comment
-</script>
+<define>
+Classic text lools like a comment.
+</define>
 ```
 ### Creating style:
 ```javascript
