@@ -58,8 +58,8 @@ Source to your h-script code, if want to store it separetely
 local name "value"
 ```
 #### works like variable
-*  name: all chars exclude space " and .
-*  value: all chars exlude "
+*  name: all chars exclude space, `"` and `.`
+*  value: all chars exlude `"`
 #### Exapmle:
 ```javascript
 local font "font-size:30px; text-align: center"
@@ -69,11 +69,11 @@ local border "border: 2px solid;"
 ```javascript
 # text *type @font border.
 ```
-* text defines innerHTML, takes any value exclude # and *
+* text defines innerHTML, takes any value exclude `#` and `*`
 * type takes classic tag name
-* font and border is styles, defined as local name "value"
+* font and border is styles, defined as `local name "value"`
 
-#### Character '@' is also draw operator. Even if style not specified, '@.' must be marked.
+#### Character `@` is also draw operator. Even if style not specified, `@.` must be marked.
 ```javascript
   # Element with no style *p @.
 ```
@@ -81,18 +81,18 @@ local border "border: 2px solid;"
 ```javascript
  #*img @. { class="image" } { id="example" }
 ```
-* between brackets { and } mark standart attribute.
+* between brackets `{` and `}` mark standart attribute.
 * one attribute per bracket 
 ### Relative sizes and groups:
 ```javascript
 #*div @border. [margin proportion quantity]
 ```
 #### separate arguments width spaces
-* margin from parent border
-* proportion width/height
-* quantity = how many elements need
+* margin from parent border (=0 by defult)
+* proportion width/height (=1 by defaul)
+* quantity - how many elements will be created (=1 by default)
 ### Child node:
-To specify child node, just begin command from "-"
+To specify child node, just begin command from `-`
 ```javascript
 # *div @font.
      - # *div @.
@@ -107,21 +107,17 @@ To specify child node, just begin command from "-"
  Give project a star if you would like to see more!
 ## Join development
 The simplest way to take part in this project is write new Html layout.<br>
-Read wiki to understand additions. <br>
+Read wiki to understand how to write additions. <br>
 Create new branch, write your addition and apply for contribution.<br>
+Note that you can take part in the discussion about new featurs. <br>
+
 
 # Learn more
 ## About safety
-HtmlScript works on the user side. <br>
-Your information never goes further your device. <br>
-However, be careful with scripts connected from the internet. <br>
-When you connect outer script, it usually has control over your page. <br>
-Don't write confidicial information. Whenever posible check source code. <br>
-That's why HtmlScript have open code. <br>
+
   
 ## About advertisment
-Accourding to our rules, HtmlScript itself never uses advertisment. <br>
-It does not mean nobody can't use ads on HtmlScript-based site. <br>
+
 
 # Contacts
 ##### Roseinfire
