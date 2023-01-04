@@ -13,21 +13,23 @@ Writen to be more flexible and beatifull. <br>
 ```HTML
 <html>
     <head>
-        <define layout="center"></define>
         <meta charset="utf-8">
         <script src="https://roseinfire.github.io/HtmlScript/begin.js"></script>
+        <script>HtmlScript 1.1</script>
       </head>
    </body>
 </html>
 ```
- At the top of classic html connect HtmlScript,<br>
- create `<define>` tag and `Let's begin!`
+At the top of classic html connect HtmlScript and `let's begin!`
+ 
 # Dealing with syntax
  ## Outer code
  ```HTML
-<define layaout="center" style="border: 0"></define>
+<script layout="center" style="border: 0"
+src="https://roseinfire.github.io/HtmlScript/begin.js"
+></script>
  ```
-#### Attributes show how page generally looks like. There are few.
+#### Attributes show how page generally looks like. There are not many.
 * layout
 * style
 * theme
@@ -37,7 +39,7 @@ Writen to be more flexible and beatifull. <br>
 ## Inner code
 #### Just inside
 ```HTML
-<define> Classic text looks like a comment. </define>
+<script> Classic text works like a comment. </script>
 ```
 ### Creating style:
 ```javascript
