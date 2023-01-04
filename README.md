@@ -122,7 +122,7 @@ Note that you can take part in the discussion about new featurs. <br>
 
 # Learn more
 ### About safety
-Your page build with hsccript, not hscript build width your page. `This is a law.` <br>
+Your page built with hscript, not hscript built with your page. `This is a law.` <br>
 If your page build from local file, it stays local. Your page is public when hosted on public domain.<br>
 Keep in mind, that hscript will not take responsibility if you publish confidicial information on the public server.<br>
 When connect external scripts (include this one) you give it access to all your page.<br>
