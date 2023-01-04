@@ -4,23 +4,23 @@ If you ever think about write web pages, probably stopped due it's boring creati
 Never stop. Just upgrade. <br> 
 HtmlScript is decoration language above Html. <br>
 
-## Necessary knowledge
+## Neeed knowledge
 * CSS 3.0
 * basic HTML
   
 # Installation
 ```HTML
 <html>
-      <head>
-          <define layout="center"></define>
-          <meta charset="utf-8">
-          <script src="https://roseinfire.github.io/HtmlScript/begin.js"></script>
-        </head>
-     </body>
+    <head>
+        <define layout="center"></define>
+        <meta charset="utf-8">
+        <script src="https://roseinfire.github.io/HtmlScript/begin.js"></script>
+      </head>
+   </body>
 </html>
 ```
-#### At the top of standart document connect HtmlScript and open `define` tag
-#### Let's go codding!
+ At the top of classic html connect HtmlScript and open `<define>` tag
+ `Let's go codding!`
 # Dealing with syntax
  ## Outer code
  ```HTML
@@ -36,7 +36,7 @@ HtmlScript is decoration language above Html. <br>
 ## Inner code
 #### Just inside
 ```HTML
-<define> Classic text lools like a comment. </define>
+<define> Classic text looks like a comment. </define>
 ```
 ### Creating style:
 ```javascript
