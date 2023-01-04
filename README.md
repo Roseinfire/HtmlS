@@ -1,10 +1,10 @@
 ![HtmlScript](https://raw.githubusercontent.com/Roseinfire/HtmlScript/main/Icon(500x500).png)
 # Introdution
 `HTML` is technology used everywhere in the web. <br>
-It was writen more then thirty years ago. <br>
+However, it was writen more then thirty years ago. <br>
 In spite of updates, html too old to be comfortable. <br>
 HtmlScript is decoration language above Html. <br>
-Writen to be `more` `flexible` and `comfortable`
+Writen to be `more` `flexible` and more `comfortable`
 
 ## Needed knowledge
 * CSS 3.0
