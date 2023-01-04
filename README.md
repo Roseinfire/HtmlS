@@ -1,11 +1,11 @@
 ![HtmlScript](https://raw.githubusercontent.com/Roseinfire/HtmlScript/main/Icon(200x200).png)
-## About
+## Introdution
 Was it ever boring to write typical HTML pages? <br>
-If you ever think about web pages, you probably stopped due it's boring creation. <br>
-Never stop. Just upgrade to new level. <br> 
-HtmlScript is decoration language to work with HTML easily. <br>
+If you ever think about write web pages, probably stopped due it's boring creation. <br>
+Never stop. Just upgrade. <br> 
+HtmlScript is decoration language above Html. <br>
   
-## In the begining..
+## Installation
 When creating HTML document, connect HtmlScript.
 ```HTML
 <html>
@@ -17,7 +17,7 @@ When creating HTML document, connect HtmlScript.
      </body>
 </html>
 ```
-This form probably all HTML you will ever write.
+Probably all. Now start coding!
   
 ## Dealing with syntax
 ### Outer parametres
@@ -32,6 +32,22 @@ Outer characteristics defined via script attributes:
 ```HTML
 <script screen="2200" theme="pink" style="border: 0"></script>
 ```
+#### theme
+background-color of your page
+* pink
+#### backgroud
+* project/images/background_image.png
+background-image under your page
+#### screen
+Html layout.
+* full
+* static center
+* relative center
+####style
+Css style of content holder element.
+By default: "border: 1px dotted; border-radius: 20px"
+#### fetch
+Source to your h-script code, if want to store it separetely
 ### Inner parametres
 #### Just inside script.
 ```HTML
@@ -41,41 +57,49 @@ Outer characteristics defined via script attributes:
 ```
 #### Creating style:
 ```javascript
-&my-style:( font-size:30px; text-align: center )  
+local style1 "font-size:30px; text-align: center"
+local style2 "border: 2px solid;"  
 ```
-* variable can take any name exclude '&', ':', ' ' and '.'
-* variable can take value exlude '(' and ')'
+* variable can take any name exclude ' ', ' " ' and '.'
+* variable can take value exlude '"'
 #### Creating an element:
 ```javascript
 # My text *type @style1 style2.
 ```
 * my text is innerHTML and take any value exclude '#' and '*'
 * type takes standat tag name
-* style is link like &style:()
+* style1 and style2 is links to variables like local style ""
 #### Character '@' is also draw operator. Even if style not specified, '@.' must be marked.
 ```javascript
-  # With no style *p @.
+  # Element with no style *p @.
 ```
 #### Adding attributes:
 ```javascript
- #*img @. { src="https://my-image.com/img.png" } 
+ #*img @. {id="new_image"}{ src="https://my-image.com/img.png" } 
 ```
-* between symbols '{' and '}' mark standart attributes.
-#### Relative sizes:
+* between symbols '{' and '}' mark standart attribute.
+* one attribute per bracket 
+#### Relative sizes and groups:
 ```javascript
-#*img @. { src="https://my-image.com/img.png" } [20]
+#*div @style2. [margin proportion quantity]
 ```
-* between symbols '[' and ']' mark margin from border.
+##### separate arguments width spaces
+* margin from parent border
+* proportion width/height
+* quantity = how many elements need
 #### Child node:
 To specify child node, just begin command from "-"
 ```javascript
-# *div @my-style.
+# *div @style1.
      - # *div @.
      -- # Hello child nods! *div @.
 ```
+#### connecting other files
+```javascript
+  import "code.js"
+  import "style.css"
+```
 ### Congratulations! You understood HtmlScript. 
-#### For this moment it cannot replace HTML.
-#### Nevertheless, some things can became significanty easier.
 ## About safety
 HtmlScript works on the user side. <br>
 Your information never goes further your device. <br>
