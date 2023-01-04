@@ -9,7 +9,6 @@ HtmlScript is decoration language above Html. <br>
 * basic HTML
   
 # Installation
-### At the top of standart document connect HtmlScript and open `define` tag
 ```HTML
 <html>
       <head>
@@ -20,18 +19,20 @@ HtmlScript is decoration language above Html. <br>
      </body>
 </html>
 ```
+### At the top of standart document connect HtmlScript and open `define` tag
 ### Let's go codding!
 # Dealing with syntax
  ## Outer code
  ```HTML
 <define layaout="center" style="border: 0" ></define>
  ```
-### attributes show how page generally looks like. There are few.
+### Attributes show how page generally looks like. There are few.
 * `layout`
 * `style`
 * `theme`
 * `background`
 * `fetch`
+
 ## Inner code
 #### Just inside
 ```HTML
