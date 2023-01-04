@@ -3,7 +3,7 @@
 HTML is technology used everywhere in the web. <br>
 Nevertheless it writen more then thirty years ago. <br>
 HtmlScript is decoration language above Html. <br>
-Writen to be more flexible and beatifull. <br>
+Writen to be more `flexible` and beatiful. <br>
 
 ## Needed knowledge
 * CSS 3.0
@@ -24,16 +24,31 @@ At the top of classic html connect HtmlScript and `let's begin!`
  
 # Dealing with syntax
 ## Outer code
-#### Head attributes show how page generally looks like
+### Optional head attributes show how page generally looks like
 ```HTML
 <head layout="full"></head>
 ```
-#### There are a few.
-* layout
-* style
-* theme
-* background
-* fetch
+> There are a few.
+### layout
+General plan of the your page.
+Currently support three layouts:
+* center
+* full
+* relative center
+By default set to `center`
+### style
+Style attribute related to `hand` element. <br>
+Element can be found in the console typing `hand` <br>
+By default set to `border-radius: 15px; border: 1px dotted`
+### theme 
+background-color of the page.<br>
+By default set to `white`
+### background
+background-image of the your page. <br>
+By default set to ` `
+### fetch 
+link to hscript file, if you would like to store it separetely.
+By default set to ` `
 
 ## Inner code
 #### Just inside
