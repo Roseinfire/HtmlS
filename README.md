@@ -97,8 +97,8 @@ To specify child node, just begin command from "-"
   import "code.js"
   import "style.css"
 ```
-### Congratulations! You understood HtmlScript. 
-### Give project a star if you want to see more!
+#### Congratulations! You understood HtmlScript. 
+ Give project a star if you want to see more!
 ## Join development
 The simplest way to take part in this project is write new Html layout.
 Read wiki to understand additions.
