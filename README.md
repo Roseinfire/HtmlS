@@ -97,12 +97,15 @@ To specify child node, just begin command from `-`
      - # *div @.
      -- # Hello child nods! *div @.
 ```
-### Connecting files:
+### External files:
 ```javascript
   import "code.js"
   import "style.css"
 ```
-#### Congratulations! You understood HtmlScript. 
+File action will be defined automaticly by it's extension.
+`.js` files become scripts
+`.css` files become styles
+### Congratulations! You understood HtmlScript syntax!
  Give project a star if you would like to see more!
 # Join development
 The simplest way to take part in this project is write new Html layout.<br>
