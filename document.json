@@ -225,6 +225,12 @@
              if(command[i] == " " && cnt == 3) { cnt++;
                 try{ num=eval(res); res = "" } catch {}
                 }
+             onResize(element, function(e) {
+                    var margin = mar
+                    e.style.marginLeft = margin + "px"
+                    var padding = onlyNumbers(e.style.paddingRight) + onlyNumbers(e.style.paddingLeft)
+                    e.style.width = (hand.offsetWidth-2*margin-padding) + "px"
+                           });
            /* Need tests
              var parent = element.parentElement
              for(var i = 1; i < num; i++) {
