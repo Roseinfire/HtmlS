@@ -105,7 +105,7 @@ To specify child node, just begin command from `-`
 File action will be defined automaticly by it's extension. <br>
 `.js` files become scripts <br>
 `.css` files become styles <br>
-## Congratulations! You finished short course.
+## Congratulations! You finished short course
  Give project a star, if you would like to see more featurs!
 # Join development
 The simplest way to take part in this project is write new Html layout.<br>
