@@ -307,25 +307,24 @@ pushkeyword(["@"], ["."], function(res) {
 pushkeyword(["{"], ["}"], function(res) { if(tempowrite) { atribute(tempowrite, res) }})
 pushkeyword(["["], ["]"], function(res) { if(tempowrite) { groupitem(tempowrite, res) }})
   
-         function write(text, type, style) { 
-          var element = (function () {
-             try { 
-                var res = document.createElement(type)
-                if(res.tagName == "IMG" || res.tagName == "frame" || res.tagName == "irame") {
-                    awaitload()
-                    res.onload = function() { awaitload(true) }
-                  }
-                if(text) { res.innerHTML = text }
-                if(style) { res.style = style }
-                return res
-                 } catch { 
-                      console.warn("Element creation failed *" + type)
-                      var err = document.createElement("p"); err.innerHTML = "creation error"
-                      return err
-                   }
-               })()
-              return element
-          }
+function write(text, type, style) { 
+  var element = (function () {
+  try { 
+    var res = document.createElement(type)
+    if(res.tagName == "IMG" || res.tagName == "frame" || res.tagName == "irame") {
+       awaitload()
+       res.onload = function() { awaitload(true) }
+     }
+    if(text) { res.innerHTML = text }
+    if(style) { res.style = style }
+    return res
+   } catch { 
+     console.warn("Element creation failed *" + type)
+     var err = document.createElement("p"); err.innerHTML = "creation error"
+     return err
+    }
+  })(); return element
+};
             
 function truewrite(i) {
    (i!=undefined) ? (i=i) : (i = nods.length-1)
