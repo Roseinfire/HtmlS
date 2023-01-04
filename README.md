@@ -1,10 +1,11 @@
 ![HtmlScript](https://raw.githubusercontent.com/Roseinfire/HtmlScript/main/Icon(500x500).png)
 # Introdution
-If you ever think about write web pages, probably stopped due it's boring creation. <br>
-Never stop. Just upgrade. <br> 
+HTML is technology used awerywhere in the web. <br>
+Nevertheless it writen more then thirty years ago. <br>
 HtmlScript is decoration language above Html. <br>
+Writen to be more flexible and beatifull. <br>
 
-## Need knowledge
+## Needed knowledge
 * CSS 3.0
 * basic HTML
   
