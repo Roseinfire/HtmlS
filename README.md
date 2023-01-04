@@ -45,15 +45,15 @@ background-color of the page.<br>
 By default set to `white`
 ### background
 background-image of the your page. <br>
-By default set to ` `
+By default not set.
 ### fetch 
 link to hscript file, if you would like to store it separetely.
-By default set to ` `
+By default not set.
 
 ## Inner code
-#### Just inside
+#### Just inside any hscript
 ```HTML
-<script type="text/hscript"> Classic text works like a comment. </script>
+<script type="hscript"> Classic text works like a comment. </script>
 ```
 ### Creating style:
 ```javascript
