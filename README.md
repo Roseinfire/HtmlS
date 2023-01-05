@@ -141,4 +141,4 @@ However, you can support project financially on ko-fi. <br>
 
 
 # Licence
-Licensed under `MIT` licence
+Licensed under MIT licence
