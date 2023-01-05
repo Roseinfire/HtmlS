@@ -53,7 +53,7 @@
     window.onresize = function() {
       for(var i = 0; i < resizebase.length; i++) { 
          for(var e = 0; e < resizebase[i].elem.length; e++) {
-            resizebase[i].func(resizebase[i].elem[e]);
+            resizebase[i].func(resizebase[i].elem[e], i);
           }
         } 
      }
