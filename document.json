@@ -50,11 +50,15 @@
        var hand = document.getElementsByClassName("paper")[0]
        var resizebase = new Array()
        function onResize(e, f) { resizebase.push({ func: f, elem: e }); return resizebase }
-       window.onresize = function() {
-        for(var i = 0; i < resizebase.length; i++) { resizebase[i].func(resizebase[i].elem); } 
-         }
+    window.onresize = function() {
+      for(var i = 0; i < resizebase.length; i++) { 
+         for(var e = 0; e < resizebase[i].elem.length; e++) {
+            resizebase[i].func(resizebase[i].elem[e]);
+          }
+        } 
+     }
          var paperWidth = innerWidth*0.8
-         onResize(document.getElementsByClassName("paper")[0], function(e) { 
+         onResize([document.getElementsByClassName("paper")[0]], function(e) { 
           if(typeof paperWidth == 'number') {
            var k = innerWidth/paperWidth
            if(innerWidth > paperWidth) { k = 1/k }
@@ -80,7 +84,7 @@
                 e.style.marginTop = (innerHeight-e.offsetHeight - document.getElementsByClassName("paper")[1].offsetHeight)/2 + "px" 
               } else { e.style.marginTop = "20px" }
           })
-        onResize(document.getElementById("load"), function(e) { 
+        onResize([document.getElementById("load")], function(e) { 
               e.style.marginTop = (innerHeight-e.offsetHeight)/2 + "px"
               })
         document.getElementsByClassName("paper")[1].onclick = function() {
@@ -227,7 +231,7 @@
                       }
                })
             pushkeyword(["["], ["]"], function(res) {
-             if(tempowrite) { onResize(tempowrite, function(e) {
+             if(tempowrite) { onResize([tempowrite], function(e) {
                 try {
                     var margin = eval(res)
                     e.style.marginLeft = margin + "px"
