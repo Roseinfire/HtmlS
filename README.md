@@ -1,10 +1,10 @@
 ![HtmlScript](https://raw.githubusercontent.com/Roseinfire/HtmlScript/main/Icon(500x500).png)
-# Introdution
-`HTML` is technology used everywhere in the web. <br>
-However, it was writen more then thirty years ago. <br>
-In spite of updates, html too old to be comfortable. <br>
-HtmlScript is decoration language above Html. <br>
-Writen to be `more` `flexible` and more `comfortable`
+# Introduction
+`HTML` is technology used everywhere on the web. <br>
+However, it was written more than thirty years ago. <br>
+In spite of updates, html is too old to be comfortable. <br>
+HtmlScript is the decoration language above Html. <br>
+Written to be `more` `flexible` and more `comfortable`
 
 ## Needed knowledge
 * CSS 3.0
@@ -21,18 +21,18 @@ Writen to be `more` `flexible` and more `comfortable`
    </body>
 </html>
 ```
-At the top of classic html connect HtmlScript and `let's begin!`
+
  
 # Usage
-## Set the attributes
+## Set up attributes
 ```HTML
 <head layout="full">
-<script type="hscript"></script>
+<script type="htmlscript"></script>
 </head>
 ```
 > There are only five
 ### layout
-General plan of the your page. Related to `<head>`.
+General plan of your page. Related to `<head>`.
 Currently support three layouts:
 * center
 * full
@@ -47,11 +47,11 @@ By default set to `border-radius: 15px; border: 1px dotted`
 Indicates background-color of the page.<br>
 Related to `<head>`. By default set to `white`
 ### background
-Takes url and indicates background-image of your page. <br>
+Attribute takes a url and indicates the background-image of your page. <br>
 Related to `<head>`. By default not set.
 ### fetch 
 Specific attribute related to `<script>`.
-Fetch contains link to code, if you would like to store it separetely.
+Fetch contains a link to code, if you would like to store it separately.
 By default not set.
 
 ## Inner code
@@ -65,7 +65,7 @@ local name "value"
 ```
 #### works like variable
 *  name: all chars exclude space, `"` and `.`
-*  value: all chars exlude `"`
+*  value: all chars exclude `"`
 #### Example:
 ```javascript
 local font "font-size:30px; text-align: center"
@@ -79,7 +79,7 @@ local border "border: 2px solid;"
 * `type` takes classic tag name like `p` or `div`
 * `font` and `border` are styles, defined like `local name "value"`
 
-#### Character `@` is also draw operator. Even if style not specified, `@.` must be marked.
+#### Character `@` is also a draw operator. Even if the style is not specified, `@.` must be marked.
 ```javascript
   # Element with no style *p @.
 ```
@@ -92,9 +92,9 @@ local border "border: 2px solid;"
 ```javascript
 #*div @border. [margin proportion quantity]
 ```
-#### Between brackets `[` and `]` mark the conditions. Separate arguments width spaces.
-* margin from parent border (`0` by defult)
-* proportion - width/height (`1` by defaul)
+#### Between brackets `[` and `]` mark the conditions. Separate arguments with spaces.
+* margin from parent border (`0` by default)
+* proportion - width/height (`1` by default)
 * quantity - how many elements in group (`1` by default)
 ### Child nodes:
 To specify child node, just begin command from `-`
@@ -108,31 +108,31 @@ To specify child node, just begin command from `-`
   import "code.js"
   import "style.css"
 ```
-File action defined automatically by it's extension. <br>
+File action defined automatically by its extension. <br>
 `.js` files become scripts <br>
 `.css` files become styles <br>
 ## Congratulations! You finished a short course
- Give project a star, if you would like to see more featurs!
+ Give the project a star, if you would like to see more features!
 # Join development
 The simplest way to take part in this project is write new Html layout.<br>
 Read wiki to understand how to write additions. <br>
 Create new branch, write your addition and apply for contribution.<br>
-Note that you can take part in the discussion about new featurs. <br>
+Note that you can take part in the discussion about new features. <br>
 
 
 # Learn more
 ### About safety
-Your page built with hscript, not hscript built with your page. `This is a law.` <br>
-If your page build from local file, it stays local. Your page is public when hosted on public domain.<br>
-Keep in mind, that hscript will not take responsibility if you publish confidicial information on the public server.<br>
+Your page is built with htmlscript, not htmlscript built with your page. `This is a law.` <br>
+If your page is built from a local file, it stays local. Your page is public when hosted on public domain.<br>
+Keep in mind that hscript will not take responsibility if you publish confidential information on the public server.<br>
 When connect external scripts (include this one) you give it access to all your page.<br>
-Be sure that you can trust the script you connect. That's why HtmlScript open code project. <br>
+Be sure that you can trust the script you connected. That's why the HtmlScript open code project. <br>
   
-### About advertisment
-HtmlScript itself `never use advertisment`. <br>
-Anyone can use advertisment on his own site if it built with hscript. <br>
-We believe that best support is join project or just give it a star. <br>
-However, you can suppot project financially on ko-fi. <br>
+### About advertisement
+HtmlScript itself `never use advertisement`. <br>
+Anyone can use advertisement on his own site if it is built with htmlscript. <br>
+We believe that best support is join the project or just give it a star. <br>
+However, you can support project financially on ko-fi. <br>
 
 # Contacts
 ##### Roseinfire
@@ -141,4 +141,4 @@ However, you can suppot project financially on ko-fi. <br>
 
 
 # Licence
-This project licenced under MIT licence
+Licensed under MIT licence
