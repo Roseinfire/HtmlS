@@ -38,18 +38,18 @@ Currently support three layouts:
 * full
 * relative center
 By default set to `center`
-### style
+### `style`
 Style of hand element.<br>
 Hand Element can be found in the console typing `hand` <br>
 Related to `<head>` <br>
 By default set to `border-radius: 15px; border: 1px dotted`
-### theme 
+### `theme` 
 Indicates background-color of the page.<br>
 Related to `<head>`. By default set to `white`
 ### background
 Attribute takes a url and indicates the background-image of your page. <br>
 Related to `<head>`. By default not set.
-### fetch 
+### `fetch`
 Specific attribute related to `<script>`.
 Fetch contains a link to code, if you would like to store it separately.
 By default not set.
