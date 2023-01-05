@@ -34,42 +34,16 @@ function onlyNumbers(text) {
 }
 </script>
 <script type="text/javascript">
+ /* resize */
 var hand = document.getElementById("paper")
 var resizebase = new Array()
 function onResize(e, f) { resizebase.push({ func: f, elem: e }); return resizebase }
  window.onresize = function() {
    for(var i = 0; i < resizebase.length; i++) { resizebase[i].func(resizebase[i].elem); } 
  }
-var planes = new Array()
-/* outline center */
-planes.push({ content: function() {
-  var paperWidth = innerWidth*0.8
-  onResize(hand, function(e) { 
-    if(typeof paperWidth == 'number') {
-      var k = innerWidth/paperWidth
-      if(innerWidth > paperWidth) { k = 1/k } 
-      if(innerHeight < innerWidth) {
-        e.style.marginLeft = (innerWidth-innerHeight)/2*k + "px"
-        e.style.width = (innerWidth-2*e.offsetLeft)+"px";
-        hand.style.width = (innerWidth-2*e.offsetLeft)+"px"
-        hand.style.marginLeft = (innerWidth-innerHeight)/2*k + "px"
-      } else {
-        e.style.width = innerWidth*0.94+"px"
-        e.style.marginLeft =  innerWidth*0.03 + "px"
-      } 
-      if(e.offsetHeight < innerHeight) { 
-        e.style.marginTop = (innerHeight-e.offsetHeight - hand.offsetHeight)/2 + "px" 
-      } else { e.style.marginTop = "20px" }  
-    }
-  })
-  onResize(document.getElementById("load"), function(e) { 
-    e.style.marginTop = (innerHeight-e.offsetHeight)/2 + "px"
-  }), condition: function(paperwidth) {
-       if(paperwidth == "full") { return true }
-     }
-});
-             
-function background(color, imageSource, paper_width) {
+
+/* Layouts */
+ function background(color, imageSource, paper_width) {
   var background=document.body
   background.style.backgroundColor = color
   if(imageSource) { 
@@ -83,13 +57,52 @@ function background(color, imageSource, paper_width) {
       }
    }
 };
-
-function searchplanes(screen) {
+  
+var planes = new Array()
+function searchplanes(layoutname) {
   for(var i = 0;  i < screen.length; i++) {
-    var plan = plans[i].condition(screen)
+    var plan = plans[i].condition(layoutname)
     if(plan) { plans(i).content() }
-   }
+    }
  };
+  
+class Layout {
+  constructor(reaction=function() {}, condition=function() {}) {
+   this.content = reaction
+   this.condition = condition
+     }
+  }
+  
+ /* layout = "center" */
+planes.push(new Layout(
+  function() {
+    var paperWidth = innerWidth*0.8
+    onResize(hand, function(e) { 
+       if(typeof paperWidth == 'number') {
+         var k = innerWidth/paperWidth
+         if(innerWidth > paperWidth) { k = 1/k } 
+         if(innerHeight < innerWidth) {
+            e.style.marginLeft = (innerWidth-innerHeight)/2*k + "px"
+            e.style.width = (innerWidth-2*e.offsetLeft)+"px";
+            hand.style.width = (innerWidth-2*e.offsetLeft)+"px"
+            hand.style.marginLeft = (innerWidth-innerHeight)/2*k + "px"
+         } else {
+            e.style.width = innerWidth*0.94+"px"
+            e.style.marginLeft =  innerWidth*0.03 + "px"
+         } 
+          if(e.offsetHeight < innerHeight) { 
+            e.style.marginTop = (innerHeight-e.offsetHeight - hand.offsetHeight)/2 + "px" 
+           } else { e.style.marginTop = "20px" }  
+        }
+    })
+   onResize(document.getElementById("load"), function(e) { 
+      e.style.marginTop = (innerHeight-e.offsetHeight)/2 + "px"
+      }) 
+   }, function(paperwidth) {
+       if(paperwidth == "full") { return true }
+     }
+));
+             
 
 </script>
 <script type="text/javascript">
@@ -121,13 +134,23 @@ function awaitload(endkey) {
 
 /* core */
 class keyword {
-  constructor(start=[], end=[], recall=function() {}) {
+  constructor(start=[], end=[], recall=function() {}, name) {
+    const that = this
+    this.ends = end
+    this.starts = start
+    this.name = name
     this.start = function(compl) {
-      for(var i = 0; i < start.length; i++) { if(start[i]==compl) { return true } }
+      for(var i = 0; i < start.length; i++) { if(start[i]==compl) { return this } }
         return false
        }
-    this.end = function(compl) {
-      for(var i = 0; i < end.length; i++) { if(end[i]==compl) { return true } }
+    this.end = function(compl, result) {
+      for(var i = 0; i < end.length; i++) {
+        var includes = false
+        for(var e = 0; e < start.length; e++) {
+          if(end.includes(start[e]) ) { includes = true }
+         }
+        if(end[i]==compl && (result != "" || !includes) ) { return this }
+         }
         return false
       }
     this.recall = function(event, response) { 
@@ -138,31 +161,46 @@ class keyword {
  };
 
 var keywords = []
-function pushkeyword(start_symbol, end_symbol, result) {
-  keywords.push( new keyword(start_symbol, end_symbol, result) )
+function pushkeyword(start_symbol, end_symbol, result, name) {
+  keywords.push( new keyword(start_symbol, end_symbol, result, name) )
  };
 
 function read(data, response) {
-  awaitload()
-  var iteration = null
-  var res = ""
-  var pos = -1
-  while(data[pos+1]) {
-    pos++; var change = null
+  if(!read.pos) { read.pos = -1; awaitload() }
+  read.data = data
+  read.response = response
+  read.iteration = null
+  read.last_iteration  = null
+  read.res = ""
+  while(read.data[read.pos+1]) {
+    if(read.await) { console.log("Reading paused"); break }
+    read.pos++; read.change = null; 
+    if(response && read.iteration) {console.log(read.data[read.pos], read.iteration.name)}
     for(var i = 0; i < keywords.length; i++) {
-      if(iteration && keywords[i] == iteration && keywords[i].end( data[pos] )) {
-        iteration.recall(res, response); res = ""; iteration = null;
+      if(read.iteration && keywords[i] == read.iteration && keywords[i].end( read.data[read.pos], read.res )) {
+        read.iteration.recall(read.res, response); read.res = ""; read.last_iteration = read.iteration; read.iteration = null;
        }
-      if(!iteration && keywords[i].start( data[pos] )) { 
-        iteration = keywords[i]; change = true;
+      if(!read.iteration && keywords[i].start( read.data[read.pos] ) && keywords[i].start( read.data[read.pos] ) != read.last_iteration) { 
+        read.iteration = keywords[i]; read.change = true; break;
        }
-    }         
-    if(iteration && !change) { res += data[pos] }
-    if(change) { change = null }
+    }
+    if(read.iteration && !read.change) { read.res += read.data[read.pos] }
+    if(read.change) { read.change = null }
   }
-  if(iteration) { iteration.recall(res, response) }
-  awaitload(true)
+  if(!read.await) {
+    if(read.iteration) { read.iteration.recall(read.res, response) }
+    awaitload(true)
+    }
  };
+function awaitReading() {
+  console.warn("awaiting")
+  read.await = true
+  }
+function continueReading() {
+  console.log("Reading continued")
+  read.await = false; read.pos += 1
+  read(read.data, read.response)
+  }
 
 /* syntax */
 var tempovar = null
@@ -202,7 +240,7 @@ function groupitem(element, command) {
   var mar = 0
   var cnt = 1
   var res = ""
-  for(var i = 0; i < command.length; i++) {
+  /* for(var i = 0; i < command.length; i++) {
     es += command[i]
     if(command[i] == " " && cnt == 1) { cnt++;
       try{ mar=eval(res); res = "" } catch {}
@@ -213,26 +251,16 @@ function groupitem(element, command) {
     if(command[i] == " " && cnt == 3) { cnt++;
       try{ num=eval(res); res = "" } catch {}
     }
+  }
    onResize(element, function(e) {
        var margin = mar
        e.style.marginLeft = margin + "px"
        var padding = onlyNumbers(e.style.paddingRight) + onlyNumbers(e.style.paddingLeft)
        e.style.width = (hand.offsetWidth-2*margin-padding) + "px"
     })
+   */
   };
-           /* Need tests
-             var parent = element.parentElement
-             for(var i = 1; i < num; i++) {
-              var brother = element.cloneNode(20)
-              onResize(brother, function(e) {
-               var width = ( (parent.offsetWidth-2*mar)/num )
-                e.style.width = width +"px"
-                e.style.height = (1/prop) * width + "px"
-                e.style.marginLeft = mar + width*i + "px"
-                   })
-                 }
-               }
-              */
+
 function attribute(element, res) {
    try {
     eval("element." + res)
@@ -242,15 +270,20 @@ function attribute(element, res) {
  
 function importitem(command) {
   var ext = ""
-  for(var i = command.length; i > 0; i++) {
+  for(var i = command.length-1; i > 0; i--) {
     if(command[i] == ".") { break } else { ext+=command[i] }
    }
-  if(ext == ".js") {
+  if(ext == "sj") {
+//  try {
+    awaitReading()
     var script = document.createElement("script")
     script.src = command
+    script.onload = function() { console.log("imported script", this); continueReading() }
+    script.onerror = function() { console.error("failed to import", command); continueReading() }
     document.body.append(script)
+  //   } catch { console.error("import went wrong") }
    }
-  else if(ext == "css") {
+  else if(ext == "ssc") {
     var style = document.createElement("link")
     style.rel="stylesheet"
     style.src = command
@@ -266,29 +299,29 @@ pushkeyword(["l"], ['"'], function(res) {
        if(res[i]!=" ") { name += res[i] }
       }; tempovar = name
     }
- });
+ }, "local");
 pushkeyword(["i"], ['"'], function(res) {
    if(res[0]+res[1]+res[2]+res[3]+res[4]+res[5] == "mport ") {
      keycode = "import"
     }
- });
+ }, "import");
 pushkeyword(['"'], ['"'], function(res) {
   if(keycode == "local") {
     setvalue(tempovar, res)
     tempovar = null; keycode = null
    }
   else if(keycode=="import") {
-    importitem(res); keycode = null; tempovar = null
+    importitem(res); keycode = null; //tempovar = null
     }
- });
+ }, "value");
 pushkeyword(["-"], ["#"], function(res) {
   var result = 1;
   for(var i = 0; i < res.length; i++) {
     if(res[i] == "-") { result++ }
    }; childhood = result;
- });
-pushkeyword(["#"], ["*"], function(res) { tempotext = res; })
-pushkeyword(["*"], [" ", "@"], function(res) { tempotype = res;  })
+ }, "child");
+pushkeyword(["#"], ["*"], function(res) { tempotext = res; }, "element")
+pushkeyword(["*"], [" ", "@"], function(res) { tempotype = res;  }, "type")
 pushkeyword(["@"], ["."], function(res) {
     function separate(variables) {
       var variable = ""
@@ -303,9 +336,9 @@ pushkeyword(["@"], ["."], function(res) {
   nods.push({ node: tempowrite, childhood: childhood })
   truewrite()
   tempotext = null; tempotype = null; childhood = 0 
-});
-pushkeyword(["{"], ["}"], function(res) { if(tempowrite) { atribute(tempowrite, res) }})
-pushkeyword(["["], ["]"], function(res) { if(tempowrite) { groupitem(tempowrite, res) }})
+}, "draw");
+pushkeyword(["{"], ["}"], function(res) { if(tempowrite) { attribute(tempowrite, res) }}, "attribute")
+pushkeyword(["["], ["]"], function(res) { if(tempowrite) { groupitem(tempowrite, res) }}, "group")
   
 function write(text, type, style) { 
   var element = (function () {
@@ -325,7 +358,7 @@ function write(text, type, style) {
     }
   })(); return element
 };
-            
+/* writing */       
 function truewrite(i) {
    (i!=undefined) ? (i=i) : (i = nods.length-1)
     if(nods[i].childhood) {
@@ -339,6 +372,7 @@ function truewrite(i) {
      } else { try{ hand.append(nods[i].node) } catch { console.err(nods[i].node) }
    }
 };
+
 </script>
 <script type="text/javascript">
 var source = getouter("fetch")
