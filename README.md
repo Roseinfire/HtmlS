@@ -55,7 +55,7 @@ Fetch contains a link to code, if you would like to store it separately.<br>
 By default not set.
 
 ## Inner code
-#### Just inside any htmlscript
+#### Just inside any h-script
 ```HTML
 <script type="htmlscript">Classic text works like a comment.</script>
 ```
