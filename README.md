@@ -34,8 +34,10 @@ Written to be `more` `flexible` and more `comfortable`
 ### `layout`
 General plan of your page. Related to `<head>`.<br>
 Currently support three layouts:
-* static _
-* relative _
+* static `number`<br>
+number shows width in pixels.
+* relative `number` <br>
+number shows width in pixels.
 * fullscreen <br>
 By default attribute set to `center`
 ### `style`
