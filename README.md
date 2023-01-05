@@ -50,7 +50,7 @@ Related to `<head>`. By default set to `white`
 Attribute takes a url and indicates the background-image of your page. <br>
 Related to `<head>`. By default not set.
 ### `fetch`
-Specific attribute related to `<script>`.
+Specific attribute related to `<script>`. <br>
 Fetch contains a link to code, if you would like to store it separately.<br>
 By default not set.
 
