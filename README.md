@@ -31,7 +31,7 @@ Written to be `more` `flexible` and more `comfortable`
 </head>
 ```
 > There are only five
-### layout
+### `layout`
 General plan of your page. Related to `<head>`.
 Currently support three layouts:
 * center
