@@ -111,8 +111,9 @@ To specify child node, just begin command from `-`
 File action defined automatically by its extension. <br>
 `.js` files become scripts <br>
 `.css` files become styles <br>
-## Congratulations! You finished a short course
- Give the project a star, if you would like to see more features!
+## Congratulations! 
+You finished a short course. <br>
+Give the project a star, if you would like to see more features!
 # Join development
 The simplest way to take part in this project is write new Html layout.<br>
 Read wiki to understand how to write additions. <br>
