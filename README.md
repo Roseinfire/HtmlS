@@ -32,7 +32,7 @@ Written to be `more` `flexible` and more `comfortable`
 ```
 > There are only five
 ### `layout`
-General plan of your page. Related to `<head>`.
+General plan of your page. Related to `<head>`.<br>
 Currently support three layouts:
 * center
 * full
@@ -57,7 +57,7 @@ By default not set.
 ## Inner code
 #### Just inside any hscript
 ```HTML
-<script type="hscript"> Classic text works like a comment. </script>
+<script type="hscript">Classic text works like a comment.</script>
 ```
 ### Creating style:
 ```javascript
