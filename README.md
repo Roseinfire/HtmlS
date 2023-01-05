@@ -46,7 +46,7 @@ By default set to `border-radius: 15px; border: 1px dotted`
 ### `theme` 
 Indicates background-color of the page.<br>
 Related to `<head>`. By default set to `white`
-### background
+### `background`
 Attribute takes a url and indicates the background-image of your page. <br>
 Related to `<head>`. By default not set.
 ### `fetch`
