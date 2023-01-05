@@ -237,10 +237,10 @@ function getvalue(name, err) {
 function groupitem(element, command) {
   var num = 1
   var prop = 1
-  var mar = 0
+  var margin = 0
   var cnt = 1
   var res = ""
-  /* for(var i = 0; i < command.length; i++) {
+   for(var i = 0; i < command.length; i++) {
     es += command[i]
     if(command[i] == " " && cnt == 1) { cnt++;
       try{ mar=eval(res); res = "" } catch {}
@@ -252,13 +252,37 @@ function groupitem(element, command) {
       try{ num=eval(res); res = "" } catch {}
     }
   }
-   onResize(element, function(e) {
-       var margin = mar
-       e.style.marginLeft = margin + "px"
-       var padding = onlyNumbers(e.style.paddingRight) + onlyNumbers(e.style.paddingLeft)
-       e.style.width = (hand.offsetWidth-2*margin-padding) + "px"
+   var element = document.getElementsByClassName("eleme")[0]
+   var parent = element.parentElement
+   var header = document.createElement("div")
+   var brothers = new Array()
+   for(var i = 0; i < num; i++) {
+    var broth = element.cloneNode(20)
+    broth.num = i
+    broth.style.marginLeft = margin + "px"
+    broth.style.position = "absolute"
+    brothers.push(broth)
+     }
+    console.log(parent, parent.offsetWidth)
+   onResize(brothers, function(e, i) {
+    var ewidth = ( parent.offsetWidth-margin*(brothers.length+1) )/brothers.length
+  
+    e.style.width = ewidth + "px"
+    var ehight = ewidth/prop
+    e.style.height = ehight + "px"
+    e.style.marginLeft = (e.num + 1) * margin + ewidth*e.num + "px"
+    
     })
-   */
+   onResize([header], function(e) {
+      e.style.height = e.children[0].offsetHeight + "px"
+      e.style.width = parent.offsetWidth + "px"
+    })
+    
+   parent.removeChild(element)
+   for(var i = 0; i < brothers.length; i++) {
+    header.append(brothers[i])
+     }
+   parent.appendChild(header)
   };
 
 function attribute(element, res) {
