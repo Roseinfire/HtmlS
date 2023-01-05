@@ -34,10 +34,10 @@ Written to be `more` `flexible` and more `comfortable`
 ### `layout`
 General plan of your page. Related to `<head>`.<br>
 Currently support three layouts:
-* center
-* full
-* relative center
-By default set to `center`
+* static _
+* relative _
+* fullscreen <br>
+By default attribute set to `center`
 ### `style`
 Style of hand element.<br>
 Hand Element can be found in the console typing `hand` <br>
