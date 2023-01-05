@@ -55,9 +55,9 @@ Fetch contains a link to code, if you would like to store it separately.<br>
 By default not set.
 
 ## Inner code
-#### Just inside any hscript
+#### Just inside any htmlscript
 ```HTML
-<script type="hscript">Classic text works like a comment.</script>
+<script type="htmlscript">Classic text works like a comment.</script>
 ```
 ### Creating style:
 ```javascript
@@ -124,7 +124,7 @@ Note that you can take part in the discussion about new features. <br>
 ### About safety
 Your page is built with htmlscript, not htmlscript built with your page. `This is a law.` <br>
 If your page is built from a local file, it stays local. Your page is public when hosted on public domain.<br>
-Keep in mind that hscript will not take responsibility if you publish confidential information on the public server.<br>
+Keep in mind that HtmlScript will not take responsibility if you publish confidential information on the public server.<br>
 When connect external scripts (include this one) you give it access to all your page.<br>
 Be sure that you can trust the script you connected. That's why the HtmlScript open code project. <br>
   
