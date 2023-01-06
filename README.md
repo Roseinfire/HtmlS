@@ -59,8 +59,9 @@ By default not set.
 ## Inner code
 ### Just inside
 ```HTML
-<script type="htmlscript">Classic text works like a comment.</script>
+<script type="htmlscript"> ~ comment ~ </script>
 ```
+* Important: comments should not be inside a command.
 ### Creating style:
 ```javascript
 local name "value"
