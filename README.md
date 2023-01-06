@@ -89,8 +89,8 @@ local border "border: 2px solid;"
 ```javascript
  #*img @. { className="image" | id="example" }
 ```
-* between brackets `{` and `}` mark standart attribute. Separate with `|`
-* Note that are properties, but not Html attributes
+* between brackets `{` and `}` mark attributes. Separate with `|`
+* Note that they are properties, but not Html attributes
 ### Relative sizes and groups:
 ```javascript
 #*div @border. [margin proportion quantity]
