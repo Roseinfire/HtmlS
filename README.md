@@ -61,7 +61,7 @@ By default not set.
 ```HTML
 <script type="htmlscript"> ~ comment ~ </script>
 ```
-* Important: comments should not be inside a command.
+* Important: comments should not be part of another syntax.
 ### Creating style:
 ```javascript
 local name "value"
