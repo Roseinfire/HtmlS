@@ -220,6 +220,7 @@ function importitem(command) {
    }
  };
  
+pushkeyword(["~"], ["~"], function(res) { console.log(res) })
 pushkeyword(["l"], ['"'], function(res) {
    if(res[0]+res[1]+res[2]+res[3]+res[4] == "ocal ") {
      keycode = "local"
