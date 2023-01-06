@@ -31,79 +31,148 @@ function onlyNumbers(text) {
           }
         }
    if(res) { return eval(res) } else { return 0 }
-}
+ };
+  
+ HTMLElement.prototype.clone  = function() {
+   var node = this.cloneNode(20)
+   if(this.property) { 
+    node.property = new Array()
+    for(var i = 0; i < this.property.length; i++) {
+     node.property.push(this.property[i])
+     attribute(node, this.property[i], true)
+        }
+     }; return node
+  }
+  
+  var hand = document.getElementById("paper")
+  var resizebase = new Array()
+  function onResize(e, f) { resizebase.push({ func: f, elem: e }); return resizebase }
+  window.onresize = function() {
+    for(var i = 0; i < resizebase.length; i++) { 
+         for(var e = 0; e < resizebase[i].elem.length; e++) {
+            resizebase[i].func(resizebase[i].elem[e]);
+          }
+      } 
+  };
+  
+ onResize([document.getElementById("load")], function(e) { 
+     e.style.marginTop = (innerHeight-e.offsetHeight)/2 + "px"
+   }) 
 </script>
 <script type="text/javascript">
- /* resize */
-var hand = document.getElementById("paper")
-var resizebase = new Array()
-function onResize(e, f) { resizebase.push({ func: f, elem: e }); return resizebase }
- window.onresize = function() {
-   for(var i = 0; i < resizebase.length; i++) { resizebase[i].func(resizebase[i].elem); } 
- }
-
 /* Layouts */
- function background(color, imageSource, paper_width) {
+ function background(color, imageSource) {
   var background=document.body
   background.style.backgroundColor = color
   if(imageSource) { 
     background.style.backgroundImage = "url('" + imageSource + "')" 
-   }
-  if(paper_width) { 
-    try { 
-      paperWidth = eval(paper_width)
-    } catch {
-      paperWidth = searchplanes(paper_width)
-      }
-   }
-};
-  
-var planes = new Array()
-function searchplanes(layoutname) {
-  for(var i = 0;  i < screen.length; i++) {
-    var plan = plans[i].condition(layoutname)
-    if(plan) { plans(i).content() }
     }
+};
+ 
+var plans = new Array()
+function searchplans(value, def) {
+  for(var i = 0;  i < plans.length; i++) {
+    var plan = plans[i].condition(value)
+    if(plan) { plans[i].content(plan); return plans[i].name }
+    }; if(def) { return searchplans(def) } else { return "undefined" }
  };
   
 class Layout {
-  constructor(reaction=function() {}, condition=function() {}) {
+  constructor(reaction=function() {}, condition=function() {}, name) {
    this.content = reaction
    this.condition = condition
+   this.name = name
      }
   }
   
- /* layout = "center" */
-planes.push(new Layout(
-  function() {
-    var paperWidth = innerWidth*0.8
-    onResize(hand, function(e) { 
-       if(typeof paperWidth == 'number') {
-         var k = innerWidth/paperWidth
-         if(innerWidth > paperWidth) { k = 1/k } 
-         if(innerHeight < innerWidth) {
-            e.style.marginLeft = (innerWidth-innerHeight)/2*k + "px"
-            e.style.width = (innerWidth-2*e.offsetLeft)+"px";
-            hand.style.width = (innerWidth-2*e.offsetLeft)+"px"
-            hand.style.marginLeft = (innerWidth-innerHeight)/2*k + "px"
-         } else {
-            e.style.width = innerWidth*0.94+"px"
-            e.style.marginLeft =  innerWidth*0.03 + "px"
-         } 
-          if(e.offsetHeight < innerHeight) { 
-            e.style.marginTop = (innerHeight-e.offsetHeight - hand.offsetHeight)/2 + "px" 
-           } else { e.style.marginTop = "20px" }  
-        }
-    })
-   onResize(document.getElementById("load"), function(e) { 
-      e.style.marginTop = (innerHeight-e.offsetHeight)/2 + "px"
-      }) 
-   }, function(paperwidth) {
-       if(paperwidth == "full") { return true }
-     }
+ /* layout = "relative _" in range (0; 1) */
+plans.push(new Layout(
+  function(arg) {
+      try { arg = eval(arg) } catch { 
+        console.error("relative layout takes value in range (0; 1)", 
+          'example: layout = "relative ' +  ((Math.random() + 0.1)/2).toFixed(1) + 
+          '"') 
+      }
+      var paperWidth = innerWidth*arg
+      onResize([hand], function(e) {
+          if(innerWidth > innerHeight) {
+              e.style.marginLeft = (innerWidth-paperWidth)/2 + "px"
+              e.style.width = paperWidth + "px"
+           } else {
+               e.style.width = innerWidth*(1-arg/10)+"px"
+               e.style.marginLeft =  innerWidth*(arg/10) + "px"
+           }  
+           if(e.offsetHeight < innerHeight) { 
+              e.style.marginTop = (innerHeight-e.offsetHeight - e.offsetHeight)/2 + "px" 
+            } else { e.style.marginTop = "10px" }
+      })
+   }, function(value) {
+          var action = false
+          var pre = true
+          var res = ""
+          for(var i = 0; i < value.length; i++) {
+              if(value[i] != " " && !pre) { res += value[i] }
+              else if(value[i] != " " && pre) { pre = false }
+              if(res == "relative") { action = i; break }
+          }
+        var paperwidth = ""
+        if(action) {
+             var pre = true
+             for(var i = action+1; i < value.length; i++) {
+                   if(value[i] != " " && pre) { pre = false }
+                   if(value[i] != " " && !pre) { paperwidth += value[i] }
+                else if(value[i] == " " && !pre) { return paperwidth }
+              }; return paperwidth
+          }; return false
+     }, "relative"
 ));
-             
-
+/* layout = "static _" in range (0; ∞)*/
+ plans.push(new Layout(
+   function(arg) {
+      try { arg = eval(arg) } catch { 
+        console.error("static layout takes value in range (0; ∞)", 'example: layout = "static 500"') 
+      }
+     onResize([hand], function(e) {
+         if(arg < innerWidth) {
+            e.style.width = arg + "px"
+            e.style.marginLeft = (innerWidth-arg)/2 + "px"
+            }
+         else { e.style.marginLeft = 0; }
+          if(e.offsetHeight < innerHeight) {
+             e.style.marginTop= (innerHeight - e.offsetHeight)/2 + "px"
+          } else { e.style.marginTop = 0; }
+      })
+   }, function(value) {
+          var action = false
+          var pre = true
+          var res = ""
+          for(var i = 0; i < value.length; i++) {
+              if(value[i] != " " && pre) { pre = false }
+              if(value[i] != " " && !pre) { res += value[i] }
+              if(res == "static") { action = i; break }
+          }
+        var paperwidth = ""
+        if(action) {
+             var pre = true
+             for(var i = action+1; i < value.length; i++) {
+                if(value[i] != " " && pre) { pre = false }
+                if(value[i] != " " && !pre) { paperwidth += value[i] }
+                else if(value[i] == " " && !pre) { return paperwidth }
+              }; return paperwidth
+          }; return false
+     }, "static"
+));
+  /* layout = "fullscreen" */
+ plans.push(new Layout(
+  function(arg) {
+    onResize(hand, function(e) {
+     e.style.width = innerWidth + "px"
+     e.style.height = innerHeight + "px"
+      })
+   }, function(value) {
+       if(value == fullscreen) { return true }
+     }, "fullscreen"
+));
 </script>
 <script type="text/javascript">
 /* load */
@@ -114,19 +183,20 @@ function awaitload(endkey) {
   if(!endkey) { loads++ }
   else if(endkey) { loads-- }
   if(!loads) {
-    try {
-      var color = getouter("theme")
-      var image = getouter("background")
-      var style = getouter("style")
-      var width = getouter("layout")
-      background(color, image, width)
+   try {
+      var color = getouter("theme", __head__)
+      var image = getouter("background", __head__)
+      var style = getouter("style", __head__)
+      var plan = searchplans( getouter("layout", __head__), "relative 0.8")
+      console.log("layout: ", plan)
+      background(color, image)
       hand.style = style
       document.getElementById("content").style.display = "block";
       document.getElementById("load").style.display = "none";
-      if(!nods.length) { 
+      if(!nods.length) {
         hand.innerHTML = `<p style="font-size: 35px; text-align: center; color: maroon">Document Empy</p>`
        }
-      if( window.onresize) { window.onresize() }  
+      if(window.onresize) { window.onresize(); window.onresize(); }  
     } catch { console.warn("iterations run was not standart") }
    console.groupEnd("compilation")
   }
@@ -175,9 +245,9 @@ function read(data, response) {
   while(read.data[read.pos+1]) {
     if(read.await) { console.log("Reading paused"); break }
     read.pos++; read.change = null; 
-    if(response && read.iteration) {console.log(read.data[read.pos], read.iteration.name)}
+    if(response) {console.log(read.data[read.pos], read.iteration)}
     for(var i = 0; i < keywords.length; i++) {
-      if(read.iteration && keywords[i] == read.iteration && keywords[i].end( read.data[read.pos], read.res )) {
+      if(read.iteration && keywords[i] == read.iteration && keywords[i].end( read.data[read.pos], read.res ) == read.iteration) {
         read.iteration.recall(read.res, response); read.res = ""; read.last_iteration = read.iteration; read.iteration = null;
        }
       if(!read.iteration && keywords[i].start( read.data[read.pos] ) && keywords[i].start( read.data[read.pos] ) != read.last_iteration) { 
@@ -241,43 +311,46 @@ function groupitem(element, command) {
   var cnt = 1
   var res = ""
    for(var i = 0; i < command.length; i++) {
-    es += command[i]
+    res += command[i]
     if(command[i] == " " && cnt == 1) { cnt++;
-      try{ mar=eval(res); res = "" } catch {}
+      try{ margin=eval(res); res = "" } catch {}
      }
-    if(command[i] == " " && cnt == 2) { cnt++;
+    else if(command[i] == " " && cnt == 2) { cnt++;
       try{ prop=eval(res); res = "" } catch {}
      }
-    if(command[i] == " " && cnt == 3) { cnt++;
+    else if(command[i] == " " && cnt == 3) { cnt++;
       try{ num=eval(res); res = "" } catch {}
     }
+   if(cnt == 1) { try{ margin=eval(res) } catch {} }
+   else if(cnt == 2) { try{ prop=eval(res) } catch {} }
+   else if(cnt == 3) { try{ num=eval(res) } catch {} }
   }
-   var element = document.getElementsByClassName("eleme")[0]
    var parent = element.parentElement
-   var header = document.createElement("div")
+   var header = document.createElement("div");
    var brothers = new Array()
-   for(var i = 0; i < num; i++) {
-    var broth = element.cloneNode(20)
-    broth.num = i
-    broth.style.marginLeft = margin + "px"
-    broth.style.position = "absolute"
-    brothers.push(broth)
+   if(!element.id || num == 1) {
+       for(var i = 0; i < num; i++) {
+        var broth = element.clone()
+        broth.num = i
+        broth.style.marginLeft = margin + "px"
+        broth.style.position = "absolute"
+        brothers.push(broth)
      }
-    console.log(parent, parent.offsetWidth)
+  } 
+  else { console.error("failed to clone element with id") }
    onResize(brothers, function(e, i) {
-    var ewidth = ( parent.offsetWidth-margin*(brothers.length+1) )/brothers.length
-  
-    e.style.width = ewidth + "px"
-    var ehight = ewidth/prop
-    e.style.height = ehight + "px"
-    e.style.marginLeft = (e.num + 1) * margin + ewidth*e.num + "px"
-    
+       var ewidth = ( parent.offsetWidth-margin*(brothers.length+1) )/brothers.length  
+        e.style.width = ewidth + "px"
+        var ehight = ewidth/prop
+        e.style.height = ehight + "px"
+        e.style.marginLeft = (e.num + 1) * margin + ewidth*e.num + "px"    
     })
    onResize([header], function(e) {
+    if(e.children.length) {
       e.style.height = e.children[0].offsetHeight + "px"
       e.style.width = parent.offsetWidth + "px"
-    })
-    
+       }
+    }) 
    parent.removeChild(element)
    for(var i = 0; i < brothers.length; i++) {
     header.append(brothers[i])
@@ -285,11 +358,20 @@ function groupitem(element, command) {
    parent.appendChild(header)
   };
 
-function attribute(element, res) {
-   try {
-    eval("element." + res)
-     } 
-   catch { console.error("failed to attribute", element, res) }
+function attribute(element, res, oneprop) {
+  if(!element.property) { element.property = [] }
+  if(!oneprop) { 
+      var atr = ""
+      for(var i = 0; i < res.length; i++) {
+         if(res[i] == "|") { make(atr); atr="" }
+         else { atr += res[i] }
+          }; if(atr) { make(atr) }
+      } else { make(res) }  
+           function make(a) {
+               element.property.push(a)
+               try {  eval("element." + a) } 
+               catch { console.error("failed to attribute", element, res) }
+           } 
  };
  
 function importitem(command) {
@@ -396,15 +478,19 @@ function truewrite(i) {
      } else { try{ hand.append(nods[i].node) } catch { console.err(nods[i].node) }
    }
 };
-
 </script>
 <script type="text/javascript">
-var source = getouter("fetch")
-if(source) {
-  fetch(source)
-  .then(response => response.text())
-  .then(text => read(text)) } else { read(__manual__.innerHTML)
- }
+  read.data = ""
+  function __load(i) {
+    if(__scripts__[i]) {
+          var source = getouter("fetch", __htmlscript__)
+          if(source) {
+              fetch(source)
+              .then(response => response.text())
+              .then(text => (function(t) { read.data += t; __load(i+1) })(text))
+           } else {  read.data += __scripts__[i].innerHTML; __load(i+1) }
+        } else { read(read.data) }
+   }; __load(0)
 </script>
 </body>
 </html>
