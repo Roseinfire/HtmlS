@@ -61,7 +61,7 @@ By default not set.
 ```HTML
 <script type="htmlscript"> ~ comment ~ </script>
 ```
-* Important: comments should not be part of another syntax.
+* Comments should not be a part of another syntax.
 ### Creating style:
 ```javascript
 local name "value"
