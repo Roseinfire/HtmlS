@@ -6,19 +6,20 @@ function awaitload(endkey) {
   if(!endkey) { loads++ }
   else if(endkey) { loads-- }
   if(!loads) {
-    try {
-      var color = getouter("theme")
-      var image = getouter("background")
-      var style = getouter("style")
-      var width = getouter("layout")
-      background(color, image, width)
+   try {
+      var color = getouter("theme", __head__)
+      var image = getouter("background", __head__)
+      var style = getouter("style", __head__)
+      var plan = searchplans( getouter("layout", __head__), "relative 0.8")
+      console.log("layout: ", plan)
+      background(color, image)
       hand.style = style
       document.getElementById("content").style.display = "block";
       document.getElementById("load").style.display = "none";
-      if(!nods.length) { 
+      if(!nods.length) {
         hand.innerHTML = `<p style="font-size: 35px; text-align: center; color: maroon">Document Empy</p>`
        }
-      if( window.onresize) { window.onresize() }  
+      if(window.onresize) { window.onresize(); window.onresize(); }  
     } catch { console.warn("iterations run was not standart") }
    console.groupEnd("compilation")
   }
@@ -26,13 +27,23 @@ function awaitload(endkey) {
 
 /* core */
 class keyword {
-  constructor(start=[], end=[], recall=function() {}) {
+  constructor(start=[], end=[], recall=function() {}, name) {
+    const that = this
+    this.ends = end
+    this.starts = start
+    this.name = name
     this.start = function(compl) {
-      for(var i = 0; i < start.length; i++) { if(start[i]==compl) { return true } }
+      for(var i = 0; i < start.length; i++) { if(start[i]==compl) { return this } }
         return false
        }
-    this.end = function(compl) {
-      for(var i = 0; i < end.length; i++) { if(end[i]==compl) { return true } }
+    this.end = function(compl, result) {
+      for(var i = 0; i < end.length; i++) {
+        var includes = false
+        for(var e = 0; e < start.length; e++) {
+          if(end.includes(start[e]) ) { includes = true }
+         }
+        if(end[i]==compl && (result != "" || !includes) ) { return this }
+         }
         return false
       }
     this.recall = function(event, response) { 
@@ -43,31 +54,46 @@ class keyword {
  };
 
 var keywords = []
-function pushkeyword(start_symbol, end_symbol, result) {
-  keywords.push( new keyword(start_symbol, end_symbol, result) )
+function pushkeyword(start_symbol, end_symbol, result, name) {
+  keywords.push( new keyword(start_symbol, end_symbol, result, name) )
  };
 
 function read(data, response) {
-  awaitload()
-  var iteration = null
-  var res = ""
-  var pos = -1
-  while(data[pos+1]) {
-    pos++; var change = null
+  if(!read.pos) { read.pos = -1; awaitload() }
+  read.data = data
+  read.response = response
+  read.iteration = null
+  read.last_iteration  = null
+  read.res = ""
+  while(read.data[read.pos+1]) {
+    if(read.await) { console.log("Reading paused"); break }
+    read.pos++; read.change = null; 
+    if(response) {console.log(read.data[read.pos], read.iteration)}
     for(var i = 0; i < keywords.length; i++) {
-      if(iteration && keywords[i] == iteration && keywords[i].end( data[pos] )) {
-        iteration.recall(res, response); res = ""; iteration = null;
+      if(read.iteration && keywords[i] == read.iteration && keywords[i].end( read.data[read.pos], read.res ) == read.iteration) {
+        read.iteration.recall(read.res, response); read.res = ""; read.last_iteration = read.iteration; read.iteration = null;
        }
-      if(!iteration && keywords[i].start( data[pos] )) { 
-        iteration = keywords[i]; change = true;
+      if(!read.iteration && keywords[i].start( read.data[read.pos] ) && keywords[i].start( read.data[read.pos] ) != read.last_iteration) { 
+        read.iteration = keywords[i]; read.change = true; break;
        }
-    }         
-    if(iteration && !change) { res += data[pos] }
-    if(change) { change = null }
+    }
+    if(read.iteration && !read.change) { read.res += read.data[read.pos] }
+    if(read.change) { read.change = null }
   }
-  if(iteration) { iteration.recall(res, response) }
-  awaitload(true)
+  if(!read.await) {
+    if(read.iteration) { read.iteration.recall(read.res, response) }
+    awaitload(true)
+    }
  };
+function awaitReading() {
+  console.warn("awaiting")
+  read.await = true
+  }
+function continueReading() {
+  console.log("Reading continued")
+  read.await = false; read.pos += 1
+  read(read.data, read.response)
+  }
 
 /* syntax */
 var tempovar = null
@@ -104,58 +130,89 @@ function getvalue(name, err) {
 function groupitem(element, command) {
   var num = 1
   var prop = 1
-  var mar = 0
+  var margin = 0
   var cnt = 1
   var res = ""
-  for(var i = 0; i < command.length; i++) {
-    es += command[i]
+   for(var i = 0; i < command.length; i++) {
+    res += command[i]
     if(command[i] == " " && cnt == 1) { cnt++;
-      try{ mar=eval(res); res = "" } catch {}
+      try{ margin=eval(res); res = "" } catch {}
      }
-    if(command[i] == " " && cnt == 2) { cnt++;
+    else if(command[i] == " " && cnt == 2) { cnt++;
       try{ prop=eval(res); res = "" } catch {}
      }
-    if(command[i] == " " && cnt == 3) { cnt++;
+    else if(command[i] == " " && cnt == 3) { cnt++;
       try{ num=eval(res); res = "" } catch {}
     }
-   onResize(element, function(e) {
-       var margin = mar
-       e.style.marginLeft = margin + "px"
-       var padding = onlyNumbers(e.style.paddingRight) + onlyNumbers(e.style.paddingLeft)
-       e.style.width = (hand.offsetWidth-2*margin-padding) + "px"
+   if(cnt == 1) { try{ margin=eval(res) } catch {} }
+   else if(cnt == 2) { try{ prop=eval(res) } catch {} }
+   else if(cnt == 3) { try{ num=eval(res) } catch {} }
+  }
+   var parent = element.parentElement
+   var header = document.createElement("div");
+   var brothers = new Array()
+   if(!element.id || num == 1) {
+       for(var i = 0; i < num; i++) {
+        var broth = element.clone()
+        broth.num = i
+        broth.style.marginLeft = margin + "px"
+        broth.style.position = "absolute"
+        brothers.push(broth)
+     }
+  } 
+  else { console.error("failed to clone element with id") }
+   onResize(brothers, function(e, i) {
+       var ewidth = ( parent.offsetWidth-margin*(brothers.length+1) )/brothers.length  
+        e.style.width = ewidth + "px"
+        var ehight = ewidth/prop
+        e.style.height = ehight + "px"
+        e.style.marginLeft = (e.num + 1) * margin + ewidth*e.num + "px"    
     })
+   onResize([header], function(e) {
+    if(e.children.length) {
+      e.style.height = e.children[0].offsetHeight + "px"
+      e.style.width = parent.offsetWidth + "px"
+       }
+    }) 
+   parent.removeChild(element)
+   for(var i = 0; i < brothers.length; i++) {
+    header.append(brothers[i])
+     }
+   parent.appendChild(header)
   };
-           /* Need tests
-             var parent = element.parentElement
-             for(var i = 1; i < num; i++) {
-              var brother = element.cloneNode(20)
-              onResize(brother, function(e) {
-               var width = ( (parent.offsetWidth-2*mar)/num )
-                e.style.width = width +"px"
-                e.style.height = (1/prop) * width + "px"
-                e.style.marginLeft = mar + width*i + "px"
-                   })
-                 }
-               }
-              */
-function attribute(element, res) {
-   try {
-    eval("element." + res)
-     } 
-   catch { console.error("failed to attribute", element, res) }
+
+function attribute(element, res, oneprop) {
+  if(!element.property) { element.property = [] }
+  if(!oneprop) { 
+      var atr = ""
+      for(var i = 0; i < res.length; i++) {
+         if(res[i] == "|") { make(atr); atr="" }
+         else { atr += res[i] }
+          }; if(atr) { make(atr) }
+      } else { make(res) }  
+           function make(a) {
+               element.property.push(a)
+               try {  eval("element." + a) } 
+               catch { console.error("failed to attribute", element, res) }
+           } 
  };
  
 function importitem(command) {
   var ext = ""
-  for(var i = command.length; i > 0; i++) {
+  for(var i = command.length-1; i > 0; i--) {
     if(command[i] == ".") { break } else { ext+=command[i] }
    }
-  if(ext == ".js") {
+  if(ext == "sj") {
+//  try {
+    awaitReading()
     var script = document.createElement("script")
     script.src = command
+    script.onload = function() { console.log("imported script", this); continueReading() }
+    script.onerror = function() { console.error("failed to import", command); continueReading() }
     document.body.append(script)
+  //   } catch { console.error("import went wrong") }
    }
-  else if(ext == "css") {
+  else if(ext == "ssc") {
     var style = document.createElement("link")
     style.rel="stylesheet"
     style.src = command
@@ -171,29 +228,29 @@ pushkeyword(["l"], ['"'], function(res) {
        if(res[i]!=" ") { name += res[i] }
       }; tempovar = name
     }
- });
+ }, "local");
 pushkeyword(["i"], ['"'], function(res) {
    if(res[0]+res[1]+res[2]+res[3]+res[4]+res[5] == "mport ") {
      keycode = "import"
     }
- });
+ }, "import");
 pushkeyword(['"'], ['"'], function(res) {
   if(keycode == "local") {
     setvalue(tempovar, res)
     tempovar = null; keycode = null
    }
   else if(keycode=="import") {
-    importitem(res); keycode = null; tempovar = null
+    importitem(res); keycode = null; //tempovar = null
     }
- });
+ }, "value");
 pushkeyword(["-"], ["#"], function(res) {
   var result = 1;
   for(var i = 0; i < res.length; i++) {
     if(res[i] == "-") { result++ }
    }; childhood = result;
- });
-pushkeyword(["#"], ["*"], function(res) { tempotext = res; })
-pushkeyword(["*"], [" ", "@"], function(res) { tempotype = res;  })
+ }, "child");
+pushkeyword(["#"], ["*"], function(res) { tempotext = res; }, "element")
+pushkeyword(["*"], [" ", "@"], function(res) { tempotype = res;  }, "type")
 pushkeyword(["@"], ["."], function(res) {
     function separate(variables) {
       var variable = ""
@@ -208,9 +265,9 @@ pushkeyword(["@"], ["."], function(res) {
   nods.push({ node: tempowrite, childhood: childhood })
   truewrite()
   tempotext = null; tempotype = null; childhood = 0 
-});
-pushkeyword(["{"], ["}"], function(res) { if(tempowrite) { atribute(tempowrite, res) }})
-pushkeyword(["["], ["]"], function(res) { if(tempowrite) { groupitem(tempowrite, res) }})
+}, "draw");
+pushkeyword(["{"], ["}"], function(res) { if(tempowrite) { attribute(tempowrite, res) }}, "attribute")
+pushkeyword(["["], ["]"], function(res) { if(tempowrite) { groupitem(tempowrite, res) }}, "group")
   
 function write(text, type, style) { 
   var element = (function () {
@@ -230,7 +287,7 @@ function write(text, type, style) {
     }
   })(); return element
 };
-            
+/* writing */       
 function truewrite(i) {
    (i!=undefined) ? (i=i) : (i = nods.length-1)
     if(nods[i].childhood) {
