@@ -108,8 +108,8 @@ To specify child node, just begin command from `-`
 ```
 ### External files:
 ```javascript
-  import "root/scripts/code.js"
-  import "root/styles/style.css"
+  import "root/code.js"
+  import "root/style.css"
 ```
 File action defined automatically by its extension. <br>
 `.js` files become scripts <br>
