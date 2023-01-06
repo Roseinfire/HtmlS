@@ -66,7 +66,7 @@ function read(data, response) {
   read.last_iteration  = null
   read.res = ""
   while(read.data[read.pos+1]) {
-    if(read.await) { console.log("Reading paused"); break }
+    if(read.await) { console.log("reading paused"); break }
     read.pos++; read.change = null; 
     if(response) {console.log(read.data[read.pos], read.iteration)}
     for(var i = 0; i < keywords.length; i++) {
@@ -86,11 +86,13 @@ function read(data, response) {
     }
  };
 function awaitReading() {
-  console.warn("awaiting")
+  console.log("awaiting..")
+  awaitload()
   read.await = true
   }
 function continueReading() {
-  console.log("Reading continued")
+  console.log("reading continued")
+  awaitload(true)
   read.await = false; read.pos += 1
   read(read.data, read.response)
   }
@@ -219,7 +221,7 @@ function importitem(command) {
     document.head.append(style)
    }
  };
- 
+
 pushkeyword(["~"], ["~"], function(res) { console.log(res) })
 pushkeyword(["l"], ['"'], function(res) {
    if(res[0]+res[1]+res[2]+res[3]+res[4] == "ocal ") {

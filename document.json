@@ -165,7 +165,7 @@ plans.push(new Layout(
   /* layout = "fullscreen" */
  plans.push(new Layout(
   function(arg) {
-    onResize([hand], function(e) {
+    onResize(hand, function(e) {
      e.style.width = innerWidth + "px"
      e.style.height = innerHeight + "px"
       })
@@ -243,7 +243,7 @@ function read(data, response) {
   read.last_iteration  = null
   read.res = ""
   while(read.data[read.pos+1]) {
-    if(read.await) { console.log("Reading paused"); break }
+    if(read.await) { console.log("reading paused"); break }
     read.pos++; read.change = null; 
     if(response) {console.log(read.data[read.pos], read.iteration)}
     for(var i = 0; i < keywords.length; i++) {
@@ -263,11 +263,13 @@ function read(data, response) {
     }
  };
 function awaitReading() {
-  console.warn("awaiting")
+  console.log("awaiting..")
+  awaitload()
   read.await = true
   }
 function continueReading() {
-  console.log("Reading continued")
+  console.log("reading continued")
+  awaitload(true)
   read.await = false; read.pos += 1
   read(read.data, read.response)
   }
