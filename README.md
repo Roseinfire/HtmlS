@@ -100,7 +100,7 @@ local border "border: 2px solid;"
 * margin from parent border (`0` by default)
 * proportion - width/height (`1` by default)
 * quantity - how many elements in group (`1` by default)
-### Child nodes:
+### Child nods:
 To specify child node, just begin command from `-`
 ```javascript
 # *div @font.
