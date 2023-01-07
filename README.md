@@ -139,12 +139,12 @@ Anyone can use advertisements on his own site if it is built with HtmlScript. <b
 We believe that best support is to join the project or just give it a star. <br>
 However, you can support HtmlScript financially on ko-fi. <br>
 
-# Contacts
+# Contact
 ##### Roseinfire
 ##### 14box14@gmail.com
 ##### ko-fi.com/Roseinfire
 
 
-# Licence
-Licensed under MIT licence
+# License
+Licensed under MIT license
 
