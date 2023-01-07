@@ -67,7 +67,7 @@ By default not set.
 local name "value"
 ```
 #### works like variable
-*  name: all chars exclude `space`, `"` and `.`
+*  name: all chars exclude space, `"` and `.`
 *  value: all chars exclude `"`
 #### Example:
 ```javascript
@@ -128,8 +128,8 @@ Note that you can take part in the discussion about new features. <br>
 # Learn more
 ### About safety
 Your page is built with HtmlScript, not HtmlScript built with your page. `This is a law.` <br>
-If your page is built from a local file, it stays local. Your page is public when hosted on public domain.<br>
-Keep in mind that HtmlScript will not take responsibility if you publish confidential information on the public server.<br>
+If your page is built from a local file, it stays local. If your page is hosted on public domain, then it is public.<br>
+Keep in mind that HtmlScript will not take responsibility, if you publish confidential information on the public server.<br>
 When connect external scripts (include this one) you give it access to all your page.<br>
 Be sure that you can trust the connected script. That's why the HtmlScript open code project. <br>
   
