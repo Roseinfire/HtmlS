@@ -140,9 +140,9 @@ We believe that best support is to join the project or just give it a star. <br>
 However, you can support HtmlScript financially on ko-fi. <br>
 
 # Contact
-##### Roseinfire
+##### [Roseinfire](https://github.com/Roseinfire)
+##### [ko-fi.com/Roseinfire] (https://ko-fi.com/roseinfire)
 ##### 14box14@gmail.com
-##### ko-fi.com/Roseinfire
 
 
 # License
