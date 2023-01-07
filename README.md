@@ -67,7 +67,7 @@ By default not set.
 local name "value"
 ```
 #### works like variable
-*  name: all chars exclude space, `"` and `.`
+*  name: all chars exclude `space`, `"` and `.`
 *  value: all chars exclude `"`
 #### Example:
 ```javascript
