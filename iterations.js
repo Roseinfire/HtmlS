@@ -42,6 +42,9 @@ class keyword {
         for(var e = 0; e < start.length; e++) {
           if(end.includes(start[e]) ) { includes = true }
          }
+        if(moves == read.pos) { 
+          console.warn("Something went wrong when reading keyword with the same quotes.")
+         }
         if(end[i]==compl && (moves || !includes) ) { return this }
          }
         return false
@@ -71,7 +74,7 @@ function read(data, response) {
     if(response) { console.log(read.data[read.pos], read.iteration) }
     for(var i = 0; i < keywords.length; i++) {
       if(read.iteration && keywords[i] == read.iteration && keywords[i].end( read.data[read.pos], read.pos-read.started ) == read.iteration) {
-        read.iteration.recall(read.res, response); read.res = ""; read.last_iteration = read.iteration; read.iteration = null; read.started = "null";
+        read.iteration.recall(read.res, response); read.res = ""; read.last_iteration = read.iteration; read.iteration = null; read.started = null;
        }
       if(!read.iteration && keywords[i].start( read.data[read.pos] ) && keywords[i].start( read.data[read.pos] ) != read.last_iteration) { 
         read.iteration = keywords[i]; read.change = true; break; read.started = read.pos;
