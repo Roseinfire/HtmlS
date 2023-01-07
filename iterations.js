@@ -36,13 +36,13 @@ class keyword {
       for(var i = 0; i < start.length; i++) { if(start[i]==compl) { return this } }
         return false
        }
-    this.end = function(compl, result) {
+    this.end = function(compl, moves) {
       for(var i = 0; i < end.length; i++) {
         var includes = false
         for(var e = 0; e < start.length; e++) {
           if(end.includes(start[e]) ) { includes = true }
          }
-        if(end[i]==compl && (result != "" || !includes) ) { return this }
+        if(end[i]==compl && (moves || !includes) ) { return this }
          }
         return false
       }
@@ -68,13 +68,13 @@ function read(data, response) {
   while(read.data[read.pos+1]) {
     if(read.await) { console.log("reading paused"); break }
     read.pos++; read.change = null; 
-    if(response) {console.log(read.data[read.pos], read.iteration)}
+    if(response) { console.log(read.data[read.pos], read.iteration) }
     for(var i = 0; i < keywords.length; i++) {
-      if(read.iteration && keywords[i] == read.iteration && keywords[i].end( read.data[read.pos], read.res ) == read.iteration) {
-        read.iteration.recall(read.res, response); read.res = ""; read.last_iteration = read.iteration; read.iteration = null;
+      if(read.iteration && keywords[i] == read.iteration && keywords[i].end( read.data[read.pos], read.pos-read.started ) == read.iteration) {
+        read.iteration.recall(read.res, response); read.res = ""; read.last_iteration = read.iteration; read.iteration = null; read.started = "null";
        }
       if(!read.iteration && keywords[i].start( read.data[read.pos] ) && keywords[i].start( read.data[read.pos] ) != read.last_iteration) { 
-        read.iteration = keywords[i]; read.change = true; break;
+        read.iteration = keywords[i]; read.change = true; break; read.started = read.pos;
        }
     }
     if(read.iteration && !read.change) { read.res += read.data[read.pos] }
