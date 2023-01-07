@@ -9,6 +9,6 @@
     </head>` + `
 </ht`+"ml>"
           navigator.clipboard.writeText(form);
-          document.getElementById("copy").innerHTML = "successfull"
+          document.getElementById("copy").innerHTML = "welcome"
        }
      
