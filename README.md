@@ -146,5 +146,5 @@ However, you can support HtmlScript financially on ko-fi. <br>
 
 
 # License
-Licensed under MIT license
+Distributed under MIT license
 
