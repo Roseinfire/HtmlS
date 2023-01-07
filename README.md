@@ -127,17 +127,17 @@ Note that you can take part in the discussion about new features. <br>
 
 # Learn more
 ### About safety
-Your page is built with htmlscript, not htmlscript built with your page. `This is a law.` <br>
+Your page is built with HtmlScript, not HtmlScript built with your page. `This is a law.` <br>
 If your page is built from a local file, it stays local. Your page is public when hosted on public domain.<br>
 Keep in mind that HtmlScript will not take responsibility if you publish confidential information on the public server.<br>
 When connect external scripts (include this one) you give it access to all your page.<br>
-Be sure that you can trust the script you connected. That's why the HtmlScript open code project. <br>
+Be sure that you can trust the connected script. That's why the HtmlScript open code project. <br>
   
 ### About advertisement
 HtmlScript itself `never use advertisement`. <br>
-Anyone can use advertisement on his own site if it is built with htmlscript. <br>
-We believe that best support is join the project or just give it a star. <br>
-However, you can support project financially on ko-fi. <br>
+Anyone can use advertisements on his own site if it is built with HtmlScript. <br>
+We believe that best support is to join the project or just give it a star. <br>
+However, you can support HtmlScript financially on ko-fi. <br>
 
 # Contacts
 ##### Roseinfire
@@ -147,3 +147,4 @@ However, you can support project financially on ko-fi. <br>
 
 # Licence
 Licensed under MIT licence
+
