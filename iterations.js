@@ -21,7 +21,8 @@ function awaitload(endkey) {
              }
            if(window.onresize) { window.onresize(); window.onresize(); }
       } catch { console.warn("iterations run was not standart") }
-     console.log("Compilation finished. HtmlScript global names: ", "hand", "awaitload", "loads", "keyword", "keywords", "read", "write")
+     console.log("Compilation finished. HtmlScript global names: ", "hand", "awaitload", "loads",
+                  "keyword", "keywords", "read", "write", "onResize", "__load", "__head__", "__scripts__", "__htmlscript__")
      console.groupEnd("compilation")
      }
  };
