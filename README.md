@@ -88,9 +88,9 @@ local border "border: 2px solid;"
 ```
 ### Adding attributes:
 ```javascript
- #*img @. { className="image" | id="example" }
+ #*img @. { className="image" * id="example" }
 ```
-* between brackets `{` and `}` mark attributes. Separate with `|`
+* between brackets `{` and `}` mark attributes. Separate with `*`
 * Note that you wrote properties, but not Html attributes.
 ### Relative sizes and groups:
 ```javascript
