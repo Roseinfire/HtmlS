@@ -21,6 +21,7 @@ function awaitload(endkey) {
              }
            if(window.onresize) { window.onresize(); window.onresize(); }
       } catch { console.warn("iterations run was not standart") }
+     console.log("Compilation finished. HtmlScript global names: ", "hand", "awaitload", "loads", "keyword", "keywords", "read", "write")
      console.groupEnd("compilation")
      }
  };
@@ -55,11 +56,6 @@ class keyword {
        }
  };
 
-var keywords = []
-function pushkeyword(start_symbol, end_symbol, result, name) {
-    keywords.push( new keyword(start_symbol, end_symbol, result, name) )
- };
-
 function read(data,response=false, encode=function(start, end, name) { return true }) {
     if(!read.pos) { read.pos = -1; awaitload() }
     read.data = data
@@ -73,7 +69,7 @@ function read(data,response=false, encode=function(start, end, name) { return tr
         if(response) { console.log(read.data[read.pos], read.iteration) }
         for(var i = 0; i < keywords.length; i++) {
             if(read.iteration && keywords[i] == read.iteration && keywords[i].end( read.data[read.pos], read.pos-read.started ) == read.iteration) {
-                var draw = encode(read.started, read.pos-read.started, read.iteration.name)
+                var draw = encode(read.started, read.pos-read.started, read.iteration.name);
                  if(draw) {
                     read.iteration.recall(read.res, response);
                   }
@@ -81,7 +77,7 @@ function read(data,response=false, encode=function(start, end, name) { return tr
                  read.last_iteration = read.iteration; read.iteration = null;
              }
              if(!read.iteration && keywords[i].start( read.data[read.pos] ) && keywords[i].start( read.data[read.pos] ) != read.last_iteration) { 
-                  read.iteration = keywords[i]; read.change = true; break; read.started = read.pos;
+                  read.iteration = keywords[i]; read.change = true;read.started = read.pos; break;
               }
        }
       if(read.iteration && !read.change) { read.res += read.data[read.pos] }
@@ -92,12 +88,12 @@ function read(data,response=false, encode=function(start, end, name) { return tr
         awaitload(true)
       }
  };
-function awaitReading() {
+read.awaitReading = function() {
     console.log("awaiting..")
     awaitload()
     read.await = true
   }
-function continueReading() {
+read.continueReading = function() {
    console.log("reading continued")
    awaitload(true)
    read.await = false; read.pos += 1
@@ -105,16 +101,17 @@ function continueReading() {
  };
 
 /* syntax */
- var tempovar = null
- var tempotext = null
- var tempotype = null 
- var tempowrite = null
- var keycode = null
- var childhood = 0
+ var keywords = []
+ keywords.tempovar = null
+ keywords.tempotext = null
+ keywords.tempotype = null 
+ keywords.tempowrite = null
+ keywords.word = null
+ keywords.childhood = 0
  var nods = new Array()
  var styles = new Array()
 
-function cssmodify(style) {
+keywords.cssmodify = function(style) {
     var adition = true;
     for(var i = style.length-1; i > 0; i--) {
         if(style[i] == ";") { adition = false;}
@@ -123,19 +120,19 @@ function cssmodify(style) {
     if(adition) { return style+";" } else { return style }
  };
 
-function getvalue(name, err) {
+keywords.getvalue = function(name, err) {
     for(var i = 0; i < styles.length; i++) {
-       if(styles[i].name == name) { return cssmodify(styles[i].data) }
+       if(styles[i].name == name) { return keywords.cssmodify(styles[i].data) }
     }; if(err) { console.error("Can't find link @" + res) }
 };
 
-function setvalue(name, data) {
-    if( !getvalue(name) ) {
+keywords.setvalue = function(name, data) {
+    if( !keywords.getvalue(name) ) {
         styles.push({ name: name, data: data })
      } else { console.error("variable didn't created: double name error") }
  };
 
-function groupitem(element, command) {
+keywords.groupitem = function(nodemap, command) {
    var num = 1
    var prop = 1
    var margin = 0
@@ -156,6 +153,7 @@ function groupitem(element, command) {
    else if(cnt == 2) { try{ prop=eval(res) } catch {} }
    else if(cnt == 3) { try{ num=eval(res) } catch {} }
   }
+   var element = nodemap.node
    var parent = element.parentElement
    var header = document.createElement("div");
    var brothers = new Array()
@@ -182,14 +180,15 @@ function groupitem(element, command) {
         e.style.width = parent.offsetWidth + "px"
         }
     }) 
-   parent.removeChild(element)
+   parent.removeChild(element);
    for(var i = 0; i < brothers.length; i++) {
       header.append(brothers[i])
      }
+   nods[nodemap.index] = header;
    parent.appendChild(header)
   };
 
-function attribute(element, res, oneprop) {
+keywords.attribute = function(element, res, oneprop) {
     if(!element.property) { element.property = [] }
     if(!oneprop) { 
         var atr = ""
@@ -205,20 +204,18 @@ function attribute(element, res, oneprop) {
            } 
  };
  
-function importitem(command) {
+keywords.importitem = function(command) {
     var ext = ""
     for(var i = command.length-1; i > 0; i--) {
         if(command[i] == ".") { break } else { ext+=command[i] }
      }
    if(ext == "sj") {
-//  try {
-        awaitReading()
+        read.awaitReading()
         var script = document.createElement("script")
         script.src = command
-        script.onload = function() { console.log("imported script", this); continueReading() }
-        script.onerror = function() { console.error("failed to import", command); continueReading() }
+        script.onload = function() { console.log("imported script", this); read.continueReading() }
+        script.onerror = function() { console.error("failed to import", command); read.continueReading() }
         document.body.append(script)
-  //   } catch { console.error("import went wrong") }
    }
     else if(ext == "ssc") {
        var style = document.createElement("link")
@@ -227,59 +224,68 @@ function importitem(command) {
        document.head.append(style)
      }
  };
-
-pushkeyword(["~"], ["~"], function(res) { console.log(res) })
-pushkeyword(["l"], ['"'], function(res) {
-    if(res[0]+res[1]+res[2]+res[3]+res[4] == "ocal ") {
-        keycode = "local"
-        var name = ""
-        for(var i = 4; i < res.length; i++) {
-            if(res[i]!=" ") { name += res[i] }
-        }; tempovar = name
-     }
- }, "local");
-pushkeyword(["i"], ['"'], function(res) {
-    if(res[0]+res[1]+res[2]+res[3]+res[4]+res[5] == "mport ") {
-       keycode = "import"
-     }
- }, "import");
-pushkeyword(['"'], ['"'], function(res) {
-   if(keycode == "local") {
-      setvalue(tempovar, res)
-      tempovar = null; keycode = null
-   }
-  else if(keycode=="import") {
-      importitem(res); keycode = null; //tempovar = null
-    }
- }, "value");
-pushkeyword(["-"], ["#"], function(res) {
-   var result = 1;
-   for(var i = 0; i < res.length; i++) {
-       if(res[i] == "-") { result++ }
-     }; childhood = result;
- }, "child");
-pushkeyword(["#"], ["*"], function(res) { tempotext = res; }, "element")
-pushkeyword(["*"], [" ", "@"], function(res) { tempotype = res }, "type")
-pushkeyword(["@"], ["."], function(res) {
+  
+keywords.draw = function(res) {
     function separate(variables) {
         var variable = ""
         var result = ""
         for(var i = 0; i < variables.length; i++) {
-            if(variables[i] == " ") { result += getvalue(variable); variable = "" }
+            if(variables[i] == " ") { result += keywords.getvalue(variable); variable = "" }
             else { variable += variables[i] }
-         }; if(variable) { result += getvalue(variable) }
+         }; if(variable) { result += keywords.getvalue(variable) }
       return result
      }
-  tempowrite = write(tempotext, tempotype, separate(res))
-  nods.push({ node: tempowrite, childhood: childhood })
-  truewrite()
-  tempotext = null; tempotype = null; childhood = 0 
-}, "draw");
-pushkeyword(["{"], ["}"], function(res) { if(tempowrite) { attribute(tempowrite, res) }}, "attribute")
-pushkeyword(["["], ["]"], function(res) { if(tempowrite) { groupitem(tempowrite, res) }}, "group")
+   keywords.tempowrite = write(keywords.tempotext, keywords.tempotype, separate(res), keywords.childhood)
+   write.truewrite()
+   keywords.tempotext = null; keywords.tempotype = null; keywords.childhood = 0;
+ };
+  
+keywords.local = function(res) {
+    if(res[0]+res[1]+res[2]+res[3]+res[4] == "ocal ") {
+        keywords.word = "local"
+        var name = ""
+        for(var i = 4; i < res.length; i++) {
+            if(res[i]!=" ") { name += res[i] }
+        }; keywords.tempovar = name
+     }
+  };
+  
+keywords.import = function(res) {
+    if(res[0]+res[1]+res[2]+res[3]+res[4]+res[5] == "mport ") {
+       keywords.word = "import"
+     }
+ };
+  
+keywords.value = function(res) {
+  if(keywords.word == "local") {
+      keywords.setvalue(keywords.tempovar, res)
+      keywords.tempovar = null; keywords.word = null
+   }
+  else if(keywords.word=="import") {
+      keywords.importitem(res); keywords.word = null; //keywords.tempovar = null
+     }
+  };
+  
+keywords.child = function(res) {
+   var result = 1;
+   for(var i = 0; i < res.length; i++) {
+       if(res[i] == "-") { result++ }
+     }; keywords.childhood = result;
+  };
+  
+keywords.push(new keyword(["~"], ["~"], function(res) { console.log(res) }, "comment"))
+keywords.push(new keyword(["l"], ['"'], function(res) { keywords.local(res) }, "local"))
+keywords.push(new keyword(["i"], ['"'], function(res) { keywords.import(res) }, "import"))
+keywords.push(new keyword(['"'], ['"'], function(res) { keywords.value(res) }, "value"))
+keywords.push(new keyword(["-"], ["#"], function(res) { keywords.child(res) }, "child"))
+keywords.push(new keyword(["#"], ["*"], function(res) { keywords.tempotext = res; }, "element"))
+keywords.push(new keyword(["*"], [" ", "@"], function(res) { keywords.tempotype = res }, "type"))
+keywords.push(new keyword(["@"], ["."], function(res) { keywords.draw(res) }, "draw"))
+keywords.push(new keyword(["{"], ["}"], function(res) { keywords.attribute(keywords.tempowrite.node, res) }, "attribute"))
+keywords.push(new keyword(["["], ["]"], function(res) { keywords.groupitem(keywords.tempowrite, res) }, "group"))
 
 /* writing */
-function write(text, type, style) { 
+function write(text, type, style, childhood) { 
     var element = (function () {
     try {
         var res = document.createElement(type)
@@ -295,10 +301,13 @@ function write(text, type, style) {
          var err = document.createElement("p"); err.innerHTML = "creation error"
          return err
         }
-    })(); return element
+    })()
+  var nodemap = { node: element, childhood: childhood, index: nods.length }
+  nods.push(nodemap)
+  return nodemap
 };
 
-function truewrite(i) {
+write.truewrite = function(i, encode) {
     (i!=undefined) ? (i=i) : (i = nods.length-1)
      if(nods[i].childhood) {
         try {
@@ -308,6 +317,6 @@ function truewrite(i) {
                 }
              }
           } catch { console.error("failed to create child", nods[i]) }
-       } else { try{ hand.append(nods[i].node) } catch { console.err(nods[i].node) }
-    }
+       } else if(!encode) { try{ hand.append(nods[i].node) } catch { console.err(nods[i].node) }
+    }  else if(encode && typeof encode == 'function') { encode(nods[i].node) }
  };
