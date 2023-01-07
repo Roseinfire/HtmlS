@@ -198,8 +198,9 @@ function awaitload(endkey) {
              }
            if(window.onresize) { window.onresize(); window.onresize(); }
       } catch { console.warn("iterations run was not standart") }
-     console.log("Compilation finished. HtmlScript global names: ", "hand", "awaitload", "loads", "keyword", "keywords", "read", "write")
-     console.groupEnd("compilation")
+      console.log("Compilation finished. HtmlScript global names: ", "hand", "awaitload", "loads",
+                  "keyword", "keywords", "read", "write", "onResize", "__load", "__head__", "__scripts__", "__htmlscript__")
+      console.groupEnd("compilation")
      }
  };
 
@@ -502,13 +503,14 @@ write.truewrite = function(i, encode) {
   read.data = ""
   function __load(i) {
     if(__scripts__[i]) {
-          var source = getouter("fetch", __htmlscript__)
-          if(source) {
+          var source = getouter("fetch", __scripts__[i])
+          if(source) { console.log(source)
               fetch(source)
               .then(response => response.text())
-              .then(text => (function(t) { read.data += t; __load(i+1) })(text))
+              .then(text => (function(t) { read.data += t; console.log(t); __load(i+1) })(text))
+              .catch((err) => { console.error(err) })
            } else {  read.data += __scripts__[i].innerHTML; __load(i+1) }
-        } else { read(read.data) }
+        } else { console.log(read.data) }
    }; __load(0)
 </script>
 </body>
