@@ -365,7 +365,7 @@ function attribute(element, res, oneprop) {
   if(!oneprop) { 
       var atr = ""
       for(var i = 0; i < res.length; i++) {
-         if(res[i] == "|") { make(atr); atr="" }
+         if(res[i] == "*") { make(atr); atr="" }
          else { atr += res[i] }
           }; if(atr) { make(atr) }
       } else { make(res) }  
