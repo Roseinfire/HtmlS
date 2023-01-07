@@ -141,7 +141,7 @@ However, you can support HtmlScript financially on ko-fi. <br>
 
 # Contact
 ##### [Roseinfire](https://github.com/Roseinfire)
-##### [ko-fi.com/Roseinfire] (https://ko-fi.com/roseinfire)
+##### [ko-fi.com/Roseinfire](https://ko-fi.com/roseinfire)
 ##### 14box14@gmail.com
 
 
