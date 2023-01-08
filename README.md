@@ -125,7 +125,7 @@ You finished a short study. <br>
 Give the project a star, if you would like to see more features!
 # Join development
 The simplest way to take part in this project is write an addition.<br>
-Read project wiki to understand how to write additions. <br>
+Read project wiki to understand how to do it. <br>
 Fork the project, write your addition and apply for contribution.<br>
 Note that you also can take part in the discussion about new features. <br>
 
