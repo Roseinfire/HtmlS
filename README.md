@@ -37,14 +37,13 @@ You need just connect the script. You can copy the whole html right here.
 General plan of your page. Related to `<head>`<br>
 Currently support three layouts:
 * static `number`<br>
-number shows width in pixels.
+number shows width of content in pixels.
 * relative `number` <br>
 number shows screen percentage occupied by content.
 * fullscreen <br>
 Have not any arguments.
 ### `style`
-Style of hand element.<br>
-Hand Element can be found in the console typing `hand` <br>
+Style of element which holds content.<br>
 Related to `<head>` <br>
 By default set to `border-radius: 15px; border: 1px dotted`
 ### `theme` 
