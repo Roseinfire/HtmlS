@@ -7,12 +7,10 @@ function awaitload(endkey) {
      else if(endkey) { loads-- }
      if(!loads) {
         try {
-            var color = getouter("theme", __head__)
-            var image = getouter("background", __head__)
+            background.image()
             var style = getouter("style", __head__)
             var plan = searchplans( getouter("layout", __head__), "relative 0.8")
             console.log("layout: ", plan)
-            background(color, image)
             hand.style = style
            document.getElementById("content").style.display = "block";
            document.getElementById("load").style.display = "none";
@@ -43,9 +41,9 @@ class keyword {
                for(var e = 0; e < start.length; e++) {
                    if(end.includes(start[e]) ) { includes = true }
                }
-            if(moves == read.pos) { 
+        /*    if(moves == read.pos) { 
                 console.warn("Something went wrong when reading keyword with the same quotes.")
-             }
+             } */
             if(end[i]==compl && (moves || !includes) ) { return this }
              }; return false
         }
@@ -184,7 +182,7 @@ keywords.groupitem = function(nodemap, command) {
    for(var i = 0; i < brothers.length; i++) {
       header.append(brothers[i])
      }
-   nods[nodemap.index] = header;
+   nods[nodemap.index].node = header;
    parent.appendChild(header)
   };
 
@@ -330,9 +328,12 @@ write.truewrite = function(i, encode) {
     console.log("keywords")
     console.log("read")
     console.log("write")
+    console.log("getouter")
+    console.log("__head__")
+    console.log("__body__")
     console.log("__scripts__")
     console.log("__load")
-    console.log("__head__")
     console.log("__htmlscript__")
   console.groupEnd("taken global names")
     }
+    
