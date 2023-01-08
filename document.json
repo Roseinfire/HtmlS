@@ -56,7 +56,7 @@ function onlyNumbers(text) {
   
  onResize([document.getElementById("load")], function(e) { 
      e.style.marginTop = (innerHeight-e.offsetHeight)/2 + "px"
-   }) 
+   }); window.onresize();
 </script>
 <script type="text/javascript">
 /* Layouts */
