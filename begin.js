@@ -28,6 +28,7 @@ window.getouter =  function(name, from) {
 function estable(response) {
    console.group("compilation")
    window.__head__ = document.head
+   window.__body__ = document.body
    window.__scripts__ = (function() {
       var res = []
       var scripts = document.getElementsByTagName("script")
