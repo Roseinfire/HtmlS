@@ -70,10 +70,14 @@ function onlyNumbers(text) {
  
 var plans = new Array()
 function searchplans(value, def) {
+ if(value) {
   for(var i = 0;  i < plans.length; i++) {
     var plan = plans[i].condition(value)
     if(plan) { plans[i].content(plan); return plans[i].name }
-    }; if(def) { return searchplans(def) } else { return "undefined" }
+       }
+    }
+  else if(def) { return searchplans(def) } 
+  else { return "undefined" }
  };
   
 class Layout {
@@ -219,9 +223,9 @@ class keyword {
                for(var e = 0; e < start.length; e++) {
                    if(end.includes(start[e]) ) { includes = true }
                }
-            if(moves == read.pos) { 
+        /*    if(moves == read.pos) { 
                 console.warn("Something went wrong when reading keyword with the same quotes.")
-             }
+             } */
             if(end[i]==compl && (moves || !includes) ) { return this }
              }; return false
         }
