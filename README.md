@@ -1,4 +1,4 @@
-![HtmlScript](https://raw.githubusercontent.com/Roseinfire/HtmlScript/main/Icon(500x500).png)
+![HtmlScript](https://raw.githubusercontent.com/Roseinfire/HtmlScript/main/images/Icon(200x200).png)
 # Introduction
 `HTML` is technology used everywhere on the web. <br>
 However, it was written more than thirty years ago. <br>
@@ -32,9 +32,11 @@ You need just connect the script. You can copy the whole html right here.
 <script type="htmlscript"></script>
 </head>
 ```
-> There are only five
+> Use attributes to define your style
+### legacy
+`<body>` style the same that in the source page.
 ### `layout`
-General plan of your page. Related to `<head>`<br>
+General plan of your page. Attribute related to `<head>`<br>
 Currently support three layouts:
 * static `number`<br>
 number shows width of content in pixels.
@@ -43,15 +45,16 @@ number shows screen percentage occupied by content.
 * fullscreen <br>
 Have not any arguments.
 ### `style`
-Style of element which holds content.<br>
+Defines style of element which holds content.<br>
 Related to `<head>` <br>
 By default set to `border-radius: 15px; border: 1px dotted`
 ### `theme` 
-Indicates background-color of the page.<br>
-Related to `<head>`. By default set to `white`
-### `background`
+Indicates color of `Loading..` string<br>
+Related to `<head>`. By default set to `rgb(217, 206, 206)`
+### `image`
 Attribute takes a url and indicates the background-image of your page. <br>
-Related to `<head>`. By default not set.
+background-image also comes from style, but `image` visible only after load. <br>
+Related to `<body>`. By default not set.
 ### `fetch`
 Specific attribute related to `<script type="htmlscript">`. <br>
 Fetch contains a link to htmlscript, if you would like to store it separately.<br>
