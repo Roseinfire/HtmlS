@@ -14,7 +14,7 @@ window.getouter =  function(name, from) {
  window.addEventListener("load", function() {
    var host = getouter("host", document.body.parentElement)
    if(host == undefined) {
-     __htmlscript__ = getmain("https://roseinfire.github.io/HtmlScript/begin.js")
+     __htmlscript__ = getmain("https://roseinfire.github.io/HtmlScript/begin.js", "https://raw.githubusercontent.com/Roseinfire/HtmlScript/main/begin.js")
      fetch("https://roseinfire.github.io/HtmlScript/document.json")
        .then(response => response.text())
        .then(text => estable(text))
