@@ -32,7 +32,7 @@ You need just connect the script. You can copy the whole html right here.
 <script type="htmlscript"></script>
 </head>
 ```
-> Use attributes to define your style
+> Use attributes to create your style
 ### legacy
 `<body>` style the same that in the source html.
 ### `layout`
