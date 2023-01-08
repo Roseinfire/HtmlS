@@ -152,9 +152,9 @@ To run script from a folder, you need a special attribute `host` set to HtmlScri
 ```
 
 # Contacts
-##### [Roseinfire](https://github.com/Roseinfire)
-##### [ko-fi.com/Roseinfire](https://ko-fi.com/roseinfire)
-##### 14box14@gmail.com
+* [Roseinfire](https://github.com/Roseinfire)
+* [ko-fi.com/Roseinfire](https://ko-fi.com/roseinfire)
+* 14box14@gmail.com
 
 
 # License
