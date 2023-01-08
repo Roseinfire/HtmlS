@@ -360,7 +360,7 @@ keywords.groupitem = function(nodemap, command) {
    for(var i = 0; i < brothers.length; i++) {
       header.append(brothers[i])
      }
-   nods[nodemap.index] = header;
+   nods[nodemap.index].node = header;
    parent.appendChild(header)
   };
 
