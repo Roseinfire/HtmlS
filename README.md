@@ -23,8 +23,6 @@ You need just connect the script. You can copy the whole html right here.
    </body>
 </html>
 ```
-
- 
 # Usage
 ## Set up attributes
 ```HTML
@@ -123,12 +121,12 @@ File action defined automatically by its extension. <br>
 ### Congratulations! 
 You finished a short study. <br>
 Give the project a star, if you would like to see more features!
+
 # Join development
 The simplest way to take part in this project is write an addition.<br>
 Read project wiki to understand how to do it. <br>
 Fork the project, write your addition and apply for contribution.<br>
 Note that you also can take part in the discussion about new features. <br>
-
 
 # Learn more
 ### About safety
@@ -145,7 +143,7 @@ We believe that best support is to join the project or just give it a star. <br>
 However, you can support HtmlScript on Ko-fi. <br>
 
 ### About installation
-If your page is built with cross-site script, it will not work if script isn't accessible. <br>
+If your project is built with cross-site script, it will not work when script isn't accessible. <br>
 So, the better idea is install HtmlScript to your project folder. <br>
 To run script from a folder, you need a special attribute `host` set to HtmlScript path include the domain.
 ```HTML
@@ -155,12 +153,10 @@ To run script from a folder, you need a special attribute `host` set to HtmlScri
   </head>
 </html>
 ```
-
 # Contacts
 * [Roseinfire](https://github.com/Roseinfire)
 * [ko-fi.com/Roseinfire](https://ko-fi.com/roseinfire)
 * 14box14@gmail.com
-
 
 # License
 Distributed under MIT license.<br>
