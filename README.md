@@ -3,7 +3,7 @@
 `HTML` is technology used everywhere on the web. <br>
 However, it was written more than thirty years ago. <br>
 In spite of updates, html is too old to be comfortable. <br>
-HtmlScript is the decoration language above Html. <br>
+HtmlScript is the markup language above Html. <br>
 Written to be `more` `flexible` and more `comfortable`
 
 ## Needed knowledge
@@ -11,7 +11,7 @@ Written to be `more` `flexible` and more `comfortable`
 * basic HTML
   
 # Installation
-You need just connect the script. You can copy the whole html right here.
+You need only connect the script.
 ```HTML
 <html>
     <head>
@@ -30,9 +30,9 @@ You need just connect the script. You can copy the whole html right here.
 <script type="htmlscript"></script>
 </head>
 ```
-> Use attributes to create your style
-### legacy
-`<body>` style the same that in the source html.
+> Use attributes to create your own style
+### `style`
+`<body>` style in the ready document is the same as the style in source html.
 ### `layout`
 General plan of your page. Attribute related to `<head>`<br>
 Currently support three layouts:
@@ -43,9 +43,9 @@ number shows screen percentage occupied by content.
 * fullscreen <br>
 Have not any arguments.
 ### `style`
-Defines style of element which holds content.<br>
+Defines style of element which holds content. Is not same to `body`<br>
 Related to `<head>` <br>
-By default set to `border-radius: 15px; border: 1px dotted`
+By default set to `border-radius: 15px; border: 1px dotted; background-color: white`
 ### `theme` 
 Indicates color of `Loading..` string<br>
 Related to `<head>`. By default set to `rgb(217, 206, 206)`
@@ -90,7 +90,7 @@ local border "border: 2px solid;"
 
 ### Relative sizes and groups:
 ```javascript
-#*div @border. [margin proportion quantity]
+  #*div @border. [margin proportion quantity]
 ```
 #### Between brackets `[` and `]` mark the conditions. Separate arguments with spaces.
 * margin from parent border (`0` by default)
@@ -106,14 +106,14 @@ local border "border: 2px solid;"
 ### Child nodes:
 To specify child node, just begin command from `-`
 ```javascript
-# *div @font.
-     - # *div @.
-     -- # Hello child nodes! *div @.
+ # *div @font.
+   - # *div @.
+    -- # Hello child nodes! *div @.
 ```
 ### External files:
 ```javascript
-  import "root/code.js"
-  import "root/style.css"
+ import "root/code.js"
+ import "root/style.css"
 ```
 File action defined automatically by its extension. <br>
 `.js` files become scripts <br>
@@ -130,11 +130,14 @@ Note that you also can take part in the discussion about new features. <br>
 
 # Learn more
 ### About safety
-Your page is built with HtmlScript, not HtmlScript built with your page. `This is a law.` <br>
-If your page is built from a local file, it stays local. If your page is hosted on public domain, then it is public.<br>
-Keep in mind that HtmlScript will not take responsibility, if you publish confidential information on the public server.<br>
+Your page is built with HtmlScript, not HtmlScript built with your page. This is a law. <br>
+If your site is built from a local file, it stays local. `No data shared` from local files.<br>
+If your site is hosted on a public server, then it is public. <br>
+Keep in mind that HtmlScript will not take responsibility, <br>
+if you publish confidential information on the public server.<br>
 When connect external scripts (include this one) you give it access to all your page.<br>
-Be sure that you can trust the connected script. That's why the HtmlScript open code project. <br>
+Be sure that you can trust the connected script. <br>
+That's why the HtmlScript `open code` project. <br>
   
 ### About advertisement
 HtmlScript itself `never use advertisement`. <br>
@@ -145,7 +148,8 @@ However, you can support HtmlScript on Ko-fi. <br>
 ### About installation
 If your project is built with cross-site script, it will not work when script isn't accessible. <br>
 So, the better idea is install HtmlScript to your project folder. <br>
-To run script from a folder, you need a special attribute `host` set to HtmlScript path include the domain.
+To run script from a folder, you need a special attribute `host` set to HtmlScript path include the domain. <br>
+Note that need localhost to test your site when running from a folder.
 ```HTML
 <html host="https://website.com/path">
   <head>
