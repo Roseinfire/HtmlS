@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html>
 <head> 
-<title>HtmlScript</title>
 <style type="text/css">
  #paper {
     background-color: rgba(255, 255, 255, 0.95);
@@ -57,7 +56,7 @@ function onlyNumbers(text) {
   
  onResize([document.getElementById("load")], function(e) { 
      e.style.marginTop = (innerHeight-e.offsetHeight)/2 + "px"
-   }) 
+   }); window.onresize();
 </script>
 <script type="text/javascript">
 /* Layouts */
@@ -103,7 +102,7 @@ plans.push(new Layout(
                e.style.marginLeft =  innerWidth*(arg/10) + "px"
            }  
            if(e.offsetHeight < innerHeight) { 
-              e.style.marginTop = (innerHeight-e.offsetHeight - e.offsetHeight)/2 + "px" 
+              e.style.marginTop = (innerHeight-e.offsetHeight)/2 + "px" 
             } else { e.style.marginTop = "10px" }
       })
    }, function(value) {
@@ -111,16 +110,16 @@ plans.push(new Layout(
           var pre = true
           var res = ""
           for(var i = 0; i < value.length; i++) {
+              if(value[i] != " " && pre) { pre = false }
               if(value[i] != " " && !pre) { res += value[i] }
-              else if(value[i] != " " && pre) { pre = false }
               if(res == "relative") { action = i; break }
           }
-        var paperwidth = ""
+        var paperwidth = "";
         if(action) {
              var pre = true
              for(var i = action+1; i < value.length; i++) {
-                   if(value[i] != " " && pre) { pre = false }
-                   if(value[i] != " " && !pre) { paperwidth += value[i] }
+                if(value[i] != " " && pre) { pre = false }
+                if(value[i] != " " && !pre) { paperwidth += value[i] }
                 else if(value[i] == " " && !pre) { return paperwidth }
               }; return paperwidth
           }; return false
@@ -151,7 +150,7 @@ plans.push(new Layout(
               if(value[i] != " " && !pre) { res += value[i] }
               if(res == "static") { action = i; break }
           }
-        var paperwidth = ""
+        var paperwidth = "";
         if(action) {
              var pre = true
              for(var i = action+1; i < value.length; i++) {
@@ -170,7 +169,7 @@ plans.push(new Layout(
      e.style.height = innerHeight + "px"
       })
    }, function(value) {
-       if(value == fullscreen) { return true }
+       if(value == "fullscreen") { return true }
      }, "fullscreen"
 ));
 </script>
@@ -198,7 +197,7 @@ function awaitload(endkey) {
              }
            if(window.onresize) { window.onresize(); window.onresize(); }
       } catch { console.warn("iterations run was not standart") }
-     console.log("Compilation finished. HtmlScript global names: ", "hand", "awaitload", "loads", "keyword", "keywords", "read", "write")
+     console.log("Compilation finished. Run `write.about()` to find out taken global names.") 
      console.groupEnd("compilation")
      }
  };
@@ -361,7 +360,7 @@ keywords.groupitem = function(nodemap, command) {
    for(var i = 0; i < brothers.length; i++) {
       header.append(brothers[i])
      }
-   nods[nodemap.index] = header;
+   nods[nodemap.index].node = header;
    parent.appendChild(header)
   };
 
@@ -497,12 +496,28 @@ write.truewrite = function(i, encode) {
        } else if(!encode) { try{ hand.append(nods[i].node) } catch { console.err(nods[i].node) }
     }  else if(encode && typeof encode == 'function') { encode(nods[i].node) }
  };
+    
+ write.about = function() {
+  console.group("taken global names")
+    console.log( "hand") 
+    console.log("awaitload")
+    console.log("loads")
+    console.log("keyword")
+    console.log("keywords")
+    console.log("read")
+    console.log("write")
+    console.log("__scripts__")
+    console.log("__load")
+    console.log("__head__")
+    console.log("__htmlscript__")
+  console.groupEnd("taken global names")
+    }
 </script>
 <script type="text/javascript">
   read.data = ""
   function __load(i) {
     if(__scripts__[i]) {
-          var source = getouter("fetch", __htmlscript__)
+          var source = getouter("fetch", __scripts__[i])
           if(source) {
               fetch(source)
               .then(response => response.text())

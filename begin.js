@@ -12,14 +12,14 @@ window.getouter =  function(name, from) {
    return undefined
  };
  window.addEventListener("load", function() {
-   var host = getouter("localhost", document.body.parentElement)
+   var host = getouter("host", document.body.parentElement)
    if(host == undefined) {
      __htmlscript__ = getmain("https://roseinfire.github.io/HtmlScript/begin.js")
      fetch("https://roseinfire.github.io/HtmlScript/document.json")
        .then(response => response.text())
        .then(text => estable(text))
    } else {
-    __htmlscript__ = getmain("http://localhost:" + host + "/begin.js","https://roseinfire.github.io/HtmlScript/begin.js")
+    __htmlscript__ = getmain(host + "/begin.js", "https://roseinfire.github.io/HtmlScript/begin.js")
     fetch("document.json")
       .then(response => response.text())
       .then(text => estable(text))
