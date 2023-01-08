@@ -21,8 +21,7 @@ function awaitload(endkey) {
              }
            if(window.onresize) { window.onresize(); window.onresize(); }
       } catch { console.warn("iterations run was not standart") }
-     console.log("Compilation finished. HtmlScript global names: ", "hand", "awaitload", "loads",
-                  "keyword", "keywords", "read", "write", "onResize", "__load", "__head__", "__scripts__", "__htmlscript__")
+     console.log("Compilation finished. Run `write.about()` to find out taken global names.") 
      console.groupEnd("compilation")
      }
  };
@@ -321,3 +320,19 @@ write.truewrite = function(i, encode) {
        } else if(!encode) { try{ hand.append(nods[i].node) } catch { console.err(nods[i].node) }
     }  else if(encode && typeof encode == 'function') { encode(nods[i].node) }
  };
+    
+ write.about = function() {
+  console.group("taken global names")
+    console.log( "hand") 
+    console.log("awaitload")
+    console.log("loads")
+    console.log("keyword")
+    console.log("keywords")
+    console.log("read")
+    console.log("write")
+    console.log("__scripts__")
+    console.log("__load")
+    console.log("__head__")
+    console.log("__htmlscript__")
+  console.groupEnd("taken global names")
+    }
