@@ -28,20 +28,20 @@ You need just connect the script. You can copy the whole html right here.
 # Usage
 ## Set up attributes
 ```HTML
-<head layout="full">
+<head layout="fullscreen">
 <script type="htmlscript"></script>
 </head>
 ```
 > There are only five
 ### `layout`
-General plan of your page. Related to `<head>`.<br>
+General plan of your page. Related to `<head>`<br>
 Currently support three layouts:
 * static `number`<br>
 number shows width in pixels.
 * relative `number` <br>
-number shows width in pixels.
+number shows screen percentage occupied by content.
 * fullscreen <br>
-By default attribute set to `center`
+Have not any arguments.
 ### `style`
 Style of hand element.<br>
 Hand Element can be found in the console typing `hand` <br>
@@ -54,8 +54,8 @@ Related to `<head>`. By default set to `white`
 Attribute takes a url and indicates the background-image of your page. <br>
 Related to `<head>`. By default not set.
 ### `fetch`
-Specific attribute related to `<script>`. <br>
-Fetch contains a link to code, if you would like to store it separately.<br>
+Specific attribute related to `<script type="htmlscript">`. <br>
+Fetch contains a link to htmlscript, if you would like to store it separately.<br>
 By default not set.
 
 ## Inner code
@@ -118,7 +118,7 @@ File action defined automatically by its extension. <br>
 `.js` files become scripts <br>
 `.css` files become styles <br>
 ### Congratulations! 
-You finished a short course. <br>
+You finished a short study. <br>
 Give the project a star, if you would like to see more features!
 # Join development
 The simplest way to take part in this project is write new Html layout.<br>
