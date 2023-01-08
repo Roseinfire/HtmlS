@@ -11,10 +11,12 @@ Written to be `more` `flexible` and more `comfortable`
 * basic HTML
   
 # Installation
+You need just connect the script. You can copy the whole html right here.
 ```HTML
 <html>
-    <head layout="center">
+    <head>
       <meta charset="utf-8">
+      <script type="htmlscript"></script>
      </head>
      <body>
       <script src="https://roseinfire.github.io/HtmlScript/begin.js"></script>
