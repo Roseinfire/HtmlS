@@ -71,7 +71,7 @@ background.image = function() {
     if(source) {
         document.body.style.backgroundImage = "url('" + source + "')" 
       }
-  }
+  }; background()
  
 var plans = new Array()
 function searchplans(value, def) {
@@ -524,7 +524,6 @@ write.truewrite = function(i, encode) {
 </script>
 <script type="text/javascript">
   read.data = ""
-  background()
   function __load(i) {
     if(__scripts__[i]) {
           var source = getouter("fetch", __scripts__[i])
