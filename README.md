@@ -82,17 +82,11 @@ local border "border: 2px solid;"
 * after `#` goes innerHTML, takes any value exclude `*`
 * `type` takes classic tag name like `p` or `div`
 * `font` and `border` are styles, defined like `local name "value"`
-
 #### Character `@` is also a draw operator. Even if the style is not specified, `@.` must be marked.
 ```javascript
   # Element with no style *p @.
 ```
-### Adding attributes:
-```javascript
- #*img @. { className="image", id="example" }
-```
-* between brackets `{` and `}` mark attributes. Separate with `,`
-* Note that you wrote properties, but not Html attributes.
+
 ### Relative sizes and groups:
 ```javascript
 #*div @border. [margin proportion quantity]
@@ -101,6 +95,13 @@ local border "border: 2px solid;"
 * margin from parent border (`0` by default)
 * proportion - width/height (`1` by default)
 * quantity - how many elements in group (`1` by default)
+
+### Adding attributes:
+```javascript
+ #*img @. { className="image", id="example" }
+```
+* between brackets `{` and `}` mark attributes. Separate with `,`
+* Note that you wrote properties, but not Html attributes.
 ### Child nodes:
 To specify child node, just begin command from `-`
 ```javascript
@@ -120,10 +121,10 @@ File action defined automatically by its extension. <br>
 You finished a short study. <br>
 Give the project a star, if you would like to see more features!
 # Join development
-The simplest way to take part in this project is write new Html layout.<br>
-Read wiki to understand how to write additions. <br>
-Create new branch, write your addition and apply for contribution.<br>
-Note that you can take part in the discussion about new features. <br>
+The simplest way to take part in this project is write an addition.<br>
+Read project wiki to understand how to write additions. <br>
+Fork the project, write your addition and apply for contribution.<br>
+Note that you also can take part in the discussion about new features. <br>
 
 
 # Learn more
@@ -141,8 +142,8 @@ We believe that best support is to join the project or just give it a star. <br>
 However, you can support HtmlScript on Ko-fi. <br>
 
 ### About installation
-As your page is built with cross-site script, it will not work if HtmlScript isn't accessible. <br>
-So, the better idea is download HtmlScript to your project folder. <br>
+As your page is built with cross-site script, page will not work if HtmlScript isn't accessible. <br>
+So, the better idea is install HtmlScript to your project folder. <br>
 To run script from a folder, you need a special attribute `host` set to HtmlScript path include domain.
 ```HTML
 <html host="https://website.com/path">
