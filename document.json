@@ -102,7 +102,7 @@ plans.push(new Layout(
                e.style.marginLeft =  innerWidth*(arg/10) + "px"
            }  
            if(e.offsetHeight < innerHeight) { 
-              e.style.marginTop = (innerHeight-e.offsetHeight - e.offsetHeight)/2 + "px" 
+              e.style.marginTop = (innerHeight-e.offsetHeight)/2 + "px" 
             } else { e.style.marginTop = "10px" }
       })
    }, function(value) {
@@ -110,16 +110,16 @@ plans.push(new Layout(
           var pre = true
           var res = ""
           for(var i = 0; i < value.length; i++) {
+              if(value[i] != " " && pre) { pre = false }
               if(value[i] != " " && !pre) { res += value[i] }
-              else if(value[i] != " " && pre) { pre = false }
               if(res == "relative") { action = i; break }
           }
-        var paperwidth = ""
+        var paperwidth = "";
         if(action) {
              var pre = true
              for(var i = action+1; i < value.length; i++) {
-                   if(value[i] != " " && pre) { pre = false }
-                   if(value[i] != " " && !pre) { paperwidth += value[i] }
+                if(value[i] != " " && pre) { pre = false }
+                if(value[i] != " " && !pre) { paperwidth += value[i] }
                 else if(value[i] == " " && !pre) { return paperwidth }
               }; return paperwidth
           }; return false
@@ -150,7 +150,7 @@ plans.push(new Layout(
               if(value[i] != " " && !pre) { res += value[i] }
               if(res == "static") { action = i; break }
           }
-        var paperwidth = ""
+        var paperwidth = "";
         if(action) {
              var pre = true
              for(var i = action+1; i < value.length; i++) {
@@ -169,7 +169,7 @@ plans.push(new Layout(
      e.style.height = innerHeight + "px"
       })
    }, function(value) {
-       if(value == fullscreen) { return true }
+       if(value == "fullscreen") { return true }
      }, "fullscreen"
 ));
 </script>
