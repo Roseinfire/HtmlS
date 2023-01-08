@@ -115,7 +115,7 @@ To specify child node, just begin command from `-`
 File action defined automatically by its extension. <br>
 `.js` files become scripts <br>
 `.css` files become styles <br>
-## Congratulations! 
+### Congratulations! 
 You finished a short course. <br>
 Give the project a star, if you would like to see more features!
 # Join development
@@ -137,9 +137,21 @@ Be sure that you can trust the connected script. That's why the HtmlScript open 
 HtmlScript itself `never use advertisement`. <br>
 Anyone can use advertisements on his own site if it is built with HtmlScript. <br>
 We believe that best support is to join the project or just give it a star. <br>
-However, you can support HtmlScript financially on ko-fi. <br>
+However, you can support HtmlScript on Ko-fi. <br>
 
-# Contact
+### About installation
+As your page is built with cross-site script, it will not work if HtmlScript isn't accessible. <br>
+So, the better idea is download HtmlScript to your project folder. <br>
+To run script from a folder, you need a special attribute `host` set to HtmlScript path.
+```HTML
+<html host="http://localhost:8000/path">
+  <head>
+     <script src="path/begin.js"></script>
+  </head>
+</html>
+```
+
+# Contacts
 ##### [Roseinfire](https://github.com/Roseinfire)
 ##### [ko-fi.com/Roseinfire](https://ko-fi.com/roseinfire)
 ##### 14box14@gmail.com
