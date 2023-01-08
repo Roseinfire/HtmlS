@@ -34,7 +34,7 @@ You need just connect the script. You can copy the whole html right here.
 ```
 > Use attributes to define your style
 ### legacy
-`<body>` style the same that in the source page.
+`<body>` style the same that in the source html.
 ### `layout`
 General plan of your page. Attribute related to `<head>`<br>
 Currently support three layouts:
