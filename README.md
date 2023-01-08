@@ -163,5 +163,5 @@ To run script from a folder, you need a special attribute `host` set to HtmlScri
 
 
 # License
-Distributed under MIT license
+Distributed under MIT license. Read License file.
 
