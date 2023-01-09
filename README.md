@@ -9,7 +9,7 @@ Written to be `more` `flexible` and more `comfortable`
 ## Advantages
 `HtmlScript` provides solutions for classical html problems. <br>
 No need to close tags, `no need tricks` with css. <br>
-Easily create elements with relative sizes. <br>
+Easy create elements with relative sizes. <br>
 Choose the layout and don't think about screen orientation. <br>
 Seems that images look bad before loaded? <br>
 We provide a preview while the site isn't loaded completely. <br>
