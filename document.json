@@ -108,7 +108,7 @@ plans.push(new Layout(
               e.style.width = paperWidth + "px"
            } else {
                e.style.width = innerWidth*(1-arg/10)+"px"
-               e.style.marginLeft =  innerWidth*(arg/10) + "px"
+               e.style.marginLeft = innerWidth*(arg/10)/2 + "px"
            }  
            if(e.offsetHeight < innerHeight) { 
               e.style.marginTop = (innerHeight-e.offsetHeight)/2 + "px" 
