@@ -7,7 +7,6 @@ window.getouter =  function(name, from, onfail) {
 function onload() {
     window.__loading__ = document.createElement("div")
     var ld = __loading__
-    document.body.style.margin = 0;
     ld.style.width = innerWidth + "px"
     ld.style.position = "fixed"
     ld.style.fontSize = "35px"
@@ -15,8 +14,13 @@ function onload() {
     ld.style.textAlign = "center"
     ld.innerHTML = "Loading.."
     ld.style.color = getouter("theme", document.body, "rgba(217, 210, 210, 0.6)")
-    document.body.append(ld)
-    ld.style.marginTop = (innerHeight-ld.offsetHeight)/2 + "px"
+    if(document.body) {
+     document.body.style.margin = 0;
+     document.body.append(ld)
+    }
+     onResize(__loading__,function() {
+        e.style.marginTop = (innerHeight-e.offsetHeight)/2 + "px"
+     })
   };
 function getmain(source1, source2) {
   var scripts = document.getElementsByTagName("script")
