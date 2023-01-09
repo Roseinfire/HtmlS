@@ -1,4 +1,4 @@
-![HtmlScript](https://raw.githubusercontent.com/Roseinfire/HtmlScript/main/images/Icon(300x300).png)
+![HtmlScript](https://raw.githubusercontent.com/Roseinfire/HtmlScript/main/images/Icon(400x400).png)
 # Introduction
 `HTML` is technology used everywhere on the web. <br>
 However, it was written more than thirty years ago. <br>
