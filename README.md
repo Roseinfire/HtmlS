@@ -1,6 +1,5 @@
 ![HtmlScript](https://raw.githubusercontent.com/Roseinfire/HtmlScript/main/images/Icon(300x300).png)
 # Introduction
-Was it ever boring to write Html pages? <br>
 `HTML` is technology used everywhere on the web <br>
 however, it was written more than thirty years ago. <br>
 In spite of updates, html is too old to be comfortable. <br>
