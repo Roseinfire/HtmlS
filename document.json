@@ -510,7 +510,6 @@ write.truewrite = function(i, encode) {
     console.log("__scripts__")
     console.log("__loading__")
     console.log("__load")
-    console.log("__htmlscript__")
   console.groupEnd("taken global names")
     }
 </script>

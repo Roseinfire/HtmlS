@@ -31,23 +31,15 @@ function getmain(source1, source2) {
  };
  window.addEventListener("load", function begin() {
    loadtheme()
-   var host = getouter("host", document.body.parentElement)
-   if(host == undefined) {
-     __htmlscript__ = getmain("https://roseinfire.github.io/HtmlScript/begin.js", "https://raw.githubusercontent.com/Roseinfire/HtmlScript/main/begin.js")
-     fetch("https://roseinfire.github.io/HtmlScript/document.json")
+   var host = getouter("host", document.body.parentElement, "https://roseinfire.github.io/HtmlScript")
+     fetch(host + "/document.json")
        .then(response => response.text())
        .then(text => estable(text))
-   } else {
-    __htmlscript__ = getmain(host + "/begin.js", "https://roseinfire.github.io/HtmlScript/begin.js")
-    fetch("document.json")
-      .then(response => response.text())
-      .then(text => estable(text))
-      .catch((error) => {
-         __loading__.innerHTML = "Fetch Error :("
+        .catch((error) => {
+         __loading__.innerHTML = "Host Error :("
          console.error('Error:', error);
          console.log("https://github.com/Roseinfire/HtmlScript for more information.")
         })
-     }
  });
 function estable(response) {
    console.group("compilation")
@@ -61,5 +53,5 @@ function estable(response) {
         if( type == "htmlscript" || type == "text/htmlscript") { res.push(scripts[i]) }
           }; return res
       })(); console.log(__scripts__)
- document.write(response)
+  document.write(response)
 }
