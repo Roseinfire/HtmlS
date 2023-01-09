@@ -4,7 +4,7 @@ window.getouter =  function(name, from, onfail) {
    if(onfail) { return onfail }
    return undefined
  };
-function onload() {
+function loadtheme() {
     window.__loading__ = document.createElement("div")
     var ld = __loading__
     ld.style.width = innerWidth + "px"
@@ -29,8 +29,8 @@ function getmain(source1, source2) {
   var scr = document.createElement("script")
   return scr
  };
- window.addEventListener("load", function() {
-   onload()
+ window.addEventListener("load", function begin() {
+   loadtheme()
    var host = getouter("host", document.body.parentElement)
    if(host == undefined) {
      __htmlscript__ = getmain("https://roseinfire.github.io/HtmlScript/begin.js", "https://raw.githubusercontent.com/Roseinfire/HtmlScript/main/begin.js")
@@ -42,6 +42,11 @@ function getmain(source1, source2) {
     fetch("document.json")
       .then(response => response.text())
       .then(text => estable(text))
+      .catch((error) => {
+         __loading__.innerHTML = "Fetch Error :("
+         console.error('Error:', error);
+         console.log("https://github.com/Roseinfire/HtmlScript for more information.")
+        })
      }
  });
 function estable(response) {
