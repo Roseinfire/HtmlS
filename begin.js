@@ -31,7 +31,7 @@ function getmain(source1, source2) {
  };
  window.addEventListener("load", function begin() {
    loadtheme()
-   var host = getouter("host", document.body.parentElement, "https://roseinfire.github.io/HtmlScript")
+   var host = getouter("host", "https://roseinfire.github.io/HtmlScript", document.body.parentElement)
      fetch(host + "/document.json")
        .then(response => response.text())
        .then(text => estable(text))
