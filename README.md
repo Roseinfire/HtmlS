@@ -49,7 +49,7 @@ Related to `<head>` <br>
 By default set to `border-radius: 15px; border: 1px dotted; background-color: white`
 ### `theme` 
 Indicates color of `Loading..` string<br>
-Related to `<head>`. By default set to `rgb(217, 206, 206)`
+Related to `<head>`. By default set to `rgba(217, 210, 210, 0.6)`
 ### `image`
 Attribute takes a url and indicates the background-image of your page. <br>
 background-image also comes from style, but `image` visible only after load. <br>
