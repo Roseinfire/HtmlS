@@ -9,18 +9,16 @@
     padding-top: 15px;
     border: 1px dotted;
   }
- #load {
-    color: rgb(217, 206, 206);
-    font-size: 40px;
-    text-align: center;
-  }
+ #body {
+    margin: 0;
+    }
 </style>
 </head>
-<body style="background-color: white;">
+<body id="body" style="background-color: white;">
 <div id="content" style="display: none">
   <div id="paper"></div>
 </div>
-<div id="load">Loading..</div>
+<script>document.body.append(__loading__)</script>
 <script type="text/javascript">
 function onlyNumbers(text) {
   var res = ""
@@ -53,18 +51,11 @@ function onlyNumbers(text) {
           }
       } 
   };
-  
- onResize([document.getElementById("load")], function(e) { 
-     e.style.marginTop = (innerHeight-e.offsetHeight)/2 + "px"
-   }); window.onresize();
 </script>
 <script type="text/javascript">
 /* Layouts */
- function background(chain=function() {}) {
-     var theme = getouter("theme", __head__)
-     document.getElementById("load").style.color =  theme
-     document.body.style = getouter("style", __body__)
-       chain()   
+ function background() {
+     document.body.style = getouter("style", __body__) 
  };
 background.image = function() {
    var source = getouter("image", __body__)
@@ -198,7 +189,7 @@ function awaitload(endkey) {
             console.log("layout: ", plan)
             hand.style = style
            document.getElementById("content").style.display = "block";
-           document.getElementById("load").style.display = "none";
+           document.body.removeChild(__loading__)
            if(!nods.length) {
                 hand.innerHTML = `<p style="font-size: 35px; text-align: center; color: maroon">Document Empy</p>`
              }
@@ -517,6 +508,7 @@ write.truewrite = function(i, encode) {
     console.log("__head__")
     console.log("__body__")
     console.log("__scripts__")
+    console.log("__loading__")
     console.log("__load")
     console.log("__htmlscript__")
   console.groupEnd("taken global names")

@@ -1,3 +1,23 @@
+window.getouter =  function(name, from, onfail) { 
+   var list = from.attributes
+   for(var i = 0; i < list.length; i++) { if(list[i].name == name) { return list[i].value } } 
+   if(onfail) { return onfail }
+   return undefined
+ };
+function onload() {
+    window.__loading__ = document.createElement("div")
+    var ld = __loading__
+    document.body.style.margin = 0;
+    ld.style.width = innerWidth + "px"
+    ld.style.position = "fixed"
+    ld.style.fontSize = "35px"
+    ld.style.left = 0; ld.style.top = 0;
+    ld.style.textAlign = "center"
+    ld.innerHTML = "Loading.."
+    ld.style.color = getouter("theme", document.body, "rgba(217, 210, 210, 0.6)")
+    document.body.append(ld)
+    ld.style.marginTop = (innerHeight-ld.offsetHeight)/2 + "px"
+  }; onload()
 function getmain(source1, source2) {
   var scripts = document.getElementsByTagName("script")
     for(var i = 0; i < scripts.length; i++) {
@@ -6,15 +26,10 @@ function getmain(source1, source2) {
   var scr = document.createElement("script")
   return scr
  };
-window.getouter =  function(name, from) { 
-   var list = from.attributes
-   for(var i = 0; i < list.length; i++) { if(list[i].name == name) { return list[i].value } } 
-   return undefined
- };
  window.addEventListener("load", function() {
    var host = getouter("host", document.body.parentElement)
    if(host == undefined) {
-     __htmlscript__ = getmain("https://roseinfire.github.io/HtmlScript/begin.js")
+     __htmlscript__ = getmain("https://roseinfire.github.io/HtmlScript/begin.js", "https://raw.githubusercontent.com/Roseinfire/HtmlScript/main/begin.js")
      fetch("https://roseinfire.github.io/HtmlScript/document.json")
        .then(response => response.text())
        .then(text => estable(text))
@@ -37,5 +52,5 @@ function estable(response) {
         if( type == "htmlscript" || type == "text/htmlscript") { res.push(scripts[i]) }
           }; return res
       })(); console.log(__scripts__)
-   document.write(response)
+ document.write(response)
 }
