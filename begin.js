@@ -17,7 +17,7 @@ function onload() {
     ld.style.color = getouter("theme", document.body, "rgba(217, 210, 210, 0.6)")
     document.body.append(ld)
     ld.style.marginTop = (innerHeight-ld.offsetHeight)/2 + "px"
-  }; onload()
+  };
 function getmain(source1, source2) {
   var scripts = document.getElementsByTagName("script")
     for(var i = 0; i < scripts.length; i++) {
@@ -27,6 +27,7 @@ function getmain(source1, source2) {
   return scr
  };
  window.addEventListener("load", function() {
+   onload()
    var host = getouter("host", document.body.parentElement)
    if(host == undefined) {
      __htmlscript__ = getmain("https://roseinfire.github.io/HtmlScript/begin.js", "https://raw.githubusercontent.com/Roseinfire/HtmlScript/main/begin.js")
