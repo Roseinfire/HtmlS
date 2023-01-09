@@ -18,9 +18,8 @@ function onload() {
      document.body.style.margin = 0;
      document.body.append(ld)
     }
-     onResize(__loading__,function() {
-        e.style.marginTop = (innerHeight-e.offsetHeight)/2 + "px"
-     })
+     ld.top = function() { ld.style.marginTop = (innerHeight-ld.offsetHeight)/2 + "px"}
+     ld.top()
   };
 function getmain(source1, source2) {
   var scripts = document.getElementsByTagName("script")
