@@ -33,42 +33,7 @@ You need only connect the script.
 </html>
 ```
 # Usage
-## Set up attributes
-```HTML
-<head layout="fullscreen">
-<script type="htmlscript"></script>
-</head>
-```
-> Use attributes to create your own style
-### `style`
-`<body>` style in the ready document is the same as the style in source html.
-### `layout`
-General plan of your page. Attribute related to `<head>`<br>
-Currently support three layouts:
-* static `number`<br>
-number shows width of content in pixels.
-* relative `number` <br>
-number shows screen percentage occupied by content.
-* fullscreen <br>
-Have not any arguments.
-### `style`
-Defines style of element which holds content. Is not same to `<body>` element. <br>
-Related to `<head>` <br>
-By default set to `border-radius: 15px; border: 1px dotted; background-color: white`
-### `theme` 
-Indicates color of `Loading..` string<br>
-Related to `<head>`. By default set to `rgba(217, 210, 210, 0.6)`
-### `image`
-Attribute takes a url and indicates the background-image of your page. <br>
-background-image also comes from style, but `image` visible only after load. <br>
-Related to `<body>`. By default not set.
-### `fetch`
-Specific attribute related to `<script type="htmlscript">`. <br>
-Fetch contains a link to htmlscript, if you would like to store it separately.<br>
-By default not set.
-
 ## Inner code
-### Just inside
 ```HTML
 <script type="htmlscript"> ~ comment ~ </script>
 ```
@@ -98,7 +63,6 @@ local border "border: 2px solid"
 ```javascript
   # Element with no style *p @.
 ```
-
 ### Relative sizes and groups:
 ```javascript
   #*div @border. [margin proportion quantity]
@@ -129,13 +93,48 @@ To specify child node, just begin command from `-`
 File action defined automatically by its extension. <br>
 `.js` files become scripts <br>
 `.css` files become styles <br>
+
+## Set up
+### Use attributes to create your own style
+```HTML
+<head layout="fullscreen">
+  <script type="htmlscript" fetch="root/site.json"></script>
+</head>
+```
+### `style`
+Style of `<body>` element is the same as in source html.
+### `layout`
+General plan of your page. Attribute related to `<head>`<br>
+Currently support three layouts:
+* static `number`<br>
+number shows width of content in pixels.
+* relative `number` <br>
+number shows screen percentage occupied by content.
+* fullscreen <br>
+Have not any arguments.
+### `style`
+Defines style of element which holds content. Is not same to `<body>` element. <br>
+Related to `<head>` <br>
+By default set to `border-radius: 15px; border: 1px dotted; background-color: white`
+### `theme` 
+Indicates color of `Loading..` string<br>
+Related to `<head>`. By default set to `rgba(217, 210, 210, 0.6)`
+### `image`
+Attribute takes a url and indicates the background-image of your page. <br>
+background-image also comes from style, but `image` visible only after load. <br>
+Related to `<body>`. By default not set.
+### `fetch`
+Specific attribute related to `<script type="htmlscript">`. <br>
+Fetch contains a link to htmlscript, if you would like to store it separately.<br>
+By default not set.
+
 ### Congratulations! 
 You finished a short study. <br>
 Give the project a star, if you would like to see more features!
 
 # Join development
 The best way to take part in this project - write an addition.<br>
-Read project wiki to understand how to do it. <br>
+Read project wiki to understand additions and code writing. <br>
 Fork the project, write your addition and apply for contribution.<br>
 Note that you also can take part in the discussion about new features. <br>
 
@@ -168,6 +167,8 @@ Note that you also need localhost to test your site when running script from a f
   </head>
 </html>
 ```
+
+
 # Contacts
 * [Roseinfire](https://github.com/Roseinfire)
 * [ko-fi.com/Roseinfire](https://ko-fi.com/roseinfire)
