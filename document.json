@@ -474,7 +474,7 @@ write.truewrite = function(i, encode) {
               .then(response => response.text())
               .then(text => (function(t) { read.data += t;  __load(i+1) })(text))
            } else {  read.data += __scripts__[i].innerHTML; __load(i+1) }
-        } else { searchplans( getouter("layout", __head__), function() { read(read.data) }) }
+        } else { searchplans( getouter("layout", __head__, "relative 0.7"), function() { read(read.data) }) }
    }; __load(0);
 </script>
 </body>
