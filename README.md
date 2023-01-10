@@ -159,7 +159,8 @@ However, you can support HtmlScript on Ko-fi. <br>
 If your site is built with cross-site script, it will not work when script isn't accessible. <br>
 So, the better idea is install HtmlScript to your project's folder. <br>
 To run script from a folder, you need a special attribute `host` set to HtmlScript path include the domain. <br>
-Note that you also need localhost to test your site when running script from a folder.
+Host also will work if you load the script directly from github not from github pages. <br>
+Note that you also need localhost to test your site locally.
 ```HTML
 <html host="https://website.com/path">
   <head>
