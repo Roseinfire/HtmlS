@@ -109,7 +109,7 @@ function searchplans(value, chain=function() {}) {
      }
      var plan = layout(value)
      console.warn(__host__ +  "/layouts/" + plan.name + ".js")
-     fetch(__host__ +  "/additions/" + plan.name + ".js")
+     fetch(__host__ +  "/layouts/" + plan.name + ".js")
        .then(response => response.text())
        .then(text => setlayout(text))
         .catch((error) => {
