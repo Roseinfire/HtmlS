@@ -159,10 +159,10 @@ However, you can support HtmlScript on Ko-fi. <br>
 ### About installation
 If your site is built with cross-site script, it will not work when script isn't accessible. <br>
 So, the better idea is install HtmlScript to your project's folder. <br>
-To run script from a folder, you need a special attribute `host` set to your domain. <br>
+To run script from a folder, you need a special attribute `host` set to the script path include domain. <br>
 Note that you also need localhost to test your site when running script from a folder.
 ```HTML
-<html host="https://website.com">
+<html host="https://website.com/path">
   <head>
      <script src="path/begin.js"></script>
   </head>
