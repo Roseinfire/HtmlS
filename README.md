@@ -167,6 +167,10 @@ Note that you also need localhost to test your site when running script from a f
   </head>
 </html>
 ```
+### About perfomance
+We use coss-site `fetch` constructions, which slows down the load speed. <br>
+In most browsers, the effect will disappear after the first load.  <br>
+However, for more beautiful loading we recommend creating a `loading..` element on the source page.
 
 
 # Contacts
