@@ -10,10 +10,9 @@ Written to be `more` `flexible` and more `comfortable`
 `HtmlScript` provides solutions for classical html problems. <br>
 No need to close tags, `no need tricks` with css. <br>
 Easy to create elements with relative sizes. <br>
-Choose the layout and don't think about screen orientation. <br>
+Easy to choose a content layout. <br>
 Seems that images look bad before loaded? <br>
-We provide a preview untill site isn't loaded completely. <br>
-With HtmlScript you can `almost draw` sites.
+HtmlScript also provides a preview untill site isn't loaded `completely` <br>
 
 ## Needed knowledge
 * CSS 3.0
@@ -95,7 +94,7 @@ File action defined automatically by its extension. <br>
 `.js` files become scripts <br>
 `.css` files become styles <br>
 
-## Set up
+## Setup
 ### Use attributes to create your own style
 ```HTML
 <head layout="fullscreen">
