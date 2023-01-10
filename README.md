@@ -160,7 +160,7 @@ If your site is built with cross-site script, it will not work when script isn't
 So, the better idea is install HtmlScript to your project's folder. <br>
 To run script from a folder, you need a special attribute `host` set to HtmlScript path include the domain. <br>
 Host also will work if you load the script directly from github not from github pages. <br>
-Note that you also need localhost to test your site locally.
+Note that you also need to use localhost to test your site locally.
 ```HTML
 <html host="https://website.com/path">
   <head>
