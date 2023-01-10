@@ -19,7 +19,8 @@ HtmlScript also provides a preview untill site isn't loaded `completely` <br>
 * basic HTML
   
 # Installation
-You need only connect the script.
+You need only connect the script. <br>
+Then write inside `<script>` element or specify `fetch` attribute. <br>
 ```HTML
 <html>
     <head>
@@ -31,7 +32,6 @@ You need only connect the script.
    </body>
 </html>
 ```
-Then write inside `<script>` element or set `fetch` attribute.
 # Usage
 ### Comments:
 ```javascript
