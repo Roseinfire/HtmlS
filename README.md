@@ -1,7 +1,7 @@
 ![HtmlScript](https://raw.githubusercontent.com/Roseinfire/HtmlScript/main/images/Icon(300x300).png)
 # Introduction
-`HTML` is technology used everywhere on the web <br>
-however, it was written more than thirty years ago. <br>
+`HTML` is technology used everywhere on the web. <br>
+However, it was written more than thirty years ago. <br>
 In spite of updates, html is too old to be comfortable. <br>
 HtmlScript is the markup language above Html. <br>
 Written to be `more` `flexible` and more `comfortable`
