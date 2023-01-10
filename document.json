@@ -241,8 +241,7 @@ function read(data,response=false, encode=function(start, end, name) { return tr
         if(read.await) { console.log("reading paused"); break }
         read.pos++; read.change = null; 
         if(response) { console.log(read.data[read.pos], read.iteration) }
-        for(var i = 0; i < keywords.length; i++) {
-            if(read.iteration && keywords[i] == read.iteration && keywords[i].end( read.data[read.pos], read.pos-read.started ) == read.iteration) {
+            if(read.iteration && read.iteration.end( read.data[read.pos], read.pos-read.started ) ) {
                 var draw = encode(read.started, read.pos-read.started, read.iteration.name);
                  if(draw) {
                     read.iteration.recall(read.res, response);
@@ -250,8 +249,10 @@ function read(data,response=false, encode=function(start, end, name) { return tr
                  read.res = ""; read.started = null;
                  read.last_iteration = read.iteration; read.iteration = null;
              }
-             if(!read.iteration && keywords[i].start( read.data[read.pos] ) && keywords[i].start( read.data[read.pos] ) != read.last_iteration) { 
-                  read.iteration = keywords[i]; read.change = true;read.started = read.pos; break;
+            for(var i = 0; i < keywords.length; i++) {
+              let key = keywords[i].start( read.data[read.pos] )
+              if(!read.iteration && key  && key != read.last_iteration) { 1
+                   read.iteration = keywords[i]; read.change = true;read.started = read.pos; break;
               }
        }
       if(read.iteration && !read.change) { read.res += read.data[read.pos] }
@@ -521,7 +522,7 @@ write.truewrite = function(i, encode) {
           if(source) {
               fetch(source)
               .then(response => response.text())
-              .then(text => (function(t) { read.data += t; console.log(t);  __load(i+1) })(text))
+              .then(text => (function(t) { read.data += t;  __load(i+1) })(text))
            } else {  read.data += __scripts__[i].innerHTML; __load(i+1) }
         } else { read(read.data) }
    }; __load(0);
