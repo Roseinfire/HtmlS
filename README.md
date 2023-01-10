@@ -1,18 +1,18 @@
-![HtmlScript](https://raw.githubusercontent.com/Roseinfire/HtmlScript/main/images/Icon(400x400).png)
+![HtmlScript](https://raw.githubusercontent.com/Roseinfire/HtmlScript/main/images/Icon(300x300).png)
 # Introduction
-`HTML` is technology used everywhere on the web. <br>
-However, it was written more than thirty years ago. <br>
+`HTML` is technology used everywhere on the web <br>
+however, it was written more than thirty years ago. <br>
 In spite of updates, html is too old to be comfortable. <br>
 HtmlScript is the markup language above Html. <br>
 Written to be `more` `flexible` and more `comfortable`
 
-# Advantages
+## Advantages
 `HtmlScript` provides solutions for classical html problems. <br>
 No need to close tags, `no need tricks` with css. <br>
-Easily create elements with relative sizes. <br>
+Easy to create elements with relative sizes. <br>
 Choose the layout and don't think about screen orientation. <br>
 Seems that images look bad before loaded? <br>
-We provide a preview while the site isn't loaded completely. <br>
+We provide a preview untill site isn't loaded completely. <br>
 With HtmlScript you can `almost draw` sites.
 
 ## Needed knowledge
@@ -52,12 +52,12 @@ number shows screen percentage occupied by content.
 * fullscreen <br>
 Have not any arguments.
 ### `style`
-Defines style of element which holds content. Is not same to `body`<br>
+Defines style of element which holds content. Is not same to `<body>` element. <br>
 Related to `<head>` <br>
 By default set to `border-radius: 15px; border: 1px dotted; background-color: white`
 ### `theme` 
 Indicates color of `Loading..` string<br>
-Related to `<head>`. By default set to `rgb(217, 206, 206)`
+Related to `<head>`. By default set to `rgba(217, 210, 210, 0.6)`
 ### `image`
 Attribute takes a url and indicates the background-image of your page. <br>
 background-image also comes from style, but `image` visible only after load. <br>
@@ -73,6 +73,8 @@ By default not set.
 <script type="htmlscript"> ~ comment ~ </script>
 ```
 * Comments should not be a part of another syntax.
+* Comments also appear in the console.
+
 ### Creating style:
 ```javascript
 local name "value"
@@ -82,8 +84,8 @@ local name "value"
 *  value: all chars exclude `"`
 #### Example:
 ```javascript
-local font "font-size:30px; text-align: center"
-local border "border: 2px solid;"
+local font "font-size: 30px; text-align: center"
+local border "border: 2px solid"
 ```
 ### Creating an element:
 ```javascript
@@ -132,14 +134,14 @@ You finished a short study. <br>
 Give the project a star, if you would like to see more features!
 
 # Join development
-The simplest way to take part in this project is write an addition.<br>
+The best way to take part in this project - write an addition.<br>
 Read project wiki to understand how to do it. <br>
 Fork the project, write your addition and apply for contribution.<br>
 Note that you also can take part in the discussion about new features. <br>
 
 # Learn more
 ### About safety
-Your page is built with HtmlScript, not HtmlScript built with your page. This is a law. <br>
+Your site is built with HtmlScript, not HtmlScript built with your site. This is a law. <br>
 If your site is built from a local file, it stays local. `No data shared` from local files.<br>
 If your site is hosted on a public server, then it is public. <br>
 Keep in mind that HtmlScript will not take responsibility, <br>
@@ -150,15 +152,15 @@ That's why the HtmlScript `open code` project. <br>
   
 ### About advertisement
 HtmlScript itself `never use advertisement`. <br>
-Anyone can use advertisements on his own site if it is built with HtmlScript. <br>
+Everyone can use advertisements on his own site when it is built with HtmlScript. <br>
 We believe that best support is to join the project or just give it a star. <br>
 However, you can support HtmlScript on Ko-fi. <br>
 
 ### About installation
-If your project is built with cross-site script, it will not work when script isn't accessible. <br>
-So, the better idea is install HtmlScript to your project folder. <br>
+If your site is built with cross-site script, it will not work when script isn't accessible. <br>
+So, the better idea is install HtmlScript to your project's folder. <br>
 To run script from a folder, you need a special attribute `host` set to HtmlScript path include the domain. <br>
-Note that need localhost to test your site when running from a folder.
+Note that you also need localhost to test your site when running script from a folder.
 ```HTML
 <html host="https://website.com/path">
   <head>
@@ -174,4 +176,3 @@ Note that need localhost to test your site when running from a folder.
 # License
 Distributed under MIT license.<br>
 For detailed information read License file.
-
