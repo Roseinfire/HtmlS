@@ -31,11 +31,11 @@ You need only connect the script.
    </body>
 </html>
 ```
+Then write inside `<script>` element or set `fetch` attribute.
 # Usage
-## Inner code
-Inside the script element:
-```HTML
-<script type="htmlscript"> ~ comment ~ </script>
+### Comments:
+```javascript
+~ comment ~
 ```
 * Comments should not be a part of another syntax.
 * Comments also appear in the console.
