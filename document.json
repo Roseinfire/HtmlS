@@ -64,39 +64,21 @@ background.image = function() {
       }
   }; background()
  
-var plans = new Array()
-function searchplans(value, def) {
- if(value) {
-  for(var i = 0;  i < plans.length; i++) {
-    var plan = plans[i].condition(value)
-    if(plan) { plans[i].content(plan); return plans[i].name }
-       }
-    }
-  else if(def) { return searchplans(def) } 
-  else { return "undefined" }
- };
-  
 class Layout {
-  constructor(reaction=function() {}, condition=function() {}, name) {
+  constructor(reaction=function() {}, name) {
    this.content = reaction
-   this.condition = condition
    this.name = name
      }
-  }
-  
- /* layout = "relative _" in range (0; 1) */
-plans.push(new Layout(
-  function(arg) {
-      try { arg = eval(arg) } catch { 
-        console.error("relative layout takes value in range (0; 1)", 
-          'example: layout = "relative ' +  ((Math.random() + 0.1)/2).toFixed(1) + 
-          '"') 
-      }
-      var paperWidth = innerWidth*arg
-      onResize([hand], function(e) {
+ };
+    
+function searchplans(value, chain=function() {}) {
+    var def = `
+    new Layout(
+      function(e) {
+       var arg = 0.5
           if(innerWidth > innerHeight) {
-              e.style.marginLeft = (innerWidth-paperWidth)/2 + "px"
-              e.style.width = paperWidth + "px"
+              e.style.marginLeft = (innerWidth*(1-arg))/2 + "px"
+              e.style.width = innerWidth*arg + "px"
            } else {
                e.style.width = innerWidth*(1-arg/10)+"px"
                e.style.marginLeft = innerWidth*(arg/10)/2 + "px"
@@ -104,74 +86,42 @@ plans.push(new Layout(
            if(e.offsetHeight < innerHeight) { 
               e.style.marginTop = (innerHeight-e.offsetHeight)/2 + "px" 
             } else { e.style.marginTop = "10px" }
-      })
-   }, function(value) {
-          var action = false
+      }, "default relative")`
+    
+    function layout(val) {
+       var action = false
+       var pre = true
+       var res = ""
+       for(var i = 0; i < val.length; i++) {
+          if(value[i] != " " && pre) { pre = false }
+          if(value[i] != " " && !pre) { res += value[i] }
+          if(value[i] == " " && !pre) { action = i; break }
+       }
+      var paperwidth = "";
+      if(action) {
           var pre = true
-          var res = ""
-          for(var i = 0; i < value.length; i++) {
-              if(value[i] != " " && pre) { pre = false }
-              if(value[i] != " " && !pre) { res += value[i] }
-              if(res == "relative") { action = i; break }
-          }
-        var paperwidth = "";
-        if(action) {
-             var pre = true
-             for(var i = action+1; i < value.length; i++) {
-                if(value[i] != " " && pre) { pre = false }
-                if(value[i] != " " && !pre) { paperwidth += value[i] }
-                else if(value[i] == " " && !pre) { return paperwidth }
-              }; return paperwidth
+          for(var i = action+1; i < val.length; i++) {
+             if(value[i] != " " && pre) { pre = false }
+             if(value[i] != " " && !pre) { paperwidth += value[i] }
+             else if(value[i] == " " && !pre) { return paperwidth }
+              }; return { name: res, arg: paperwidth }
           }; return false
-     }, "relative"
-));
-/* layout = "static _" in range (0; ∞)*/
- plans.push(new Layout(
-   function(arg) {
-      try { arg = eval(arg) } catch { 
-        console.error("static layout takes value in range (0; ∞)", 'example: layout = "static 500"') 
+     }
+     var plan = layout(value)
+     console.warn(__host__ +  "/layouts/" + plan.name + ".js")
+     fetch(__host__ +  "/additions/" + plan.name + ".js")
+       .then(response => response.text())
+       .then(text => setlayout(text))
+        .catch((error) => {
+           console.error("can't find specified layout >> ", plan.name)
+           setlayout(def)
+        })
+      function setlayout(res) {
+        searchplans.plan = { layout: eval(res), argument: plan.arg }
+        onResize([hand], function(e) { searchplans.plan.layout.content(e, searchplans.plan.argument) })
+        chain()
       }
-     onResize([hand], function(e) {
-         if(arg < innerWidth) {
-            e.style.width = arg + "px"
-            e.style.marginLeft = (innerWidth-arg)/2 + "px"
-            }
-         else { e.style.marginLeft = 0; }
-          if(e.offsetHeight < innerHeight) {
-             e.style.marginTop= (innerHeight - e.offsetHeight)/2 + "px"
-          } else { e.style.marginTop = 0; }
-      })
-   }, function(value) {
-          var action = false
-          var pre = true
-          var res = ""
-          for(var i = 0; i < value.length; i++) {
-              if(value[i] != " " && pre) { pre = false }
-              if(value[i] != " " && !pre) { res += value[i] }
-              if(res == "static") { action = i; break }
-          }
-        var paperwidth = "";
-        if(action) {
-             var pre = true
-             for(var i = action+1; i < value.length; i++) {
-                if(value[i] != " " && pre) { pre = false }
-                if(value[i] != " " && !pre) { paperwidth += value[i] }
-                else if(value[i] == " " && !pre) { return paperwidth }
-              }; return paperwidth
-          }; return false
-     }, "static"
-));
-  /* layout = "fullscreen" */
- plans.push(new Layout(
-  function(arg) {
-    onResize(hand, function(e) {
-     e.style.width = innerWidth + "px"
-     e.style.height = innerHeight + "px"
-      })
-   }, function(value) {
-       if(value == "fullscreen") { return true }
-     }, "fullscreen"
-));
+  };
 </script>
 <script type="text/javascript">
 /* load */
@@ -185,12 +135,10 @@ function awaitload(endkey) {
         try {
             background.image()
             var style = getouter("style", __head__)
-            var plan = searchplans( getouter("layout", __head__), "relative 0.8")
-            console.log("layout: ", plan)
             hand.style = style
-           document.getElementById("content").style.display = "block";
-           document.body.removeChild(__loading__)
-           if(!nods.length) {
+            document.getElementById("content").style.display = "block";
+            document.body.removeChild(__loading__)
+            if(!nods.length) {
                 hand.innerHTML = `<p style="font-size: 35px; text-align: center; color: maroon">Document Empy</p>`
              }
            if(window.onresize) { window.onresize(); window.onresize(); }
@@ -498,14 +446,16 @@ write.truewrite = function(i, encode) {
     
  write.about = function() {
   console.group("taken global names")
-    console.log( "hand") 
+    console.log("hand") 
     console.log("awaitload")
     console.log("loads")
     console.log("keyword")
     console.log("keywords")
     console.log("read")
     console.log("write")
+    console.log("Layout")
     console.log("getouter")
+    console.log("__host__")
     console.log("__head__")
     console.log("__body__")
     console.log("__scripts__")
@@ -524,7 +474,7 @@ write.truewrite = function(i, encode) {
               .then(response => response.text())
               .then(text => (function(t) { read.data += t;  __load(i+1) })(text))
            } else {  read.data += __scripts__[i].innerHTML; __load(i+1) }
-        } else { read(read.data) }
+        } else { searchplans( getouter("layout", __head__), function() { read(read.data) }) }
    }; __load(0);
 </script>
 </body>
