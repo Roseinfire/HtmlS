@@ -34,6 +34,7 @@ You need only connect the script.
 ```
 # Usage
 ## Inner code
+Inside the script element:
 ```HTML
 <script type="htmlscript"> ~ comment ~ </script>
 ```
