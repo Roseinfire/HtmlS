@@ -1,22 +1,17 @@
 ![HtmlScript](https://raw.githubusercontent.com/Roseinfire/HtmlScript/main/images/Icon(300x300).png)
 # Introduction
-`HTML` is technology used everywhere on the web. <br>
-However, it was written more than thirty years ago. <br>
-In spite of updates, html is too old to be comfortable. <br>
-HtmlScript is the markup language above Html. <br>
-Written to be `more` `flexible` and more `comfortable`
+Hyper Text Markup used everywhere on the web. <br>
+Written more than thirty years ago, it is not so human friendly. <br>
+HtmlS is the decoration language above html, which <br>
+written to be `more` `flexible` and more `comfortable`
 
 ## Advantages
-`HtmlScript` provides solutions for classical html problems. <br>
-No need to close tags, `no need tricks` with css. <br>
-Easy to create elements with relative sizes. <br>
-Easy to choose a content layout. <br>
-Seems that images look bad before loaded? <br>
-HtmlScript also provides a preview untill site isn't loaded `completely` <br>
 
-## Needed knowledge
-* CSS 3.0
-* basic HTML
+* No need to close tags
+* No need css tricks
+* Easy to set up a preload
+* Easy to create elements group
+* Easy to choose a content layout
   
 # Installation
 You need only connect the script. <br>
