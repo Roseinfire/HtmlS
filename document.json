@@ -5,9 +5,8 @@
  #paper {
     background-color: white;
     border-radius: 20px;
-    padding-bottom: 10px;
-    padding-top: 15px;
     border: 1px dotted;
+    padding: 0;
   }
  #body {
     margin: 0;
@@ -93,19 +92,19 @@ function searchplans(value, chain=function() {}) {
        var pre = true
        var res = ""
        for(var i = 0; i < val.length; i++) {
-          if(value[i] != " " && pre) { pre = false }
-          if(value[i] != " " && !pre) { res += value[i] }
-          if(value[i] == " " && !pre) { action = i; break }
+          if(val[i] != " " && pre) { pre = false }
+          if(val[i] != " " && !pre) { res += val[i] }
+          if(val[i] == " " && !pre) { action = i; break }
        }
       var paperwidth = "";
       if(action) {
           var pre = true
           for(var i = action+1; i < val.length; i++) {
-             if(value[i] != " " && pre) { pre = false }
-             if(value[i] != " " && !pre) { paperwidth += value[i] }
-             else if(value[i] == " " && !pre) { return paperwidth }
-              }; return { name: res, arg: paperwidth }
-          }; return false
+             if(val[i] != " " && pre) { pre = false }
+             if(val[i] != " " && !pre) { paperwidth += value[i] }
+             else if(val[i] == " " && !pre) { return paperwidth }
+              }
+          }; return { name: res, arg: paperwidth }
      }
      var plan = layout(value)
      console.warn(__host__ +  "/layouts/" + plan.name + ".js")
@@ -239,7 +238,7 @@ keywords.cssmodify = function(style) {
         if(style[i] == ";") { adition = false;}
         if(style[i] != " ") { break }
      }
-    if(adition) { return style+";" } else { return style }
+    if(adition) { return style+";" } else { return eval('`' + style + '`') }
  };
 
 keywords.getvalue = function(name, err) {
