@@ -178,7 +178,7 @@ class keyword {
        }
  };
 
-function read(data,response=false, encode=function(start, end, name) { return true }) {
+function read(data, response=false, encode=function(start, end, name) { return true }) {
     if(!read.pos) { read.pos = -1; awaitload() }
     read.data = data
     read.response = response
@@ -199,7 +199,7 @@ function read(data,response=false, encode=function(start, end, name) { return tr
              }
             for(var i = 0; i < keywords.length; i++) {
               let key = keywords[i].start( read.data[read.pos] )
-              if(!read.iteration && key  && key != read.last_iteration) { 1
+              if(!read.iteration && key  && key != read.last_iteration) {
                    read.iteration = keywords[i]; read.change = true;read.started = read.pos; break;
               }
        }
@@ -227,7 +227,6 @@ read.continueReading = function() {
  var keywords = []
  keywords.tempovar = null
  keywords.tempotext = null
- keywords.tempotype = null 
  keywords.tempowrite = null
  keywords.word = null
  keywords.childhood = 0
@@ -349,18 +348,9 @@ keywords.importitem = function(command) {
  };
   
 keywords.draw = function(res) {
-    function separate(variables) {
-        var variable = ""
-        var result = ""
-        for(var i = 0; i < variables.length; i++) {
-            if(variables[i] == " ") { result += keywords.getvalue(variable); variable = "" }
-            else { variable += variables[i] }
-         }; if(variable) { result += keywords.getvalue(variable) }
-      return result
-     }
-   keywords.tempowrite = write(keywords.tempotext, keywords.tempotype, separate(res), keywords.childhood)
+   keywords.tempowrite = write(keywords.tempotext,  res, keywords.childhood)
+   keywords.tempotext = null; keywords.childhood = 0;
    write.truewrite()
-   keywords.tempotext = null; keywords.tempotype = null; keywords.childhood = 0;
  };
   
 keywords.local = function(res) {
@@ -385,7 +375,7 @@ keywords.value = function(res) {
       keywords.tempovar = null; keywords.word = null
    }
   else if(keywords.word=="import") {
-      keywords.importitem(res); keywords.word = null; //keywords.tempovar = null
+      keywords.importitem(res); keywords.word = null;
      }
   };
   
@@ -396,19 +386,33 @@ keywords.child = function(res) {
      }; keywords.childhood = result;
   };
   
+keywords.style = function(node, res) {
+  if(node) {
+    node.style = (function separate(variables) {
+        var variable = ""
+        var result = ""
+        for(var i = 0; i < variables.length; i++) {
+            if(variables[i] == " ") { result += keywords.getvalue(variable); variable = "" }
+            else { variable += variables[i] }
+         }; if(variable) { result += keywords.getvalue(variable) }
+        return result
+      })(res)
+    }
+ }
+  
 keywords.push(new keyword(["~"], ["~"], function(res) { console.log(res) }, "comment"))
 keywords.push(new keyword(["l"], ['"'], function(res) { keywords.local(res) }, "local"))
 keywords.push(new keyword(["i"], ['"'], function(res) { keywords.import(res) }, "import"))
 keywords.push(new keyword(['"'], ['"'], function(res) { keywords.value(res) }, "value"))
 keywords.push(new keyword(["-"], ["#"], function(res) { keywords.child(res) }, "child"))
-keywords.push(new keyword(["#"], ["*"], function(res) { keywords.tempotext = res; }, "element"))
-keywords.push(new keyword(["*"], [" ", "@"], function(res) { keywords.tempotype = res }, "type"))
-keywords.push(new keyword(["@"], ["."], function(res) { keywords.draw(res) }, "draw"))
+keywords.push(new keyword(["#"], ["*"], function(res) { keywords.tempotext = res; }, "inner"))
+keywords.push(new keyword(["*"], [" ", "@", "\n"], function(res) { keywords.draw(res) }, "draw"))
+keywords.push(new keyword(["@"], ["."], function(res) { keywords.style(keywords.tempowrite.node, res) }, "style"))
 keywords.push(new keyword(["{"], ["}"], function(res) { keywords.attribute(keywords.tempowrite.node, res) }, "attribute"))
 keywords.push(new keyword(["["], ["]"], function(res) { keywords.groupitem(keywords.tempowrite, res) }, "group"))
 
 /* writing */
-function write(text, type, style, childhood) { 
+function write(text, type, childhood) { 
     var element = (function () {
     try {
         var res = document.createElement(type)
@@ -416,8 +420,7 @@ function write(text, type, style, childhood) {
             awaitload()
             res.onload = function() { awaitload(true) }
         }
-      if(text) { res.innerHTML = text }
-      if(style) { res.style = style }
+        if(text) { res.innerHTML = text }
       return res
     } catch {
          console.warn("Element creation failed *" + type)
