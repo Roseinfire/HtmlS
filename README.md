@@ -81,7 +81,7 @@ local border "border: 2px solid"
  # *img { className="image", id="example" }
 ```
 * between brackets `{` and `}` mark attributes. Separate with `,`
-* Note that you wrote properties, but not Html attributes.
+* Note that you wrote properties, not Html attributes.
 ### Child nodes:
 To specify child node, begin command from `-`
 ```javascript
