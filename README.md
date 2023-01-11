@@ -54,18 +54,22 @@ local border "border: 2px solid"
 ```
 ### Creating an element:
 ```javascript
-# Hello World! *type @font border.
+# Hello World! *type
 ```
 * after `#` goes innerHTML, takes any value exclude `*`
 * `type` takes classic tag name like `p` or `div`
-* `font` and `border` are styles, defined like `local name "value"`
-#### Character `@` is also a draw operator. Even if the style is not specified, `@.` must be marked.
+
+### Adding styles:
 ```javascript
-  # Element with no style *p @.
+  # I'm styled! *p @font border.
 ```
+* styles were defined with keyword `local`
+* separate styles with `space`
+* don't forget to add `.`
+
 ### Relative sizes and groups:
 ```javascript
-  #*div @border. [margin proportion quantity]
+  # *div @border. [margin proportion quantity]
 ```
 #### Between brackets `[` and `]` mark the conditions. Separate arguments with spaces.
 * margin from parent border (`0` by default)
@@ -74,16 +78,16 @@ local border "border: 2px solid"
 
 ### Adding attributes:
 ```javascript
- #*img @. { className="image", id="example" }
+ # *img { className="image", id="example" }
 ```
 * between brackets `{` and `}` mark attributes. Separate with `,`
 * Note that you wrote properties, but not Html attributes.
 ### Child nodes:
-To specify child node, just begin command from `-`
+To specify child node, begin command from `-`
 ```javascript
  # *div @font.
-   - # *div @.
-    -- # Hello child nodes! *div @.
+   - # *div @border.
+    -- # Hello child nodes! *div
 ```
 ### External files:
 ```javascript
