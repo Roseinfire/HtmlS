@@ -44,9 +44,9 @@ Then write inside `<script>` element or specify `fetch` attribute. <br>
 ```javascript
 local name "value"
 ```
-#### works like variable
-*  name: all chars exclude `space`, `"` and `.`
-*  value: all chars exclude `"`
+#### `name` works like variable
+*  name: takes all chars exclude `space`, `"` and `.`
+*  value: takes all chars exclude `"`
 #### Example:
 ```javascript
 local font "font-size: 30px; text-align: center"
