@@ -113,7 +113,7 @@ keywords.cssmodify = function(style) {
         if(style[i] == ";") { adition = false;}
         if(style[i] != " ") { break }
      }
-    if(adition) { return style+";" } else { return style }
+    if(adition) { return style+";" } else { return eval('`' + style + '`') }
  };
 
 keywords.getvalue = function(name, err) {
@@ -214,11 +214,15 @@ keywords.importitem = function(command) {
         document.body.append(script)
    }
     else if(ext == "ssc") {
-       var style = document.createElement("link")
-       style.rel="stylesheet"
-       style.src = command
-       document.head.append(style)
-     }
+       var style = document.createElement("style")
+       style.type = "text/css"
+        fetch(command)
+       .then(response => response.text())
+       .then(text => (function(t) { 
+         style.innerHTML = t
+         document.head.append(style)
+        })(text))
+     } else { console.error("searching for extension >", ext) }
  };
   
 keywords.draw = function(res) {
