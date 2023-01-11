@@ -7,7 +7,7 @@ written to be `more` `flexible` and more `comfortable`
 
 ## Advantages
 
-* Intuitive syntax
+* Human friendly syntax
 * Easy to set up a preload
 * Easy to create elements group
 * Easy to choose a content layout
