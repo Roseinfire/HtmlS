@@ -9,12 +9,10 @@ function awaitload(endkey) {
         try {
             background.image()
             var style = getouter("style", __head__)
-            var plan = searchplans( getouter("layout", __head__), "relative 0.8")
-            console.log("layout: ", plan)
             hand.style = style
-           document.getElementById("content").style.display = "block";
-           document.getElementById("load").style.display = "none";
-           if(!nods.length) {
+            document.getElementById("content").style.display = "block";
+            document.body.removeChild(__loading__)
+            if(!nods.length) {
                 hand.innerHTML = `<p style="font-size: 35px; text-align: center; color: maroon">Document Empy</p>`
              }
            if(window.onresize) { window.onresize(); window.onresize(); }
@@ -54,7 +52,7 @@ class keyword {
        }
  };
 
-function read(data,response=false, encode=function(start, end, name) { return true }) {
+function read(data, response=false, encode=function(start, end, name) { return true }) {
     if(!read.pos) { read.pos = -1; awaitload() }
     read.data = data
     read.response = response
@@ -65,8 +63,7 @@ function read(data,response=false, encode=function(start, end, name) { return tr
         if(read.await) { console.log("reading paused"); break }
         read.pos++; read.change = null; 
         if(response) { console.log(read.data[read.pos], read.iteration) }
-        for(var i = 0; i < keywords.length; i++) {
-            if(read.iteration && keywords[i] == read.iteration && keywords[i].end( read.data[read.pos], read.pos-read.started ) == read.iteration) {
+            if(read.iteration && read.iteration.end( read.data[read.pos], read.pos-read.started ) ) {
                 var draw = encode(read.started, read.pos-read.started, read.iteration.name);
                  if(draw) {
                     read.iteration.recall(read.res, response);
@@ -74,8 +71,10 @@ function read(data,response=false, encode=function(start, end, name) { return tr
                  read.res = ""; read.started = null;
                  read.last_iteration = read.iteration; read.iteration = null;
              }
-             if(!read.iteration && keywords[i].start( read.data[read.pos] ) && keywords[i].start( read.data[read.pos] ) != read.last_iteration) { 
-                  read.iteration = keywords[i]; read.change = true;read.started = read.pos; break;
+            for(var i = 0; i < keywords.length; i++) {
+              let key = keywords[i].start( read.data[read.pos] )
+              if(!read.iteration && key  && key != read.last_iteration) {
+                   read.iteration = keywords[i]; read.change = true;read.started = read.pos; break;
               }
        }
       if(read.iteration && !read.change) { read.res += read.data[read.pos] }
@@ -102,7 +101,6 @@ read.continueReading = function() {
  var keywords = []
  keywords.tempovar = null
  keywords.tempotext = null
- keywords.tempotype = null 
  keywords.tempowrite = null
  keywords.word = null
  keywords.childhood = 0
@@ -224,18 +222,9 @@ keywords.importitem = function(command) {
  };
   
 keywords.draw = function(res) {
-    function separate(variables) {
-        var variable = ""
-        var result = ""
-        for(var i = 0; i < variables.length; i++) {
-            if(variables[i] == " ") { result += keywords.getvalue(variable); variable = "" }
-            else { variable += variables[i] }
-         }; if(variable) { result += keywords.getvalue(variable) }
-      return result
-     }
-   keywords.tempowrite = write(keywords.tempotext, keywords.tempotype, separate(res), keywords.childhood)
+   keywords.tempowrite = write(keywords.tempotext,  res, keywords.childhood)
+   keywords.tempotext = null; keywords.childhood = 0;
    write.truewrite()
-   keywords.tempotext = null; keywords.tempotype = null; keywords.childhood = 0;
  };
   
 keywords.local = function(res) {
@@ -260,7 +249,7 @@ keywords.value = function(res) {
       keywords.tempovar = null; keywords.word = null
    }
   else if(keywords.word=="import") {
-      keywords.importitem(res); keywords.word = null; //keywords.tempovar = null
+      keywords.importitem(res); keywords.word = null;
      }
   };
   
@@ -271,19 +260,33 @@ keywords.child = function(res) {
      }; keywords.childhood = result;
   };
   
+keywords.style = function(node, res) {
+  if(node) {
+    node.style = (function separate(variables) {
+        var variable = ""
+        var result = ""
+        for(var i = 0; i < variables.length; i++) {
+            if(variables[i] == " ") { result += keywords.getvalue(variable); variable = "" }
+            else { variable += variables[i] }
+         }; if(variable) { result += keywords.getvalue(variable) }
+        return result
+      })(res)
+    }
+ }
+  
 keywords.push(new keyword(["~"], ["~"], function(res) { console.log(res) }, "comment"))
 keywords.push(new keyword(["l"], ['"'], function(res) { keywords.local(res) }, "local"))
 keywords.push(new keyword(["i"], ['"'], function(res) { keywords.import(res) }, "import"))
 keywords.push(new keyword(['"'], ['"'], function(res) { keywords.value(res) }, "value"))
 keywords.push(new keyword(["-"], ["#"], function(res) { keywords.child(res) }, "child"))
-keywords.push(new keyword(["#"], ["*"], function(res) { keywords.tempotext = res; }, "element"))
-keywords.push(new keyword(["*"], [" ", "@"], function(res) { keywords.tempotype = res }, "type"))
-keywords.push(new keyword(["@"], ["."], function(res) { keywords.draw(res) }, "draw"))
+keywords.push(new keyword(["#"], ["*"], function(res) { keywords.tempotext = res; }, "inner"))
+keywords.push(new keyword(["*"], [" ", "@", "\n"], function(res) { keywords.draw(res) }, "draw"))
+keywords.push(new keyword(["@"], ["."], function(res) { keywords.style(keywords.tempowrite.node, res) }, "style"))
 keywords.push(new keyword(["{"], ["}"], function(res) { keywords.attribute(keywords.tempowrite.node, res) }, "attribute"))
 keywords.push(new keyword(["["], ["]"], function(res) { keywords.groupitem(keywords.tempowrite, res) }, "group"))
 
 /* writing */
-function write(text, type, style, childhood) { 
+function write(text, type, childhood) { 
     var element = (function () {
     try {
         var res = document.createElement(type)
@@ -291,8 +294,7 @@ function write(text, type, style, childhood) {
             awaitload()
             res.onload = function() { awaitload(true) }
         }
-      if(text) { res.innerHTML = text }
-      if(style) { res.style = style }
+        if(text) { res.innerHTML = text }
       return res
     } catch {
          console.warn("Element creation failed *" + type)
@@ -321,19 +323,20 @@ write.truewrite = function(i, encode) {
     
  write.about = function() {
   console.group("taken global names")
-    console.log( "hand") 
+    console.log("hand") 
     console.log("awaitload")
     console.log("loads")
     console.log("keyword")
     console.log("keywords")
     console.log("read")
     console.log("write")
+    console.log("Layout")
     console.log("getouter")
+    console.log("__host__")
     console.log("__head__")
     console.log("__body__")
     console.log("__scripts__")
+    console.log("__loading__")
     console.log("__load")
-    console.log("__htmlscript__")
   console.groupEnd("taken global names")
     }
-    
