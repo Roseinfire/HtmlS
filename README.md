@@ -7,19 +7,20 @@ written to be `more` `flexible` and more `comfortable`
 
 ## Advantages
 
-* Friendly syntax
+* Human friendly syntax
 * Easy to set up a preload
 * Easy to create elements group
 * Easy to choose a content layout
   
 # Installation
-You need only connect the script. <br>
-Then write inside the htmls `<script>` element or specify the `fetch` attribute. <br>
+Connect the script and let it do all the dirty job for you. <br>
+HtmlS compilates inside any `<script>` scpecified as `htmlscript` <br>
+It's also possible to store htmls separetely from html document.
 ```HTML
 <html>
     <head>
       <meta charset="utf-8">
-      <script type="htmls"></script>
+      <script type="htmlscript"></script>
      </head>
      <body>
       <script src="https://roseinfire.github.io/HtmlScript/begin.js"></script>
@@ -34,7 +35,7 @@ Then write inside the htmls `<script>` element or specify the `fetch` attribute.
 * Comments should not be a part of another syntax.
 * Comments also appear in the console.
 
-### Creating a style:
+### Styles:
 ```javascript
 local name "value"
 ```
@@ -46,29 +47,24 @@ local name "value"
 local font "font-size: 30px; text-align: center"
 local border "border: 2px solid"
 ```
-### Creating an element:
+### Elements:
 ```javascript
-# Hello World! *type
+# Hello World! *tag @font border.
 ```
 * after `#` goes innerHTML, takes any value exclude `*`
-* `type` takes classic tag name like `p` or `div`
-
-### Add in styles:
-```javascript
-  # I'm styled! *p @font border.
-```
+* `tag` takes classic tag name like `p` or `div`
 * styles were defined with keyword `local`
 * separate styles with `space`
-* don't forget to add `.`
+* don't forget to add `.` after styles.
 
-### Repeatitions:
+### Recaps:
 ```javascript
- # Element *p @font. (2)
+ # Element *div (2)
 ```
-* between brackets `(` and `)` specify `number` of elements
-* parent element will have number of same elements
+* between brackets `(` and `)` specify `number`
+* parent element will have a number of same elements
 
-### Relative sizes and groups:
+### Groups:
 ```javascript
   # *div @border. [margin proportion quantity class] @font.
 ```
@@ -79,28 +75,28 @@ local border "border: 2px solid"
 * class - optional argument which defines node class name
 * first style indicates style of `group`, while second style of `header`
 
-### Add in attributes:
+### Attributes:
 ```javascript
  # *img { className="image", id="example" }
 ```
 * between brackets `{` and `}` specify attributes. Separate with `,`
 * Note that you wrote properties, not Html attributes.
-### Creating children nodes:
+### Children nodes:
 To specify child node, begin command from `-`
 ```javascript
  # *div @font.
    - # *div @border.
     -- # Hello children nodes! *div
 ```
-### Add in a language:
+### Insert code:
 ```javascript
-JS `console.log("hello js")`
+JS `console.log("hello inserts")`
 ```
 * specify language and write inside sloped quotes
 * javascript and css are both supported
-* exclude sloped quotes
+* exclude sloped quotes from code
 
-### Add on files:
+### External files:
 ```javascript
  import "root/code.js"
  import "root/style.css"
@@ -116,8 +112,6 @@ File action defined automatically by its extension. <br>
   <script type="htmlscript" fetch="root/site.json"></script>
 </head>
 ```
-### `style`
-Style of `<body>` element is the same as in the source html.
 ### `layout`
 General plan of your site. Related to `<head>`<br>
 Currently support three layouts:
@@ -138,6 +132,8 @@ Related to `<head>`. By default set to `rgba(217, 210, 210, 0.6)`
 Attribute takes a url and indicates the background-image of your page. <br>
 background-image also comes from style, but `image` is visible only after load. <br>
 Related to `<body>`. By default not set.
+### `style`
+Style of `<body>` element is the same as in the source html.
 ### `fetch`
 Specific attribute related to `<script type="htmls">`. <br>
 Fetch contains a link to code, if you would like to store it separately.<br>
