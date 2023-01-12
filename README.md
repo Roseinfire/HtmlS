@@ -150,11 +150,11 @@ By default not set.
 You finished a short study. <br>
 Give the project a star, if you would like to see more features!
 
-# Join development
-The best way to take part in this project - write an addition.<br>
-Read project wiki to understand additions and code writing. <br>
-Fork the project, write your addition and apply for contribution.<br>
-Note that you also can take part in the discussion about new features. <br>
+# Development
+The best way to take part in this project - leave a comment.<br>
+Just go to the discussions and write how would you like to write html <br>
+or what features would you like to see in htmls. <br>
+Also you can write a layout to help create beautiful sites <br>
 
 # Learn more
 ### About safety
