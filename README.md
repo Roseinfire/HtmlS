@@ -13,8 +13,9 @@ written to be `more` `flexible` and more `comfortable`
 * Easy to choose a content layout
   
 # Installation
-You need only connect the script. <br>
-Then write inside `<script>` element or specify `fetch` attribute. <br>
+Connect the script and let it do all the dirty job for you. <br>
+HtmlS compilates inside any `<script>` scpecified as `htmlscript` <br>
+It's also possible to store htmls separetely from html document.
 ```HTML
 <html>
     <head>
@@ -34,7 +35,7 @@ Then write inside `<script>` element or specify `fetch` attribute. <br>
 * Comments should not be a part of another syntax.
 * Comments also appear in the console.
 
-### Creating style:
+### Styles:
 ```javascript
 local name "value"
 ```
@@ -46,43 +47,55 @@ local name "value"
 local font "font-size: 30px; text-align: center"
 local border "border: 2px solid"
 ```
-### Creating an element:
+### Elements:
 ```javascript
-# Hello World! *type
+# Hello World! *tag @font border.
 ```
 * after `#` goes innerHTML, takes any value exclude `*`
-* `type` takes classic tag name like `p` or `div`
-
-### Adding styles:
-```javascript
-  # I'm styled! *p @font border.
-```
+* `tag` takes classic tag name like `p` or `div`
 * styles were defined with keyword `local`
 * separate styles with `space`
-* don't forget to add `.`
+* don't forget to add `.` after styles.
 
-### Relative sizes and groups:
+### Recaps:
 ```javascript
-  # *div @border. [margin proportion quantity]
+ # Element *div (2)
+```
+* between brackets `(` and `)` specify `number`
+* parent element will have a number of same elements
+
+### Groups:
+```javascript
+  # *div @border. [margin proportion quantity class] @font.
 ```
 #### Between brackets `[` and `]` mark the conditions. Separate arguments with spaces.
 * margin from parent border (`0` by default)
 * proportion - width/height (`1` by default)
 * quantity - how many elements in group (`1` by default)
+* class - optional argument which defines node class name
+* first style indicates style of `group`, while second style of `header`
 
-### Adding attributes:
+### Attributes:
 ```javascript
  # *img { className="image", id="example" }
 ```
-* between brackets `{` and `}` mark attributes. Separate with `,`
+* between brackets `{` and `}` specify attributes. Separate with `,`
 * Note that you wrote properties, not Html attributes.
-### Child nodes:
+### Children nodes:
 To specify child node, begin command from `-`
 ```javascript
  # *div @font.
    - # *div @border.
-    -- # Hello child nodes! *div
+    -- # Hello children nodes! *div
 ```
+### Insert code:
+```javascript
+JS `console.log("hello inserts")`
+```
+* specify language and write inside sloped quotes
+* javascript and css are both supported
+* exclude sloped quotes from code
+
 ### External files:
 ```javascript
  import "root/code.js"
@@ -93,16 +106,14 @@ File action defined automatically by its extension. <br>
 `.css` files become styles <br>
 
 ## Setup
-### Use attributes to create your own style
+### Choose attributes to create your own style
 ```HTML
 <head layout="fullscreen">
   <script type="htmlscript" fetch="root/site.json"></script>
 </head>
 ```
-### `style`
-Style of `<body>` element is the same as in source html.
 ### `layout`
-General plan of your page. Attribute related to `<head>`<br>
+General plan of your site. Related to `<head>`<br>
 Currently support three layouts:
 * static `number`<br>
 number shows width of content in pixels.
@@ -111,54 +122,55 @@ number shows screen percentage occupied by content.
 * fullscreen <br>
 Have not any arguments.
 ### `style`
-Defines style of element which holds content. Is not same to `<body>` element. <br>
+Defines style of element which holds content. Is not the same to `<body>` element. <br>
 Related to `<head>` <br>
 By default set to `border-radius: 15px; border: 1px dotted; background-color: white`
 ### `theme` 
-Indicates color of `Loading..` string<br>
+Indicates colour of `Loading..` string<br>
 Related to `<head>`. By default set to `rgba(217, 210, 210, 0.6)`
 ### `image`
 Attribute takes a url and indicates the background-image of your page. <br>
-background-image also comes from style, but `image` visible only after load. <br>
+background-image also comes from style, but `image` is visible only after load. <br>
 Related to `<body>`. By default not set.
+### `style`
+Style of `<body>` element is the same as in the source html.
 ### `fetch`
-Specific attribute related to `<script type="htmlscript">`. <br>
-Fetch contains a link to htmlscript, if you would like to store it separately.<br>
+Specific attribute related to `<script type="htmls">`. <br>
+Fetch contains a link to code, if you would like to store it separately.<br>
 By default not set.
 
 ### Congratulations! 
 You finished a short study. <br>
 Give the project a star, if you would like to see more features!
 
-# Join development
-The best way to take part in this project - write an addition.<br>
-Read project wiki to understand additions and code writing. <br>
-Fork the project, write your addition and apply for contribution.<br>
-Note that you also can take part in the discussion about new features. <br>
+# Development
+The best way to take part in this project - leave a comment.<br>
+Just go to the discussions and write how would you like to write html <br>
+or what features would you like to see in htmls. <br>
+Also you can write a layout to help create beautiful sites.
 
 # Learn more
 ### About safety
-Your site is built with HtmlScript, not HtmlScript built with your site. This is a law. <br>
+Your site is built with htmls, not htmls built with your site. This is our rule. <br>
 If your site is built from a local file, it stays local. `No data shared` from local files.<br>
 If your site is hosted on a public server, then it is public. <br>
 Keep in mind that HtmlScript will not take responsibility, <br>
 if you publish confidential information on the public server.<br>
 When connect external scripts (include this one) you give it access to all your page.<br>
-Be sure that you can trust the connected script. <br>
-That's why the HtmlScript `open code` project. <br>
+Be sure that you can trust the connected script. That's why the HtmlS `open code` project.
   
 ### About advertisement
 HtmlScript itself `never use advertisement`. <br>
-Everyone can use advertisements on his own site when it is built with HtmlScript. <br>
+Everyone can use advertisements on his own site when it is built with htmls. <br>
 We believe that best support is to join the project or just give it a star. <br>
-However, you can support HtmlScript on Ko-fi. <br>
+However, you can support HtmlS on Ko-fi. <br>
 
 ### About installation
-If your site is built with cross-site script, it will not work when script isn't accessible. <br>
-So, the better idea is install HtmlScript to your project's folder. <br>
-To run script from a folder, you need a special attribute `host` set to HtmlScript path include the domain. <br>
-Host also will work if you load the script directly from github not from github pages. <br>
-Note that you also need to use localhost to test your site locally.
+If your site is built with a cross-site script, it will not work when the script isn't accessible. <br>
+So, the better idea is to download htmls to your project's folder. <br>
+To run script from a folder, you need a special attribute `host` set to HtmlS path including the domain. <br>
+Host also will work if you load the script directly from github, not from github pages. <br>
+Note that you also need to set localhost to test your site locally.
 ```HTML
 <html host="https://website.com/path">
   <head>
@@ -166,7 +178,7 @@ Note that you also need to use localhost to test your site locally.
   </head>
 </html>
 ```
-### About perfomance
+### About performance
 We use coss-site `fetch` constructions, which slows down the load speed. <br>
 In most browsers, the effect will disappear after the first load.  <br>
 However, for more beautiful loading we recommend creating a `loading..` element on the source page.
