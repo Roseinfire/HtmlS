@@ -1,4 +1,4 @@
-![HtmlScript](https://raw.githubusercontent.com/Roseinfire/HtmlScript/main/images/HS(500x500).jpeg)
+![HtmlScript](https://raw.githubusercontent.com/Roseinfire/HtmlScript/main/images/HS(400x400).jpeg)
 # Introduction
 Hyper Text Markup used everywhere on the web. <br>
 Written more than thirty years ago, it is not so human friendly. <br>
