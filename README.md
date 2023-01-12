@@ -14,12 +14,12 @@ written to be `more` `flexible` and more `comfortable`
   
 # Installation
 You need only connect the script. <br>
-Then write inside the `<script>` element or specify the `fetch` attribute. <br>
+Then write inside the htmls `<script>` element or specify the `fetch` attribute. <br>
 ```HTML
 <html>
     <head>
       <meta charset="utf-8">
-      <script type="htmlscript"></script>
+      <script type="htmls"></script>
      </head>
      <body>
       <script src="https://roseinfire.github.io/HtmlScript/begin.js"></script>
@@ -154,7 +154,7 @@ Give the project a star, if you would like to see more features!
 The best way to take part in this project - leave a comment.<br>
 Just go to the discussions and write how would you like to write html <br>
 or what features would you like to see in htmls. <br>
-Also you can write a layout to help create beautiful sites <br>
+Also you can write a layout to help create beautiful sites.
 
 # Learn more
 ### About safety
