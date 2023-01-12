@@ -61,7 +61,7 @@ local border "border: 2px solid"
 * separate styles with `space`
 * don't forget to add `.`
 
-### Repeats:
+### Repeatitions:
 ```javascript
  # Element *p @font. (2)
 ```
