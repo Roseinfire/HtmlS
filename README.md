@@ -94,13 +94,10 @@ To specify child node, begin command from `-`
 ```
 ### Add in a language:
 ```javascript
-javascript `
-function hello() {
-  console.log("hello JS")
-}`
+JS `console.log("hello js")`
 ```
-* specify language name and write inside sloped quotes
-* javascript and css supported
+* specify language and write inside sloped quotes
+* javascript and css are both supported
 * exclude sloped quotes
 
 ### Add on files:
@@ -113,7 +110,7 @@ File action defined automatically by its extension. <br>
 `.css` files become styles <br>
 
 ## Setup
-### Use attributes to create your own style
+### Choose attributes to create your own style
 ```HTML
 <head layout="fullscreen">
   <script type="htmlscript" fetch="root/site.json"></script>
@@ -122,7 +119,7 @@ File action defined automatically by its extension. <br>
 ### `style`
 Style of `<body>` element is the same as in the source html.
 ### `layout`
-General plan of your page. Attribute related to `<head>`<br>
+General plan of your site. Related to `<head>`<br>
 Currently support three layouts:
 * static `number`<br>
 number shows width of content in pixels.
@@ -158,27 +155,26 @@ Also you can write a layout to help create beautiful sites.
 
 # Learn more
 ### About safety
-Your site is built with HtmlScript, not HtmlScript built with your site. This is a law. <br>
+Your site is built with htmls, not htmls built with your site. This is our rule. <br>
 If your site is built from a local file, it stays local. `No data shared` from local files.<br>
 If your site is hosted on a public server, then it is public. <br>
 Keep in mind that HtmlScript will not take responsibility, <br>
 if you publish confidential information on the public server.<br>
 When connect external scripts (include this one) you give it access to all your page.<br>
-Be sure that you can trust the connected script. <br>
-That's why the HtmlScript `open code` project. <br>
+Be sure that you can trust the connected script. That's why the HtmlS `open code` project.
   
 ### About advertisement
 HtmlScript itself `never use advertisement`. <br>
-Everyone can use advertisements on his own site when it is built with HtmlScript. <br>
+Everyone can use advertisements on his own site when it is built with htmls. <br>
 We believe that best support is to join the project or just give it a star. <br>
-However, you can support HtmlScript on Ko-fi. <br>
+However, you can support HtmlS on Ko-fi. <br>
 
 ### About installation
 If your site is built with a cross-site script, it will not work when the script isn't accessible. <br>
-So, the better idea is to install HtmlScript to your project's folder. <br>
-To run script from a folder, you need a special attribute `host` set to HtmlScript path including the domain. <br>
-Host also will work if you load the script directly from github not from github pages. <br>
-Note that you also need to use localhost to test your site locally.
+So, the better idea is to download htmls to your project's folder. <br>
+To run script from a folder, you need a special attribute `host` set to HtmlS path including the domain. <br>
+Host also will work if you load the script directly from github, not from github pages. <br>
+Note that you also need to set localhost to test your site locally.
 ```HTML
 <html host="https://website.com/path">
   <head>
