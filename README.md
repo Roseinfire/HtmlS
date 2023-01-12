@@ -14,7 +14,7 @@ written to be `more` `flexible` and more `comfortable`
   
 # Installation
 You need only connect the script. <br>
-Then write inside `<script>` element or specify `fetch` attribute. <br>
+Then write inside the `<script>` element or specify the `fetch` attribute. <br>
 ```HTML
 <html>
     <head>
@@ -34,7 +34,7 @@ Then write inside `<script>` element or specify `fetch` attribute. <br>
 * Comments should not be a part of another syntax.
 * Comments also appear in the console.
 
-### Creating style:
+### Creating a style:
 ```javascript
 local name "value"
 ```
@@ -53,7 +53,7 @@ local border "border: 2px solid"
 * after `#` goes innerHTML, takes any value exclude `*`
 * `type` takes classic tag name like `p` or `div`
 
-### Adding styles:
+### Add in styles:
 ```javascript
   # I'm styled! *p @font border.
 ```
@@ -61,29 +61,49 @@ local border "border: 2px solid"
 * separate styles with `space`
 * don't forget to add `.`
 
+### Repeats:
+```javascript
+ # Element *p @font. (2)
+```
+* between brackets `(` and `)` specify `number` of elements
+* parent element will have number of same elements
+
 ### Relative sizes and groups:
 ```javascript
-  # *div @border. [margin proportion quantity]
+  # *div @border. [margin proportion quantity class] @font.
 ```
 #### Between brackets `[` and `]` mark the conditions. Separate arguments with spaces.
 * margin from parent border (`0` by default)
 * proportion - width/height (`1` by default)
 * quantity - how many elements in group (`1` by default)
+* class - optional argument which defines node class name
+* first style indicates style of `group`, while second style of `header`
 
-### Adding attributes:
+### Add in attributes:
 ```javascript
  # *img { className="image", id="example" }
 ```
-* between brackets `{` and `}` mark attributes. Separate with `,`
+* between brackets `{` and `}` specify attributes. Separate with `,`
 * Note that you wrote properties, not Html attributes.
-### Child nodes:
+### Creating children nodes:
 To specify child node, begin command from `-`
 ```javascript
  # *div @font.
    - # *div @border.
-    -- # Hello child nodes! *div
+    -- # Hello children nodes! *div
 ```
-### External files:
+### Add in a language:
+```javascript
+javascript `
+function hello() {
+  console.log("hello JS")
+}`
+```
+* specify language name and write inside sloped quotes
+* javascript and css supported
+* exclude sloped quotes
+
+### Add on files:
 ```javascript
  import "root/code.js"
  import "root/style.css"
@@ -100,7 +120,7 @@ File action defined automatically by its extension. <br>
 </head>
 ```
 ### `style`
-Style of `<body>` element is the same as in source html.
+Style of `<body>` element is the same as in the source html.
 ### `layout`
 General plan of your page. Attribute related to `<head>`<br>
 Currently support three layouts:
@@ -111,19 +131,19 @@ number shows screen percentage occupied by content.
 * fullscreen <br>
 Have not any arguments.
 ### `style`
-Defines style of element which holds content. Is not same to `<body>` element. <br>
+Defines style of element which holds content. Is not the same to `<body>` element. <br>
 Related to `<head>` <br>
 By default set to `border-radius: 15px; border: 1px dotted; background-color: white`
 ### `theme` 
-Indicates color of `Loading..` string<br>
+Indicates colour of `Loading..` string<br>
 Related to `<head>`. By default set to `rgba(217, 210, 210, 0.6)`
 ### `image`
 Attribute takes a url and indicates the background-image of your page. <br>
-background-image also comes from style, but `image` visible only after load. <br>
+background-image also comes from style, but `image` is visible only after load. <br>
 Related to `<body>`. By default not set.
 ### `fetch`
-Specific attribute related to `<script type="htmlscript">`. <br>
-Fetch contains a link to htmlscript, if you would like to store it separately.<br>
+Specific attribute related to `<script type="htmls">`. <br>
+Fetch contains a link to code, if you would like to store it separately.<br>
 By default not set.
 
 ### Congratulations! 
@@ -154,9 +174,9 @@ We believe that best support is to join the project or just give it a star. <br>
 However, you can support HtmlScript on Ko-fi. <br>
 
 ### About installation
-If your site is built with cross-site script, it will not work when script isn't accessible. <br>
-So, the better idea is install HtmlScript to your project's folder. <br>
-To run script from a folder, you need a special attribute `host` set to HtmlScript path include the domain. <br>
+If your site is built with a cross-site script, it will not work when the script isn't accessible. <br>
+So, the better idea is to install HtmlScript to your project's folder. <br>
+To run script from a folder, you need a special attribute `host` set to HtmlScript path including the domain. <br>
 Host also will work if you load the script directly from github not from github pages. <br>
 Note that you also need to use localhost to test your site locally.
 ```HTML
@@ -166,7 +186,7 @@ Note that you also need to use localhost to test your site locally.
   </head>
 </html>
 ```
-### About perfomance
+### About performance
 We use coss-site `fetch` constructions, which slows down the load speed. <br>
 In most browsers, the effect will disappear after the first load.  <br>
 However, for more beautiful loading we recommend creating a `loading..` element on the source page.
