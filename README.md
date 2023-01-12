@@ -57,13 +57,6 @@ local border "border: 2px solid"
 * separate styles with `space`
 * don't forget to add `.` after styles.
 
-### Recaps:
-```javascript
- # Element *div (2)
-```
-* between brackets `(` and `)` specify `number`
-* parent element will have a number of same elements
-
 ### Groups:
 ```javascript
   # *div @border. [margin proportion quantity class] @font.
