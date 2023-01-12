@@ -1,26 +1,20 @@
 ![HtmlScript](https://raw.githubusercontent.com/Roseinfire/HtmlScript/main/images/Icon(300x300).png)
 # Introduction
-`HTML` is technology used everywhere on the web <br>
-however, it was written more than thirty years ago. <br>
-In spite of updates, html is too old to be comfortable. <br>
-HtmlScript is the markup language above Html. <br>
-Written to be `more` `flexible` and more `comfortable`
+Hyper Text Markup used everywhere on the web. <br>
+Written more than thirty years ago, it is not so human friendly. <br>
+HtmlS is the decoration language above html, which <br>
+written to be `more` `flexible` and more `comfortable`
 
 ## Advantages
-`HtmlScript` provides solutions for classical html problems. <br>
-No need to close tags, `no need tricks` with css. <br>
-Easy to create elements with relative sizes. <br>
-Choose the layout and don't think about screen orientation. <br>
-Seems that images look bad before loaded? <br>
-We provide a preview untill site isn't loaded completely. <br>
-With HtmlScript you can `almost draw` sites.
 
-## Needed knowledge
-* CSS 3.0
-* basic HTML
+* Human friendly syntax
+* Easy to set up a preload
+* Easy to create elements group
+* Easy to choose a content layout
   
 # Installation
-You need only connect the script.
+You need only connect the script. <br>
+Then write inside `<script>` element or specify `fetch` attribute. <br>
 ```HTML
 <html>
     <head>
@@ -33,15 +27,80 @@ You need only connect the script.
 </html>
 ```
 # Usage
-## Set up attributes
+### Comments:
+```javascript
+~ comment ~
+```
+* Comments should not be a part of another syntax.
+* Comments also appear in the console.
+
+### Creating style:
+```javascript
+local name "value"
+```
+#### name works like variable
+*  name: takes all chars exclude `space`, `"` and `.`
+*  value: takes all chars exclude `"`
+#### Example:
+```javascript
+local font "font-size: 30px; text-align: center"
+local border "border: 2px solid"
+```
+### Creating an element:
+```javascript
+# Hello World! *type
+```
+* after `#` goes innerHTML, takes any value exclude `*`
+* `type` takes classic tag name like `p` or `div`
+
+### Adding styles:
+```javascript
+  # I'm styled! *p @font border.
+```
+* styles were defined with keyword `local`
+* separate styles with `space`
+* don't forget to add `.`
+
+### Relative sizes and groups:
+```javascript
+  # *div @border. [margin proportion quantity]
+```
+#### Between brackets `[` and `]` mark the conditions. Separate arguments with spaces.
+* margin from parent border (`0` by default)
+* proportion - width/height (`1` by default)
+* quantity - how many elements in group (`1` by default)
+
+### Adding attributes:
+```javascript
+ # *img { className="image", id="example" }
+```
+* between brackets `{` and `}` mark attributes. Separate with `,`
+* Note that you wrote properties, not Html attributes.
+### Child nodes:
+To specify child node, begin command from `-`
+```javascript
+ # *div @font.
+   - # *div @border.
+    -- # Hello child nodes! *div
+```
+### External files:
+```javascript
+ import "root/code.js"
+ import "root/style.css"
+```
+File action defined automatically by its extension. <br>
+`.js` files become scripts <br>
+`.css` files become styles <br>
+
+## Setup
+### Use attributes to create your own style
 ```HTML
 <head layout="fullscreen">
-<script type="htmlscript"></script>
+  <script type="htmlscript" fetch="root/site.json"></script>
 </head>
 ```
-> Use attributes to create your own style
 ### `style`
-`<body>` style in the ready document is the same as the style in source html.
+Style of `<body>` element is the same as in source html.
 ### `layout`
 General plan of your page. Attribute related to `<head>`<br>
 Currently support three layouts:
@@ -67,75 +126,13 @@ Specific attribute related to `<script type="htmlscript">`. <br>
 Fetch contains a link to htmlscript, if you would like to store it separately.<br>
 By default not set.
 
-## Inner code
-### Just inside
-```HTML
-<script type="htmlscript"> ~ comment ~ </script>
-```
-* Comments should not be a part of another syntax.
-* Comments also appear in the console.
-
-### Creating style:
-```javascript
-local name "value"
-```
-#### works like variable
-*  name: all chars exclude `space`, `"` and `.`
-*  value: all chars exclude `"`
-#### Example:
-```javascript
-local font "font-size: 30px; text-align: center"
-local border "border: 2px solid"
-```
-### Creating an element:
-```javascript
-# Hello World! *type @font border.
-```
-* after `#` goes innerHTML, takes any value exclude `*`
-* `type` takes classic tag name like `p` or `div`
-* `font` and `border` are styles, defined like `local name "value"`
-#### Character `@` is also a draw operator. Even if the style is not specified, `@.` must be marked.
-```javascript
-  # Element with no style *p @.
-```
-
-### Relative sizes and groups:
-```javascript
-  #*div @border. [margin proportion quantity]
-```
-#### Between brackets `[` and `]` mark the conditions. Separate arguments with spaces.
-* margin from parent border (`0` by default)
-* proportion - width/height (`1` by default)
-* quantity - how many elements in group (`1` by default)
-
-### Adding attributes:
-```javascript
- #*img @. { className="image", id="example" }
-```
-* between brackets `{` and `}` mark attributes. Separate with `,`
-* Note that you wrote properties, but not Html attributes.
-### Child nodes:
-To specify child node, just begin command from `-`
-```javascript
- # *div @font.
-   - # *div @.
-    -- # Hello child nodes! *div @.
-```
-### External files:
-```javascript
- import "root/code.js"
- import "root/style.css"
-```
-File action defined automatically by its extension. <br>
-`.js` files become scripts <br>
-`.css` files become styles <br>
 ### Congratulations! 
 You finished a short study. <br>
 Give the project a star, if you would like to see more features!
 
 # Join development
 The best way to take part in this project - write an addition.<br>
-Read project wiki to understand how to do it. <br>
+Read project wiki to understand additions and code writing. <br>
 Fork the project, write your addition and apply for contribution.<br>
 Note that you also can take part in the discussion about new features. <br>
 
@@ -159,8 +156,9 @@ However, you can support HtmlScript on Ko-fi. <br>
 ### About installation
 If your site is built with cross-site script, it will not work when script isn't accessible. <br>
 So, the better idea is install HtmlScript to your project's folder. <br>
-To run script from a folder, you need a special attribute `host` set to the script path include domain. <br>
-Note that you also need localhost to test your site when running script from a folder.
+To run script from a folder, you need a special attribute `host` set to HtmlScript path include the domain. <br>
+Host also will work if you load the script directly from github not from github pages. <br>
+Note that you also need to use localhost to test your site locally.
 ```HTML
 <html host="https://website.com/path">
   <head>
@@ -168,6 +166,12 @@ Note that you also need localhost to test your site when running script from a f
   </head>
 </html>
 ```
+### About perfomance
+We use coss-site `fetch` constructions, which slows down the load speed. <br>
+In most browsers, the effect will disappear after the first load.  <br>
+However, for more beautiful loading we recommend creating a `loading..` element on the source page.
+
+
 # Contacts
 * [Roseinfire](https://github.com/Roseinfire)
 * [ko-fi.com/Roseinfire](https://ko-fi.com/roseinfire)
