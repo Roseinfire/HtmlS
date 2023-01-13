@@ -12,8 +12,8 @@ function join() {
           document.getElementById("copy").innerHTML = "Welcome"
           /* Thanks Kalman Huang at https://lottiefiles.com */
           var frame = document.createElement("iframe")
-          frame.style = `potition: fixed; width: 90%;
-             height: 90%; margin-left: 5; margin-top: 5%; border: 0;`
+          frame.style = `position: fixed; width: 90%; top: 0;
+             height: 90%; margin-left: 5%; margin-top: 5%; border: 0;`
           frame.src = "https://embed.lottiefiles.com/animation/132607"
           frame.onload = function() {
              setTimeout(function() { document.body.removeChild(frame) }, 5000)
