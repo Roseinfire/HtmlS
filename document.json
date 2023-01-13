@@ -17,7 +17,11 @@
 <div id="content" style="display: none">
   <div id="paper"></div>
 </div>
-<script>document.body.append(__loading__); __loading__.top()</script>
+<script>
+document.body.append(__loading__);
+__loading__.top();
+document.head.append(__title__);
+</script>
 <script type="text/javascript">
 function onlyNumbers(text) {
   var res = ""
