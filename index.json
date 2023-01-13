@@ -5,6 +5,7 @@
   local button "background-color: #3D0C02; font-size: 118%; padding-top: 8px; border-radius: 18px; color: white; cursor: pointer;"
   local powered "font-size: 10px;"
   local top "-30px"
+    #*link { rel="preload", href="https://embed.lottiefiles.com/animation/132607" }
     #*img @. { src="images/Darkbean(500x500).png" } [5]
     #*div @center.
      - # Better web development with HtmlScript *p @advert center.
