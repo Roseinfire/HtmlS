@@ -306,6 +306,7 @@ keywords.groupitem = function(nodemap, command) {
       header.append(brothers[i])
      }
    nods[nodemap.index].node = header;
+   keywords.tempowrite = { node: header, childhood: nodemap.childhood, index: nodemap.length }
    parent.appendChild(header)
   };
 
