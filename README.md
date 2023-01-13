@@ -81,13 +81,6 @@ To specify child node, begin command from `-`
    - # *div @border.
     -- # Hello children nodes! *div
 ```
-### Insert code:
-```javascript
-JS `console.log("hello inserts")`
-```
-* specify language and write inside sloped quotes
-* javascript and css are both supported
-* exclude sloped quotes from code
 
 ### External files:
 ```javascript
