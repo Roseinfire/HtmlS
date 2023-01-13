@@ -6,7 +6,7 @@
   local powered "font-size: 10px;"
   local top "-30px"
     #*link { rel="preload", href="https://embed.lottiefiles.com/animation/132607", as="document" }
-    #*img @. { src="images/Darkbean(500x500).png" } [25]
+    #*img @. { src="images/Darkbean(500x500).png" } [15]
     #*div @center.
      - # Better web development with HtmlScript *p @advert center.
      - # Join *div @button center. { id="copy", onclick = join } [90 12] @top.
