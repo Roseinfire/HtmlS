@@ -8,7 +8,7 @@ function join() {
        <script src="https://roseinfire.github.io/HtmlScript/begin.js"></scr`+"ipt>" +`
     </head>` + `
 </ht`+"ml>"
-          navigator.clipboard.writeText(form);
+         // navigator.clipboard.writeText(form);
           document.getElementById("copy").innerHTML = "Welcome"
           /* Thanks Kalman Huang at https://lottiefiles.com */
           var frame = document.createElement("iframe")
