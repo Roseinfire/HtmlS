@@ -6,8 +6,8 @@
   local powered "font-size: 10px;"
   local top "-25px"
     #*img @. { src="images/Darkbean(500x500).png" } [15]
-    #*div @center.
+    #*div @center top.
      - # Better web development with HtmlScript *p @advert center.
-     - # Join *div @button center. { id="copy", onclick = join } [90 12] @top.
+     - # Join *div @button center. { id="copy", onclick = join } [90 12]
     # powered by github source: *p @powered center.
       - # Roseinfire/HtmlScript *a @. { href = "https://github.com/Roseinfire/HtmlScript" }
