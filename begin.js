@@ -45,6 +45,8 @@ function estable(response) {
    console.group("compilation")
    window.__head__ = document.head
    window.__body__ = document.body
+   var title = document.getElementsByTagName("title")[0]
+   if(title) { window.__title__ = title } else {  window.__title__ = "Untitled" }
    window.__scripts__ = (function() {
       var res = []
       var scripts = document.getElementsByTagName("script")
