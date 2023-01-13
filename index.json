@@ -4,9 +4,10 @@
   local advert "font-size: 18px; margin-top: 10px; margin-bottom: 10px"
   local button "background-color: #3D0C02; font-size: 118%; padding-top: 8px; border-radius: 18px; color: white; cursor: pointer;"
   local powered "font-size: 10px;"
+  local top "-30px"
     #*img @. { src="images/Darkbean(500x500).png" } [5]
     #*div @center.
      - # Better web development with HtmlScript *p @advert center.
-     - # Join *div @button center. { id="copy", onclick = join } [90 12]
+     - # Join *div @button center. { id="copy", onclick = join } [90 12] @top
     # powered by github source: *p @powered center.
       - # Roseinfire/HtmlScript *a @. { href = "https://github.com/Roseinfire/HtmlScript" }
