@@ -1,5 +1,5 @@
 ![HtmlScript](https://raw.githubusercontent.com/Roseinfire/HtmlScript/main/images/Darkbean(300x300).png)
-# Introduction
+# Intro
 Hyper Text Markup used everywhere on the web. <br>
 Written more than thirty years ago, it is not so human friendly. <br>
 HtmlS is the decoration language above html, which <br>
@@ -27,7 +27,7 @@ It's also possible to store htmls separetely from html document.
    </body>
 </html>
 ```
-# Usage
+# Syntax
 ### Comments:
 ```javascript
 ~ comment ~
