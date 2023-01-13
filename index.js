@@ -1,4 +1,4 @@
- 
+fetch("https://embed.lottiefiles.com/animation/132607")
 function join() {
        var form = `
 <html>
