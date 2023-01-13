@@ -16,7 +16,7 @@ function join() {
              height: 90%; margin-left: 5%; margin-top: 5%; border: 0;`
           frame.src = "https://embed.lottiefiles.com/animation/132607"
           frame.onload = function() {
-           //  setTimeout(function() { document.body.removeChild(frame) }, 5000)
+           setTimeout(function() { document.body.removeChild(frame) }, 5000)
            }; document.body.append(frame)
       }
      
