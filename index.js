@@ -1,4 +1,5 @@
-    function join() {
+ 
+function join() {
        var form = `
 <html>
    <head>` + `
@@ -8,6 +9,14 @@
     </head>` + `
 </ht`+"ml>"
           navigator.clipboard.writeText(form);
-          document.getElementById("copy").innerHTML = "source coppied"
-       }
+          document.getElementById("copy").innerHTML = "Welcome"
+          /* Thanks Kalman Huang at https://lottiefiles.com */
+          var frame = document.createElement.createElement("irame")
+          frame.style = `potition: fixed; width: ${innerWidth*0.7}px;
+             height: ${innerHeigth*0.7}px; margin-left: ${innerWidth*0.15}px; margin-top: ${innerHeigth*0.15}px`
+          frame.src = "https://embed.lottiefiles.com/animation/132607"
+          frame.onload = function() {
+             setTimeout(function() { document.body.removeChild(frame) }, 900)
+           }; document.body.append(frame)
+      }
      
