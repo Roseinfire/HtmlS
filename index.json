@@ -2,9 +2,9 @@
   import "index.js"
   local center "text-align: center"
   local advert "font-size: 18px; margin-top: 10px; margin-bottom: 10px"
-  local button "background-color: #502227; font-size: 118%; padding-top: 8px; border-radius: 18px; color: white; cursor: pointer;"
+  local button "background-color: #3D0C02; font-size: 118%; padding-top: 8px; border-radius: 18px; color: white; cursor: pointer;"
   local powered "font-size: 10px;"
-    #*img @. { src="images/Icon(500x500).png" } [45]
+    #*img @. { src="images/Darkbean(500x500).png" } [45]
     #*div @center.
      - # Copy outline to begin work with HtmlScript *p @advert center.
      - # Join *div @button center. { id="copy", onclick = join } [90 12]
