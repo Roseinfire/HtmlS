@@ -437,7 +437,7 @@ keywords.push(new keyword(['"'], ['"'], function(res) { keywords.value(res) }, "
 keywords.push(new keyword(["-"], ["#"], function(res) { keywords.child(res) }, "child"))
 keywords.push(new keyword(["#"], ["*"], function(res) { keywords.tempotext = res; }, "inner"))
 keywords.push(new keyword(["*"], [" ", "@", "\n"], function(res) { keywords.draw(res) }, "draw"))
-keywords.push(new keyword(["@"], ["."], function(res) { keywords.style(keywords.tempowrite.node, res) }, "style"))
+keywords.push(new keyword(["@"], [".", "\n"], function(res) { keywords.style(keywords.tempowrite.node, res) }, "style"))
 keywords.push(new keyword(["{"], ["}"], function(res) { keywords.attribute(keywords.tempowrite.node, res) }, "attribute"))
 keywords.push(new keyword(["["], ["]"], function(res) { keywords.groupitem(keywords.tempowrite, res) }, "group"))
 keywords.push(new keyword(["("], [")"], function(res) { keywords.repeat(keywords.tempowrite, res) }, "repeat"))
