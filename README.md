@@ -92,7 +92,7 @@ File action defined automatically by its extension. <br>
 `.css` files become styles <br>
 
 ## Setup
-### Choose attributes to create your own style
+> Use attributes to create your own style
 ```HTML
 <head layout="fullscreen">
   <script type="htmlscript" fetch="root/site.json"></script>
