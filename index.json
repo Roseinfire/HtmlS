@@ -4,10 +4,10 @@
   local advert "font-size: 18px; margin-top: 10px; margin-bottom: 5px; font-family: cursive"
   local button "background-color: #3D0C02; font-size: 118%; padding-top: 8px; border-radius: 18px; color: white; cursor: pointer;"
   local powered "font-size: 10px;"
-  local top "margin-top: -25px"
+  local top "margin-top: -28px"
   local orange "color: darkorange"
   local top0 "margin-top: 0"
-  local bottom "margin-bottom: 15px"
+  local bottom "margin-bottom: 18px"
   local underline "text-decoration: none"
     #*img @. { src="images/Darkbean(500x500).png" } [15]
     #*div @center top.
