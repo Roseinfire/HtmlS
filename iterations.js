@@ -132,6 +132,7 @@ keywords.groupitem = function(nodemap, command) {
    var num = 1
    var prop = 1
    var margin = 0
+   var classname = null
    var cnt = 1
    var res = ""
    for(var i = 0; i < command.length; i++) {
@@ -144,10 +145,13 @@ keywords.groupitem = function(nodemap, command) {
       }
       else if(command[i] == " " && cnt == 3) { cnt++;
           try{ num=eval(res); res = "" } catch {}
+      else if(command[i] == " " && cnt == 4) { cnt++;
+          try{ classname=eval(res); res = "" } catch {}
       }
    if(cnt == 1) { try{ margin=eval(res) } catch {} }
    else if(cnt == 2) { try{ prop=eval(res) } catch {} }
    else if(cnt == 3) { try{ num=eval(res) } catch {} }
+   else if(cnt == 4) { try{ classname=eval(res) } catch {} }
   }
    var element = nodemap.node
    var parent = element.parentElement
@@ -159,6 +163,7 @@ keywords.groupitem = function(nodemap, command) {
            broth.num = i
            broth.style.marginLeft = margin + "px"
            broth.style.position = "absolute"
+           if(classname) { broth.className = classname }
            brothers.push(broth)
        }
   } 
