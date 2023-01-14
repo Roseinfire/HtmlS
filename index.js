@@ -7,7 +7,7 @@
  function join() {
           frame.onload = function() { 
             frame.style.display = "block" 
-            setTimeout(function() { frame.style.display = "none" }, 10000)
+            setTimeout(function() { frame.style.display = "none" }, 7000)
           }
           frame.src += ""
           document.getElementById("copy").innerHTML = "Welcome"
