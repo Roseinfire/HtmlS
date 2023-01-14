@@ -181,6 +181,7 @@ keywords.groupitem = function(nodemap, command) {
       header.append(brothers[i])
      }
    nods[nodemap.index].node = header;
+   keywords.tempowrite = { node: header, childhood: nodemap.childhood, index: nodemap.length }
    parent.appendChild(header)
   };
 
@@ -278,16 +279,39 @@ keywords.style = function(node, res) {
     }
  }
   
+keywords.repeat = function(nodemap, res) {
+  try { res = eval(res) } catch { res=1; console.error("Repetition should be a natural number >>", res) }
+  if(!nodemap.id) {
+    nodemap.repetition = res
+     } else { console.error("Repetition should have a CLASS instead of ID") }
+  }
+
+keywords.readcode = function(res) {
+  if(keywords.word == "css") { 
+    var style = document.createElement("style")
+    style.type = "text/css"; style.innerHTML = res
+    document.head.append(style)
+     }
+  else if(keywords.word == "js") {
+       try { eval(res) }
+       catch (err) { console.error(err) }
+     }
+ };
+
 keywords.push(new keyword(["~"], ["~"], function(res) { console.log(res) }, "comment"))
 keywords.push(new keyword(["l"], ['"'], function(res) { keywords.local(res) }, "local"))
 keywords.push(new keyword(["i"], ['"'], function(res) { keywords.import(res) }, "import"))
+keywords.push(new keyword(["J", "j"], ['`'], function(res) { keywords.word = "js" }, "jscode"))
+keywords.push(new keyword(["C", "c"], ['`'], function(res) { keywords.word = "css" }, "csscode"))
+keywords.push(new keyword(["`"], ["`"], function(res) { keywords.readcode(res) }, "code"))
 keywords.push(new keyword(['"'], ['"'], function(res) { keywords.value(res) }, "value"))
 keywords.push(new keyword(["-"], ["#"], function(res) { keywords.child(res) }, "child"))
 keywords.push(new keyword(["#"], ["*"], function(res) { keywords.tempotext = res; }, "inner"))
 keywords.push(new keyword(["*"], [" ", "@", "\n"], function(res) { keywords.draw(res) }, "draw"))
-keywords.push(new keyword(["@"], ["."], function(res) { keywords.style(keywords.tempowrite.node, res) }, "style"))
+keywords.push(new keyword(["@"], [".", "\n"], function(res) { keywords.style(keywords.tempowrite.node, res) }, "style"))
 keywords.push(new keyword(["{"], ["}"], function(res) { keywords.attribute(keywords.tempowrite.node, res) }, "attribute"))
 keywords.push(new keyword(["["], ["]"], function(res) { keywords.groupitem(keywords.tempowrite, res) }, "group"))
+keywords.push(new keyword(["("], [")"], function(res) { keywords.repeat(keywords.tempowrite, res) }, "repeat"))
 
 /* writing */
 function write(text, type, childhood) { 
@@ -297,6 +321,7 @@ function write(text, type, childhood) {
         if(res.tagName == "IMG" || res.tagName == "frame" || res.tagName == "irame") {
             awaitload()
             res.onload = function() { awaitload(true) }
+            res.onerror = function() { awaitload(true) }
         }
         if(text) { res.innerHTML = text }
       return res
@@ -311,13 +336,18 @@ function write(text, type, childhood) {
   return nodemap
 };
 
+write.append = function(n1, n2) {
+       var header = nods[n1].node
+       header.append(nods[n2].node)
+    };
+    
 write.truewrite = function(i, encode) {
     (i!=undefined) ? (i=i) : (i = nods.length-1)
      if(nods[i].childhood) {
         try {
            for(var e = 1; e <= i; e++) {
                 if(nods[i-e].childhood == nods[i].childhood-1) {
-                 nods[i-e].node.append(nods[i].node); break
+                   write.append(i-e, i); break
                 }
              }
           } catch { console.error("failed to create child", nods[i]) }
