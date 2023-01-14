@@ -5,12 +5,14 @@
   local button "background-color: #3D0C02; font-size: 118%; padding-top: 8px; border-radius: 18px; color: white; cursor: pointer;"
   local powered "font-size: 10px;"
   local top "margin-top: -25px"
-  local olive "color: olive"
   local orange "color: darkorange"
+  local top0 "margin-top: 0"
+  local bottom "margin-bottom: 15px"
+  local underline "text-decoration: none"
     #*img @. { src="images/Darkbean(500x500).png" } [15]
     #*div @center top.
-     - # One script changes everything. *p @advert center olive.
-     - # Better web development with HtmlScript *p @advert center olive.
+     - # One script changes everything. *p @advert center orange top0.
+     - # Better web development with HtmlScript *p @advert center orange.
      - # Join *div @button center. { id="copy", onclick = join } [90 12]
-    # powered by github source: *p @powered center orange.
-      - # Roseinfire/HtmlScript *a { href = "https://github.com/Roseinfire/HtmlScript" }
+    # powered by github source: *p @powered center orange bottom.
+      - # Roseinfire/HtmlScript *a @orange underline. { href = "https://github.com/Roseinfire/HtmlScript" }
