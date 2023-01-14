@@ -1,7 +1,7 @@
 ~ This website owned by Roseinfire. Distributed under MIT License. ~
   import "index.js"
   local center "text-align: center"
-  local advert "font-size: 21px; margin-top: 10px; margin-bottom: 5px"
+  local advert "font-size: 18px; margin-top: 10px; margin-bottom: 5px; font-family: cursive"
   local button "background-color: #3D0C02; font-size: 118%; padding-top: 8px; border-radius: 18px; color: white; cursor: pointer;"
   local powered "font-size: 10px;"
   local top "margin-top: -25px"
