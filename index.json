@@ -12,7 +12,7 @@
     #*img @. { src="images/Darkbean(500x500).png" } [15]
     #*div @center top.
      - # One script changes everything. *p @advert center orange top0.
-     - # Better web development with HtmlScript *p @advert center orange.
+     - # Better web development with HtmlScript *p @advert center orange bottom.
      - # Join *div @button center. { id="copy", onclick = join } [90 12]
-    # powered by github source: *p @powered center orange bottom.
+    # powered by github source: *p @powered center orange.
       - # Roseinfire/HtmlScript *a @orange underline. { href = "https://github.com/Roseinfire/HtmlScript" }
