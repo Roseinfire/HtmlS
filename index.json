@@ -1,15 +1,16 @@
 ~ This website owned by Roseinfire. Distributed under MIT License. ~
   import "index.js"
   local center "text-align: center"
-  local advert "font-size: 18px; margin-top: 10px; margin-bottom: 10px"
+  local advert "font-size: 21px; margin-top: 10px; margin-bottom: 5px"
   local button "background-color: #3D0C02; font-size: 118%; padding-top: 8px; border-radius: 18px; color: white; cursor: pointer;"
   local powered "font-size: 10px;"
   local top "margin-top: -25px"
   local olive "color: olive"
+  local orange "color: darkorange"
     #*img @. { src="images/Darkbean(500x500).png" } [15]
     #*div @center top.
      - # One script changes everything. *p @advert center olive.
-     - # Better web development with HtmlScript *p @advert center.
+     - # Better web development with HtmlScript *p @advert center olive.
      - # Join *div @button center. { id="copy", onclick = join } [90 12]
-    # powered by github source: *p @powered center.
+    # powered by github source: *p @powered center orange.
       - # Roseinfire/HtmlScript *a { href = "https://github.com/Roseinfire/HtmlScript" }
