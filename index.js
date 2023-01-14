@@ -7,7 +7,6 @@
  function join() {
           frame.style.display = "block"
           document.getElementById("copy").innerHTML = "Welcome"
-          frame.contentDocument.location.reload(true);
           setTimeout(function() { document.body.removeChild(frame) }, 10000)
       }
      
