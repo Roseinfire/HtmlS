@@ -72,7 +72,7 @@ local border "border: 2px solid"
 ```javascript
  # *img { className="image", id="example" }
 ```
-* between brackets `{` and `}` specify attributes. Separate with `,`
+* Between brackets `{` and `}` specify attributes. Separate with `,`
 * Note that you wrote properties, not Html attributes.
 ### Children nodes:
 To specify child node, begin command from `-`
@@ -83,13 +83,14 @@ To specify child node, begin command from `-`
 ```
 
 ### External files:
+To connect external file, init source with `import` keyword. <br>
+File action defined automatically by its extension.
 ```javascript
  import "root/code.js"
  import "root/style.css"
 ```
-File action defined automatically by its extension. <br>
-`.js` files become scripts <br>
-`.css` files become styles <br>
+* `.js` files become scripts <br>
+* `.css` files become styles <br>
 
 ## Setup
 > Use attributes to create your own style
