@@ -274,6 +274,7 @@ keywords.groupitem = function(nodemap, command) {
       }
       else if(command[i] == " " && cnt == 3) { cnt++;
           try{ num=eval(res); res = "" } catch {}
+      }
       else if(command[i] == " " && cnt == 4) { cnt++;
           try{ classname=eval(res); res = "" } catch {}
       }
