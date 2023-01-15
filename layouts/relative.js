@@ -12,5 +12,5 @@
            }  
            if(e.offsetHeight < innerHeight) { 
               e.style.marginTop = (innerHeight-e.offsetHeight)/2 + "px" 
-            } else { e.style.marginTop = "10px" }
+            } else { e.style.marginTop = "10px"; e.style.marginBottom="10px" }
    }, "relative")
