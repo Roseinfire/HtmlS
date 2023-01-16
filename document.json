@@ -190,7 +190,7 @@ function read(data, response=false, encode=function(start, end, name) { return t
     read.res = ""
     while(read.data[read.pos+1]) {
         if(read.await) { console.log("reading paused"); break }
-        read.pos++; read.change = null; 
+        read.pos++; read.change = null; read.last_iteration = null;
         if(response) { console.log(read.data[read.pos], read.iteration) }
             if(read.iteration && read.iteration.end( read.data[read.pos], read.pos-read.started ) ) {
                 var draw = encode(read.started, read.pos-read.started, read.iteration.name);
