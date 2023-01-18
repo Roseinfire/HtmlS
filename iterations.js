@@ -115,7 +115,7 @@ keywords.cssmodify = function(style) {
 keywords.getvalue = function(name, err) {
     for(var i = 0; i < styles.length; i++) {
        if(styles[i].name == name) { return keywords.cssmodify(styles[i].data) }
-    }; if(err) { console.error("can't find link -->", res) }
+    }; if(err) { console.error("can't find style -->", res) }
 };
 
 keywords.setvalue = function(name, data) {
@@ -154,16 +154,14 @@ keywords.groupitem = function(nodemap, command) {
    var parent = element.parentElement
    var header = document.createElement("div");
    var brothers = new Array()
-   if(!element.id || num == 1) {
        for(var i = 0; i < num; i++) {
-           var broth = element.clone()
+           var broth = element.clone(num == 1)
            broth.num = i
            broth.style.marginLeft = margin + "px"
            broth.style.position = "absolute"
            if(classname) { broth.className = classname }
            brothers.push(broth)
        }
-  } 
    onResize(brothers, function(e, i) {
        var ewidth = ( parent.offsetWidth-margin*(brothers.length+1) )/brothers.length
         e.style.width = ewidth + "px"
@@ -263,7 +261,7 @@ keywords.value = function(res) {
   };
   
 keywords.child = function(res) {
-   var result = 1;
+   var result = 2;
    for(var i = 0; i < res.length; i++) {
        if(res[i] == "-") { result++ }
      }; keywords.childhood = result;
@@ -382,3 +380,4 @@ write.truewrite = function(i, encode) {
     console.log("__load")
   console.groupEnd("taken global names")
     }
+  
