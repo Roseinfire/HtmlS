@@ -282,19 +282,6 @@ keywords.style = function(node, res) {
       })(res)
     }
  }
-  
-keywords.repeat = function(nodemap, res) {
-  try { res = eval(res) } catch { res=1; console.warn("repetition should be a natural number -->", res) }
-  if(!nodemap.id) {
-    var n = nodemap.index
-    var repeats = new Array()
-      for(var i = 1; i < res; i++) {
-         var item = nodes[n].node.clone()
-          //  nodes[n].node.parentElement.append(item); 
-         repeats.push(item)
-            }; nodes[n].repetition = repeats
-     } else { console.error("repeating element must have a 'class' instead of 'id' -->", nodemap.node) }
-  }
 
 keywords.readcode = function(res) {
   if(keywords.word.argument == "css") { 
@@ -322,24 +309,16 @@ keywords.push(new keyword(["*"], [" ", "@", "\n"], function(res) { keywords.draw
 keywords.push(new keyword(["@"], [".", "\n"], function(res) { keywords.style(keywords.tempowrite.node, res) }, "style"))
 keywords.push(new keyword(["{"], ["}"], function(res) { keywords.attribute(keywords.tempowrite.node, res) }, "attribute"))
 keywords.push(new keyword(["["], ["]"], function(res) { keywords.groupitem(keywords.tempowrite, res) }, "group"))
-keywords.push(new keyword(["("], [")"], function(res) { keywords.repeat(keywords.tempowrite, res) }, "repeat"))
 
 /* writing */
 class DataNode {
-  constructor(node, childhood, index, repetition=1) {
+  constructor(node, childhood, index) {
     const that = this
     this.node = node
     this.childhood = childhood
     this.index = index
-    this.repetition = repetition
     this.append = function(item) {
-       /* if(!that.repetition) { */ that.node.append(item) /* } */
-        /* else if(that.repetition && that.repetition.length) {
-            var r = that.repetition
-            for(var i = 0; i < r.length; i++) {
-               r[i].append(item)
-                   }
-               } else { console.warn("can't append to multiple repetition -->", this) } */
+        that.node.append(item)
             }
         }
   }
@@ -380,7 +359,7 @@ write.truewrite = function(i, encode) {
                 }
              }
         } catch { console.error("failed to create child -->", nodes[i]) }
- }; nodes.push(new DataNode(hand, 0, 0, null))
+ }; nodes.push(new DataNode(hand, 0, 0))
     
  write.about = function() {
   console.group("taken global names")
@@ -403,4 +382,3 @@ write.truewrite = function(i, encode) {
     console.log("__load")
   console.groupEnd("taken global names")
     }
-  
