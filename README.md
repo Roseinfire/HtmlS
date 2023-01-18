@@ -81,6 +81,13 @@ To specify child node, begin command from `-`
    - # *div @border.
     -- # Hello children nodes! *div
 ```
+```
+### Insert code:
+Use keyword `parse` to implement a short code.
+```javascript
+parse js `console.log("hello")`
+parse css `body { color: peru }`
+```
 
 ### External files:
 To connect external file, init source with `import` keyword. <br>
