@@ -89,13 +89,13 @@ To specify child node, begin command from `-`
     -- # Hello children nodes! *div
 ```
 ### Insert code:
+Use keyword `parse` to implement a short code.
 ```javascript
-JS `console.log("hello inserts")`
+parse js `console.log("hello")`
+parse css `body { color: peru }`
 ```
-* specify language and write inside sloped quotes
-* javascript and css are both supported
-* exclude sloped quotes from code
-
+* specify language type
+* exclude sloped qutes.
 ### External files:
 ```javascript
  import "root/code.js"
