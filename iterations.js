@@ -7,16 +7,12 @@ function awaitload(endkey) {
      else if(endkey) { loads-- }
      if(!loads) {
         try {
-            var color = getouter("theme", __head__)
-            var image = getouter("background", __head__)
+            background.image()
             var style = getouter("style", __head__)
-            var plan = searchplans( getouter("layout", __head__), "relative 0.8")
-            console.log("layout: ", plan)
-            background(color, image)
             hand.style = style
-           document.getElementById("content").style.display = "block";
-           document.getElementById("load").style.display = "none";
-           if(!nods.length) {
+            document.getElementById("content").style.display = "block";
+            document.body.removeChild(__loading__)
+            if(!nodes.length) {
                 hand.innerHTML = `<p style="font-size: 35px; text-align: center; color: maroon">Document Empy</p>`
              }
            if(window.onresize) { window.onresize(); window.onresize(); }
@@ -43,9 +39,6 @@ class keyword {
                for(var e = 0; e < start.length; e++) {
                    if(end.includes(start[e]) ) { includes = true }
                }
-            if(moves == read.pos) { 
-                console.warn("Something went wrong when reading keyword with the same quotes.")
-             }
             if(end[i]==compl && (moves || !includes) ) { return this }
              }; return false
         }
@@ -56,7 +49,7 @@ class keyword {
        }
  };
 
-function read(data,response=false, encode=function(start, end, name) { return true }) {
+function read(data, response=false, encode=function(start, end, name) { return true }) {
     if(!read.pos) { read.pos = -1; awaitload() }
     read.data = data
     read.response = response
@@ -65,10 +58,9 @@ function read(data,response=false, encode=function(start, end, name) { return tr
     read.res = ""
     while(read.data[read.pos+1]) {
         if(read.await) { console.log("reading paused"); break }
-        read.pos++; read.change = null; 
+        read.pos++; read.change = null; read.last_iteration = null;
         if(response) { console.log(read.data[read.pos], read.iteration) }
-        for(var i = 0; i < keywords.length; i++) {
-            if(read.iteration && keywords[i] == read.iteration && keywords[i].end( read.data[read.pos], read.pos-read.started ) == read.iteration) {
+            if(read.iteration && read.iteration.end( read.data[read.pos], read.pos-read.started ) ) {
                 var draw = encode(read.started, read.pos-read.started, read.iteration.name);
                  if(draw) {
                     read.iteration.recall(read.res, response);
@@ -76,8 +68,10 @@ function read(data,response=false, encode=function(start, end, name) { return tr
                  read.res = ""; read.started = null;
                  read.last_iteration = read.iteration; read.iteration = null;
              }
-             if(!read.iteration && keywords[i].start( read.data[read.pos] ) && keywords[i].start( read.data[read.pos] ) != read.last_iteration) { 
-                  read.iteration = keywords[i]; read.change = true;read.started = read.pos; break;
+            for(var i = 0; i < keywords.length; i++) {
+              let key = keywords[i].start( read.data[read.pos] )
+              if(!read.iteration && key  && key != read.last_iteration) {
+                   read.iteration = keywords[i]; read.change = true;read.started = read.pos; break;
               }
        }
       if(read.iteration && !read.change) { read.res += read.data[read.pos] }
@@ -86,7 +80,7 @@ function read(data,response=false, encode=function(start, end, name) { return tr
    if(!read.await) {
         if(read.iteration) { read.iteration.recall(read.res, response) }
         awaitload(true)
-      }
+      };
  };
 read.awaitReading = function() {
     console.log("awaiting..")
@@ -102,13 +96,11 @@ read.continueReading = function() {
 
 /* syntax */
  var keywords = []
- keywords.tempovar = null
  keywords.tempotext = null
- keywords.tempotype = null 
  keywords.tempowrite = null
  keywords.word = null
- keywords.childhood = 0
- var nods = new Array()
+ keywords.childhood = 1
+ var nodes = new Array()
  var styles = new Array()
 
 keywords.cssmodify = function(style) {
@@ -117,25 +109,26 @@ keywords.cssmodify = function(style) {
         if(style[i] == ";") { adition = false;}
         if(style[i] != " ") { break }
      }
-    if(adition) { return style+";" } else { return style }
+    if(adition) { return style+";" } else { return eval('`' + style + '`') }
  };
 
 keywords.getvalue = function(name, err) {
     for(var i = 0; i < styles.length; i++) {
        if(styles[i].name == name) { return keywords.cssmodify(styles[i].data) }
-    }; if(err) { console.error("Can't find link @" + res) }
+    }; if(err) { console.error("can't find link -->", res) }
 };
 
 keywords.setvalue = function(name, data) {
     if( !keywords.getvalue(name) ) {
         styles.push({ name: name, data: data })
-     } else { console.error("variable didn't created: double name error") }
+     } else { console.error("repeating name error -->", name) }
  };
 
 keywords.groupitem = function(nodemap, command) {
    var num = 1
    var prop = 1
    var margin = 0
+   var classname = null
    var cnt = 1
    var res = ""
    for(var i = 0; i < command.length; i++) {
@@ -148,10 +141,14 @@ keywords.groupitem = function(nodemap, command) {
       }
       else if(command[i] == " " && cnt == 3) { cnt++;
           try{ num=eval(res); res = "" } catch {}
+     }
+      else if(command[i] == " " && cnt == 4) {
+          try{ classname=eval(res); res = "" } catch {}
       }
    if(cnt == 1) { try{ margin=eval(res) } catch {} }
    else if(cnt == 2) { try{ prop=eval(res) } catch {} }
    else if(cnt == 3) { try{ num=eval(res) } catch {} }
+   else if(cnt == 4) { classname = res}
   }
    var element = nodemap.node
    var parent = element.parentElement
@@ -163,10 +160,10 @@ keywords.groupitem = function(nodemap, command) {
            broth.num = i
            broth.style.marginLeft = margin + "px"
            broth.style.position = "absolute"
+           if(classname) { broth.className = classname }
            brothers.push(broth)
        }
   } 
-  else { console.error("failed to clone element with id") }
    onResize(brothers, function(e, i) {
        var ewidth = ( parent.offsetWidth-margin*(brothers.length+1) )/brothers.length
         e.style.width = ewidth + "px"
@@ -184,7 +181,8 @@ keywords.groupitem = function(nodemap, command) {
    for(var i = 0; i < brothers.length; i++) {
       header.append(brothers[i])
      }
-   nods[nodemap.index] = header;
+   nodes[nodemap.index].node = header;
+   keywords.tempowrite.node = header
    parent.appendChild(header)
   };
 
@@ -200,11 +198,12 @@ keywords.attribute = function(element, res, oneprop) {
            function make(a) {
                element.property.push(a)
                try { eval("element." + a) } 
-               catch { console.error("failed to attribute", element, res) }
+               catch { console.error("failed to attribute -->", element, res) }
            } 
  };
  
-keywords.importitem = function(command) {
+keywords.importitem = function(command, preload) {
+     console.warn("importing --> ", command)
     var ext = ""
     for(var i = command.length-1; i > 0; i--) {
         if(command[i] == ".") { break } else { ext+=command[i] }
@@ -214,56 +213,53 @@ keywords.importitem = function(command) {
         var script = document.createElement("script")
         script.src = command
         script.onload = function() { console.log("imported script", this); read.continueReading() }
-        script.onerror = function() { console.error("failed to import", command); read.continueReading() }
+        script.onerror = function() { console.error("failed to import -->", command); read.continueReading() }
         document.body.append(script)
    }
     else if(ext == "ssc") {
-       var style = document.createElement("link")
-       style.rel="stylesheet"
-       style.src = command
-       document.head.append(style)
+       var style = document.createElement("style")
+       style.type = "text/css"
+        fetch(command)
+       .then(response => response.text())
+       .then(text => (function(t) { 
+         style.innerHTML = t
+         document.head.append(style);
+        })(text))
+     } 
+   else if(preload) { 
+    var link = document.createElement("link")
+    link.rel = "preload"
+    link.href = command
      }
+   else { console.warn("unkown file extension -->", ext) }
  };
   
 keywords.draw = function(res) {
-    function separate(variables) {
-        var variable = ""
-        var result = ""
-        for(var i = 0; i < variables.length; i++) {
-            if(variables[i] == " ") { result += keywords.getvalue(variable); variable = "" }
-            else { variable += variables[i] }
-         }; if(variable) { result += keywords.getvalue(variable) }
-      return result
-     }
-   keywords.tempowrite = write(keywords.tempotext, keywords.tempotype, separate(res), keywords.childhood)
-   write.truewrite()
-   keywords.tempotext = null; keywords.tempotype = null; keywords.childhood = 0;
+   keywords.tempowrite = write(keywords.tempotext,  res, keywords.childhood)
+   keywords.tempotext = null; keywords.childhood = 1;
+   write.truewrite();
  };
   
-keywords.local = function(res) {
-    if(res[0]+res[1]+res[2]+res[3]+res[4] == "ocal ") {
-        keywords.word = "local"
-        var name = ""
-        for(var i = 4; i < res.length; i++) {
-            if(res[i]!=" ") { name += res[i] }
-        }; keywords.tempovar = name
-     }
-  };
-  
-keywords.import = function(res) {
-    if(res[0]+res[1]+res[2]+res[3]+res[4]+res[5] == "mport ") {
-       keywords.word = "import"
-     }
- };
+keywords.readword = function(res, code) {
+   var factcode = ""
+   for(var i = 0; i < code.length; i++) {
+    factcode += res[i]
+      }
+   if(factcode == code) {
+       var arg = ""
+        for(var i = code.length; i < res.length; i++) {
+            if(res[i]!=" ") { arg += res[i] }
+        };  keywords.word =  { code: code, argument: arg }
+     }; return keywords.word
+  }
   
 keywords.value = function(res) {
-  if(keywords.word == "local") {
-      keywords.setvalue(keywords.tempovar, res)
-      keywords.tempovar = null; keywords.word = null
-   }
-  else if(keywords.word=="import") {
-      keywords.importitem(res); keywords.word = null; //keywords.tempovar = null
-     }
+  if(keywords.word.code == "ocal ") {
+      keywords.setvalue(keywords.word.argument, res); keywords.word = null;
+    }
+  else if(keywords.word.code =="mport ") {
+       keywords.importitem(res, keywords.word.argument); keywords.word = null;
+     };
   };
   
 keywords.child = function(res) {
@@ -273,28 +269,90 @@ keywords.child = function(res) {
      }; keywords.childhood = result;
   };
   
+keywords.style = function(node, res) {
+  if(node) {
+    node.style = (function separate(variables) {
+        var variable = ""
+        var result = ""
+        for(var i = 0; i < variables.length; i++) {
+            if(variables[i] == " ") { result += keywords.getvalue(variable); variable = "" }
+            else { variable += variables[i] }
+         }; if(variable) { result += keywords.getvalue(variable) }
+        return result
+      })(res)
+    }
+ }
+  
+keywords.repeat = function(nodemap, res) {
+  try { res = eval(res) } catch { res=1; console.warn("repetition should be a natural number -->", res) }
+  if(!nodemap.id) {
+    var n = nodemap.index
+    var repeats = new Array()
+      for(var i = 1; i < res; i++) {
+         var item = nodes[n].node.clone()
+          //  nodes[n].node.parentElement.append(item); 
+         repeats.push(item)
+            }; nodes[n].repetition = repeats
+     } else { console.error("repeating element must have a 'class' instead of 'id' -->", nodemap.node) }
+  }
+
+keywords.readcode = function(res) {
+  if(keywords.word.argument == "css") { 
+    var style = document.createElement("style")
+    style.type = "text/css"; style.innerHTML = res
+    document.head.append(style)
+     }
+  else if(keywords.word.argument == "js") {
+    var script = document.createElement("script")
+    script.type = "text/javascript"; script.innerHTML = res
+    document.head.append(script)
+     } else { console.warn("unexpected parse --> ", keywords.word.argument) }
+      keywords.word = null;
+ };
+
 keywords.push(new keyword(["~"], ["~"], function(res) { console.log(res) }, "comment"))
-keywords.push(new keyword(["l"], ['"'], function(res) { keywords.local(res) }, "local"))
-keywords.push(new keyword(["i"], ['"'], function(res) { keywords.import(res) }, "import"))
+keywords.push(new keyword(["l"], ['"'], function(res) { keywords.readword(res, "ocal ") }, "local"))
+keywords.push(new keyword(["i"], ['"'], function(res) { keywords.readword(res, "mport ") }, "import"))
+keywords.push(new keyword(["p"], ["`"], function(res) { keywords.readword(res, "arse ") }, "parse"))
+keywords.push(new keyword(["`"], ["`"], function(res) { keywords.readcode(res) }, "code"))
 keywords.push(new keyword(['"'], ['"'], function(res) { keywords.value(res) }, "value"))
 keywords.push(new keyword(["-"], ["#"], function(res) { keywords.child(res) }, "child"))
-keywords.push(new keyword(["#"], ["*"], function(res) { keywords.tempotext = res; }, "element"))
-keywords.push(new keyword(["*"], [" ", "@"], function(res) { keywords.tempotype = res }, "type"))
-keywords.push(new keyword(["@"], ["."], function(res) { keywords.draw(res) }, "draw"))
+keywords.push(new keyword(["#"], ["*"], function(res) { keywords.tempotext = res; }, "inner"))
+keywords.push(new keyword(["*"], [" ", "@", "\n"], function(res) { keywords.draw(res) }, "draw"))
+keywords.push(new keyword(["@"], [".", "\n"], function(res) { keywords.style(keywords.tempowrite.node, res) }, "style"))
 keywords.push(new keyword(["{"], ["}"], function(res) { keywords.attribute(keywords.tempowrite.node, res) }, "attribute"))
 keywords.push(new keyword(["["], ["]"], function(res) { keywords.groupitem(keywords.tempowrite, res) }, "group"))
+keywords.push(new keyword(["("], [")"], function(res) { keywords.repeat(keywords.tempowrite, res) }, "repeat"))
 
 /* writing */
-function write(text, type, style, childhood) { 
+class DataNode {
+  constructor(node, childhood, index, repetition=1) {
+    const that = this
+    this.node = node
+    this.childhood = childhood
+    this.index = index
+    this.repetition = repetition
+    this.append = function(item) {
+       /* if(!that.repetition) { */ that.node.append(item) /* } */
+        /* else if(that.repetition && that.repetition.length) {
+            var r = that.repetition
+            for(var i = 0; i < r.length; i++) {
+               r[i].append(item)
+                   }
+               } else { console.warn("can't append to multiple repetition -->", this) } */
+            }
+        }
+  }
+function write(text, type, childhood) {
     var element = (function () {
     try {
         var res = document.createElement(type)
-        if(res.tagName == "IMG" || res.tagName == "frame" || res.tagName == "irame") {
+        if(res.tagName == "IMG" || res.tagName == "frame" || res.tagName == "iframe") {
             awaitload()
             res.onload = function() { awaitload(true) }
+            res.onerror = function() { awaitload(true) }
         }
-      if(text) { res.innerHTML = text }
-      if(style) { res.style = style }
+        if(text) { res.innerHTML = text }
       return res
     } catch {
          console.warn("Element creation failed *" + type)
@@ -302,37 +360,47 @@ function write(text, type, style, childhood) {
          return err
         }
     })()
-  var nodemap = { node: element, childhood: childhood, index: nods.length }
-  nods.push(nodemap)
+  var nodemap = new DataNode(element, childhood, nodes.length)
+  nodes.push(nodemap)
   return nodemap
 };
 
+write.append = function(n1, n2) {
+   if(nodes[n2].childhood) {
+       nodes[n1].append(nodes[n2].node)
+        }
+    };
+ 
 write.truewrite = function(i, encode) {
-    (i!=undefined) ? (i=i) : (i = nods.length-1)
-     if(nods[i].childhood) {
-        try {
+    (i!=undefined) ? (i=i) : (i = nodes.length-1)
+       try {
            for(var e = 1; e <= i; e++) {
-                if(nods[i-e].childhood == nods[i].childhood-1) {
-                 nods[i-e].node.append(nods[i].node); break
+                if(nodes[i-e].childhood == nodes[i].childhood-1) {
+                   write.append(i-e, i); break
                 }
              }
-          } catch { console.error("failed to create child", nods[i]) }
-       } else if(!encode) { try{ hand.append(nods[i].node) } catch { console.err(nods[i].node) }
-    }  else if(encode && typeof encode == 'function') { encode(nods[i].node) }
- };
+        } catch { console.error("failed to create child -->", nodes[i]) }
+ }; nodes.push(new DataNode(hand, 0, 0, null))
     
  write.about = function() {
   console.group("taken global names")
-    console.log( "hand") 
+    console.log("hand") 
     console.log("awaitload")
     console.log("loads")
-    console.log("keyword")
+    console.log("Keyword")
     console.log("keywords")
     console.log("read")
     console.log("write")
-    console.log("__scripts__")
-    console.log("__load")
+    console.log("nodes")
+    console.log("DataNode")
+    console.log("Layout")
+    console.log("getouter")
+    console.log("__host__")
     console.log("__head__")
-    console.log("__htmlscript__")
+    console.log("__body__")
+    console.log("__scripts__")
+    console.log("__loading__")
+    console.log("__load")
   console.groupEnd("taken global names")
     }
+  
