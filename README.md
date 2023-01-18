@@ -13,9 +13,9 @@ written to be `more` `flexible` and more `comfortable`
 * Easy to choose a content layout
   
 # Installation
-Connect the script and let it do all the dirty job for you. <br>
-HtmlS compilates inside any `<script>` scpecified as `htmlscript` <br>
-It's also possible to store htmls separetely from html document.
+Connect the script and let it do all the dirty jobs for you. <br>
+HtmlS compilates inside any `<script>` specified as `htmlscript` <br>
+It's also possible to store htmls separately from html document.
 ```HTML
 <html>
     <head>
@@ -92,7 +92,7 @@ parse css `body { color: peru }`
 * exclude sloped quotes
 
 ### External files:
-To connect external file, init source with `import` keyword. <br>
+To connect an external file, init source with `import` keyword. <br>
 File action defined automatically by its extension.
 ```javascript
  import "root/code.js"
@@ -118,18 +118,18 @@ number shows screen percentage occupied by content.
 * fullscreen <br>
 Have not any arguments.
 ### `style`
-Defines style of element which holds content. Is not the same to `<body>` element. <br>
+Defines style of element which holds content. Is not the same as the `<body>` element. <br>
 Related to `<head>` <br>
 By default set to `border-radius: 15px; border: 1px dotted; background-color: white`
 ### `theme` 
-Indicates colour of `Loading..` string<br>
+Indicates color of `Loading..` string<br>
 Related to `<head>`. By default set to `rgba(217, 210, 210, 0.6)`
 ### `image`
 Attribute takes a url and indicates the background-image of your page. <br>
 background-image also comes from style, but `image` is visible only after load. <br>
 Related to `<body>`. By default not set.
 ### `style`
-Style of `<body>` element is the same as in the source html.
+Style of the `<body>` element is the same as in the source html.
 ### `fetch`
 Specific attribute related to `<script type="htmls">`. <br>
 Fetch contains a link to code, if you would like to store it separately.<br>
@@ -144,7 +144,7 @@ The best way to take part in this project - leave a comment.<br>
 Just go to the discussions and write how would you like to write html <br>
 or what features would you like to see in htmls. <br>
 Also you can write a layout to help create beautiful sites. <br>
-If you are optimization specialist welcome to the team.
+If you are an optimization specialist, welcome to the team.
 
 # Learn more
 ### About safety
