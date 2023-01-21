@@ -2,20 +2,20 @@
 <html>
 <head> 
 <style type="text/css">
- #paper {
+#paper {
     background-color: white;
     border-radius: 20px;
     border: 1px dotted;
     padding: 0;
-  }
- #body {
+    }
+#body {
     margin: 0;
     }
 </style>
 </head>
 <body id="body" style="background-color: white;">
 <div id="content" style="display: none">
-  <div id="paper"></div>
+<div id="paper"></div>
 </div>
 <script>
 document.body.append(__loading__);
@@ -24,119 +24,122 @@ document.head.append(__title__);
 </script>
 <script type="text/javascript">
 function onlyNumbers(text) {
-  var res = ""
-  for(var i = 0; i < text.length; i++) {
-    for(var e = 0; e <= 9; e++) {
-      if(text[i] == e.toString()) { res += text[i]; }
-          }
-        }
-   if(res) { return eval(res) } else { return 0 }
- };
-  
- HTMLElement.prototype.clone  = function(single) {
-   if(this.id && !single) { console.error("use a 'class' instead of 'id' -->", this); }
-       var node = this.cloneNode(49)
-       if(this.property) {
-         node.property = new Array()
-         for(var i = 0; i < this.property.length; i++) {
-             node.property.push(this.property[i])
-             keywords.attribute(node, this.property[i], true)
+    var res = ""
+    for(var i = 0; i < text.length; i++) {
+        for(var e = 0; e <= 9; e++) {
+            if(text[i] == e.toString()) { res += text[i]; }
             }
-       }; return node
-  }
-  
-  var hand = document.getElementById("paper")
-  var resizebase = new Array()
-  function onResize(e, f) { 
-       resizebase.push({ func: f, elem: e }); return resizebase
-   }
-  window.onresize = function() {
+        }
+    if(res) { return eval(res) } else { return 0 }
+    };
+
+HTMLElement.prototype.clone  = function(single) {
+    if(this.id && !single) { console.error("use a 'class' instead of 'id' -->", this); }
+    var node = this.cloneNode(49)
+    if(this.property) {
+        node.property = new Array()
+        for(var i = 0; i < this.property.length; i++) {
+            node.property.push(this.property[i])
+            keywords.attribute(node, this.property[i], true)
+            }
+        }; return node
+    };
+
+var hand = document.getElementById("paper")
+var resizebase = new Array()
+function onResize(e, f) { 
+    resizebase.push({ func: f, elem: e }); return resizebase
+    }
+window.onresize = function() {
     for(var i = 0; i < resizebase.length; i++) {
-         for(var e = 0; e < resizebase[i].elem.length; e++) {
+        for(var e = 0; e < resizebase[i].elem.length; e++) {
             resizebase[i].func(resizebase[i].elem[e]);
-           }
-       } 
-  };
+            }
+        } 
+    };
+
 </script>
 <script type="text/javascript">
 /* Layouts */
- function background() {
-     document.body.style = getouter("style", __body__) 
- };
+function background() {
+    document.body.style = getouter("style", __body__) 
+    };
+
 background.image = function() {
-   var source = getouter("image", __body__)
+    var source = getouter("image", __body__)
     if(source) {
         document.body.style.backgroundImage = "url('" + source + "')" 
-      }
-  }; background()
- 
+        }
+    }; background()
+
 class Layout {
-  constructor(reaction=function() {}, name) {
-   this.content = reaction
-   this.name = name
-     }
- };
-    
+    constructor(reaction=function() {}, name) {
+        this.content = reaction
+        this.name = name
+        }
+    };
+
 function searchplans(value, chain=function() {}) {
     var def = `
     new Layout(
-      function(e) {
-       var arg = 0.5
-          if(innerWidth > innerHeight) {
-              e.style.marginLeft = (innerWidth*(1-arg))/2 + "px"
-              e.style.width = innerWidth*arg + "px"
-           } else {
-               e.style.width = innerWidth*(1-arg/10)+"px"
-               e.style.marginLeft = innerWidth*(arg/10)/2 + "px"
-           }  
-           if(e.offsetHeight < innerHeight) { 
-              e.style.marginTop = (innerHeight-e.offsetHeight)/2 + "px" 
-            } else { e.style.marginTop = "10px" }
-      }, "default relative")`
+    function(e) {
+    var arg = 0.5
+    if(innerWidth > innerHeight) {
+    e.style.marginLeft = (innerWidth*(1-arg))/2 + "px"
+    e.style.width = innerWidth*arg + "px"
+    } else {
+    e.style.width = innerWidth*(1-arg/10)+"px"
+    e.style.marginLeft = innerWidth*(arg/10)/2 + "px"
+    }  
+    if(e.offsetHeight < innerHeight) { 
+    e.style.marginTop = (innerHeight-e.offsetHeight)/2 + "px" 
+    } else { e.style.marginTop = "10px" }
+    }, "default relative")`
     
     function layout(val) {
-       var action = false
-       var pre = true
-       var res = ""
-       for(var i = 0; i < val.length; i++) {
-          if(val[i] != " " && pre) { pre = false }
-          if(val[i] != " " && !pre) { res += val[i] }
-          if(val[i] == " " && !pre) { action = i; break }
-       }
-      var paperwidth = "";
-      if(action) {
-          var pre = true
-          for(var i = action+1; i < val.length; i++) {
-             if(val[i] != " " && pre) { pre = false }
-             if(val[i] != " " && !pre) { paperwidth += value[i] }
-             else if(val[i] == " " && !pre) { return paperwidth }
-              }
-          }; return { name: res, arg: paperwidth }
-     }
-     var plan = layout(value)
-     fetch(__host__ +  "/layouts/" + plan.name + ".js")
-       .then(response => response.text())
-       .then(text => setlayout(text))
-        .catch((error) => {
-           console.error("can't find specified layout --> ", plan.name)
-           setlayout(def)
+        var action = false
+        var pre = true
+        var res = ""
+        for(var i = 0; i < val.length; i++) {
+            if(val[i] != " " && pre) { pre = false }
+            if(val[i] != " " && !pre) { res += val[i] }
+            if(val[i] == " " && !pre) { action = i; break }
+            }
+        var paperwidth = "";
+        if(action) {
+            var pre = true
+            for(var i = action+1; i < val.length; i++) {
+                if(val[i] != " " && pre) { pre = false }
+                if(val[i] != " " && !pre) { paperwidth += value[i] }
+                else if(val[i] == " " && !pre) { return paperwidth }
+                }
+            }; return { name: res, arg: paperwidth }
+        }
+    var plan = layout(value)
+    fetch(__host__ +  "/layouts/" + plan.name + ".js")
+    .then(response => response.text())
+    .then(text => setlayout(text))
+    .catch((error) => {
+        console.error("can't find specified layout --> ", plan.name)
+        setlayout(def)
         })
-      function setlayout(res) {
+    function setlayout(res) {
         searchplans.plan = { layout: eval(res), argument: plan.arg }
         onResize([hand], function(e) { searchplans.plan.layout.content(e, searchplans.plan.argument) })
         chain()
-      }
-  };
+        }
+    };
+
 </script>
 <script type="text/javascript">
 /* load */
 var loads = 0
 function awaitload(endkey) {
-     if( window.onresize) { window.onresize() }
-     if(!loads && endkey != "") { try { hand.innerHTML = ""; } catch{} }
-     if(!endkey) { loads++ }
-     else if(endkey) { loads-- }
-     if(!loads) {
+    if( window.onresize) { window.onresize() }
+    if(!loads && endkey != "") { try { hand.innerHTML = ""; } catch{} }
+    if(!endkey) { loads++ }
+    else if(endkey) { loads-- }
+    if(!loads) {
         try {
             background.image()
             var style = getouter("style", __head__)
@@ -145,40 +148,40 @@ function awaitload(endkey) {
             document.body.removeChild(__loading__)
             if(!nodes.length) {
                 hand.innerHTML = `<p style="font-size: 35px; text-align: center; color: maroon">Document Empy</p>`
-             }
-           if(window.onresize) { window.onresize(); window.onresize(); }
-      } catch { console.warn("iterations run was not standart") }
-     console.log("Compilation finished. Run `write.about()` to find out taken global names.") 
-     console.groupEnd("compilation")
-     }
- };
+                }
+            if(window.onresize) { window.onresize(); window.onresize(); }
+            } catch { console.warn("iterations run was not standart") }
+        console.log("Compilation finished. Run `write.about()` to find out taken global names.") 
+        console.groupEnd("compilation")
+        }
+    };
 
 /* core */
 class keyword {
     constructor(start=[], end=[], recall=function() {}, name) {
-       const that = this
-       this.ends = end
-       this.starts = start
-       this.name = name
-       this.start = function(compl) {
-           for(var i = 0; i < start.length; i++) { if(start[i]==compl) { return this } }
-                return false
-           }
-       this.end = function(compl, moves) {
-           for(var i = 0; i < end.length; i++) {
-               var includes = false
-               for(var e = 0; e < start.length; e++) {
-                   if(end.includes(start[e]) ) { includes = true }
-               }
-            if(end[i]==compl && (moves || !includes) ) { return this }
-             }; return false
-        }
-      this.recall = function(event, response) { 
-          if(response) { console.log(event) }
-              recall(event)
+        const that = this
+        this.ends = end
+        this.starts = start
+        this.name = name
+        this.start = function(compl) {
+            for(var i = 0; i < start.length; i++) { if(start[i]==compl) { return this } }
+            return false
             }
-       }
- };
+        this.end = function(compl, moves) {
+            for(var i = 0; i < end.length; i++) {
+                var includes = false
+                for(var e = 0; e < start.length; e++) {
+                    if(end.includes(start[e]) ) { includes = true }
+                    }
+                if(end[i]==compl && (moves || !includes) ) { return this }
+                }; return false
+            }
+        this.recall = function(event, response) { 
+            if(response) { console.log(event) }
+            recall(event)
+            }
+        }
+    };
 
 function read(data, response=false, encode=function(start, end, name) { return true }) {
     if(!read.pos) { read.pos = -1; awaitload() }
@@ -191,129 +194,130 @@ function read(data, response=false, encode=function(start, end, name) { return t
         if(read.await) { console.log("reading paused"); break }
         read.pos++; read.change = null; read.last_iteration = null;
         if(response) { console.log(read.data[read.pos], read.iteration) }
-            if(read.iteration && read.iteration.end( read.data[read.pos], read.pos-read.started ) ) {
-                var draw = encode(read.started, read.pos-read.started, read.iteration.name);
-                 if(draw) {
-                    read.iteration.recall(read.res, response);
-                  }
-                 read.res = ""; read.started = null;
-                 read.last_iteration = read.iteration; read.iteration = null;
-             }
-            for(var i = 0; i < keywords.length; i++) {
-              let key = keywords[i].start( read.data[read.pos] )
-              if(!read.iteration && key  && key != read.last_iteration) {
-                   read.iteration = keywords[i]; read.change = true;read.started = read.pos; break;
-              }
-       }
-      if(read.iteration && !read.change) { read.res += read.data[read.pos] }
-      if(read.change) { read.change = null }
-   }
-   if(!read.await) {
+        if(read.iteration && read.iteration.end( read.data[read.pos], read.pos-read.started ) ) {
+            var draw = encode(read.started, read.pos-read.started, read.iteration.name);
+            if(draw) {
+                read.iteration.recall(read.res, response);
+                }
+            read.res = ""; read.started = null;
+            read.last_iteration = read.iteration; read.iteration = null;
+            }
+        for(var i = 0; i < keywords.length; i++) {
+            let key = keywords[i].start( read.data[read.pos] )
+            if(!read.iteration && key  && key != read.last_iteration) {
+                read.iteration = keywords[i]; read.change = true;read.started = read.pos; break;
+                }
+            }
+        if(read.iteration && !read.change) { read.res += read.data[read.pos] }
+        if(read.change) { read.change = null }
+        }
+    if(!read.await) {
         if(read.iteration) { read.iteration.recall(read.res, response) }
         awaitload(true)
-      };
- };
+        };
+    };
+
 read.awaitReading = function() {
-    console.log("awaiting..")
     awaitload()
     read.await = true
-  }
+    };
+
 read.continueReading = function() {
-   console.log("reading continued")
-   awaitload(true)
-   read.await = false; read.pos += 1
-   read(read.data, read.response)
- };
+    console.log("reading continued")
+    awaitload(true)
+    read.await = false; read.pos += 1
+    read(read.data, read.response)
+    };
 
 /* syntax */
- var keywords = []
- keywords.tempotext = null
- keywords.tempowrite = null
- keywords.word = null
- keywords.childhood = 1
- var nodes = new Array()
- var styles = new Array()
+var keywords = []
+keywords.tempotext = null
+keywords.tempowrite = null
+keywords.word = null
+keywords.childhood = 1
+var nodes = new Array()
+var styles = new Array()
 
 keywords.cssmodify = function(style) {
     var adition = true;
     for(var i = style.length-1; i > 0; i--) {
         if(style[i] == ";") { adition = false;}
         if(style[i] != " ") { break }
-     }
+        }
     if(adition) { return style+";" } else { return eval('`' + style + '`') }
- };
+    };
 
 keywords.getvalue = function(name, err) {
     for(var i = 0; i < styles.length; i++) {
-       if(styles[i].name == name) { return keywords.cssmodify(styles[i].data) }
-    }; if(err) { console.error("can't find style -->", res) }
-};
+        if(styles[i].name == name) { return keywords.cssmodify(styles[i].data) }
+        }; if(err) { console.error("can't find style -->", res) }
+    };
 
 keywords.setvalue = function(name, data) {
     if( !keywords.getvalue(name) ) {
         styles.push({ name: name, data: data })
-     } else { console.error("repeating name error -->", name) }
- };
+        } else { console.error("repeating name error -->", name) }
+    };
 
 keywords.groupitem = function(nodemap, command) {
-   var num = 1
-   var prop = 1
-   var margin = 0
-   var classname = null
-   var cnt = 1
-   var res = ""
-   for(var i = 0; i < command.length; i++) {
-      res += command[i]
-      if(command[i] == " " && cnt == 1) { cnt++;
-          try{ margin=eval(res); res = "" } catch {}
-      }
-      else if(command[i] == " " && cnt == 2) { cnt++;
-          try{ prop=eval(res); res = "" } catch {}
-      }
-      else if(command[i] == " " && cnt == 3) { cnt++;
-          try{ num=eval(res); res = "" } catch {}
-     }
-      else if(command[i] == " " && cnt == 4) {
-          try{ classname=eval(res); res = "" } catch {}
-      }
-   if(cnt == 1) { try{ margin=eval(res) } catch {} }
-   else if(cnt == 2) { try{ prop=eval(res) } catch {} }
-   else if(cnt == 3) { try{ num=eval(res) } catch {} }
-   else if(cnt == 4) { classname = res}
-  }
-   var element = nodemap.node
-   var parent = element.parentElement
-   var header = document.createElement("div");
-   var brothers = new Array()
-       for(var i = 0; i < num; i++) {
-           var broth = element.clone(num == 1)
-           broth.num = i
-           broth.style.marginLeft = margin + "px"
-           broth.style.position = "absolute"
-           if(classname) { broth.className = classname }
-           brothers.push(broth)
-       }
-   onResize(brothers, function(e, i) {
-       var ewidth = ( parent.offsetWidth-margin*(brothers.length+1) )/brothers.length
+    var num = 1
+    var prop = 1
+    var margin = 0
+    var classname = null
+    var cnt = 1
+    var res = ""
+    for(var i = 0; i < command.length; i++) {
+        res += command[i]
+        if(command[i] == " " && cnt == 1) { cnt++;
+            try{ margin=eval(res); res = "" } catch {}
+            }
+        else if(command[i] == " " && cnt == 2) { cnt++;
+            try{ prop=eval(res); res = "" } catch {}
+            }
+        else if(command[i] == " " && cnt == 3) { cnt++;
+            try{ num=eval(res); res = "" } catch {}
+            }
+        else if(command[i] == " " && cnt == 4) {
+            try{ classname=eval(res); res = "" } catch {}
+            }
+        if(cnt == 1) { try{ margin=eval(res) } catch {} }
+        else if(cnt == 2) { try{ prop=eval(res) } catch {} }
+        else if(cnt == 3) { try{ num=eval(res) } catch {} }
+        else if(cnt == 4) { classname = res}
+        }
+    var element = nodemap.node
+    var parent = element.parentElement
+    var header = document.createElement("div");
+    var brothers = new Array()
+    for(var i = 0; i < num; i++) {
+        var broth = element.clone(num == 1)
+        broth.num = i
+        broth.style.marginLeft = margin + "px"
+        broth.style.position = "absolute"
+        if(classname) { broth.className = classname }
+        brothers.push(broth)
+        }
+    onResize(brothers, function(e, i) {
+        var ewidth = ( parent.offsetWidth-margin*(brothers.length+1) )/brothers.length
         e.style.width = ewidth + "px"
         var ehight = ewidth/prop
         e.style.height = ehight + "px"
         e.style.marginLeft = (e.num + 1) * margin + ewidth*e.num + "px"
-    })
-   onResize([header], function(e) {
-      if(e.children.length) {
-        e.style.height = e.children[0].offsetHeight + "px"
-        e.style.width = parent.offsetWidth + "px"
+        })
+    onResize([header], function(e) {
+        if(e.children.length) {
+            e.style.height = e.children[0].offsetHeight + "px"
+            e.style.width = parent.offsetWidth + "px"
+            }
+        }) 
+    parent.removeChild(element);
+    for(var i = 0; i < brothers.length; i++) {
+        header.append(brothers[i])
         }
-    }) 
-   parent.removeChild(element);
-   for(var i = 0; i < brothers.length; i++) {
-      header.append(brothers[i])
-     }
-   nodes[nodemap.index].node = header;
-   keywords.tempowrite.node = header
-   parent.appendChild(header)
-  };
+    nodes[nodemap.index].node = header;
+    keywords.tempowrite.node = header
+    parent.appendChild(header)
+    };
 
 keywords.attribute = function(element, res, oneprop) {
     if(!element.property) { element.property = [] }
@@ -322,109 +326,109 @@ keywords.attribute = function(element, res, oneprop) {
         for(var i = 0; i < res.length; i++) {
             if(res[i] == ",") { make(atr); atr="" }
             else { atr += res[i] }
-         }; if(atr) { make(atr) }
-     } else { make(res) }
-           function make(a) {
-               element.property.push(a)
-               try { eval("element." + a) } 
-               catch { console.error("failed to attribute -->", element, res) }
-           } 
- };
- 
+            }; if(atr) { make(atr) }
+        } else { make(res) }
+    function make(a) {
+        element.property.push(a)
+        try { eval("element." + a) } 
+        catch { console.error("failed to attribute -->", element, res) }
+        } 
+    };
+
 keywords.importitem = function(command, preload) {
-     console.warn("importing --> ", command)
+    console.warn("importing --> ", command)
     var ext = ""
     for(var i = command.length-1; i > 0; i--) {
         if(command[i] == ".") { break } else { ext+=command[i] }
-     }
-   if(ext == "sj") {
+        }
+    if(ext == "sj") {
         read.awaitReading()
         var script = document.createElement("script")
         script.src = command
-        script.onload = function() { console.log("imported script", this); read.continueReading() }
+        script.onload = function() { console.log("imported script -->", this); read.continueReading() }
         script.onerror = function() { console.error("failed to import -->", command); read.continueReading() }
         document.body.append(script)
-   }
+        }
     else if(ext == "ssc") {
-       var style = document.createElement("style")
-       style.type = "text/css"
+        var style = document.createElement("style")
+        style.type = "text/css"
         fetch(command)
-       .then(response => response.text())
-       .then(text => (function(t) { 
-         style.innerHTML = t
-         document.head.append(style);
-        })(text))
-     } 
-   else if(preload) { 
-    var link = document.createElement("link")
-    link.rel = "preload"
-    link.href = command
-     }
-   else { console.warn("unkown file extension -->", ext) }
- };
-  
+        .then(response => response.text())
+        .then(text => (function(t) { 
+            style.innerHTML = t
+            document.head.append(style);
+            })(text))
+        } 
+    else if(preload) { 
+        var link = document.createElement("link")
+        link.rel = "preload"
+        link.href = command
+        }
+    else { console.warn("unkown file extension -->", ext) }
+    };
+
 keywords.draw = function(res) {
-   keywords.tempowrite = write(keywords.tempotext,  res, keywords.childhood)
-   keywords.tempotext = null; keywords.childhood = 1;
-   write.truewrite();
- };
-  
+    keywords.tempowrite = write(keywords.tempotext,  res, keywords.childhood)
+    keywords.tempotext = null; keywords.childhood = 1;
+    write.truewrite();
+    };
+
 keywords.readword = function(res, code) {
-   var factcode = ""
-   for(var i = 0; i < code.length; i++) {
-    factcode += res[i]
-      }
-   if(factcode == code) {
-       var arg = ""
+    var factcode = ""
+    for(var i = 0; i < code.length; i++) {
+        factcode += res[i]
+        }
+    if(factcode == code) {
+        var arg = ""
         for(var i = code.length; i < res.length; i++) {
             if(res[i]!=" ") { arg += res[i] }
-        };  keywords.word =  { code: code, argument: arg }
-     }; return keywords.word
-  }
-  
+            };  keywords.word =  { code: code, argument: arg }
+        }; return keywords.word
+    };
+
 keywords.value = function(res) {
-  if(keywords.word.code == "ocal ") {
-      keywords.setvalue(keywords.word.argument, res); keywords.word = null;
-    }
-  else if(keywords.word.code =="mport ") {
-       keywords.importitem(res, keywords.word.argument); keywords.word = null;
-     };
-  };
-  
+    if(keywords.word.code == "ocal ") {
+        keywords.setvalue(keywords.word.argument, res); keywords.word = null;
+        }
+    else if(keywords.word.code =="mport ") {
+        keywords.importitem(res, keywords.word.argument); keywords.word = null;
+        };
+    };
+
 keywords.child = function(res) {
-   var result = 2;
-   for(var i = 0; i < res.length; i++) {
-       if(res[i] == "-") { result++ }
-     }; keywords.childhood = result;
-  };
-  
+    var result = 2;
+    for(var i = 0; i < res.length; i++) {
+        if(res[i] == "-") { result++ }
+        }; keywords.childhood = result;
+    };
+
 keywords.style = function(node, res) {
-  if(node) {
-    node.style = (function separate(variables) {
-        var variable = ""
-        var result = ""
-        for(var i = 0; i < variables.length; i++) {
-            if(variables[i] == " ") { result += keywords.getvalue(variable); variable = "" }
-            else { variable += variables[i] }
-         }; if(variable) { result += keywords.getvalue(variable) }
-        return result
-      })(res)
-    }
- }
+    if(node) {
+        node.style = (function separate(variables) {
+            var variable = ""
+            var result = ""
+            for(var i = 0; i < variables.length; i++) {
+                if(variables[i] == " ") { result += keywords.getvalue(variable); variable = "" }
+                else { variable += variables[i] }
+                }; if(variable) { result += keywords.getvalue(variable) }
+            return result
+            })(res)
+        }
+    };
 
 keywords.readcode = function(res) {
-  if(keywords.word.argument == "css") { 
-    var style = document.createElement("style")
-    style.type = "text/css"; style.innerHTML = res
-    document.head.append(style)
-     }
-  else if(keywords.word.argument == "js") {
-    var script = document.createElement("script")
-    script.type = "text/javascript"; script.innerHTML = res
-    document.head.append(script)
-     } else { console.warn("unexpected parse --> ", keywords.word.argument) }
-      keywords.word = null;
- };
+    if(keywords.word.argument == "css") { 
+        var style = document.createElement("style")
+        style.type = "text/css"; style.innerHTML = res
+        document.head.append(style)
+        }
+    else if(keywords.word.argument == "js") {
+        var script = document.createElement("script")
+        script.type = "text/javascript"; script.innerHTML = res
+        document.head.append(script)
+        } else { console.warn("unexpected parse --> ", keywords.word.argument) }
+    keywords.word = null;
+    };
 
 keywords.push(new keyword(["~"], ["~"], function(res) { console.log(res) }, "comment"))
 keywords.push(new keyword(["l"], ['"'], function(res) { keywords.readword(res, "ocal ") }, "local"))
@@ -441,57 +445,58 @@ keywords.push(new keyword(["["], ["]"], function(res) { keywords.groupitem(keywo
 
 /* writing */
 class DataNode {
-  constructor(node, childhood, index) {
-    const that = this
-    this.node = node
-    this.childhood = childhood
-    this.index = index
-    this.append = function(item) {
-        that.node.append(item)
+    constructor(node, childhood, index) {
+        const that = this
+        this.node = node
+        this.childhood = childhood
+        this.index = index
+        this.append = function(item) {
+            that.node.append(item)
             }
         }
-  }
+    };
+
 function write(text, type, childhood) {
     var element = (function () {
-    try {
-        var res = document.createElement(type)
-        if(res.tagName == "IMG" || res.tagName == "frame" || res.tagName == "iframe") {
-            awaitload()
-            res.onload = function() { awaitload(true) }
-            res.onerror = function() { awaitload(true) }
-        }
-        if(text) { res.innerHTML = text }
-      return res
-    } catch {
-         console.warn("Element creation failed *" + type)
-         var err = document.createElement("p"); err.innerHTML = "creation error"
-         return err
-        }
-    })()
-  var nodemap = new DataNode(element, childhood, nodes.length)
-  nodes.push(nodemap)
-  return nodemap
-};
+        try {
+            var res = document.createElement(type)
+            if(res.tagName == "IMG" || res.tagName == "frame" || res.tagName == "iframe") {
+                awaitload()
+                res.onload = function() { awaitload(true) }
+                res.onerror = function() { awaitload(true) }
+                }
+            if(text) { res.innerHTML = text }
+            return res
+            } catch {
+            console.warn("Element creation failed --> ", type)
+            var err = document.createElement("p"); err.innerHTML = "creation error"
+            return err
+            }
+        })()
+    var nodemap = new DataNode(element, childhood, nodes.length)
+    nodes.push(nodemap)
+    return nodemap
+    };
 
 write.append = function(n1, n2) {
-   if(nodes[n2].childhood) {
-       nodes[n1].append(nodes[n2].node)
+    if(nodes[n2].childhood) {
+        nodes[n1].append(nodes[n2].node)
         }
     };
- 
+
 write.truewrite = function(i, encode) {
     (i!=undefined) ? (i=i) : (i = nodes.length-1)
-       try {
-           for(var e = 1; e <= i; e++) {
-                if(nodes[i-e].childhood == nodes[i].childhood-1) {
-                   write.append(i-e, i); break
+    try {
+        for(var e = 1; e <= i; e++) {
+            if(nodes[i-e].childhood == nodes[i].childhood-1) {
+                write.append(i-e, i); break
                 }
-             }
+            }
         } catch { console.error("failed to create child -->", nodes[i]) }
- }; nodes.push(new DataNode(hand, 0, 0))
-    
- write.about = function() {
-  console.group("taken global names")
+    }; nodes.push(new DataNode(hand, 0, 0))
+
+write.about = function() {
+    console.group("taken global names")
     console.log("hand") 
     console.log("awaitload")
     console.log("loads")
@@ -509,22 +514,25 @@ write.truewrite = function(i, encode) {
     console.log("__scripts__")
     console.log("__loading__")
     console.log("__load")
-  console.groupEnd("taken global names")
-    }
-  
+    console.groupEnd("taken global names")
+    };
+
+
 </script>
 <script type="text/javascript">
-  read.data = ""
-  function __load(i) {
+read.data = ""
+function __load(i) {
     if(__scripts__[i]) {
-          var source = getouter("fetch", __scripts__[i])
-          if(source) {
-              fetch(source)
-              .then(response => response.text())
-              .then(text => (function(t) { read.data += t;  __load(i+1) })(text))
-           } else {  read.data += __scripts__[i].innerHTML; __load(i+1) }
+        var source = getouter("fetch", __scripts__[i])
+        if(source) {
+            fetch(source)
+            .then(response => response.text())
+            .then(text => (function(t) { read.data += t;  __load(i+1) })(text))
+            } else {  read.data += __scripts__[i].innerHTML; __load(i+1) }
         } else { searchplans( getouter("layout", __head__, "relative 0.7"), function() { read(read.data) }) }
-   }; __load(0);
+    };
+  __load(0);
+
 </script>
 </body>
 </html>
