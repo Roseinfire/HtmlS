@@ -145,13 +145,13 @@ function awaitload(endkey) {
                 background.image()
                 var style = getouter("style", __head__)
                 hand.style = style
-                document.getElementById("content").style.display = "block";
                 document.body.removeChild(__loading__)
+                document.getElementById("content").style.display = "block";
                 if(!nodes.length) {
                     hand.innerHTML = `<p style="font-size: 35px; text-align: center; color: maroon">Document Empy</p>`
                 }
                 if(window.onresize) { window.onresize } 
-               }, 10)
+               }, 5)
             } catch { console.warn("iterations run was not standart") }
         console.log("Compilation finished. Run `write.about()` to find out taken global names.") 
         console.groupEnd("compilation")
