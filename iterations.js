@@ -15,7 +15,7 @@ function awaitload(endkey) {
             if(!nodes.length) {
                 hand.innerHTML = `<p style="font-size: 35px; text-align: center; color: maroon">Document Empy</p>`
                 }
-            if(window.onresize) { window.onresize(); window.onresize(); }
+            if(window.onresize) { setTimeout(window.onresize, 0) }
             } catch { console.warn("iterations run was not standart") }
         console.log("Compilation finished. Run `write.about()` to find out taken global names.") 
         console.groupEnd("compilation")
