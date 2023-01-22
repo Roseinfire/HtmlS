@@ -7,15 +7,17 @@ function awaitload(endkey) {
     else if(endkey) { loads-- }
     if(!loads) {
         try {
-            background.image()
-            var style = getouter("style", __head__)
-            hand.style = style
-            document.getElementById("content").style.display = "block";
-            document.body.removeChild(__loading__)
-            if(!nodes.length) {
-                hand.innerHTML = `<p style="font-size: 35px; text-align: center; color: maroon">Document Empy</p>`
+            setTimeout(function() {
+                background.image()
+                var style = getouter("style", __head__)
+                hand.style = style
+                document.body.removeChild(__loading__)
+                document.getElementById("content").style.display = "block";
+                if(!nodes.length) {
+                    hand.innerHTML = `<p style="font-size: 35px; text-align: center; color: maroon">Document Empy</p>`
                 }
-            if(window.onresize) { setTimeout(window.onresize, 0) }
+                if(window.onresize) { window.onresize() } 
+               }, 5)
             } catch { console.warn("iterations run was not standart") }
         console.log("Compilation finished. Run `write.about()` to find out taken global names.") 
         console.groupEnd("compilation")
@@ -216,19 +218,24 @@ keywords.importitem = function(command, preload) {
         document.body.append(script)
         }
     else if(ext == "ssc") {
-        var style = document.createElement("style")
-        style.type = "text/css"
-        fetch(command)
+      /*  var style = document.createElement("style")
+        style.type = "text/css" */
+        var link = document.createElement("link")
+        link.rel = "stylesheet"
+        link.href = command
+        document.head.append(link)
+    /*    fetch(command)
         .then(response => response.text())
         .then(text => (function(t) { 
             style.innerHTML = t
             document.head.append(style);
-            })(text))
+            })(text)) */
         } 
     else if(preload) { 
         var link = document.createElement("link")
         link.rel = "preload"
         link.href = command
+        document.head.append(link)
         }
     else { console.warn("unkown file extension -->", ext) }
     };
@@ -382,4 +389,3 @@ write.about = function() {
     console.log("__load")
     console.groupEnd("taken global names")
     };
-  
