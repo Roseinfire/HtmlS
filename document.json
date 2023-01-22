@@ -141,15 +141,17 @@ function awaitload(endkey) {
     else if(endkey) { loads-- }
     if(!loads) {
         try {
-            background.image()
-            var style = getouter("style", __head__)
-            hand.style = style
-            document.getElementById("content").style.display = "block";
-            document.body.removeChild(__loading__)
-            if(!nodes.length) {
-                hand.innerHTML = `<p style="font-size: 35px; text-align: center; color: maroon">Document Empy</p>`
+            setTimeout(function() {
+                background.image()
+                var style = getouter("style", __head__)
+                hand.style = style
+                document.getElementById("content").style.display = "block";
+                document.body.removeChild(__loading__)
+                if(!nodes.length) {
+                    hand.innerHTML = `<p style="font-size: 35px; text-align: center; color: maroon">Document Empy</p>`
                 }
-            setTimeout(function() { if(window.onresize) { window.onresize } }, 10)
+                if(window.onresize) { window.onresize } 
+               }, 10)
             } catch { console.warn("iterations run was not standart") }
         console.log("Compilation finished. Run `write.about()` to find out taken global names.") 
         console.groupEnd("compilation")
