@@ -481,7 +481,7 @@ function write(text, type, childhood) {
             }
         })()
     var nodemap = new DataNode(element, childhood, nodes.length)
-    nodes.push(nodemap)
+    nodes.push(nodemap); if(element.tagName == "IMG") { console.error("image appended") }
     return nodemap
     };
 
