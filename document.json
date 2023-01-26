@@ -51,7 +51,7 @@ function onResize(e, f) {
     resizebase.push({ func: f, elem: e }); return resizebase
     }
 window.onresize = function() {
-    console.error("resizing")
+    console.error("resizing", hand)
     for(var i = 0; i < resizebase.length; i++) {
         for(var e = 0; e < resizebase[i].elem.length; e++) {
             resizebase[i].func(resizebase[i].elem[e]);
