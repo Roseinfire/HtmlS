@@ -13,8 +13,9 @@
   local link "color: rgb(148, 82, 1); text-decoration: none"
   local purple "color: rgb(135, 57, 108)"
   local tan "color: peru"
+  local imgleft "margin-left: 15px"
     
-    #*img @. { src="images/Darkbean(500x500).png" } [15]
+    #*img @imgleft. { src="images/Darkbean(500x500).png" }
     #*div @center top.
      - # One script changes everything. *p @advert center tan top0.
      - # Better web development with HtmlScript *p @advert center tan bottom.
