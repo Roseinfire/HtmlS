@@ -469,7 +469,7 @@ function write(text, type, childhood) {
             var res = document.createElement(type)
             if(res.tagName == "IMG" || res.tagName == "frame" || res.tagName == "iframe") {
                 awaitload()
-                res.onload = function() { awaitload(true) }
+                res.onload = function() { awaitload(true); console.error("img loaded") }
                 res.onerror = function() { awaitload(true) }
                 }
             if(text) { res.innerHTML = text }
