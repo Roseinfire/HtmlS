@@ -135,7 +135,6 @@ function searchplans(value, chain=function() {}) {
 /* load */
 var loads = 0
 function awaitload(endkey) {
-    if( window.onresize) { window.onresize() }
     if(!loads && endkey != "") { try { hand.innerHTML = ""; } catch{} }
     if(!endkey) { loads++ }
     else if(endkey) { loads-- }
