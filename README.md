@@ -1,4 +1,3 @@
-![HtmlScript](https://raw.githubusercontent.com/Roseinfire/HtmlScript/main/images/BlackBean(300x300).jpg)
 # Introduction
 Hyper Text Markup used everywhere on the web. <br>
 Written more than thirty years ago, it is not so human friendly. <br>
