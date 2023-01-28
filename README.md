@@ -39,7 +39,7 @@ It's also possible to store htmls separetely from html document.
 ```javascript
 local name "value"
 ```
-#### name works like variable
+#### it works like variable, but takes styles
 *  name: takes all chars exclude `space`, `"` and `.`
 *  value: takes all chars exclude `"`
 #### Example:
@@ -49,7 +49,7 @@ local border "border: 2px solid"
 ```
 ### Elements:
 ```javascript
-# Hello World! *tag @font border.
+# Hello World! *tag :font border.
 ```
 * after `#` goes innerHTML, takes any value exclude `*`
 * `tag` takes classic tag name like `p` or `div`
@@ -57,16 +57,40 @@ local border "border: 2px solid"
 * separate styles with `space`
 * don't forget to add `.` after styles.
 
+### Class names:
+Just add class name after dot
+```javascript
+# div with className *div :border.class
+```
+* exlude `space` from className
+* end className with `space` or `new string`
+
+### Attributes:
+```javascript
+ # *img ( className="image", id="example" )
+```
+* between brackets `{` and `}` specify attributes. Separate with `,`
+* Note that you wrote properties, not Html attributes.
+
+### Children nodes:
+To specify child node, begin add `3` spaces
+```javascript
+# *div :font.
+   # *div :border.
+      # Hello children nodes! *div
+```
+
 ### Recaps:
 ```javascript
- # Element *div (2)
+ # Element *div {2}
 ```
-* between brackets `(` and `)` specify `number`
+#### between brackets `{` and `}` specify `number`
 * parent element will have a number of same elements
+* children not cloned `?`
 
 ### Groups:
 ```javascript
-  # *div @border. [margin proportion quantity class] @font.
+  # *div :border. [margin proportion quantity] :font.
 ```
 #### Between brackets `[` and `]` mark the conditions. Separate arguments with spaces.
 * margin from parent border (`0` by default)
@@ -74,20 +98,8 @@ local border "border: 2px solid"
 * quantity - how many elements in group (`1` by default)
 * class - optional argument which defines node class name
 * first style indicates style of `group`, while second style of `header`
+* children not cloned `?`
 
-### Attributes:
-```javascript
- # *img { className="image", id="example" }
-```
-* between brackets `{` and `}` specify attributes. Separate with `,`
-* Note that you wrote properties, not Html attributes.
-### Children nodes:
-To specify child node, begin command from `-`
-```javascript
- # *div @font.
-   - # *div @border.
-    -- # Hello children nodes! *div
-```
 ### Insert code:
 Use keyword `parse` to implement a short code.
 ```javascript
@@ -104,7 +116,6 @@ parse css `body { color: peru }`
 File action defined automatically by its extension. <br>
 `.js` files become scripts <br>
 `.css` files become styles <br>
-
 ## Setup
 ### Choose attributes to create your own style
 ```HTML
