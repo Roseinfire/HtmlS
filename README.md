@@ -120,7 +120,7 @@ Have not any arguments.
 ### `style`
 Defines style of element which holds content. Is not the same as the `<body>` element. <br>
 Related to `<head>` <br>
-By default set to `border-radius: 15px; border: 1px dotted; background-color: white`
+By default set to `padding: 0;`
 ### `theme` 
 Indicates color of `Loading..` string<br>
 Related to `<head>`. By default set to `rgba(217, 210, 210, 0.6)`
