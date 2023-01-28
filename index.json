@@ -1,8 +1,6 @@
  ~ This website owned by Roseinfire ~
  ~ Distributed under MIT License ~
-    
-  import "index.js"
-    
+  import "index.js" 
   local center "text-align: center"
   local advert "font-size: 18px; margin-top: 10px; margin-bottom: 5px; font-family: cursive"
   local button "background-color: #3D0C02; font-size: 118%; padding-top: 8px; border-radius: 18px; color: white; cursor: pointer;"
@@ -13,12 +11,10 @@
   local link "color: rgb(148, 82, 1); text-decoration: none"
   local purple "color: rgb(135, 57, 108)"
   local tan "color: peru"
-  local imgleft "margin-left: 15px"
-    
-    #*img @imgleft. { src="images/Darkbean(500x500).png" }
+    #*img { src="images/Darkbean(500x500).png" } [24]
     #*div @center top.
      - # One script changes everything. *p @advert center tan top0.
      - # Better web development with HtmlScript *p @advert center tan bottom.
      - # Join *div @button center. { id="copy", onclick = join } [90 12]
     # powered by github source: *p @powered center purple.
-      - # Roseinfire/HtmlScript *a @link. { href = "https://github.com/Roseinfire/HtmlScript" }
+     - # Roseinfire/HtmlScript *a @link. { href = "https://github.com/Roseinfire/HtmlScript" }
