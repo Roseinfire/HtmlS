@@ -3,9 +3,6 @@
  <head> 
  <style type="text/css">
  #paper {
-     background-color: white;
-     border-radius: 20px;
-     border: 1px dotted;
      padding: 0;
      }
  #content {
