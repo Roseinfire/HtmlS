@@ -1,4 +1,14 @@
- function getouter(name, from, onfail) { 
+ function onlyNumbers(text) {
+     var res = ""
+     for(var i = 0; i < text.length; i++) {
+         for(var e = 0; e <= 9; e++) {
+             if(text[i] == e.toString()) { res += text[i]; }
+             }
+         }
+     if(res) { return eval(res) } else { return 0 }
+     }; 
+
+function getouter(name, from, onfail) { 
      var list = from.attributes
      for(var i = 0; i < list.length; i++) { if(list[i].name == name) { return list[i].value } } 
      if(onfail) { return onfail }
