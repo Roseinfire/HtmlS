@@ -32,16 +32,6 @@
  </script>
  <script type="text/javascript">
  /* code space */
- function onlyNumbers(text) {
-     var res = ""
-     for(var i = 0; i < text.length; i++) {
-         for(var e = 0; e <= 9; e++) {
-             if(text[i] == e.toString()) { res += text[i]; }
-             }
-         }
-     if(res) { return eval(res) } else { return 0 }
-     };
- 
  HTMLElement.prototype.await  = function() {
      let tags = ["IMG", "FRAME", "IFRAME"]
      for(var i = 0; i < tags.length; i++) {
