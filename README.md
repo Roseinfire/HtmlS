@@ -23,7 +23,7 @@ It's also possible to store htmls separately from html document.
       <script type="htmlscript"></script>
      </head>
      <body>
-      <script src="https://roseinfire.github.io/HtmlScript/begin.js"></script>
+      <script src="https://roseinfire.github.io/HtmlS/begin.js"></script>
    </body>
 </html>
 ```
