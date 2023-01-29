@@ -7,7 +7,7 @@
               e.style.width = innerWidth*arg + "px"
               e.style.marginLeft = (innerWidth-e.offsetWidth)/2 + "px"
            } else {
-               e.style.width = innerWidth*(1-arg/10)+"px"
+               e.style.width = innerWidth*(1-arg/5)+"px"
                e.style.marginLeft = (innerWidth-e.offsetWidth)/2 + "px"
            }  
            if(e.offsetHeight < innerHeight) { 
