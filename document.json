@@ -106,7 +106,7 @@
                  if(!nodes.length) {
                      hand.innerHTML = `<p id="docempty">Document Empy</p>`
                      }; __resize()
-                 }, 0)
+                 }, 10)
              } catch { console.warn("iterations run was not standart") }
          console.log("Compilation finished. Run `write.about()` to find out taken global names.") 
          console.groupEnd("compilation")
