@@ -5,8 +5,8 @@ new Layout(
         console.error("static layout takes value in range (0; ∞)", 'example: layout = "static 500"') 
       }
          if(arg < innerWidth) {
-            e.style.width = arg + "px"
-            e.style.marginLeft = (innerWidth-arg)/2 + "px"
+              e.style.width = arg + "px"
+              e.style.marginLeft = (innerWidth-e.offsetWidth)/2 + "px"
             }
          else { e.style.marginLeft = 0; }
           if(e.offsetHeight < innerHeight) {
