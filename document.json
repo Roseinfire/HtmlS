@@ -368,14 +368,22 @@
          } else { console.warn(`unexpected parse --> `, keywords.word.argument) }
      keywords.word = null;
      };
-
  
  keywords.className = function(node, res) {
      if(res) {
          node.className = res
+         console.log(res)
          }
-     }
- 
+     };
+
+ keywords.br = function(text) {
+      var res = ""
+      for(var i = 0; i < text.length; i++) {
+          if(text[i] == "\n") { res+="<br>" }
+          else { res += text[i] }
+       }; return res
+    };
+
  keywords.push(new keyword(["~"], ["~"], function(res) { console.log(res) }, "comment"))
  keywords.push(new keyword(["l"], ['"'], function(res) { keywords.readword(res, "ocal ") }, "local"))
  keywords.push(new keyword(["i"], ['"'], function(res) { keywords.readword(res, "mport ") }, "import"))
@@ -383,7 +391,7 @@
  keywords.push(new keyword(["`"], ["`"], function(res) { keywords.readcode(res) }, "code"))
  keywords.push(new keyword(['"'], ['"'], function(res) { keywords.value(res) }, "value"))
  keywords.push(new keyword(["-"], ["#"], function(res) { keywords.child(res) }, "child"))
- keywords.push(new keyword(["#"], ["*"], function(res) { keywords.tempotext = res; }, "inner"))
+ keywords.push(new keyword(["#"], ["*"], function(res) { keywords.tempotext = keywords.br(res); }, "inner"))
  keywords.push(new keyword(["*"], [" ", "@", "\n"], function(res) { keywords.draw(res) }, "draw"))
  keywords.push(new keyword(["@"], [".", "\n"], function(res) { keywords.style(keywords.tempowrite.node, res) }, "style"))
  keywords.push(new keyword(["."], [" ", "\n", "{"], function(res) { keywords.className(keywords.tempowrite.node, res) }, "className"))
@@ -436,8 +444,7 @@
                  }
              }
          } catch { console.error(`failed to create child -->`, nodes[i]) }
-     };
- nodes.push(new DataNode(hand, 0, 0))
+     }; nodes.push(new DataNode(hand, 0, 0))
  
  write.about = function() {
      console.group("taken global names")
