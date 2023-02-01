@@ -30,36 +30,46 @@ It's also possible to store htmls separately from html document.
 </html>
 ```
 # Syntax
-### Comments:
+### Comments
 ```javascript
 ~ comment ~
 ```
 * Comments should not be a part of another syntax.
 * Comments also appear in the console.
 
-### Styles:
+### Elements
 ```javascript
-local name "value"
-```
-#### name works like variable
-*  name: takes all chars exclude `space`, `"` and `.`
-*  value: takes all chars exclude `"`
-#### Example:
-```javascript
-local font "font-size: 30px; text-align: center"
-local border "border: 2px solid"
-```
-### Elements:
-```javascript
-# Hello World! *tag @font border.
+# Hello World! *tag
 ```
 * after `#` goes innerHTML, takes any value exclude `*`
 * `tag` takes classic tag name like `p` or `div`
-* styles were defined with keyword `local`
-* separate styles with `space`
-* don't forget to add `.` after styles.
 
-### Groups:
+### Classes
+```javascript
+# Element with className *div .class
+```
+* Add `.name` and element will have class attribute set to name
+* exclude spaces from your class name
+
+### Attributes
+```javascript
+ # *img { src="example.png", id="image" }
+```
+* Between brackets `{` and `}` specify attributes. Separate with `,`
+* Remember that they are properties, not html attributes
+
+### Nodes
+```javascript
+# *div .header
+ -  # First child *div
+  --  # Second child *div
+```
+* To specify child node, begin command from `-`
+* The element appends to first node witch have one minus less
+* Any number of spaces can be used to break lines
+
+
+### Groups
 ```javascript
   # *div @border. [margin proportion quantity class] @font.
 ```
@@ -70,30 +80,7 @@ local border "border: 2px solid"
 * class - optional argument which defines node class name
 * first style indicates style of `group`, while second style of `header`
 
-### Attributes:
-```javascript
- # *img { className="image", id="example" }
-```
-* Between brackets `{` and `}` specify attributes. Separate with `,`
-* Note that you wrote properties, not Html attributes.
-### Children nodes:
-To specify child node, begin command from `-`
-```javascript
- # *div @font.
-   - # *div @border.
-    -- # Hello children nodes! *div
-```
-### Insert code:
-Use keyword `parse` to implement a short code.
-```javascript
-parse js `console.log("hello")`
-parse css `body { color: peru }`
-```
-* specify language
-* javascript and css both supported
-* exclude sloped quotes
-
-### External files:
+### External files
 To connect an external file, init source with `import` keyword. <br>
 File action defined automatically by its extension.
 ```javascript
@@ -164,6 +151,23 @@ Everyone can use advertisements on his own site when it is built with htmls. <br
 We believe that best support is to join the project or just give it a star. <br>
 However, you can support HtmlS on Ko-fi. <br>
 
+### About syntax
+During development, we tried a lot of syntax tricks and features. <br>
+After try our own language, however, we understood that a good markup language should not have various constructions. <br>
+That's because source is much easier to read and edit, when you have a few patterns and all other syntax stored separately. <br>
+Those 'old-fashioned' features are still available, but we don't recommend using them.
+* js / css parsing - it's better to import code
+```
+parse js `console.log("JS parse")`
+```
+* local styles - it's better to style classes with css
+```
+local border "border: 1px solid"
+local font "font-size: 40px"
+# Element *div @border font.
+```
+
+
 ### About installation
 If your site is built with a cross-site script, it will not work when the script isn't accessible. <br>
 So, the better idea is to download htmls to your project's folder. <br>
@@ -191,3 +195,6 @@ However, for more beautiful loading we recommend creating a `loading..` element 
 # License
 Distributed under MIT license.<br>
 For detailed information read License file.
+
+
+
