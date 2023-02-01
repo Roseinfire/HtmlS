@@ -11,6 +11,8 @@ written to be `more` `flexible` and more `comfortable`
 * Easy to set up a preload
 * Easy to create elements group
 * Easy to choose a content layout
+* Auto `<br>` (beta)
+* Simplest way to add element class (beta)
   
 # Installation
 Connect the script and let it do all the dirty jobs for you. <br>
