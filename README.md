@@ -1,4 +1,4 @@
-![HtmlScript](https://raw.githubusercontent.com/Roseinfire/HtmlScript/main/images/Darkbean(300x300).png)
+![](https://raw.githubusercontent.com/Roseinfire/HtmlS/main/images/Darkbean(300x300).png)
 # Introduction
 Hyper Text Markup used everywhere on the web. <br>
 Written more than thirty years ago, it is not so human friendly. <br>
@@ -11,18 +11,19 @@ written to be `more` `flexible` and more `comfortable`
 * Easy to set up a preload
 * Easy to create elements group
 * Easy to choose a content layout
-* Auto `<br>` (beta)
-* Simplest way to add element class (beta)
+* Add class even easier than in html
+* Nothing easier than create child node
+* Automatically sets `<br>` before new string
   
 # Installation
 Connect the script and let it do all the dirty jobs for you. <br>
-HtmlS compilates inside any `<script>` specified as `htmlscript` <br>
-It's also possible to store htmls separately from html document.
+HtmlS compilates inside any `<script>` specified as `text/htmls` <br>
+It's also possible to store htmls separately from html.
 ```HTML
 <html>
     <head>
       <meta charset="utf-8">
-      <script type="htmlscript"></script>
+      <script type="text/htmls"></script>
      </head>
      <body>
       <script src="https://roseinfire.github.io/HtmlS/begin.js"></script>
@@ -61,24 +62,24 @@ It's also possible to store htmls separately from html document.
 ### Nodes
 ```javascript
 # *div .header
- -  # First child *div
-  --  # Second child *div
+ -  # *div .firstChild
+  --  # *div .secondChild
 ```
 * To specify child node, begin command from `-`
 * The element appends to first node witch have one minus less
-* Any number of spaces can be used to break lines
+* Any number of spaces can be used between minuses
 
 
 ### Groups
 ```javascript
-  # *div @border. [margin proportion quantity class] @font.
+  # *div .square [margin proportion quantity] .container
 ```
 #### Between brackets `[` and `]` mark the conditions. Separate arguments with spaces.
 * margin from parent border (`0` by default)
 * proportion - width/height (`1` by default)
 * quantity - how many elements in group (`1` by default)
-* class - optional argument which defines node class name
-* first style indicates style of `group`, while second style of `header`
+* first class related to a single element
+* second class related to container
 
 ### External files
 To connect an external file, init source with `import` keyword. <br>
@@ -87,11 +88,11 @@ File action defined automatically by its extension.
  import "root/code.js"
  import "root/style.css"
 ```
-* `.js` files become scripts <br>
-* `.css` files become styles <br>
+* `js` files become scripts <br>
+* `css` files become styles <br>
 
 ## Setup
-> Use attributes to create your own style
+> Macro parameters setting via attributes
 ```HTML
 <head layout="fullscreen">
   <script type="htmlscript" fetch="root/site.json"></script>
@@ -106,10 +107,6 @@ number shows width of content in pixels.
 number shows screen percentage occupied by content.
 * fullscreen <br>
 Have not any arguments.
-### `style`
-Defines style of element which holds content. Is not the same as the `<body>` element. <br>
-Related to `<head>` <br>
-By default set to `padding: 0;`
 ### `theme` 
 Indicates color of `Loading..` string<br>
 Related to `<head>`. By default set to `rgba(217, 210, 210, 0.6)`
@@ -126,7 +123,8 @@ By default not set.
 
 ### Congratulations! 
 You finished a short study. <br>
-Give the project a star, if you would like to see more features!
+Give the project a star, if you like to support the project. <br>
+Your support is really important!
 
 # Development
 The best way to take part in this project - leave a comment.<br>
@@ -137,23 +135,23 @@ If you are an optimization specialist, welcome to the team.
 
 # Learn more
 ### About safety
-Your site is built with htmls, not htmls built with your site. This is our rule. <br>
+You build a site with htmls, not htmls build a site for you. This is our rule. <br>
 If your site is built from a local file, it stays local. `No data shared` from local files.<br>
 If your site is hosted on a public server, then it is public. <br>
-Keep in mind that HtmlScript will not take responsibility, <br>
+Keep in mind that HtmlS will not take responsibility, <br>
 if you publish confidential information on the public server.<br>
 When connect external scripts (include this one) you give it access to all your page.<br>
 Be sure that you can trust the connected script. That's why the HtmlS `open code` project.
   
 ### About advertisement
-HtmlScript itself `never use advertisement`. <br>
+HtmlS itself `never use advertisement`. <br>
 Everyone can use advertisements on his own site when it is built with htmls. <br>
 We believe that best support is to join the project or just give it a star. <br>
 However, you can support HtmlS on Ko-fi. <br>
 
 ### About syntax
 During development, we tried a lot of syntax tricks and features. <br>
-After try our own language, however, we understood that a good markup language should not have various constructions. <br>
+After trying our own language, however, we understood that a good markup language should not have various constructions. <br>
 That's because source is much easier to read and edit, when you have a few patterns and all other syntax stored separately. <br>
 Those 'old-fashioned' features are still available, but we don't recommend using them.
 * js / css parsing - it's better to import code
@@ -166,7 +164,6 @@ local border "border: 1px solid"
 local font "font-size: 40px"
 # Element *div @border font.
 ```
-
 
 ### About installation
 If your site is built with a cross-site script, it will not work when the script isn't accessible. <br>
@@ -186,15 +183,12 @@ We use coss-site `fetch` constructions, which slows down the load speed. <br>
 In most browsers, the effect will disappear after the first load.  <br>
 However, for more beautiful loading we recommend creating a `loading..` element on the source page.
 
-
-# Contacts
+# Contact
 * [Roseinfire](https://github.com/Roseinfire)
 * [ko-fi.com/Roseinfire](https://ko-fi.com/roseinfire)
-* 14box14@gmail.com
+* roseinfire.dev@gmail.com
 
 # License
-Distributed under MIT license.<br>
+Distributed under `MIT` license.<br>
 For detailed information read License file.
-
-
 
