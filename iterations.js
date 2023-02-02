@@ -1,4 +1,13 @@
-/* load */
+
+/* iterations.js file created for documentation.
+    It's expected to use iterations without Htmls main constructions.
+    File contains language main construction and functions.
+    Divided into four parts:  LOAD, CORE, SYNTAX, WRITING.
+    Each part described in general and every function described in detail.
+    Licensed under MIT, Roseinfire, 2023 */
+    
+    
+ /* LOAD */
   /* This part contains a single function and provides a preview.
       The main idea is to call function every time when we want to load heavy source
       and call with enkey, when the source is loaded. 
@@ -30,7 +39,7 @@
           }
       }; awaitload.loads = 0
   
-  /* core */
+  /* CORE */
     /* The most important and hard to understand part.
         Core algorithm reads the text value and compilates it into syntax functions.
         Divided in two parts: keyword {} and read(){}
@@ -42,8 +51,8 @@
         
   class keyword {
       constructor(start=[], end=[], recall=function() {}, name) {
-          const that = this
-          this.ends = end
+          const that = this // declare a link to object itself
+          this.ends = end // arguments exists as properties, but further used the arguments because it's shorter
           this.starts = start
           this.name = name
           this.start = function(compl) { // compl - symbol which viewed by `read` function
@@ -100,37 +109,51 @@
           if(read.iteration && !read.change) { read.res += read.data[read.pos] } // whether we have current iteration building a value for it
           if(read.change) { read.change = null } // clear parameter for the next move of while loop
           }
-      if(!read.await) { // ?
-          if(read.iteration) { read.iteration.recall(read.res, response) }
-          awaitload(true)
+      // This happens when reading is completed
+      if(!read.await) {
+          if(read.iteration) { read.iteration.recall(read.res, response) } // recall the last iteration
+          awaitload(true) // call endkey
           };
       };
-  
+    
+  /* It's also possible to stop reading and continue later */
   read.awaitReading = function() { 
-      awaitload()
-      read.await = true
+      awaitload() // declare that reading not completed
+      read.await = true // stop reading
       };
   
   read.continueReading = function() {
       console.log("reading continued")
-      awaitload(true)
-      read.await = false; read.pos += 1
-      read(read.data, read.response)
+      awaitload(true) // call endkey after awaiting was declared when reading stopped
+      read.await = false // unlock reading
+      read.pos += 1 // go to the next symbol
+      read(read.data, read.response) // continue reading
       };
   
   /* syntax */
+  /* This part contains functions which take as argument value of iteration
+      and do anything you can imagine. There are tree common constructions:
+      1) # *tag
+      2) name arg "value"
+      3) @style .class
+      3*) - #
+      The first construction is required and gives an html node for the third construction.
+      The second construction is not required, but works separately from the first.
+      Child node construction is special, because not required, but incorporated into `writing part`
+      However, it works almost as construction three. */
+    
   var keywords = []
-  keywords.tempotext = null
-  keywords.tempowrite = null
-  keywords.word = null
-  keywords.childhood = 1
-  var nodes = new Array()
-  var styles = new Array()
+  keywords.tempotext = null // innerHTML
+  keywords.tempowrite = null // html Node
+  keywords.word = null // recognized complete keyword
+  keywords.childhood = 1 // default childhood one, because all elements append to `hand` element
+  var nodes = new Array() // list of the all Nodes
+  var styles = new Array() // list of the all recognized styles
   
   keywords.cssmodify = function(style) {
       var addition = true;
       for(var i = style.length-1; i > 0; i--) {
-          if(style[i] == ";") { addition = false;}
+          if(style[i] == ";") { addition = false }
           if(style[i] != " ") { break }
           }
       if(adition) { return eval('`' + style + ';`') } else { return eval('`' + style + '`') }
@@ -405,3 +428,4 @@
       console.log("__loading__", __loading__)
       console.groupEnd("taken global names")
       };
+    
