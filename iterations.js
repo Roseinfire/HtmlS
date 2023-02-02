@@ -1,4 +1,4 @@
- /* load */
+/* load */
  function awaitload(endkey) {
      if(!awaitload.loads && endkey != "") { try { hand.innerHTML = ""; } catch {} }
      if(!endkey) { awaitload.loads++ }
@@ -12,9 +12,9 @@
                  document.body.removeChild(__loading__)
                  document.getElementById("content").style.display = "block"
                  if(!nodes.length) {
-                     hand.innerHTML = `<p id="docempty">Document Empy</p>`
+                     hand.innerHTML = `<p id="docempty">Document Empty</p>`
                      }; __resize()
-                 }, 0)
+                 }, 10)
              } catch { console.warn("iterations run was not standart") }
          console.log("Compilation finished. Run `write.about()` to find out taken global names.") 
          console.groupEnd("compilation")
@@ -104,9 +104,9 @@
  var styles = new Array()
  
  keywords.cssmodify = function(style) {
-     var adition = true;
+     var addition = true;
      for(var i = style.length-1; i > 0; i--) {
-         if(style[i] == ";") { adition = false;}
+         if(style[i] == ";") { addition = false;}
          if(style[i] != " ") { break }
          }
      if(adition) { return eval('`' + style + ';`') } else { return eval('`' + style + '`') }
@@ -142,13 +142,9 @@
          else if(command[i] == " " && cnt == 3) { cnt++;
              try{ num=eval(res); res = "" } catch {}
              }
-         else if(command[i] == " " && cnt == 4) {
-             try{ classname=eval(res); res = "" } catch {}
-             }
          if(cnt == 1) { try{ margin=eval(res) } catch {} }
          else if(cnt == 2) { try{ prop=eval(res) } catch {} }
          else if(cnt == 3) { try{ num=eval(res) } catch {} }
-         else if(cnt == 4) { classname = res}
          }
      var element = nodemap.node
      var parent = element.parentElement
@@ -221,7 +217,7 @@
          link.href = command
          document.head.append(link)
          } 
-     else { console.warn("unkown file extension -->", ext) }
+     else { console.warn("unknown file extension -->", ext) }
      };
 
  keywords.draw = function(res) {
@@ -286,14 +282,22 @@
          } else { console.warn(`unexpected parse --> `, keywords.word.argument) }
      keywords.word = null;
      };
-
  
  keywords.className = function(node, res) {
      if(res) {
          node.className = res
+         console.log(res)
          }
-     }
- 
+     };
+
+ keywords.br = function(text) {
+      var res = ""
+      for(var i = 0; i < text.length; i++) {
+          if(text[i] == "\n") { res+="<br>" }
+          else { res += text[i] }
+       }; return res
+    };
+
  keywords.push(new keyword(["~"], ["~"], function(res) { console.log(res) }, "comment"))
  keywords.push(new keyword(["l"], ['"'], function(res) { keywords.readword(res, "ocal ") }, "local"))
  keywords.push(new keyword(["i"], ['"'], function(res) { keywords.readword(res, "mport ") }, "import"))
@@ -301,7 +305,7 @@
  keywords.push(new keyword(["`"], ["`"], function(res) { keywords.readcode(res) }, "code"))
  keywords.push(new keyword(['"'], ['"'], function(res) { keywords.value(res) }, "value"))
  keywords.push(new keyword(["-"], ["#"], function(res) { keywords.child(res) }, "child"))
- keywords.push(new keyword(["#"], ["*"], function(res) { keywords.tempotext = res; }, "inner"))
+ keywords.push(new keyword(["#"], ["*"], function(res) { keywords.tempotext = keywords.br(res); }, "inner"))
  keywords.push(new keyword(["*"], [" ", "@", "\n"], function(res) { keywords.draw(res) }, "draw"))
  keywords.push(new keyword(["@"], [".", "\n"], function(res) { keywords.style(keywords.tempowrite.node, res) }, "style"))
  keywords.push(new keyword(["."], [" ", "\n", "{"], function(res) { keywords.className(keywords.tempowrite.node, res) }, "className"))
@@ -354,8 +358,7 @@
                  }
              }
          } catch { console.error(`failed to create child -->`, nodes[i]) }
-     };
- nodes.push(new DataNode(hand, 0, 0))
+     }; nodes.push(new DataNode(hand, 0, 0))
  
  write.about = function() {
      console.group("taken global names")
@@ -378,4 +381,3 @@
      console.log("__loading__", "<div>")
      console.groupEnd("taken global names")
      };
-    
