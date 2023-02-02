@@ -191,7 +191,7 @@
          if(style[i] == ";") { addition = false;}
          if(style[i] != " ") { break }
          }
-     if(adition) { return eval('`' + style + ';`') } else { return eval('`' + style + '`') }
+     if(addition) { return eval('`' + style + ';`') } else { return eval('`' + style + '`') }
      };
 
  keywords.getvalue = function(name, err) {
