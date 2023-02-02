@@ -94,7 +94,7 @@
                  document.body.removeChild(__loading__)
                  document.getElementById("content").style.display = "block"
                  if(!nodes.length) {
-                     hand.innerHTML = `<p id="docempty">Document Empy</p>`
+                     hand.innerHTML = `<p id="docempty">Document Empty</p>`
                      }; __resize()
                  }, 10)
              } catch { console.warn("iterations run was not standart") }
@@ -186,9 +186,9 @@
  var styles = new Array()
  
  keywords.cssmodify = function(style) {
-     var adition = true;
+     var addition = true;
      for(var i = style.length-1; i > 0; i--) {
-         if(style[i] == ";") { adition = false;}
+         if(style[i] == ";") { addition = false;}
          if(style[i] != " ") { break }
          }
      if(adition) { return eval('`' + style + ';`') } else { return eval('`' + style + '`') }
@@ -224,13 +224,9 @@
          else if(command[i] == " " && cnt == 3) { cnt++;
              try{ num=eval(res); res = "" } catch {}
              }
-         else if(command[i] == " " && cnt == 4) {
-             try{ classname=eval(res); res = "" } catch {}
-             }
          if(cnt == 1) { try{ margin=eval(res) } catch {} }
          else if(cnt == 2) { try{ prop=eval(res) } catch {} }
          else if(cnt == 3) { try{ num=eval(res) } catch {} }
-         else if(cnt == 4) { classname = res}
          }
      var element = nodemap.node
      var parent = element.parentElement
@@ -303,7 +299,7 @@
          link.href = command
          document.head.append(link)
          } 
-     else { console.warn("unkown file extension -->", ext) }
+     else { console.warn("unknown file extension -->", ext) }
      };
 
  keywords.draw = function(res) {
