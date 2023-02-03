@@ -93,7 +93,7 @@
                  hand.style = getouter("style", __head__)
                  document.body.removeChild(__loading__)
                  document.getElementById("content").style.display = "block"
-                 if(!nodes.length) {
+                 if(nodes.length == 1) {
                      hand.innerHTML = `<p id="docempty">Document Empty</p>`
                      }; __resize()
                  }, 10)
