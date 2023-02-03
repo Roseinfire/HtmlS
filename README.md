@@ -20,15 +20,7 @@ Connect the script and let it do all the dirty jobs for you. <br>
 HtmlS compilates inside any `<script>` specified as `text/htmls` <br>
 It's also possible to store htmls separately from html.
 ```HTML
-<html>
-    <head>
-      <meta charset="utf-8">
-      <script type="text/htmls"></script>
-     </head>
-     <body>
-      <script src="https://roseinfire.github.io/HtmlS/begin.js"></script>
-   </body>
-</html>
+ <script src="https://roseinfire.github.io/HtmlS/begin.js"></script>
 ```
 # Syntax
 ### Comments
