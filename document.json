@@ -95,7 +95,7 @@
                  document.getElementById("content").style.display = "block"
                  if(nodes.length == 1) {
                      hand.innerHTML = `<p id="docempty">Document Empty</p>`
-                     }; __resize()
+                     }; dispatchEvent(new Event('load')); __resize();
                  }, 10)
              } catch { console.warn("iterations run was not standart") }
          console.log("Compilation finished. Run `write.about()` to find out taken global names.") 
