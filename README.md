@@ -131,7 +131,10 @@ The best way to take part in this project - leave a comment.<br>
 Just go to the discussions and write how would you like to write html <br>
 or what features would you like to see in htmls. <br>
 Also you can write a layout to help create beautiful sites. <br>
-If you are an optimization specialist, welcome to the team.
+There are no such things that never need to be better. Every function described in the Iterations.js file <br>
+We are also working on Wiki and other documentation. <br>
+You can take any part of the project, read about and make it better <br>
+And of course, if you are an optimization specialist, welcome.
 
 # Learn more
 ### About safety
