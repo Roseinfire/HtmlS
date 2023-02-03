@@ -120,9 +120,8 @@ Your support is really important!
 
 # Development
 The best way to take part in this project - leave a comment.<br>
-Just go to the discussions and write how would you like to write html <br>
-or what features would you like to see in htmls. <br>
-Also you can write a layout to help create beautiful sites. <br>
+Just go to the discussions and write about what features you would like to see in htmls. <br>
+Also you can invent and write a layout to help easily create beautiful sites. <br>
 There are no such things that never need to be better. Every function described in the Iterations.js file <br>
 We are also working on Wiki and other documentation. <br>
 You can take any part of the project, read about and make it better <br>
@@ -144,22 +143,6 @@ Everyone can use advertisements on his own site when it is built with htmls. <br
 We believe that best support is to join the project or just give it a star. <br>
 However, you can support HtmlS on Ko-fi. <br>
 
-### About syntax
-During development, we tried a lot of syntax tricks and features. <br>
-After trying our own language, however, we understood that a good markup language should not have various constructions. <br>
-That's because source is much easier to read and edit, when you have a few patterns and all other syntax stored separately. <br>
-Those 'old-fashioned' features are still available, but we don't recommend using them.
-* js / css parsing - it's better to import code
-```
-parse js `console.log("JS parse")`
-```
-* local styles - it's better to style classes with css
-```
-local border "border: 1px solid"
-local font "font-size: 40px"
-# Element *div @border font.
-```
-
 ### About installation
 If your site is built with a cross-site script, it will not work when the script isn't accessible. <br>
 So, the better idea is to download htmls to your project's folder. <br>
@@ -177,6 +160,22 @@ Note that you also need to set localhost to test your site locally.
 We use coss-site `fetch` constructions, which slows down the load speed. <br>
 In most browsers, the effect will disappear after the first load.  <br>
 However, for more beautiful loading we recommend creating a `loading..` element on the source page.
+
+### About syntax
+During development, we tried a lot of syntax tricks and features. <br>
+After trying our own language, however, we understood that a good markup language should not have various constructions. <br>
+That's because source is much easier to read and edit, when you have a few patterns and all other syntax stored separately. <br>
+Those 'old-fashioned' features are still available, but we don't recommend using them.
+* js / css parsing - it's better to import code
+```
+parse js `console.log("JS parse")`
+```
+* local styles - it's better to style classes with css
+```
+local border "border: 1px solid"
+local font "font-size: 40px"
+# Element *div @border font.
+```
 
 # Contact
 * [Roseinfire](https://github.com/Roseinfire)
