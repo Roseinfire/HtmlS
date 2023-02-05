@@ -1,3 +1,4 @@
+ 
 /* This working script. It loads form of the future document
   and creates basic functions and constants. 
   Do not use it without document.json and network connection.
@@ -126,15 +127,15 @@
               if(val[i] != " " && !pre) { res += val[i] }
               if(val[i] == " " && !pre) { action = i; break }
               }
-          var argument = "";
+          var paperwidth = "";
           if(action) {
               var pre = true
               for(var i = action+1; i < val.length; i++) {
                   if(val[i] != " " && pre) { pre = false }
-                  if(val[i] != " " && !pre) { argument += value[i] }
-                  else if(val[i] == " " && !pre) { return argument }
+                  if(val[i] != " " && !pre) { paperwidth += value[i] }
+                  else if(val[i] == " " && !pre) { return paperwidth }
                   }
-              }; return { name: res, arg: argument }
+              }; return { name: res, arg: paperwidth }
           })(layout)
       };
   
