@@ -1,32 +1,10 @@
- 
-/* This working script. It loads form of the future document
+
+  /* This working script. It loads form of the future document
   and creates basic functions and constants. 
   Do not use it without document.json and network connection.
   Licensed under MIT, Roseinfire, 2023. */
   
-  function onlyNumbers(text="") { 
-      var res = ""
-      for(var i = 0; i < text.length; i++) {
-          for(var e = 0; e <= 9; e++) {
-              if(text[i] == e.toString()) { res += text[i]; break }
-              } 
-          } 
-      if(res) { return eval(res) } else { return 0 } 
-      };
-  
-  function getouter(name, from=document.body, onfail="") {
-      var list = from.attributes
-      for(var i = 0; i < list.length; i++) { 
-          if(list[i].name == name) { return list[i].value }
-          }
-      if(onfail) { return onfail }
-      return null
-      };
-  
-  function loadtheme() {
-      __loading__ = document.createElement("div")
-      }; loadtheme()
-  
+  /* FETCHES */
   let fetches = new Array()
   class ExtendFetch {
       constructor(src, chain=function() {}, onerror=function() {}) {
@@ -65,49 +43,37 @@
               order[i].item(order[i].text, pointer)
               }
           }
-      }
-  
-  __host__ = getouter("host", document.body.parentElement, "https://roseinfire.github.io/HtmlS")
-
-  fetches.push(new ExtendFetch(__host__ + "/document.json", estable, function(err) { 
-      /* __loading__ = "Host Error :(" */ 
-   }))
-
-  fetches.push(new ExtendFetch(__host__ +  "/layouts/" + __layout__.name + ".js", setlayout,  function() {}))
-
-  __data__ = ""
-  for(var i = 0; i < __scrips__.length; i++) {
-    var source = getouter("fetch", __scripts__[i], null)
-      if(source) {
-       fetches.push(new ExtendFetch(__host__ +  source, function(res, pointer) {
-             __data__ += res; if(!pointer) { document.write(response) }
-           }, function() {}))
-         }
-      }
-   }; syncFetch(fetches)
-  
-  function estable() {
-      console.group("compilation")
-      window.__head__ = document.head
-      window.__body__ = document.body
-      window.__layout__ = searchlayouts("relative 0.6")
-      var title = document.title
-      if(title) { window.__title__ = title } 
-      else {  window.__title__ = "Untitled" }
-      window.__scripts__ = (function() {
-          var res = []
-          var scripts = document.getElementsByTagName("script")
-          for(var i = 0; i < scripts.length; i++) {
-              var type  = getouter("type", scripts[i])
-              if( type == "htmlscript" || type == "text/htmls") { res.push(scripts[i]) }
-              }; return res
-          })() // console.log(__scripts__)
       };
-
-  var resizebase = new Array()
-  function onResize(e, f) { 
-      resizebase.push({ func: f, elem: e }); return resizebase
-      }
+  
+  /* CODESPACE */
+  function onlyNumbers(text="") { 
+      var res = ""
+      for(var i = 0; i < text.length; i++) {
+          for(var e = 0; e <= 9; e++) {
+              if(text[i] == e.toString()) { res += text[i]; break }
+              } 
+          } 
+      if(res) { return eval(res) } else { return 0 } 
+      };
+  
+  function getouter(name, from=document.body, onfail="") {
+      var list = from.attributes
+      for(var i = 0; i < list.length; i++) { 
+          if(list[i].name == name) { return list[i].value }
+          }
+      if(onfail) { return onfail }
+      return null
+      };
+  
+  function loadtheme() {
+      window.__loading__ = document.createElement("div")
+      if(document.body) { document.body.style.margin = 0; document.body.append(__loading__) }
+      __loading__ .innerHTML = "Loading.."
+      __loading__.style = "position: fixed; width: 100%; font-size: 35px; text-align: center; top: 0; left: 0"
+      __loading__.style.color = getouter("theme", document.body, "rgba(217, 210, 210, 0.6)")
+      __loading__.top = function() { this.style.marginTop = (innerHeight-this.offsetHeight)/2 + "px"}
+      __loading__.top()
+      };
   
   class Layout {
       constructor(reaction=function() {}, name) {
@@ -127,19 +93,78 @@
               if(val[i] != " " && !pre) { res += val[i] }
               if(val[i] == " " && !pre) { action = i; break }
               }
-          var paperwidth = "";
+          var argument = ""
           if(action) {
               var pre = true
               for(var i = action+1; i < val.length; i++) {
                   if(val[i] != " " && pre) { pre = false }
-                  if(val[i] != " " && !pre) { paperwidth += value[i] }
-                  else if(val[i] == " " && !pre) { return paperwidth }
+                  if(val[i] != " " && !pre) { argument += val[i] }
+                  else if(val[i] == " " && !pre) { return argument }
                   }
-              }; return { name: res, arg: paperwidth }
+              }; return { name: res, argument: argument }
           })(layout)
       };
   
+  function estable(json="") {
+      __json__ = json
+      console.group("compilation")
+      };
+  
+  function implement(res="") {
+      __json__ = (__json__ + res) + `</script><script>read(__data__)</scr` + `ipt></body></html>`
+      createDocument(__metadata__)
+      };
+  
   function setlayout(response) {
-        console.log(response)
-    //  onResize([hand], function(e) { layout.content(e, searchplans.plan.argument) })
-   };
+      __layout__.js = new Layout(null, "default")
+      try { __layout__.js = eval(response) } catch { console.warn(`unexpected layout -->`, response) }
+      };
+  
+  /* LOADING */
+  window.addEventListener("DOMContentLoaded", function() {
+      loadtheme()
+      window.__data__ = ""
+      window.__json__ = null
+      window.__Iterations__ = null
+      window.__metadata__ = new Array()
+      window.__head__ = document.head
+      window.__body__ = document.body
+      window.__host__ = getouter("host", document.body.parentElement, "https://roseinfire.github.io/HtmlS")
+      window.__title__ = (document.title) ? (document.title) : ("Untitled")
+      window.__layout__ = searchlayouts("relative 0.6")
+      window.__scripts__  = (function() {
+          var res = []
+          var scripts = document.getElementsByTagName("script")
+          for(var i = 0; i < scripts.length; i++) {
+              var type  = getouter("type", scripts[i])
+              if( type == "htmls" || type == "text/htmls") { res.push(scripts[i]) }
+              }; return res
+          })()
+      fetches.push(new ExtendFetch(__host__ + "/document.json", estable, function(err) {
+          __loading__.innerHTML = "Host Error :(" 
+          }))
+      fetches.push(new ExtendFetch(__host__ + "/iterations.js", implement, function(err) {
+          __loading__.innerHTML = "Load Failed :/" 
+          }))  
+      fetches.push(new ExtendFetch(__host__ +  "/layouts/" + __layout__.name + ".js", setlayout,  function() {}))
+      for(var i = 0; i < __scripts__.length; i++) {
+          var source = getouter("fetch", __scripts__[i], null)
+          if(source) {
+              __metadata__.remote = true
+              fetches.push(new ExtendFetch(__host__ +"/"+ source, function(res, pointer) {
+                  __metadata__.push(res); if(!pointer) { createDocument(__metadata__) }
+                  }, function() {}))
+              } else { __metadata__.push(__scripts__[i].innerHTML) }
+          }
+      if(!__metadata__.remote) { createDocument(__metadata__) }
+      syncFetch(fetches)
+      });
+  
+  function createDocument(hsList) {
+      if(createDocument.establed) {
+          for(var i = 0; i < hsList.length; i++) { __data__ += hsList[i] }
+          if(__json__) { document.write(__json__) }
+          if(__data__) { read(__data__) } 
+          else { __loading__.innerHTML = "Empty :y"; console.groupEnd("compilation") }
+          } else { createDocument.establed = true }
+      }; 

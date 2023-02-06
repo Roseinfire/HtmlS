@@ -1,406 +1,447 @@
-/* load */
-var loads = 0
-function awaitload(endkey) {
-     if( window.onresize) { window.onresize() }
-     if(!loads && endkey != "") { try { hand.innerHTML = ""; } catch{} }
-     if(!endkey) { loads++ }
-     else if(endkey) { loads-- }
-     if(!loads) {
-        try {
-            background.image()
-            var style = getouter("style", __head__)
-            hand.style = style
-            document.getElementById("content").style.display = "block";
-            document.body.removeChild(__loading__)
-            if(!nodes.length) {
-                hand.innerHTML = `<p style="font-size: 35px; text-align: center; color: maroon">Document Empy</p>`
-             }
-           if(window.onresize) { window.onresize(); window.onresize(); }
-      } catch { console.warn("iterations run was not standart") }
-     console.log("Compilation finished. Run `write.about()` to find out taken global names.") 
-     console.groupEnd("compilation")
-     }
- };
-
-/* core */
-class keyword {
-    constructor(start=[], end=[], recall=function() {}, name) {
-       const that = this
-       this.ends = end
-       this.starts = start
-       this.name = name
-       this.start = function(compl) {
-           for(var i = 0; i < start.length; i++) { if(start[i]==compl) { return this } }
-                return false
-           }
-       this.end = function(compl, moves) {
-           for(var i = 0; i < end.length; i++) {
-               var includes = false
-               for(var e = 0; e < start.length; e++) {
-                   if(end.includes(start[e]) ) { includes = true }
-               }
-            if(end[i]==compl && (moves || !includes) ) { return this }
-             }; return false
-        }
-      this.recall = function(event, response) { 
-          if(response) { console.log(event) }
-              recall(event)
-            }
-       }
- };
-
-function read(data, response=false, encode=function(start, end, name) { return true }) {
-    if(!read.pos) { read.pos = -1; awaitload() }
-    read.data = data
-    read.response = response
-    read.iteration = null
-    read.last_iteration = null
-    read.res = ""
-    while(read.data[read.pos+1]) {
-        if(read.await) { console.log("reading paused"); break }
-        read.pos++; read.change = null; read.last_iteration = null;
-        if(response) { console.log(read.data[read.pos], read.iteration) }
-            if(read.iteration && read.iteration.end( read.data[read.pos], read.pos-read.started ) ) {
-                var draw = encode(read.started, read.pos-read.started, read.iteration.name);
-                 if(draw) {
-                    read.iteration.recall(read.res, response);
-                  }
-                 read.res = ""; read.started = null;
-                 read.last_iteration = read.iteration; read.iteration = null;
-             }
-            for(var i = 0; i < keywords.length; i++) {
-              let key = keywords[i].start( read.data[read.pos] )
-              if(!read.iteration && key  && key != read.last_iteration) {
-                   read.iteration = keywords[i]; read.change = true;read.started = read.pos; break;
-              }
-       }
-      if(read.iteration && !read.change) { read.res += read.data[read.pos] }
-      if(read.change) { read.change = null }
-   }
-   if(!read.await) {
-        if(read.iteration) { read.iteration.recall(read.res, response) }
-        awaitload(true)
-      };
- };
-read.awaitReading = function() {
-    console.log("awaiting..")
-    awaitload()
-    read.await = true
-  }
-read.continueReading = function() {
-   console.log("reading continued")
-   awaitload(true)
-   read.await = false; read.pos += 1
-   read(read.data, read.response)
- };
-
-/* syntax */
- var keywords = []
- keywords.tempotext = null
- keywords.tempowrite = null
- keywords.word = null
- keywords.childhood = 1
- var nodes = new Array()
- var styles = new Array()
-
-keywords.cssmodify = function(style) {
-    var adition = true;
-    for(var i = style.length-1; i > 0; i--) {
-        if(style[i] == ";") { adition = false;}
-        if(style[i] != " ") { break }
-     }
-    if(adition) { return style+";" } else { return eval('`' + style + '`') }
- };
-
-keywords.getvalue = function(name, err) {
-    for(var i = 0; i < styles.length; i++) {
-       if(styles[i].name == name) { return keywords.cssmodify(styles[i].data) }
-    }; if(err) { console.error("can't find link -->", res) }
-};
-
-keywords.setvalue = function(name, data) {
-    if( !keywords.getvalue(name) ) {
-        styles.push({ name: name, data: data })
-     } else { console.error("repeating name error -->", name) }
- };
-
-keywords.groupitem = function(nodemap, command) {
-   var num = 1
-   var prop = 1
-   var margin = 0
-   var classname = null
-   var cnt = 1
-   var res = ""
-   for(var i = 0; i < command.length; i++) {
-      res += command[i]
-      if(command[i] == " " && cnt == 1) { cnt++;
-          try{ margin=eval(res); res = "" } catch {}
-      }
-      else if(command[i] == " " && cnt == 2) { cnt++;
-          try{ prop=eval(res); res = "" } catch {}
-      }
-      else if(command[i] == " " && cnt == 3) { cnt++;
-          try{ num=eval(res); res = "" } catch {}
-     }
-      else if(command[i] == " " && cnt == 4) {
-          try{ classname=eval(res); res = "" } catch {}
-      }
-   if(cnt == 1) { try{ margin=eval(res) } catch {} }
-   else if(cnt == 2) { try{ prop=eval(res) } catch {} }
-   else if(cnt == 3) { try{ num=eval(res) } catch {} }
-   else if(cnt == 4) { classname = res}
-  }
-   var element = nodemap.node
-   var parent = element.parentElement
-   var header = document.createElement("div");
-   var brothers = new Array()
-   if(!element.id || num == 1) {
-       for(var i = 0; i < num; i++) {
-           var broth = element.clone()
-           broth.num = i
-           broth.style.marginLeft = margin + "px"
-           broth.style.position = "absolute"
-           if(classname) { broth.className = classname }
-           brothers.push(broth)
-       }
-  } 
-   onResize(brothers, function(e, i) {
-       var ewidth = ( parent.offsetWidth-margin*(brothers.length+1) )/brothers.length
-        e.style.width = ewidth + "px"
-        var ehight = ewidth/prop
-        e.style.height = ehight + "px"
-        e.style.marginLeft = (e.num + 1) * margin + ewidth*e.num + "px"
-    })
-   onResize([header], function(e) {
-      if(e.children.length) {
-        e.style.height = e.children[0].offsetHeight + "px"
-        e.style.width = parent.offsetWidth + "px"
-        }
-    }) 
-   parent.removeChild(element);
-   for(var i = 0; i < brothers.length; i++) {
-      header.append(brothers[i])
-     }
-   nodes[nodemap.index].node = header;
-   keywords.tempowrite.node = header
-   parent.appendChild(header)
-  };
-
-keywords.attribute = function(element, res, oneprop) {
-    if(!element.property) { element.property = [] }
-    if(!oneprop) { 
-        var atr = ""
-        for(var i = 0; i < res.length; i++) {
-            if(res[i] == ",") { make(atr); atr="" }
-            else { atr += res[i] }
-         }; if(atr) { make(atr) }
-     } else { make(res) }
-           function make(a) {
-               element.property.push(a)
-               try { eval("element." + a) } 
-               catch { console.error("failed to attribute -->", element, res) }
-           } 
- };
- 
-keywords.importitem = function(command, preload) {
-     console.warn("importing --> ", command)
-    var ext = ""
-    for(var i = command.length-1; i > 0; i--) {
-        if(command[i] == ".") { break } else { ext+=command[i] }
-     }
-   if(ext == "sj") {
-        read.awaitReading()
-        var script = document.createElement("script")
-        script.src = command
-        script.onload = function() { console.log("imported script", this); read.continueReading() }
-        script.onerror = function() { console.error("failed to import -->", command); read.continueReading() }
-        document.body.append(script)
-   }
-    else if(ext == "ssc") {
-       var style = document.createElement("style")
-       style.type = "text/css"
-        fetch(command)
-       .then(response => response.text())
-       .then(text => (function(t) { 
-         style.innerHTML = t
-         document.head.append(style);
-        })(text))
-     } 
-   else if(preload) { 
-    var link = document.createElement("link")
-    link.rel = "preload"
-    link.href = command
-     }
-   else { console.warn("unkown file extension -->", ext) }
- };
-  
-keywords.draw = function(res) {
-   keywords.tempowrite = write(keywords.tempotext,  res, keywords.childhood)
-   keywords.tempotext = null; keywords.childhood = 1;
-   write.truewrite();
- };
-  
-keywords.readword = function(res, code) {
-   var factcode = ""
-   for(var i = 0; i < code.length; i++) {
-    factcode += res[i]
-      }
-   if(factcode == code) {
-       var arg = ""
-        for(var i = code.length; i < res.length; i++) {
-            if(res[i]!=" ") { arg += res[i] }
-        };  keywords.word =  { code: code, argument: arg }
-     }; return keywords.word
-  }
-  
-keywords.value = function(res) {
-  if(keywords.word.code == "ocal ") {
-      keywords.setvalue(keywords.word.argument, res); keywords.word = null;
-    }
-  else if(keywords.word.code =="mport ") {
-       keywords.importitem(res, keywords.word.argument); keywords.word = null;
-     };
-  };
-  
-keywords.child = function(res) {
-   var result = 1;
-   for(var i = 0; i < res.length; i++) {
-       if(res[i] == "-") { result++ }
-     }; keywords.childhood = result;
-  };
-  
-keywords.style = function(node, res) {
-  if(node) {
-    node.style = (function separate(variables) {
-        var variable = ""
-        var result = ""
-        for(var i = 0; i < variables.length; i++) {
-            if(variables[i] == " ") { result += keywords.getvalue(variable); variable = "" }
-            else { variable += variables[i] }
-         }; if(variable) { result += keywords.getvalue(variable) }
-        return result
-      })(res)
-    }
- }
-  
-keywords.repeat = function(nodemap, res) {
-  try { res = eval(res) } catch { res=1; console.warn("repetition should be a natural number -->", res) }
-  if(!nodemap.id) {
-    var n = nodemap.index
-    var repeats = new Array()
-      for(var i = 1; i < res; i++) {
-         var item = nodes[n].node.clone()
-          //  nodes[n].node.parentElement.append(item); 
-         repeats.push(item)
-            }; nodes[n].repetition = repeats
-     } else { console.error("repeating element must have a 'class' instead of 'id' -->", nodemap.node) }
-  }
-
-keywords.readcode = function(res) {
-  if(keywords.word.argument == "css") { 
-    var style = document.createElement("style")
-    style.type = "text/css"; style.innerHTML = res
-    document.head.append(style)
-     }
-  else if(keywords.word.argument == "js") {
-    var script = document.createElement("script")
-    script.type = "text/javascript"; script.innerHTML = res
-    document.head.append(script)
-     } else { console.warn("unexpected parse --> ", keywords.word.argument) }
-      keywords.word = null;
- };
-
-keywords.push(new keyword(["~"], ["~"], function(res) { console.log(res) }, "comment"))
-keywords.push(new keyword(["l"], ['"'], function(res) { keywords.readword(res, "ocal ") }, "local"))
-keywords.push(new keyword(["i"], ['"'], function(res) { keywords.readword(res, "mport ") }, "import"))
-keywords.push(new keyword(["p"], ["`"], function(res) { keywords.readword(res, "arse ") }, "parse"))
-keywords.push(new keyword(["`"], ["`"], function(res) { keywords.readcode(res) }, "code"))
-keywords.push(new keyword(['"'], ['"'], function(res) { keywords.value(res) }, "value"))
-keywords.push(new keyword(["-"], ["#"], function(res) { keywords.child(res) }, "child"))
-keywords.push(new keyword(["#"], ["*"], function(res) { keywords.tempotext = res; }, "inner"))
-keywords.push(new keyword(["*"], [" ", "@", "\n"], function(res) { keywords.draw(res) }, "draw"))
-keywords.push(new keyword(["@"], [".", "\n"], function(res) { keywords.style(keywords.tempowrite.node, res) }, "style"))
-keywords.push(new keyword(["{"], ["}"], function(res) { keywords.attribute(keywords.tempowrite.node, res) }, "attribute"))
-keywords.push(new keyword(["["], ["]"], function(res) { keywords.groupitem(keywords.tempowrite, res) }, "group"))
-keywords.push(new keyword(["("], [")"], function(res) { keywords.repeat(keywords.tempowrite, res) }, "repeat"))
-
-/* writing */
-class DataNode {
-  constructor(node, childhood, index, repetition=1) {
-    const that = this
-    this.node = node
-    this.childhood = childhood
-    this.index = index
-    this.repetition = repetition
-    this.append = function(item) {
-       /* if(!that.repetition) { */ that.node.append(item) /* } */
-        /* else if(that.repetition && that.repetition.length) {
-            var r = that.repetition
-            for(var i = 0; i < r.length; i++) {
-               r[i].append(item)
-                   }
-               } else { console.warn("can't append to multiple repetition -->", this) } */
-            }
-        }
-  }
-function write(text, type, childhood) {
-    var element = (function () {
-    try {
-        var res = document.createElement(type)
-        if(res.tagName == "IMG" || res.tagName == "frame" || res.tagName == "iframe") {
-            awaitload()
-            res.onload = function() { awaitload(true) }
-            res.onerror = function() { awaitload(true) }
-        }
-        if(text) { res.innerHTML = text }
-      return res
-    } catch {
-         console.warn("Element creation failed *" + type)
-         var err = document.createElement("p"); err.innerHTML = "creation error"
-         return err
-        }
-    })()
-  var nodemap = new DataNode(element, childhood, nodes.length)
-  nodes.push(nodemap)
-  return nodemap
-};
-
-write.append = function(n1, n2) {
-   if(nodes[n2].childhood) {
-       nodes[n1].append(nodes[n2].node)
-        }
-    };
- 
-write.truewrite = function(i, encode) {
-    (i!=undefined) ? (i=i) : (i = nodes.length-1)
-       try {
-           for(var e = 1; e <= i; e++) {
-                if(nodes[i-e].childhood == nodes[i].childhood-1) {
-                   write.append(i-e, i); break
-                }
-             }
-        } catch { console.error("failed to create child -->", nodes[i]) }
- }; nodes.push(new DataNode(hand, 0, 0, null))
+/* iterations.js file created for documentation.
+    If you want to develop the language, therefore begin from here.
+    It's expected to use iterations without Htmls main constructions.
+    File contains language main construction and functions.
+    Divided into four parts:  LOAD, CORE, SYNTAX, WRITING.
+    Each part described in general and every function described in detail.
+    Licensed under MIT, Roseinfire, 2023 */
     
- write.about = function() {
-  console.group("taken global names")
-    console.log("hand") 
-    console.log("awaitload")
-    console.log("loads")
-    console.log("Keyword")
-    console.log("keywords")
-    console.log("read")
-    console.log("write")
-    console.log("nodes")
-    console.log("DataNode")
-    console.log("Layout")
-    console.log("getouter")
-    console.log("__host__")
-    console.log("__head__")
-    console.log("__body__")
-    console.log("__scripts__")
-    console.log("__loading__")
-    console.log("__load")
-  console.groupEnd("taken global names")
-    }
+    
+ /* LOAD */
+  /* This part contains a single function and provides a preview.
+      The main idea is to call function every time when we want to load heavy source
+      and call with endkey, when the source is loaded. 
+       Function itself counts calls when called and discounts when called with endkey. 
+      When the number of progress is zero, then stroke the content.
+      It's expected that count new sources faster than loading them, 
+      However, the function waits 10 ms before showing the result. */
+    
+  function awaitload(endkey) {
+      if(!endkey) { awaitload.loads++ }
+      else if(endkey) { awaitload.loads-- }
+      if(!awaitload.loads) {
+          try {
+              setTimeout(function() {
+                  background.image() // create background image
+                  hand.style = getouter("style", __head__) // style the hand element
+                  document.body.removeChild(__loading__) // finish loading
+                  document.getElementById("content").style.display = "block" // show content
+                  /* Function called once at the beginning and again when reading finished. 
+                      Whether no elements appended, stroke that document is empty */
+                  if(!nodes.length) { // nothing appended before
+                      hand.innerHTML = `<p id="docempty">Document is empty</p>`
+                      }; __resize(); dispatchEvent(new Event('load')); __resize(); // call for resize event
+                  }, 0)
+              } catch { console.warn("iterations run was not standart") }
+          console.log("Compilation finished. Run `write.about()` to find out taken global names.") 
+          console.groupEnd("compilation")
+          }
+      }; awaitload.loads = 0
   
+  /* CORE */
+    /* The most important and hard to understand part.
+        Core algorithm reads the text value and compilates it into syntax functions.
+        Divided in two parts: keyword {} and read(){}
+        Language based on start/end symbols not complete keywords.
+        It gives flexibility, but defines low syntax diversity.
+        keyword - class of objects, each contains data about what symbols 
+        start iteration, and iteration and what happens with text between those symbols.
+        read - function which divides text into keywords and gives every keyword data between its keys. */
+        
+  class keyword {
+      constructor(start=[], end=[], recall=function() {}, name) {
+          const that = this // declare a link to object itself
+          /* arguments exists as properties, but further used the arguments because it's shorter */
+          this.ends = end 
+          this.starts = start
+          this.name = name
+          this.start = function(compl) { // compl - symbol which viewed by `read` function
+              if(start.includes(compl)) { return this } // return keyword
+              return false
+              }
+          this.end = function(compl, moves) { // moves - difference between positions when iteration started and ended
+                  if(end.includes(compl) && moves ) { return this } // if iteration not empty return keyword
+                  return false
+              }
+          this.recall = function(event, response) { // event - value between keys
+              if(response) { console.log(event) } // important for debag
+              recall(event) // run syntax
+              }
+          }
+      };
+  
+  function read(data, response=false, encode=function(start, end, name) { return true }) {
+      /* data - text which divides to iterations
+          response - show iterations in console or not
+          encode - perspective function for code editor */
+      if(!read.pos) { read.pos = -1; awaitload() } // pos = -1, because will be called before it's value needed
+      read.data = data // remember the data for case of stop reading
+      read.response = response // log everything in console or not
+      read.iteration = null // current iteration NULL
+      read.last_iteration = null // here will be iteration that executed before current
+      read.res = "" // let's build value to give for iteration
+      while(read.data[read.pos+1]) { // go through the data until possible
+          if(read.await) { console.log("reading paused"); break } // when needed break reading
+          read.pos++; // remember changed position
+          read.change = null; // need to catch the iteration changes
+          read.last_iteration = null; // this string very important to avoid reading the same symbol multiple times
+          if(response) { console.log(read.data[read.pos], read.iteration) } // if needed show symbol and iteration
+          if(read.iteration && read.iteration.end( read.data[read.pos], read.pos-read.started ) ) {
+              /* This happens when the iteration has started and met the termination symbol.
+                   New iteration starts by the next step in order to access chain iteration */
+              var draw = encode(read.started, read.pos-read.started, read.iteration.name); // if needed encode
+              if(draw) { // sometimes it's needed only encode, but do not execute language
+                  read.iteration.recall(read.res, response);
+                  }
+              read.res = ""; read.started = null; // update progression
+              read.last_iteration = read.iteration; read.iteration = null // remember iteration and declare that no current iteration
+              }
+          for(var i = 0; i < keywords.length; i++) { // search over keywords
+              let key = keywords[i].start( read.data[read.pos] ) // if returned iteration which not previos - begin new
+              // this is important because of it's bad whether iteration which has same symbols for close and open just starts again 
+              if(!read.iteration && key  && key != read.last_iteration) {
+                  read.iteration = keywords[i];  // declare iteration
+                  read.change = true; // remember that NEW iteration started
+                  read.started = read.pos; // remember position it's started
+                  break; // stop searching for iterations
+                  }
+              }
+          if(read.iteration && !read.change) { read.res += read.data[read.pos] } // whether we have current iteration building a value for it
+          if(read.change) { read.change = null } // clear parameter for the next move of while loop
+          }
+      // This happens when reading is completed
+      if(!read.await) { // if reading was not paused
+          if(read.iteration) { read.iteration.recall(read.res, response) } // recall the last iteration
+          awaitload(true) // call endkey
+          };
+      };
+    
+  /* It's also possible to stop reading and continue later */
+  read.awaitReading = function() { 
+      awaitload() // declare that reading not completed
+      read.await = true // stop reading
+      };
+  
+  read.continueReading = function() {
+      console.log("reading continued")
+      awaitload(true) // call endkey after awaiting was declared when reading stopped
+      read.await = false // unlock reading
+      read.pos += 2 // go to the next symbol
+      read(read.data, read.response) // continue reading
+      };
+  
+  /* SYNTAX */
+  /* This part contains functions which take as argument value of iteration
+      and do anything you can imagine. There are three common constructions:
+      1) # *tag
+      2) name arg "value"
+      3) @style .class
+      3*) - #
+      The first construction is required and gives an html node for the third construction.
+      The second construction is not required, but works separately from the first.
+      Child node construction is special, because not required, but incorporated into `writing part`
+      However, it works almost as construction three. */
+    
+  var keywords = []
+  keywords.tempotext = null // innerHTML
+  keywords.tempowrite = null // html Node
+  keywords.word = null // recognized complete keyword
+  keywords.childhood = 1 // default childhood one, because all elements append to `hand` element
+  var nodes = new Array() // list of the all Nodes
+  var styles = new Array() // list of the all recognized styles
+  
+   keywords.cssmodify = function(style) { // add ";" after css line, whether no such symbol yet
+      var addition = true;
+      for(var i = style.length-1; i > 0; i--) { // ! start from end
+          if(style[i] == ";") { addition = false } // if already is ";" nothing happens
+          if(style[i] != " ") { break } // go to the place where no ";" then use  the addition
+          }
+      if(addition) { return eval('`' + style + ';`') } else { return eval('`' + style + '`') }
+      };
+  
+  /* variables set to array 'styles' */
+  keywords.getvalue = function(name, err) { // get value of variable
+      for(var i = 0; i < styles.length; i++) { // search over variables
+          if(styles[i].name == name) { return keywords.cssmodify(styles[i].data) } // return modifyed value
+          }; if(err) { console.error(`can't find style -->`, res) }
+      };
+  
+  keywords.setvalue = function(name, data) {
+      if( !keywords.getvalue(name) ) { // if no such name used
+          styles.push({ name: name, data: data }) // push value and id to the array
+          } else { console.error(`repeating name error -->`, name) }
+      };
+  
+  /* Groupitem creates a line of nodes from the one node.
+      Takes DataNode (nodemap) and argument between "[" and "]" (command) */
+ 
+  keywords.groupitem = function(nodemap, command) {
+      var num = 1 // quantity
+      var prop = 1 // proportion (group should have relative size)
+      var margin = 0 // margin between elements
+      var cnt = 1 // number of elements
+      var res = "" // let's unpack command argument
+      /* spaces always separate the arguments [margin proportion quantity] */
+      for(var i = 0; i < command.length; i++) {
+          res += command[i]
+          if(command[i] == " " && cnt == 1) { cnt++;
+              try{ margin=eval(res); res = "" } catch {} // margin
+              }
+          else if(command[i] == " " && cnt == 2) { cnt++;
+              try{ prop=eval(res); res = "" } catch {} // property
+              }
+          else if(command[i] == " " && cnt == 3) { cnt++; // quantity
+              try{ num=eval(res); res = "" } catch {}
+              }
+          /* don't forget the values which was not before space */
+          if(cnt == 1) { try{ margin=eval(res) } catch {} }
+          else if(cnt == 2) { try{ prop=eval(res) } catch {} }
+          else if(cnt == 3) { try{ num=eval(res) } catch {} }
+          }
+      var element = nodemap.node // original element
+      var parent = element.parentElement // remember parent element
+      var header = document.createElement("div") // create element which holds all the copies
+      var brothers = new Array() // list of clones
+      for(var i = 0; i < num; i++) {
+          /* create number of clones */
+          var broth = element.clone(num != 1 && element.id)
+          broth.num = i
+          broth.style.marginLeft = margin + "px"
+          broth.style.position = "absolute"
+          brothers.push(broth)
+          }
+      onResize(brothers, function(e, i) { // add resize events
+          var parentWidth = parent.offsetWidth- ( onlyNumbers(parent.style.paddingLeft) + onlyNumbers(parent.style.paddingRight) )
+          var ewidth = ( parentWidth-margin*(brothers.length+1) )/brothers.length
+          e.style.width = ewidth + "px"
+          var ehight = ewidth/prop
+          e.style.height = ehight + "px"
+          e.style.marginLeft = (e.num + 1) * margin + ewidth*e.num + "px"
+          })
+      onResize([header], function(e) { // resize parent element of all the clones
+          if(e.children.length) {
+              e.style.height = e.children[0].offsetHeight + "px"
+              e.style.width = parent.offsetWidth + "px"
+              }
+          });
+      parent.removeChild(element) // remove original element
+      for(var i = 0; i < brothers.length; i++) {
+          header.append(brothers[i]) // append cones
+          }
+      nodes[nodemap.index].node = header // replace node in the DataNode to support further building
+      keywords.tempowrite.node = header // and styling
+      parent.appendChild(header) // finally append new element
+      };
+  
+  keywords.attribute = function(element, res, oneprop) { // read attributes
+      if(!element.property) { element.property = [] } // create list for element properties
+      if(!oneprop) { // eject attributes fromm command (res)
+          var atr = "" // let's build the attribute
+          for(var i = 0; i < res.length; i++) { // read given value
+              if(res[i] == ",") { make(atr); atr="" } // "," used to separate arguments
+              else { atr += res[i] } // build the attribute
+              }; if(atr) { make(atr) }
+          } else { make(res) }
+      function make(a) { // create attribute via 'eval'
+          element.property.push(a) // remember that element have property is important for cloning
+          try { eval("element." + a) } 
+          catch { console.error(`failed to attribute -->`, element, res) } // large scary error
+          } 
+      };
+  
+  keywords.importitem = function(command) { // import external files
+      console.warn(`importing --> `, command)
+      var ext = "" // define the extension
+      for(var i = command.length-1; i > 0; i--) {
+          if(command[i] == ".") { break } else { ext+=command[i] }
+          }
+      if(ext == "sj") {
+          read.awaitReading() // stop reading to access further elements use the script 
+          var script = document.createElement("script") // create
+          script.src = command // upload script
+          script.onload = function() { console.log(`imported script -->`, this); read.continueReading() } // continue
+          script.onerror = function() { console.error(`failed to import -->`, command); read.continueReading() } // continue
+          document.body.append(script) // append
+          }
+      else if(ext == "ssc") {
+          var link = document.createElement("link") // just create link to style
+          link.rel = "stylesheet" // give rel
+          link.href = command // load
+          document.head.append(link) // append
+          } 
+      else { console.warn(`unknown file extension -->`, ext) } // almost any extension can be handled prospectively
+      };
+  
+  keywords.draw = function(res) { // create element and append to the document
+      keywords.tempowrite = write(keywords.tempotext,  res, keywords.childhood) // create 
+      keywords.tempotext = null; keywords.childhood = 1; // break the parameters for the next node
+      write.truewrite() // append right now
+      };
+  
+  keywords.readword = function(res, code) { // read keywords with arguments.
+      var factcode = "" // code wich given by command (res)
+      for(var i = 0; i < code.length; i++) {
+          factcode += res[i] // building
+          }
+      if(factcode == code) { // whether real word is tha same as code build an argument
+          var arg = "" // get the argument and remember fo future operations
+          for(var i = code.length; i < res.length; i++) {
+              if(res[i]!=" ") { arg += res[i] } // spaces always used to separate arguments
+              };  keywords.word =  { code: code, argument: arg } // remember the argument and word to build the value later
+          }; return keywords.word // return result
+      };
+  
+  keywords.value = function(res) { // build the value
+      if(keywords.word.code == "ocal ") { // local
+          keywords.setvalue(keywords.word.argument, res); keywords.word = null // create variable
+          }
+      else if(keywords.word.code =="mport ") { // import
+          keywords.importitem(res, keywords.word.argument); keywords.word = null // import item
+          };
+      };
+  
+  keywords.child = function(res) { // count node childhood
+      var result = 2; // 1+1=2 (any element is child of #paper by default and if this function called it means element have another childhood)
+      for(var i = 0; i < res.length; i++) { // explore the given value
+          if(res[i] == "-") { result++ } // count the childhood
+          }; keywords.childhood = result // return childhood
+      };
+  
+  keywords.style = function(node, res) { // build the style from variable
+      if(node) {
+          node.style = (function separate(variables) { // get every singe variable from list (@style1 style2.)
+              var variable = "" // build a single variable
+              var result = "" // build complete style
+              for(var i = 0; i < variables.length; i++) { // go through the given value
+                  if(variables[i] == " ") { result += keywords.getvalue(variable); variable = "" } // react on space
+                  else { variable += variables[i] } // building
+                  }; if(variable) { result += keywords.getvalue(variable) } // don't forget the last variable
+              return result // return style no the node
+              })(res) // fine way to calculate value
+          }
+      };
+  
+  keywords.readcode = function(res) { // special function for parsing because it uses quotes different from keywords.value
+      if(keywords.word.argument == "css") { 
+          var style = document.createElement("style") // create style
+          style.type = "text/css"; style.innerHTML = res
+          document.head.append(style) // append style
+          }
+      else if(keywords.word.argument == "js") { // create script
+          var script = document.createElement("script")
+          script.type = "text/javascript"; script.innerHTML = res
+          document.head.append(script) // append script
+          } else { console.warn(`unexpected parse --> `, keywords.word.argument) }
+      keywords.word = null // no need to remember keyword anymore
+      };
+  
+  keywords.className = function(node, res) {
+      if(res) {
+          node.className = res // give className
+          console.log(res)
+          }
+      };
+  
+  keywords.br = function(text) { // set '<br>'s
+      var res = "" // let's declare result
+      for(var i = 0; i < text.length; i++) { // go through the text
+          if(text[i] == "\n") { res+="<br>" } // replace new strings on '<br>'s
+          else { res += text[i] }
+          }; return res // return new text
+      };
+  
+  /* Creating keywords. Names are not required, but very helpful for debug */
+  /* Not all the words can be used as keys, because principles of compilation (No 'Example' and 'Exmp' together) */
+  keywords.push(new keyword(["~"], ["~"], function(res) { console.log(res) }, "comment")) // comments
+  keywords.push(new keyword(["l"], ['"'], function(res) { keywords.readword(res, "ocal ") }, "local")) // 'local' keyword
+  keywords.push(new keyword(["i"], ['"'], function(res) { keywords.readword(res, "mport ") }, "import")) // 'import' keyword
+  keywords.push(new keyword(["p"], ["`"], function(res) { keywords.readword(res, "arse ") }, "parse")) // 'parse' keyword
+  keywords.push(new keyword(["`"], ["`"], function(res) { keywords.readcode(res) }, "code")) // parsing code
+  keywords.push(new keyword(['"'], ['"'], function(res) { keywords.value(res) }, "value")) // value for variable
+  keywords.push(new keyword(["-"], ["#"], function(res) { keywords.child(res) }, "child")) // childhood
+  keywords.push(new keyword(["#"], ["*"], function(res) { keywords.tempotext = keywords.br(res); }, "inner")) // innerHTML
+  keywords.push(new keyword(["*"], [" ", "@", "\n"], function(res) { keywords.draw(res) }, "draw")) // creation
+  keywords.push(new keyword(["@"], [".", "\n"], function(res) { keywords.style(keywords.tempowrite.node, res) }, "style")) // styles
+  keywords.push(new keyword(["."], [" ", "\n", "{"], function(res) { keywords.className(keywords.tempowrite.node, res) }, "className")) // classes
+  keywords.push(new keyword(["{"], ["}"], function(res) { keywords.attribute(keywords.tempowrite.node, res) }, "attribute")) // attributes
+  keywords.push(new keyword(["["], ["]"], function(res) { keywords.groupitem(keywords.tempowrite, res) }, "group")) // groups
+  
+  /* WRITING */
+  /* This part executes commands from syntax and gives created nodes their real lifes.
+      Divided into three functions and one class.
+      DataNode - broaden information about nodes. Includes its number and childhood
+      write - function which creates element by given information
+      truewrite - function which appends node to the right position
+      about  - function which accesses global names taken by script.
+     */
+    
+  class DataNode {
+      constructor(node, childhood, index) { // broad the node
+          const that = this 
+          this.node = node // element itself
+          this.childhood = childhood // how many parents element have
+          this.index = index // serial number
+          this.append = function(item) {
+              that.node.append(item) // helper function to append a child
+              }
+          }
+      };
+  
+  function write(text, type, childhood) {
+      var element = (function () { // create element
+          try {
+              var res = document.createElement(type).await() // waiting for load whether element needs so
+              if(text) { res.innerHTML = text } // provide innerHTML
+              return res // return new element
+              } 
+          catch {
+              console.warn("Element creation failed --> ", type)
+              var err = document.createElement("p"); err.innerHTML = "creation error"
+              return err // whether creation failed, return error node  
+              }
+          })()
+      var nodemap = new DataNode(element, childhood, nodes.length) // create DataNode
+      nodes.push(nodemap) // and push to the list of nodes
+      return nodemap // return created element
+      };
+  
+  write.append = function(n1, n2) { // append one node to another
+      if(nodes[n2].childhood) {
+          nodes[n1].append(nodes[n2].node)
+          }
+      };
+  
+  write.truewrite = function(i, encode) { // append node to it's parent
+      (i!=undefined) ? (i=i) : (i = nodes.length-1) // give ability to append the last created node as well as any from list
+      try { // catch the errors
+          for(var e = 1; e <= i; e++) { // find the first node before given, which childhood less by one
+              if(nodes[i-e].childhood == nodes[i].childhood-1) { // when found
+                  write.append(i-e, i); break // then append one to another and stop searching
+                  }
+              }
+          } catch { console.error(`failed to create child -->`, nodes[i]) }
+      }; nodes.push(new DataNode(hand, 0, 0)) // let the first node will be #paper element
+  
+  /* provide the information about taken names or taken time, memory e.t.c */
+  write.about = function() {
+      console.group("taken global names")
+      console.log("hand", hand) 
+      console.log("awaitload", awaitload)
+      console.log("Keyword", Keyword)
+      console.log("keywords", keywords)
+      console.log("read", read)
+      console.log("write", write)
+      console.log("nodes", nodes)
+      console.log("DataNode", DataNode)
+      console.log("Layout", Layout)
+      console.log("getouter", getouter)
+      console.log("__load", __load)
+      console.log("__resize", __resize)
+      console.log("__host__", __host__)
+      console.log("__head__", __head__)
+      console.log("__body__", __body__)
+      console.log("__scripts__", __scripts__)
+      console.log("__loading__", __loading__)
+      console.groupEnd("taken global names")
+      };
+    
