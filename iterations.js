@@ -28,7 +28,7 @@
                     document.getElementById("content").style.display = "block" // show content
                     /* Function called once at the beginning and again when reading finished. 
                      Whether no elements appended, stroke that document is empty */
-                    if(!nodes.length) { // nothing appended before
+                    if(nodes.length ==1 ) { // nothing appended before
                         hand.innerHTML = `<p id="docempty">Document is empty</p>`
                         }; __resize(); dispatchEvent(new Event('load')); __resize(); // call for resize event
                     console.timeEnd("building")
