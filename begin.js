@@ -76,7 +76,7 @@
         if(document.body) { document.body.style.margin = 0; document.body.append(__loading__) }
         __loading__ .innerHTML = "Loading..<br> "
         __loading__.style = "position: fixed; width: 100%; font-size: 35px; text-align: center; top: 0; left: 0"
-        __loading__.style.color = getouter("theme", document.body, "rgba(217, 210, 210, 0.6)")
+        __loading__.style.color = getouter("theme", document.head, "rgba(217, 210, 210, 0.6)")
         __loading__.top = function() { this.style.marginTop = (innerHeight-this.offsetHeight)/2 + "px"}
         __loading__.top() // as well as taking center
         };

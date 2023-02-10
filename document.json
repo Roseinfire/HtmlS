@@ -1,22 +1,26 @@
 
-   <!DOCTYPE html>
+    <!DOCTYPE html>
     <html>
     <head> 
     <style type="text/css">
     #paper {
         padding: 0;
         }
+
    #content {
         display: none;
         }
+
    #docempty {
         font-size: 35px; 
         text-align: center;
         color: maroon;
         }
+
    body {
         margin: 0;
         }
+
    </style>
     </head>
     <body>
@@ -78,7 +82,7 @@
     
     function background() {
         document.body.style = getouter("style", __body__) 
-        }; background()
+        };  background()
     
     background.image = function() {
         var source = getouter("image", __body__)
@@ -88,5 +92,5 @@
         };
 
    </script>
-    <script type="text/javascript">
-     
+   <script type="text/javascript">
+    

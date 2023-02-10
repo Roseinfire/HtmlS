@@ -22,6 +22,9 @@
         if(!awaitload.loads) {
             try {
                 setTimeout(function() {
+                    onResize([hand], function(e) { // add layout to the end of resize list 
+                        __layout__.js.content(e, __layout__.argument)
+                        })
                     background.image() // create background image
                     hand.style = getouter("style", __head__) // style the hand element
                     document.body.removeChild(__loading__) // finish loading
@@ -30,7 +33,7 @@
                      Whether no elements appended, stroke that document is empty */
                     if(nodes.length ==1 ) { // nothing appended before
                         hand.innerHTML = `<p id="docempty">Document is empty</p>`
-                        }; __resize(); dispatchEvent(new Event('load')); __resize(); // call for resize event
+                        }; dispatchEvent(new Event('load')); __resize(); // call for resize event
                     console.timeEnd("building")
                     }, 0)
                 } catch { console.warn("iterations run was not standart") }
@@ -268,9 +271,9 @@
         if(ext == "sj") {
             var script = document.createElement("script") // create
             if(late != "later") { read.awaitReading() // stop reading to access further elements use the script 
-            script.onload = function() { console.log(`imported script -->`, this); read.continueReading() } // continue
-            script.onerror = function() { console.error(`failed to import -->`, command); read.continueReading() } // continue
-            } else { console.log(`loading in background mode -->`, command) }
+                script.onload = function() { console.log(`imported script -->`, this); read.continueReading() } // continue
+                script.onerror = function() { console.error(`failed to import -->`, command); read.continueReading() } // continue
+                } else { console.log(`loading in background mode -->`, command) }
             script.src = command // upload script
             document.body.append(script) // append
             }
@@ -323,8 +326,8 @@
             if(!node.styling && keywords.getvalue(res)) {
                 node.styling = keywords.getvalue(res)
                 } 
-               else if(keywords.getvalue(res)) { node.styling = node.styling + keywords.getvalue(res) }
-               else { console.error(`can't find style -->`, "@" + res) }
+            else if(keywords.getvalue(res)) { node.styling = node.styling + keywords.getvalue(res) }
+            else { console.error(`can't find style -->`, "@" + res) }
             }; node.style = node.styling
         };
 
