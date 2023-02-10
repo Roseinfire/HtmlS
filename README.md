@@ -1,20 +1,20 @@
-![](https://raw.githubusercontent.com/Roseinfire/HtmlS/main/images/Logo(300x300).png)
-# Introduction
+# Intro
 Both decoration and scripting language, <br>
 Htmls is `more` `flexible` and more `comfortable` than html <br>
-And does not require any installations.
+And does not require long installation
 
 ## Advantages
 
-* Quick start
-* Human friendly syntax
-* Inline layout 
-* Built-in preload
-* Reusable styles
-* Fast css connection
-* Grouped elements
-* Automatically setting new stroke (br)
-* Only one symbol adds spaces before stroke
+* Works nearly everywhere 🕸
+* Quick start ⏳
+* Human friendly syntax 🔎
+* Inline layout 📝
+* Built-in preload 🥽
+* Reusable styles 🪴
+* Fast css connection 🐇 
+* Grouped elements 📚
+* Automatically setting new stroke 🎬
+* Just one symbol adds spaces before stroke 🔭 
   
 # Installation
 Connect the script and let it do all the dirty jobs for you. <br>
