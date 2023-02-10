@@ -140,11 +140,11 @@ You finished a short study. Give the project a star, if you like to support the 
 Your support is really important!
 
 # Development
-The best way to take part in this project - leave a comment.<br>
+The best way to take part in this project - `leave a comment` <br>
 Just go to the discussions and write about what features you would like to see. <br>
 Of course, there are no such things that never need to be better. <br>
 So, you can take any part of the project and develop it. <br>
-Read the `Contribution.js` file for the detailed information.
+`Read` the `Contribution.js` file for the detailed information.
 
 # Learn more
 ### About safety
@@ -154,7 +154,7 @@ If your site is hosted on a public server, then it is public. <br>
 Keep in mind that HtmlS will not take responsibility, <br>
 if you publish confidential information on the public server.<br>
 When connect external scripts (include this one) you give it access to all your page.<br>
-Be sure that you can trust the connected script. That's why the HtmlS `open code` project.
+Be sure that you can trust the connected script. That's why the HtmlS `open source` project.
   
 ### About advertisement
 HtmlS itself `never use advertisement`. <br>
