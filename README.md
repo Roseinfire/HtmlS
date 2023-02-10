@@ -1,6 +1,9 @@
 ## This is an experimental brunch 
 New features and bugs are here
 ### Currently experimenting with..
-* Loading optimization
+* Description
+* Styles
+* Groups
+
 ### Latest version
 * February 10, 2023
