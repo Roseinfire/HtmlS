@@ -3,4 +3,4 @@ New features and bugs are here
 ### Currently experimenting with..
 * Loading optimization
 ### Latest version
-* February 9, 2023
+* February 10, 2023
