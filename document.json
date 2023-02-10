@@ -1,90 +1,92 @@
-<!DOCTYPE html>
-  <html>
-  <head> 
-  <style type="text/css">
-  #paper {
-      padding: 0;
-      }
-  #content {
-      display: none;
-      }
-  #docempty {
-      font-size: 35px; 
-      text-align: center;
-      color: maroon
-      }
-  body {
-      margin: 0;
-      }
-  </style>
-  </head>
-  <body>
-  <div id="content">
-  <div id="paper"></div>
-  </div>
-  <script>
-  /* preload */
-  document.body.append(__loading__)
-  __loading__.top()
-  document.title = __title__
-  let hand = document.getElementById("paper")
-  </script>
-  <script type="text/javascript">
-  /* code space */
-  HTMLElement.prototype.await  = function() {
-      let tags = ["IMG", "FRAME", "IFRAME"]
-      for(var i = 0; i < tags.length; i++) {
-          if(tags[i] == this.tagName) {
-              awaitload();
-              this.onload = function() {  awaitload(true) }
-              this.onerror = function() { awaitload(true) }
-              break
-              }
-          }; return this
-      };
-  
-  HTMLElement.prototype.clone  = function(single) {
-      if(single) { console.error(`can't clone element -->`, this) }
-      var node = this.cloneNode(49)
-      if(this.property) {
-          node.property = new Array()
-          for(var i = 0; i < this.property.length; i++) {
-              node.property.push(this.property[i])
-              keywords.attribute(node, this.property[i], true)
-              }
-          }; return node.await()
-      };
-  
-  var resizebase = new Array()
-  function onResize(e, f) {
-      resizebase.push({ func: f, elem: e }); return resizebase
-      }
-  function __resize() {
-      for(var i = 0; i < resizebase.length; i++) {
-          for(var e = 0; e < resizebase[i].elem.length; e++) {
-              resizebase[i].func(resizebase[i].elem[e]);
-              }
-          } 
-      }; window.addEventListener("resize", __resize)
-  
-  </script>
-  <script type="text/javascript">
-  /* Styles */
-  onResize([hand], function(e) {
-      __layout__.js.content(e, __layout__.argument)
-      });
-  
-  function background() {
-      document.body.style = getouter("style", __body__) 
-      }; background()
-  
-  background.image = function() {
-      var source = getouter("image", __body__)
-      if(source) {
-          document.body.style.backgroundImage = "url('" + source + "')" 
-          }
-      };
+
+   <!DOCTYPE html>
+    <html>
+    <head> 
+    <style type="text/css">
+    #paper {
+        padding: 0;
+        }
+   #content {
+        display: none;
+        }
+   #docempty {
+        font-size: 35px; 
+        text-align: center;
+        color: maroon;
+        }
+   body {
+        margin: 0;
+        }
+   </style>
+    </head>
+    <body>
+    <div id="content">
+    <div id="paper"></div>
+    </div>
+    <script>
+    /* preload */
+    document.body.append(__loading__)
+    __loading__.top()
+    document.title = __title__
+    let hand = document.getElementById("paper")
+    </script>
+    <script type="text/javascript">
+    /* code space */
+    HTMLElement.prototype.await  = function() {
+        let tags = ["IMG", "FRAME", "IFRAME"]
+        for(var i = 0; i < tags.length; i++) {
+            if(tags[i] == this.tagName) {
+                awaitload();
+                this.onload = function() {  awaitload(true) }
+                this.onerror = function() { awaitload(true) }
+                break
+                }
+            }; return this
+        };
+
+   HTMLElement.prototype.clone  = function(single) {
+        if(single) { console.error(`can't clone element -->`, this) }
+        var node = this.cloneNode(49)
+        if(this.property) {
+            node.property = new Array()
+            for(var i = 0; i < this.property.length; i++) {
+                node.property.push(this.property[i])
+                keywords.attribute(node, this.property[i], true)
+                }
+            }; return node.await()
+        };
+
+   var resizebase = new Array()
+    function onResize(e, f) {
+        resizebase.push({ func: f, elem: e }); return resizebase
+        };
+
+   function __resize() {
+        for(var i = 0; i < resizebase.length; i++) {
+            for(var e = 0; e < resizebase[i].elem.length; e++) {
+                resizebase[i].func(resizebase[i].elem[e]);
+                }
+            } 
+        }; window.addEventListener("resize", __resize)
     
-  </script>
-  <script type="text/javascript">
+    </script>
+    <script type="text/javascript">
+    /* Styles */
+    onResize([hand], function(e) {
+        __layout__.js.content(e, __layout__.argument)
+        });
     
+    function background() {
+        document.body.style = getouter("style", __body__) 
+        }; background()
+    
+    background.image = function() {
+        var source = getouter("image", __body__)
+        if(source) {
+            document.body.style.backgroundImage = "url('" + source + "')" 
+            }
+        };
+
+   </script>
+    <script type="text/javascript">
+     
