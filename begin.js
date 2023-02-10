@@ -114,11 +114,7 @@
    function estable(json="") { // remember loaded "document.json" and declare compilation
         __json__ = json
         console.group("compilation")
-        };
-
-   function implement(res="") { // merge "iterations.js" and "document.json"
-        __json__ = (__json__ + res) + `</script><script>read(__data__)</scr` + `ipt></body></html>`
-        createDocument(__metadata__) // call for printing to indicate that __json__ is ready
+        createDocument(__metadata__)
         };
 
    function setlayout(response) { // create layout 
@@ -157,9 +153,6 @@
         fetches.push(new ExtendFetch(__host__ + "/document.json", estable, function(err) { // push "document.json" to load chain */
             __loading__.innerHTML = "Host Error :(" // Compilator unavailable
             }))
-        fetches.push(new ExtendFetch(__host__ + "/iterations.js", implement, function(err) {
-            __loading__.innerHTML = "Load Failed :/" // Compiler available, but something went wrong
-            }))  
         fetches.push(new ExtendFetch(__host__ +  "/layouts/" + __layout__.name + ".js", setlayout,  function() {})) // set a layout
         for(var i = 0; i < __scripts__.length; i++) { // merge htmls codes. Important to save the sequence between local and external
             var source = getouter("fetch", __scripts__[i], null) // get to know whether file is external
