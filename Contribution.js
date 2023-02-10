@@ -25,11 +25,10 @@
            You can just write an addition - file which doesn't need a lot of knowledge, but is very important for further development.
            Creating additions is a good way to support us, which is carefully described in project Wiki.
       And, whether you decided to work with language itself..
-           All the files contain notes for functions and solutions, every solution divided from others.
+           All the files contain notes for functions and solutions, every solution separated from others.
            Engage the community and share commentaries for your work.
            To avoid different tabulation standards - use JStab (github.com/Roseinfire/JStab)
             Program will carefully set up spaces and separate functions.
            The best way to communicate with us - github, but we don't mind whether you send an email.
       And of course, Happy Coding!
 */
-
