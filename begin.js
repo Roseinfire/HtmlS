@@ -1,11 +1,12 @@
-   /* This working script. It loads form of the future document
+   /* 
+     This working script. It loads form of the future document
      and creates basic functions and constants. 
      Do not use it without document.json and network connection.
-     Licensed under MIT, Roseinfire, 2023. */
+     Licensed under MIT, Roseinfire, 2023
+   */
     
     /* FETCHES */
-   /* This part is preparing special functions, which help to optimize 
-        loading of the project main functionality */
+   /* This part is preparing special functions, which help to optimize loading of the project main functionality */
     
     let fetches = new Array() // Let's create an array of needed  fetches
     class ExtendFetch {
@@ -148,7 +149,7 @@
                 }; return res
             })()
         fetches.push(new ExtendFetch(__host__ + "/document.json", estable, function(err) { // push "document.json" to load chain */
-            __loading__.innerHTML = "Host Error :(" // Compilator unavailable
+            __loading__.innerHTML = "Host Error :(" // Compiler unavailable
             }))
         fetches.push(new ExtendFetch(__host__ + "/iterations.js", implement, function(err) {
             __loading__.innerHTML = "Load Failed :/" // Compiler available, but something went wrong
@@ -158,7 +159,7 @@
             var source = getouter("fetch", __scripts__[i], null) // get to know whether file is external
             if(source) { // whether true, remember that there is at least one external script
                 __metadata__.remote = true // it's needed because remote scripts are loading much slower
-                fetches.push(new ExtendFetch(__host__ +"/"+ source, function(res, pointer) { // push to the chain
+                fetches.push(new ExtendFetch(source, function(res, pointer) { // push to the chain
                     __metadata__.push(res); if(!pointer) { createDocument(__metadata__) } 
                     /* whether no more scripts in the chain, init document creation */
                     }, function() {}))
@@ -171,7 +172,7 @@
     function createDocument(hsList) { // takes list of the htmls codes
         if(createDocument.establed) { // function called two times just for safety
             for(var i = 0; i < hsList.length; i++) { __data__ += hsList[i] } // create complete htmls code
-            if(__json__) { document.write(__json__) } // if all loaded successfully then print a result. Compilation inits by "document.json"
+            if(__json__) { document.write(__json__) } // if all loaded successfully then print a result. True compilation inits by "document.json"
             } else { createDocument.establed = true }
         };    
- 
+    

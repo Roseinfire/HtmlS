@@ -1,10 +1,12 @@
 
-    /* iterations.js file is a main main file.
-     It's expected to use iterations without Htmls main constructions.
+    /*
+     iterations.js file is a main main file.
+     It's expected to use iterations without Htmls  other files.
      File contains language main construction and functions.
      Divided into five parts:  CODESPACE, LOAD, CORE, SYNTAX, WRITING.
      Each part described in general and every function described in detail.
-     Licensed under MIT, Roseinfire, 2023 */
+     Licensed under MIT, Roseinfire, 2023
+   */
     
     /* CODESPACE */
     /* This part is preparing methods future syntax operations */
@@ -34,13 +36,15 @@
         };
 
    /* LOAD */
-    /* This part contains a single function and provides a preview.
+   /* 
+     This part contains a single function and provides a preview.
      The main idea is to call function every time when we want to load heavy source
      and call with endkey, when the source is loaded. 
      Function itself counts calls when called and discounts when called with endkey. 
      When the number of progress is zero, then stroke the content.
      It's expected that count new sources faster than loading them, 
-     However, the function waits some ms before showing the result. */
+     However, the function waits some ms before showing the result. 
+  */
     
     function awaitload(endkey) {
         if(!endkey) { awaitload.loads++ }
@@ -69,17 +73,19 @@
             }
         };
 
-   awaitload.loads = 0 // currently elements are loading
+   awaitload.loads = 0 // currently zero elements are loading
     
     /* CORE */
-    /* The most important and hard to understand part.
+    /* 
+     The most important and hard to understand part.
      Core algorithm reads the text value and compilates it into syntax functions.
      Divided in two parts: keyword {} and read(){}
      Language based on start/end symbols not complete keywords.
      It gives flexibility, but defines low syntax diversity.
      keyword - class of objects, each contains data about what symbols 
-     start iteration, and iteration and what happens with text between those symbols.
-     read - function which divides text into keywords and gives every keyword data between its keys. */
+     start iteration, where end iteration and what happens with text between those symbols.
+     read - function which divides text into keywords and gives every keyword data between its keys.
+   */
     
     class keyword {
         constructor(start=[], end=[], recall=function() {}, name) {
@@ -104,9 +110,11 @@
         };
 
    function read(data, response=false, encode=function(start, end, name) { return true }) {
-        /* data - text which divides to iterations
+        /* 
+         data - text which divides to iterations
          response - show iterations in console or not
-         encode - perspective function for code editor */
+         encode - perspective function for code editor
+       */
         if(!read.pos) { read.pos = -1; awaitload() } // pos = -1, because will be called before it's value needed
         read.data = data // remember the data for case of stop reading
         read.response = response // log everything in console or not
@@ -120,8 +128,10 @@
             read.last_iteration = null; // this string very important to avoid reading the same symbol multiple times
             if(response) { console.log(read.data[read.pos], read.iteration) } // if needed show symbol and iteration
             if(read.iteration && read.iteration.end( read.data[read.pos], read.pos-read.started ) ) {
-                /* This happens when the iteration has started and met the termination symbol.
-                 New iteration starts by the next step in order to access chain iteration */
+                /* 
+                 This happens when the iteration has started and met the termination symbol.
+                 New iteration starts by the next step in order to access chain iteration.
+               */
                 var draw = encode(read.started, read.pos-read.started, read.iteration.name); // if needed encode
                 if(draw) { // sometimes it's needed only encode, but do not execute language
                     read.iteration.recall(read.res, response);
@@ -133,10 +143,10 @@
                 let key = keywords[i].start( read.data[read.pos] ) // if returned iteration which not previos - begin new
                 // this is important because of it's bad whether iteration which has same symbols for close and open just starts again 
                 if(!read.iteration && key  && key != read.last_iteration) {
-                    read.iteration = keywords[i];  // declare iteration
-                    read.change = true; // remember that NEW iteration started
-                    read.started = read.pos; // remember position it's started
-                    break; // stop searching for iterations
+                    read.iteration = keywords[i]  // declare iteration
+                    read.change = true // remember that NEW iteration started
+                    read.started = read.pos // remember position it's started
+                    break // stop searching for iterations
                     }
                 }
             if(read.iteration && !read.change) { read.res += read.data[read.pos] } // whether we have current iteration building a value for it
@@ -164,7 +174,8 @@
         };
 
    /* SYNTAX */
-    /* This part contains functions which take as argument value of iteration
+    /*
+     This part contains functions which take as argument value of iteration
      and do anything you can imagine. There are three common constructions:
      1) # *tag
      2) name arg "value"
@@ -173,9 +184,10 @@
      The first construction is required and gives an html node for the third construction.
      The second construction is not required, but works separately from the first.
      Child node construction is special, because not required, but incorporated into `writing part`
-     However, it works almost as construction three. */
+     However, it works almost as construction three. 
+   */
     
-    var keywords = []
+    var keywords = new Array() // complete list of existing keywords (they pushed later)
     keywords.tempotext = null // innerHTML
     keywords.tempowrite = null // html Node
     keywords.word = null // recognized complete keyword
@@ -184,7 +196,7 @@
     var nodes = new Array() // list of the all Nodes
     var styles = new Array() // list of the all recognized styles
     
-    keywords.cssmodify = function(style) { // add ";" after css line, whether no such symbol yet
+    keywords.cssmodify = function(style) { // add ";" after style, whether was no such symbol yet
         var addition = true;
         for(var i = style.length-1; i > 0; i--) { // ! start from end
             if(style[i] == ";") { addition = false } // if already is ";" nothing happens
@@ -206,15 +218,16 @@
             } else { console.error(`repeating name error -->`, name) }
         };
 
-   /* Groupitem creates a line of nodes from the one node.
-     Takes DataNode (nodemap) and argument between "[" and "]" (command) */
-    
+   /* 
+     'groupitem' function creates a line of nodes from the one node.
+     Takes DataNode (nodemap) and argument between brackets "[" and "]" (command) 
+   */    
     keywords.groupitem = function(nodemap, command) {
         var num = 1 // quantity
         var prop = 1 // proportion (group should have relative size)
         var margin = 0 // margin between elements
         var cnt = 1 // number of elements
-        var res = "" // let's unpack command argument
+        var res = "" // let's unpack argument
         /* spaces always separate the arguments [margin proportion quantity] */
         for(var i = 0; i < command.length; i++) {
             res += command[i]
@@ -238,8 +251,8 @@
         var brothers = new Array() // list of clones
         for(var i = 0; i < num; i++) {
             /* create number of clones */
-            var broth = element.clone(num != 1 && element.id)
-            broth.num = i
+            var broth = element.clone(num != 1 && element.id) // clone element whether it's not a single type
+            broth.num = i // give a serial number
             broth.style.marginLeft = margin + "px"
             broth.style.position = "absolute"
             brothers.push(broth)
@@ -256,7 +269,8 @@
             })
         onResize([header], function(e) { // resize parent element of all the clones
             if(e.children.length) {
-                var height = e.children[0].offsetHeight + onlyNumbers(e.children[0].style.marginTop) + onlyNumbers(e.children[0].style.marginBottom)
+                var height = e.children[0].offsetHeight
+                height = height + onlyNumbers(e.children[0].style.marginTop) + onlyNumbers(e.children[0].style.marginBottom)
                 height = height + onlyNumbers(e.children[0].style.top)  + onlyNumbers(e.children[0].style.bottom)
                 e.style.height = height + "px"
                 var width = parent.offsetWidth - onlyNumbers(e.style.paddingLeft) - onlyNumbers(e.style.paddingRight)
@@ -266,11 +280,11 @@
             });
         parent.removeChild(element) // remove original element
         for(var i = 0; i < brothers.length; i++) {
-            header.append(brothers[i]) // append cones
+            header.append(brothers[i]) // append clones to father element
             }
         nodes[nodemap.index].node = header // replace node in the DataNode to support further building
-        keywords.tempowrite.node = header // and styling
-        parent.appendChild(header) // finally append new element
+        keywords.tempowrite.node = header // and access container styling
+        parent.appendChild(header) // finally append new element with clones
         };
 
    keywords.attribute = function(element, res, oneprop) { // read attributes
@@ -296,7 +310,7 @@
             if(command[i] == ".") { break } else { ext+=command[i] }
             }
         if(ext == "sj") {
-            var script = document.createElement("script") // create
+            var script = document.createElement("script") // create script
             if(late != "later") { read.awaitReading() // stop reading to access further elements use the script 
                 script.onload = function() { console.log(`imported script -->`, this); read.continueReading() } // continue
                 script.onerror = function() { console.error(`failed to import -->`, command); read.continueReading() } // continue
@@ -310,21 +324,21 @@
             link.href = command // load
             document.head.append(link) // append
             } 
-        else { console.warn(`unknown file extension -->`, ext) } // almost any extension can be handled
+        else { console.warn(`unknown file extension -->`, ext) } // at this time only two extensions are supported
         };
 
    keywords.draw = function(res) { // create element and append to the document
         keywords.tempowrite = write(keywords.tempotext,  res, keywords.childhood) // create 
-        keywords.tempotext = null; keywords.childhood = 1; keywords.spacing = false; // reset the parameters for the next node
+        keywords.tempotext = null; keywords.childhood = 1; keywords.spacing = false // reset the parameters for the next node
         write.truewrite() // append right now
         };
 
-   keywords.readword = function(res, code) { // read keywords with arguments.
+   keywords.readword = function(res, code) { // read keywords with arguments
         var factcode = "" // code wich given by command (res)
         for(var i = 0; i < code.length; i++) {
             factcode += res[i] // building
             }
-        if(factcode == code) { // whether real word is tha same as code build an argument
+        if(factcode == code) { // whether real word is the same as code, therefore build an argument
             var arg = "" // get the argument and remember fo future operations
             for(var i = code.length; i < res.length; i++) {
                 if(res[i]!=" ") { arg += res[i] } // spaces always used to separate arguments
@@ -342,20 +356,22 @@
         };
 
    keywords.child = function(res) { // count node childhood
-        var result = 2; // 1+1=2 (any element is child of #paper by default and if this function called it means element have another childhood)
+        var result = 2; // 1+1=2 
+        /* Any element is a child of #paper by default and if this function called it means element have another childhood. */
         for(var i = 0; i < res.length; i++) { // explore the given value
             if(res[i] == "-") { result++ } // count the childhood
-            }; keywords.childhood = result // return childhood
+            }; keywords.childhood = result // remember childhood
         };
 
    keywords.style = function(node, res) { // build the style from variable
         if(node && res) {
+            /* External property 'styling' is used, because element style is not a string. */
             if(!node.styling && keywords.getvalue(res)) {
                 node.styling = keywords.getvalue(res)
                 } 
             else if(keywords.getvalue(res)) { node.styling = node.styling + keywords.getvalue(res) }
             else { console.error(`can't find style -->`, "@" + res) }
-            }; node.style = node.styling
+            }; node.style = node.styling // but we can just give a string style
         };
 
    keywords.readcode = function(res) { // special function for parsing because it uses quotes different from keywords.value
@@ -378,7 +394,7 @@
                 node.className = res // give className
                 }
             else {
-                node.className = node.className + " " + res
+                node.className = node.className + " " + res // give more than one className
                 }
             }
         };
@@ -387,13 +403,16 @@
         var res = "" // let's declare result
         for(var i = 0; i < text.length; i++) { // go through the text
             if(text[i] == "\n") { res+="<br>" } // replace new strings on '<br>'s
-            else if(spacing && text[i] == " ") { res += "&nbsp" }
-            else { res += text[i] }
-            }; return res // return new text
+            else if(spacing && text[i] == " ") { res += "&nbsp" } // add spaces
+            else { res += text[i] } // if none of above, just build the text
+            }; return res // return edited text
         };
 
-   /* Creating keywords. Names are not required, but very helpful for debug */
-    /* Not all the words can be used as keys, because of principles of compilation (No 'Example' and 'Exmp' together) */
+   /* 
+       Creating keywords. Names are not required, but very helpful for debug.
+       Not all the words can be used as keys, because of principles of compilation.
+       For more information see the CORE part. (No 'Example' and 'Exmp' existing together)
+  */
     keywords.push(new keyword(['"'], ['"'], function(res) { keywords.value(res) }, "value"))
     keywords.push(new keyword(["~"], ["~"], function(res) { console.log(res) }, "comment")) 
     keywords.push(new keyword(["-"], ["!", "#"], function(res) { keywords.child(res) }, "child"))
@@ -402,21 +421,22 @@
     keywords.push(new keyword(["s"], ['"'], function(res) { keywords.readword(res, "tyle ") }, "style"))
     keywords.push(new keyword(["p"], ["`"], function(res) { keywords.readword(res, "arse ") }, "parse"))
     keywords.push(new keyword(["i"], ['"'], function(res) { keywords.readword(res, "mport ") }, "import"))
-    keywords.push(new keyword(["["], ["]"], function(res) { keywords.groupitem(keywords.tempowrite, res) }, "group"))
     keywords.push(new keyword(["*"], [" ", "@", "\n", ".", "{", "["], function(res) { keywords.draw(res) }, "creation"))
+    keywords.push(new keyword(["["], ["]"], function(res) { keywords.groupitem(keywords.tempowrite, res) }, "group"))
     keywords.push(new keyword(["{"], ["}"], function(res) { keywords.attribute(keywords.tempowrite.node, res) }, "attribute"))
-    keywords.push(new keyword(["#"], ["*"], function(res) { keywords.tempotext = keywords.br(res, keywords.spacing) }, "innerHTML"))
     keywords.push(new keyword(["@"], [" ", "\n", "{", ".", "["], function(res) { keywords.style(keywords.tempowrite.node, res) }, "style"))
+    keywords.push(new keyword(["#"], ["*"], function(res) { keywords.tempotext = keywords.br(res, keywords.spacing) }, "innerHTML"))
     keywords.push(new keyword(["."], [" ", "\n", "{", "@", "["], function(res) { keywords.className(keywords.tempowrite.node, res) }, "class"))
     
     /* WRITING */
-    /* This part executes commands from syntax and gives created nodes their real lifes.
+    /* 
+     This part executes commands from syntax and gives created nodes their real lifes.
      Divided into three functions and one class.
      DataNode - broaden information about nodes. Includes its number and childhood
      write - function which creates element by given information
      truewrite - function which appends node to the right position
      about  - function which accesses global names taken by script.
-     */
+   */
     
     class DataNode {
         constructor(node, childhood, index) { // broad the node
@@ -440,7 +460,7 @@
             catch {
                 console.warn("Element creation failed --> ", type)
                 var err = document.createElement("p"); err.innerHTML = "creation error"
-                return err // whether creation failed, return error node  
+                return err // whether creation failed, then return error node (to avoid futher errors)
                 }
             })()
         var nodemap = new DataNode(element, childhood, nodes.length) // create DataNode
