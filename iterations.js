@@ -18,6 +18,7 @@
     function awaitload(endkey) {
         if(!endkey) { awaitload.loads++ }
         else if(endkey) { awaitload.loads-- }
+        if(__loading__) { __loading__.innerHTML= "Loading..<br>" + ("*").repeat(awaitload.loads) }
         if(!awaitload.loads) {
             try {
                 setTimeout(function() {
@@ -128,7 +129,7 @@
         console.log("reading continued")
         awaitload(true) // call endkey after awaiting was declared when reading stopped
         read.await = false // unlock reading
-        read.pos += 2 // go to the next symbol
+        read.pos += 1 // go to the next symbol
         read(read.data, read.response) // continue reading
         };
 
@@ -216,15 +217,21 @@
         onResize(brothers, function(e, i) { // add resize events
             var parentWidth = parent.offsetWidth- ( onlyNumbers(parent.style.paddingLeft) + onlyNumbers(parent.style.paddingRight) )
             var ewidth = ( parentWidth-margin*(brothers.length+1) )/brothers.length
-            e.style.width = ewidth + "px"
-            var ehight = ewidth/prop
+            var padding = onlyNumbers(e.style.paddingLeft) + onlyNumbers(e.style.paddingRight)
+            var border = onlyNumbers(e.style.borderLeft) + onlyNumbers(e.style.borderRight)
+            e.style.width = ewidth-padding-border + "px"
+            var ehight = (ewidth)/prop
             e.style.height = ehight + "px"
-            e.style.marginLeft = (e.num + 1) * margin + ewidth*e.num + "px"
+            e.style.marginLeft = (e.num + 1) * margin + (ewidth)*e.num + "px"
             })
         onResize([header], function(e) { // resize parent element of all the clones
             if(e.children.length) {
-                e.style.height = e.children[0].offsetHeight + "px"
-                e.style.width = parent.offsetWidth + "px"
+                var height = e.children[0].offsetHeight + onlyNumbers(e.children[0].style.marginTop) + onlyNumbers(e.children[0].style.marginBottom)
+                height = height + onlyNumbers(e.children[0].style.top)  + onlyNumbers(e.children[0].style.bottom)
+                e.style.height = height + "px"
+                var width = parent.offsetWidth - onlyNumbers(e.style.paddingLeft) - onlyNumbers(e.style.paddingRight)
+                width = width - onlyNumbers(e.style.borderLeft) - onlyNumbers(e.style.paddingRight)
+                e.style.width =  + "px"
                 }
             });
         parent.removeChild(element) // remove original element
@@ -259,11 +266,12 @@
             if(command[i] == ".") { break } else { ext+=command[i] }
             }
         if(ext == "sj") {
-            read.awaitReading() // stop reading to access further elements use the script 
             var script = document.createElement("script") // create
-            script.src = command // upload script
+            if(late != "later") { read.awaitReading() // stop reading to access further elements use the script 
             script.onload = function() { console.log(`imported script -->`, this); read.continueReading() } // continue
             script.onerror = function() { console.error(`failed to import -->`, command); read.continueReading() } // continue
+            } else { console.log(`loading in background mode -->`, command) }
+            script.src = command // upload script
             document.body.append(script) // append
             }
         else if(ext == "ssc") {
@@ -272,7 +280,7 @@
             link.href = command // load
             document.head.append(link) // append
             } 
-        else { console.warn(`unknown file extension -->`, ext) } // almost any extension can be handled prospectively
+        else { console.warn(`unknown file extension -->`, ext) } // almost any extension can be handled
         };
 
    keywords.draw = function(res) { // create element and append to the document
@@ -295,7 +303,7 @@
         };
 
    keywords.value = function(res) { // build the value
-        if(keywords.word.code == "ocal ") { // local
+        if(keywords.word.code == "tyle ") { // style
             keywords.setvalue(keywords.word.argument, res); keywords.word = null // create variable
             }
         else if(keywords.word.code =="mport ") { // import
@@ -312,9 +320,11 @@
 
    keywords.style = function(node, res) { // build the style from variable
         if(node && res) {
-            if(!node.styling) {
+            if(!node.styling && keywords.getvalue(res)) {
                 node.styling = keywords.getvalue(res)
-                } else { node.styling = node.styling + keywords.getvalue(res) }
+                } 
+               else if(keywords.getvalue(res)) { node.styling = node.styling + keywords.getvalue(res) }
+               else { console.error(`can't find style -->`, "@" + res) }
             }; node.style = node.styling
         };
 
