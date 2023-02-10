@@ -375,11 +375,11 @@
     keywords.push(new keyword(["s"], ['"'], function(res) { keywords.readword(res, "tyle ") }, "style"))
     keywords.push(new keyword(["p"], ["`"], function(res) { keywords.readword(res, "arse ") }, "parse"))
     keywords.push(new keyword(["i"], ['"'], function(res) { keywords.readword(res, "mport ") }, "import"))
-    keywords.push(new keyword(["*"], [" ", "@", "\n", ".", "{", "["], function(res) { keywords.draw(res) }, "creation"))
     keywords.push(new keyword(["["], ["]"], function(res) { keywords.groupitem(keywords.tempowrite, res) }, "group"))
+    keywords.push(new keyword(["*"], [" ", "@", "\n", ".", "{", "["], function(res) { keywords.draw(res) }, "creation"))
     keywords.push(new keyword(["{"], ["}"], function(res) { keywords.attribute(keywords.tempowrite.node, res) }, "attribute"))
-    keywords.push(new keyword(["@"], [" ", "\n", "{", ".", "["], function(res) { keywords.style(keywords.tempowrite.node, res) }, "style"))
     keywords.push(new keyword(["#"], ["*"], function(res) { keywords.tempotext = keywords.br(res, keywords.spacing) }, "innerHTML"))
+    keywords.push(new keyword(["@"], [" ", "\n", "{", ".", "["], function(res) { keywords.style(keywords.tempowrite.node, res) }, "style"))
     keywords.push(new keyword(["."], [" ", "\n", "{", "@", "["], function(res) { keywords.className(keywords.tempowrite.node, res) }, "class"))
     
     /* WRITING */
