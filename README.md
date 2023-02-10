@@ -37,7 +37,7 @@ Htmls compilates inside any `<script>` specified as `text/htmls` or just `htmls`
 ```
 * after `#` goes innerHTML, takes any value exclude `*`
 * `tag` takes classic tag name like `p` or `div`
-* add `!` before `#` to not discard spaces from string
+* add `!` before a command to not discard spaces from string
 
  > Specify class 
 ### Classes
