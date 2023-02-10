@@ -2,11 +2,38 @@
     /* iterations.js file is a main main file.
      It's expected to use iterations without Htmls main constructions.
      File contains language main construction and functions.
-     Divided into four parts:  LOAD, CORE, SYNTAX, WRITING.
+     Divided into five parts:  CODESPACE, LOAD, CORE, SYNTAX, WRITING.
      Each part described in general and every function described in detail.
      Licensed under MIT, Roseinfire, 2023 */
     
-    /* LOAD */
+    /* CODESPACE */
+    /* This part is preparing methods future syntax operations */
+    
+    HTMLElement.prototype.await  = function() { // hide content while complex elements are loading (see LOAD part)
+        let tags = ["IMG", "FRAME", "IFRAME"] // images and frames
+        for(var i = 0; i < tags.length; i++) {
+            if(tags[i] == this.tagName) { // go through the tags
+                awaitload() // awaitload
+                this.onload = function() {  awaitload(true) } 
+                this.onerror = function() { awaitload(true) }
+                break // element found
+                }
+            }; return this
+        };
+
+   HTMLElement.prototype.clone  = function(single) { // carefully clone element
+        if(single) { console.error(`can't clone element -->`, this) } // check for id 
+        var node = this.cloneNode(49) // clone with all depth
+        if(this.property) { // save JS made attributes
+            node.property = new Array()
+            for(var i = 0; i < this.property.length; i++) {
+                node.property.push(this.property[i])
+                keywords.attribute(node, this.property[i], true)
+                }
+            }; return node.await() // await just for safety
+        };
+
+   /* LOAD */
     /* This part contains a single function and provides a preview.
      The main idea is to call function every time when we want to load heavy source
      and call with endkey, when the source is loaded. 
@@ -375,11 +402,11 @@
     keywords.push(new keyword(["s"], ['"'], function(res) { keywords.readword(res, "tyle ") }, "style"))
     keywords.push(new keyword(["p"], ["`"], function(res) { keywords.readword(res, "arse ") }, "parse"))
     keywords.push(new keyword(["i"], ['"'], function(res) { keywords.readword(res, "mport ") }, "import"))
-    keywords.push(new keyword(["["], ["]"], function(res) { keywords.groupitem(keywords.tempowrite, res) }, "group"))
     keywords.push(new keyword(["*"], [" ", "@", "\n", ".", "{", "["], function(res) { keywords.draw(res) }, "creation"))
+    keywords.push(new keyword(["["], ["]"], function(res) { keywords.groupitem(keywords.tempowrite, res) }, "group"))
     keywords.push(new keyword(["{"], ["}"], function(res) { keywords.attribute(keywords.tempowrite.node, res) }, "attribute"))
-    keywords.push(new keyword(["#"], ["*"], function(res) { keywords.tempotext = keywords.br(res, keywords.spacing) }, "innerHTML"))
     keywords.push(new keyword(["@"], [" ", "\n", "{", ".", "["], function(res) { keywords.style(keywords.tempowrite.node, res) }, "style"))
+    keywords.push(new keyword(["#"], ["*"], function(res) { keywords.tempotext = keywords.br(res, keywords.spacing) }, "innerHTML"))
     keywords.push(new keyword(["."], [" ", "\n", "{", "@", "["], function(res) { keywords.className(keywords.tempowrite.node, res) }, "class"))
     
     /* WRITING */
@@ -442,24 +469,10 @@
     
     /* provide the information about taken names or taken time, memory e.t.c */
     write.about = function() {
+        let names = ["fetches", "ExtendFetch", "syncFetch", "onlyNumbers", "getouter", "loadtheme", "Layout",
+         "searchlayouts", "estable", "implement", "setlayout", "__data__", "__json__", "__Iterations__", "__metadata__"]
         console.group("taken global names")
-        console.log("hand", hand) 
-        console.log("awaitload", awaitload)
-        console.log("Keyword", keyword)
-        console.log("keywords", keywords)
-        console.log("read", read)
-        console.log("write", write)
-        console.log("nodes", nodes)
-        console.log("DataNode", DataNode)
-        console.log("Layout", Layout)
-        console.log("getouter", getouter)
-        console.log("__load", __load)
-        console.log("__resize", __resize)
-        console.log("__host__", __host__)
-        console.log("__head__", __head__)
-        console.log("__body__", __body__)
-        console.log("__scripts__", __scripts__)
-        console.log("__loading__", __loading__)
+        for(var i = 0; i < names.length; i++) { console.log(names[i], eval(names[i])) }
         console.groupEnd("taken global names")
         };
 

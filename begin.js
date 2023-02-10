@@ -5,8 +5,8 @@
      Licensed under MIT, Roseinfire, 2023. */
     
     /* FETCHES */
-    /* This part is preparing special functions, which help to optimize 
-       loading of the project main functionality */
+   /* This part is preparing special functions, which help to optimize 
+        loading of the project main functionality */
     
     let fetches = new Array() // Let's create an array of needed  fetches
     class ExtendFetch {
