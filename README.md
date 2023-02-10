@@ -27,7 +27,7 @@ Htmls compilates inside any `<script>` specified as `text/htmls` or just `htmls`
 > Let's begin from
 ### Comments
 ```javascript
-~ comment ~
+~ Hello comments ~
 ```
 * Comments should not be a part of another syntax
 * Comments also appear in the console
