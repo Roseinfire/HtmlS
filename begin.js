@@ -1,11 +1,10 @@
-
-    /* This working script. It loads form of the future document
+   /* This working script. It loads form of the future document
      and creates basic functions and constants. 
      Do not use it without document.json and network connection.
      Licensed under MIT, Roseinfire, 2023. */
     
     /* FETCHES */
-    /* This part is preparing special functions, which help to optimize 
+   /* This part is preparing special functions, which help to optimize 
         loading of the project main functionality */
     
     let fetches = new Array() // Let's create an array of needed  fetches
@@ -41,7 +40,7 @@
             }
         function exeChains() { // let's execute all the loaded fetches
             var order = chains.sort(function(a, b) { if(a.index > b.index) { return 1 } else { return -1 } })
-            /* sort array in order to execute functions in sequence that they had in extendFetchList */
+             /* sort array in order to execute functions in sequence that they had in extendFetchList */
             for(var i = 0; i < order.length; i++) {  // go through the functions and call
                 var pointer = (order[i+1]) ? (order[i+1].item) : ( null ) // give pointer to the next function
                 order[i].item(order[i].text, pointer) // call with value and pointer
@@ -50,7 +49,7 @@
         };
 
    /* CODESPACE */
-    /* List of notable functions, which help here and there */
+   /* List of notable functions, which help here and there */
     
     function onlyNumbers(text="") {  // get number from text
         var res = ""
@@ -114,7 +113,11 @@
    function estable(json="") { // remember loaded "document.json" and declare compilation
         __json__ = json
         console.group("compilation")
-        createDocument(__metadata__)
+        };
+
+   function implement(res="") { // merge "iterations.js" and "document.json"
+        __json__ = (__json__ + res) + `</script><script>read(__data__)</scr` + `ipt></body></html>`
+        createDocument(__metadata__) // call for printing to indicate that __json__ is ready
         };
 
    function setlayout(response) { // create layout 
@@ -123,16 +126,10 @@
         };
 
    /* LOADING */
-    /* List of commands which initialize loading Htmls */
+   /* List of commands which initialize loading Htmls */
     
     window.addEventListener("DOMContentLoaded", function() { // all the html data is available
         loadtheme() // provide a preview
-        var bcimage = getouter("image", document.body)
-        if(bcimage) { 
-            var link = document.createElement("link")
-            link.src = bcimage; link.as = "image"
-            document.head.append(link)
-            }
         window.__data__ = "" // create list of needed global variables
         window.__json__ = null
         window.__Iterations__ = null
@@ -153,6 +150,9 @@
         fetches.push(new ExtendFetch(__host__ + "/document.json", estable, function(err) { // push "document.json" to load chain */
             __loading__.innerHTML = "Host Error :(" // Compilator unavailable
             }))
+        fetches.push(new ExtendFetch(__host__ + "/iterations.js", implement, function(err) {
+            __loading__.innerHTML = "Load Failed :/" // Compiler available, but something went wrong
+            }))  
         fetches.push(new ExtendFetch(__host__ +  "/layouts/" + __layout__.name + ".js", setlayout,  function() {})) // set a layout
         for(var i = 0; i < __scripts__.length; i++) { // merge htmls codes. Important to save the sequence between local and external
             var source = getouter("fetch", __scripts__[i], null) // get to know whether file is external
@@ -174,5 +174,4 @@
             if(__json__) { document.write(__json__) } // if all loaded successfully then print a result. Compilation inits by "document.json"
             } else { createDocument.establed = true }
         };    
-    
-     
+ 
