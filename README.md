@@ -20,7 +20,6 @@ And does not require long installation
 Connect the script and let it do all the dirty jobs for you. <br>
 Htmls compilates inside any `<script>` specified as `text/htmls` or just `htmls` <br>
 ```HTML
-<script type="htmls"></script>
 <script src="https://roseinfire.github.io/HtmlS/begin.js"></script>
 ```
 # Syntax
@@ -177,16 +176,6 @@ Note that you also need to set localhost to test your site locally.
 ### About performance
 Loading of Htmls usually takes about 0.1 sec. <br>
 However, building a site may take significantly more time.
-
-### About syntax
-We believe that a good programming language should not have abilities to mix types of content. <br>
-That's why we removed some things from study. <br>
-#### Instead of parsing 
-```javascript
-parse js `console.log("JS parse")`
-parse css `body { background-color: green }`
-```
-*  it's much better to import code
 
 # Contact
 * [Roseinfire](https://github.com/Roseinfire)
