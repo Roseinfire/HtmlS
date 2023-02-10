@@ -470,7 +470,9 @@
     /* provide the information about taken names or taken time, memory e.t.c */
     write.about = function() {
         let names = ["fetches", "ExtendFetch", "syncFetch", "onlyNumbers", "getouter", "loadtheme", "Layout",
-         "searchlayouts", "estable", "implement", "setlayout", "__data__", "__json__", "__Iterations__", "__metadata__"]
+         "searchlayouts", "estable", "implement", "setlayout", "__data__", "__json__", "__Iterations__", "__metadata__",
+         "__head__", "__body__", "__host__", "__title__", "__layout__", "__scripts__", "createDocument", "onResize", "awaitload",
+         "keyword", "read", "keywords", "nodes", "styles", "DataNode", "write"]
         console.group("taken global names")
         for(var i = 0; i < names.length; i++) { console.log(names[i], eval(names[i])) }
         console.groupEnd("taken global names")
