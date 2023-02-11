@@ -1,7 +1,7 @@
    /* 
      This working script. It loads form of the future document
      and creates basic functions and constants. 
-     Do not use it without document.json and network connection.
+     Do not use it without "iterations.js" and network connection.
      Licensed under MIT, Roseinfire, 2023
    */
     
@@ -51,6 +51,26 @@
 
    /* CODESPACE */
    /* List of notable functions, which help here and there */
+     
+    let hand = document.createElement("div")
+    let content = document.createElement("div")
+    
+    var resizebase = new Array() // resize events for future elements
+    function onResize(e, f) {
+        resizebase.push({ func: f, elem: e }); return resizebase
+        };
+
+   function __resize() { // here is what's happening when window resized
+        for(var i = 0; i < resizebase.length; i++) {
+            for(var e = 0; e < resizebase[i].elem.length; e++) {
+                resizebase[i].func(resizebase[i].elem[e]) // call item with its object
+                }
+            } 
+        }; window.addEventListener("resize", __resize) // add resize listener
+    
+    onResize([hand], function(e) {
+        __layout__.js.content(e, __layout__.argument) // give a layout his argument
+        });
     
     function onlyNumbers(text="") {  // get number from text
         var res = ""
@@ -72,13 +92,12 @@
         };
 
    function loadtheme() { // provide a preview, while content is loading
-        window.__loading__ = document.createElement("div") // this is global variable
-        if(document.body) { document.body.style.margin = 0; document.body.append(__loading__) }
+        window.__loading__ = document.createElement("div")
+        if(document.body) { document.body.append(__loading__) }
         __loading__ .innerHTML = "Loading..<br> "
         __loading__.style = "position: fixed; width: 100%; font-size: 35px; text-align: center; top: 0; left: 0"
         __loading__.style.color = getouter("theme", document.head, "rgba(217, 210, 210, 0.6)")
-        __loading__.top = function() { this.style.marginTop = (innerHeight-this.offsetHeight)/2 + "px"}
-        __loading__.top() // as well as taking center
+        __loading__.style.marginTop = (innerHeight-__loading__.offsetHeight)/2 + "px"
         };
 
    class Layout { // a class of future layouts
@@ -111,14 +130,12 @@
             })(layout) // read value
         };
 
-   function estable(json="") { // remember loaded "document.json" and declare compilation
-        __json__ = json
+   function estable(__iterations__) {
+        let script = document.createElement("script")
+        script.innerHTML = __iterations__
+        document.body.append(script)
         console.group("compilation")
-        };
-
-   function implement(res="") { // merge "iterations.js" and "document.json"
-        __json__ = (__json__ + res) + `</script><script>read(__data__)</scr` + `ipt></body></html>`
-        createDocument(__metadata__) // call for printing to indicate that __json__ is ready
+        createDocument(__metadata__)
         };
 
    function setlayout(response) { // create layout 
@@ -131,14 +148,12 @@
     
     window.addEventListener("DOMContentLoaded", function() { // all the html data is available
         loadtheme() // provide a preview
+        document.head.append(link)
         window.__data__ = "" // create list of needed global variables
-        window.__json__ = null
-        window.__Iterations__ = null
         window.__metadata__ = new Array()
         window.__head__ = document.head
         window.__body__ = document.body
         window.__host__ = getouter("host", document.body.parentElement, "https://roseinfire.github.io/HtmlS")
-        window.__title__ = (document.title) ? (document.title) : ("Untitled")
         window.__layout__ = searchlayouts("relative 0.6")
         window.__scripts__  = (function() { // get all  specified htmls scripts
             var res = []
@@ -148,11 +163,12 @@
                 if( type == "htmls" || type == "text/htmls") { res.push(scripts[i]) }
                 }; return res
             })()
-        fetches.push(new ExtendFetch(__host__ + "/document.json", estable, function(err) { // push "document.json" to load chain */
-            __loading__.innerHTML = "Host Error :(" // Compiler unavailable
-            }))
-        fetches.push(new ExtendFetch(__host__ + "/iterations.js", implement, function(err) {
-            __loading__.innerHTML = "Load Failed :/" // Compiler available, but something went wrong
+        document.title = (document.title) ? (document.title) : ("Untitled") // give name
+        var link = document.createElement("link")
+        link.rel = "stylesheet"
+        link.href = __host__ + "/universal.css"
+        fetches.push(new ExtendFetch(__host__ + "/iterations.js", estable, function(err) {
+            __loading__.innerHTML = "Host Error :/" // Compiler available, but something went wrong
             }))  
         fetches.push(new ExtendFetch(__host__ +  "/layouts/" + __layout__.name + ".js", setlayout,  function() {})) // set a layout
         for(var i = 0; i < __scripts__.length; i++) { // merge htmls codes. Important to save the sequence between local and external
@@ -171,8 +187,12 @@
     
     function createDocument(hsList) { // takes list of the htmls codes
         if(createDocument.establed) { // function called two times just for safety
+            document.body.innerHTML = ""
+            hand.className = "paper"; content.id = "content"
+            content.append(hand)
             for(var i = 0; i < hsList.length; i++) { __data__ += hsList[i] } // create complete htmls code
-            if(__json__) { document.write(__json__) } // if all loaded successfully then print a result. True compilation inits by "document.json"
+            read(__data__) // if all loaded successfully then start compilation
             } else { createDocument.establed = true }
         };    
+    
     

@@ -56,11 +56,12 @@
                     onResize([hand], function(e) { // add layout to the end of resize list 
                         __layout__.js.content(e, __layout__.argument)
                         })
-                    background.image() // create background image
+                    var source = getouter("image", __body__)
+                    if(source) { document.body.style.backgroundImage = "url('" + source + "')"  } // create background image
                     hand.style = getouter("style", __head__) // style the hand element
-                    document.body.removeChild(__loading__) // finish loading
-                    document.getElementById("content").style.display = "block" // show content
-                    /* Function called once at the beginning and again when reading finished. 
+                    document.body.innerHTML = ""
+                    document.body.append(content)
+                    /* Function called once at the beginning and again when reading finished.
                      Whether no elements appended, stroke that document is empty */
                     if(nodes.length ==1 ) { // nothing appended before
                         hand.innerHTML = `<p id="docempty">Document is empty</p>`
@@ -142,7 +143,7 @@
             for(var i = 0; i < keywords.length; i++) { // search over keywords
                 let key = keywords[i].start( read.data[read.pos] ) // if returned iteration which not previos - begin new
                 // this is important because of it's bad whether iteration which has same symbols for close and open just starts again 
-                if(!read.iteration && key  && key != read.last_iteration) {
+                if(!read.iteration && key && key != read.last_iteration) {
                     read.iteration = keywords[i]  // declare iteration
                     read.change = true // remember that NEW iteration started
                     read.started = read.pos // remember position it's started
@@ -208,7 +209,7 @@
    /* variables set to array 'styles' */
     keywords.getvalue = function(name, err) { // get value of variable
         for(var i = 0; i < styles.length; i++) { // search over variables
-            if(styles[i].name == name) { return keywords.cssmodify(styles[i].data) } // return modifyed value
+            if(styles[i].name == name) { return keywords.cssmodify(styles[i].data) } // return modified value
             }; if(err) { console.error(`can't find style -->`, res) }
         };
 
@@ -289,7 +290,7 @@
 
    keywords.attribute = function(element, res, oneprop) { // read attributes
         if(!element.property) { element.property = [] } // create list for element properties
-        if(!oneprop) { // eject attributes fromm command (res)
+        if(!oneprop) { // eject attributes from command (res)
             var atr = "" // let's build the attribute
             for(var i = 0; i < res.length; i++) { // read given value
                 if(res[i] == ",") { make(atr); atr="" } // "," used to separate arguments
@@ -357,7 +358,7 @@
 
    keywords.child = function(res) { // count node childhood
         var result = 2; // 1+1=2 
-        /* Any element is a child of #paper by default and if this function called it means element have another childhood. */
+        /* Any element is a child of #paper by default and if this function is called it means elements have another childhood. */
         for(var i = 0; i < res.length; i++) { // explore the given value
             if(res[i] == "-") { result++ } // count the childhood
             }; keywords.childhood = result // remember childhood
@@ -409,7 +410,7 @@
         };
 
    /* 
-       Creating keywords. Names are not required, but very helpful for debug.
+       Creating keywords. Names are not required, but very helpful for debugging.
        Not all the words can be used as keys, because of principles of compilation.
        For more information see the CORE part. (No 'Example' and 'Exmp' existing together)
   */
@@ -460,7 +461,7 @@
             catch {
                 console.warn("Element creation failed --> ", type)
                 var err = document.createElement("p"); err.innerHTML = "creation error"
-                return err // whether creation failed, then return error node (to avoid futher errors)
+                return err // whether creation failed, then return error node (to avoid future errors)
                 }
             })()
         var nodemap = new DataNode(element, childhood, nodes.length) // create DataNode
@@ -490,12 +491,12 @@
     /* provide the information about taken names or taken time, memory e.t.c */
     write.about = function() {
         let names = ["fetches", "ExtendFetch", "syncFetch", "onlyNumbers", "getouter", "loadtheme", "Layout",
-         "searchlayouts", "estable", "implement", "setlayout", "__data__", "__json__", "__Iterations__", "__metadata__",
-         "__head__", "__body__", "__host__", "__title__", "__layout__", "__scripts__", "createDocument", "onResize", "awaitload",
+         "searchlayouts", "estable", "setlayout", "__data__", "__metadata__",
+         "__head__", "__body__", "__host__", "__layout__", "__scripts__", "createDocument", "onResize", "awaitload",
          "keyword", "read", "keywords", "nodes", "styles", "DataNode", "write"]
         console.group("taken global names")
         for(var i = 0; i < names.length; i++) { console.log(names[i], eval(names[i])) }
         console.groupEnd("taken global names")
         };
 
-   
+  
