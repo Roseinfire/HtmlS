@@ -12,7 +12,7 @@
     /* This part is preparing methods future syntax operations */
     
     HTMLElement.prototype.await  = function() { // hide content while complex elements are loading (see LOAD part)
-        let tags = ["IMG", "FRAME", "IFRAME"] // images and frames
+        let tags = ["IMG", "FRAME", "IFRAME", "SCRIPT"] // images and frames
         for(var i = 0; i < tags.length; i++) {
             if(tags[i] == this.tagName) { // go through the tags
                 awaitload() // awaitload
@@ -318,7 +318,7 @@
             if(late != "later") { read.awaitReading() // stop reading to access further elements use the script 
                 script.onload = function() { console.log(`imported script -->`, this); read.continueReading() } // continue
                 script.onerror = function() { console.error(`failed to import -->`, command); read.continueReading() } // continue
-                } else { console.log(`loading in background mode -->`, command) }
+                } else { console.log(`loading in background mode -->`, command); script.await() }
             script.src = command // upload script
             document.body.append(script) // append
             }
