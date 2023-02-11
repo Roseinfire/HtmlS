@@ -60,12 +60,16 @@
         resizebase.push({ func: f, elem: e }); return resizebase
         };
 
-   function __resize() { // here is what's happening when window resized
-        for(var i = 0; i < resizebase.length; i++) {
-            for(var e = 0; e < resizebase[i].elem.length; e++) {
-                resizebase[i].func(resizebase[i].elem[e]) // call item with its object
-                }
-            } 
+   function __resize(times, dispatchEvent) { // here is what's happening when window resized
+       times = times ? times : 1
+       while(times > 0) {
+            times--
+            for(var i = 0; i < resizebase.length; i++) {
+                for(var e = 0; e < resizebase[i].elem.length; e++) {
+                   resizebase[i].func(resizebase[i].elem[e]) // call item with its object
+                 }
+             }; if(dispatchEvent) { dispatchEvent(new Event('load')) }
+           }
         }; window.addEventListener("resize", __resize) // add resize listener
     
     onResize([hand], function(e) {
