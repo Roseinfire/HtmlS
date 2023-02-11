@@ -92,6 +92,7 @@
         };
 
    function loadtheme() { // provide a preview, while content is loading
+        document.body.innerHTML = ""
         window.__loading__ = document.createElement("div")
         if(document.body) { document.body.append(__loading__) }
         __loading__ .innerHTML = "Loading..<br> "
@@ -147,8 +148,6 @@
    /* List of commands which initialize loading Htmls */
     
     window.addEventListener("DOMContentLoaded", function() { // all the html data is available
-        loadtheme() // provide a preview
-        document.head.append(link)
         window.__data__ = "" // create list of needed global variables
         window.__metadata__ = new Array()
         window.__head__ = document.head
@@ -163,10 +162,12 @@
                 if( type == "htmls" || type == "text/htmls") { res.push(scripts[i]) }
                 }; return res
             })()
+        loadtheme() // when scripts are defined, provide a preview
         document.title = (document.title) ? (document.title) : ("Untitled") // give name
         var link = document.createElement("link")
         link.rel = "stylesheet"
         link.href = __host__ + "/universal.css"
+        document.head.append(link)
         fetches.push(new ExtendFetch(__host__ + "/iterations.js", estable, function(err) {
             __loading__.innerHTML = "Host Error :/" // Compiler available, but something went wrong
             }))  
@@ -187,9 +188,9 @@
     
     function createDocument(hsList) { // takes list of the htmls codes
         if(createDocument.establed) { // function called two times just for safety
-            document.body.innerHTML = ""
-            hand.className = "paper"; content.id = "content"
-            content.append(hand)
+            hand.className = "paper"
+            content.style.display = "none"
+            content.append(hand); document.body.append(content)
             for(var i = 0; i < hsList.length; i++) { __data__ += hsList[i] } // create complete htmls code
             read(__data__) // if all loaded successfully then start compilation
             } else { createDocument.establed = true }

@@ -59,8 +59,8 @@
                     var source = getouter("image", __body__)
                     if(source) { document.body.style.backgroundImage = "url('" + source + "')"  } // create background image
                     hand.style = getouter("style", __head__) // style the hand element
-                    document.body.innerHTML = ""
-                    document.body.append(content)
+                    document.body.removeChild(__loading__)
+                    content.style.display = "block"
                     /* Function called once at the beginning and again when reading finished.
                      Whether no elements appended, stroke that document is empty */
                     if(nodes.length ==1 ) { // nothing appended before
