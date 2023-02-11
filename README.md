@@ -51,10 +51,11 @@ Htmls compilates inside any `<script>` specified as `text/htmls` or just `htmls`
 > Add a style
 ### Styles
 ```javascript
- style bordered "border: 2px solid"
- style block "width: 100px; height: 100px"
- 
- # *div @bordered @block
+style bordered "border: 2px solid"
+style block "width: 100px; height: 100px"
+```
+```javascript
+# *div @bordered @block
 ```
 * styles are reusable
 * element may have any number of styles
@@ -128,8 +129,6 @@ Related to `<head>`. By default set to `rgba(217, 210, 210, 0.6)`
 Attribute takes a url and indicates the background-image of your page. <br>
 background-image also comes from style, but `image` is visible only after load. <br>
 Related to `<body>`. By default not set.
-### `style`
-Style of the `<body>` element is the same as in the source html.
 ### `fetch`
 Specific attribute related to `<script type="htmls">`. <br>
 Fetch contains a link to code, if you would like to store it separately.<br>
@@ -174,7 +173,7 @@ Note that you also need to set localhost to test your site locally.
 </html>
 ```
 ### About performance
-Loading of Htmls usually takes about 0.1 sec. <br>
+Loading of Htmls usually takes about (0,3) sec. <br>
 However, building a site may take significantly more time.
 
 # Contact
