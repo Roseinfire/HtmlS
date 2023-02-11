@@ -67,7 +67,7 @@
                 for(var e = 0; e < resizebase[i].elem.length; e++) {
                    resizebase[i].func(resizebase[i].elem[e]) // call item with its object
                  }
-             }; if(dispatchEvt) { dispatchEvent(new Event('load')) }
+             }; if(dispatchEvt) { dispatchEvent(new Event('resize')) }
            }
         }; window.addEventListener("resize", __resize) // add resize listener
     
