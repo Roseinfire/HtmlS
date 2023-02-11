@@ -65,7 +65,7 @@
                      Whether no elements appended, stroke that document is empty */
                     if(nodes.length ==1 ) { // nothing appended before
                         hand.innerHTML = `<p id="docempty">Document is empty</p>`
-                        }; dispatchEvent(new Event('load')); __resize(); // call for resize event
+                        }; __resize(2, true); // call for resize event
                     console.timeEnd("building")
                     }, 0)
                 } catch { console.warn("iterations run was not standart") }
