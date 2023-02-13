@@ -290,11 +290,11 @@
         while(res[i] != " " && i < res.length) { name += res[i]; i++ }; i++
         while(res[i] != '"' && i < res.length) { i++ }; i++
         while(res[i] != '"' && i < res.length) { value += res[i]; i++ }
-        console.log(name, value)
-      //  try {
-            let attribute = element.createAttribute(name)
+        try {
+            let attribute = document.createAttribute(name)
             attribute.value = value
-         //  } catch { console.error(`failed to attribute --> `, element, res)  }
+            element.setAttributeNode(attribute)
+           } catch { console.error(`failed to attribute --> `, element, res)  }
         };
 
    keywords.importitem = function(command, late) { // import external files
