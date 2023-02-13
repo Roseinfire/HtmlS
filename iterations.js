@@ -49,7 +49,6 @@
     function awaitload(endkey) {
         if(!endkey) { awaitload.loads++ }
         else if(endkey) { awaitload.loads-- }
-        if(__loading__) { __loading__.innerHTML= "Loading..<br>" + ("*").repeat(awaitload.loads) }
         if(!awaitload.loads) {
             try {
                 setTimeout(function() {
