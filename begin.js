@@ -98,7 +98,7 @@
         document.body.innerHTML = ""
         window.__loading__ = document.createElement("div")
         if(document.body) { document.body.append(__loading__) }
-        __loading__ .innerHTML = "Loading..<br> "
+        __loading__ .innerHTML = "Loading.."
         __loading__.style = "position: fixed; width: 100%; font-size: 35px; text-align: center; top: 0; left: 0"
         __loading__.style.color = getouter("theme", document.head, "rgba(217, 210, 210, 0.6)")
         __loading__.style.marginTop = (innerHeight-__loading__.offsetHeight)/2 + "px"
