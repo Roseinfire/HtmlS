@@ -300,6 +300,8 @@
                 }; if(atr) { make(atr) }
             } else { make(res) }
         function make(a) { // create attribute via 'eval'
+            // const att = document.createAttribute("class");
+            // att.value = "democlass"
             element.property.push(a) // remember that element have property is important for cloning
             try { eval("element." + a) } 
             catch { console.error(`failed to attribute -->`, element, res) } // large scary error
