@@ -26,13 +26,7 @@
    HTMLElement.prototype.clone  = function(single) { // carefully clone element
         if(single) { console.error(`can't clone element -->`, this) } // check for id 
         var node = this.cloneNode(49) // clone with all depth
-        if(this.property) { // save JS made attributes
-            node.property = new Array()
-            for(var i = 0; i < this.property.length; i++) {
-                node.property.push(this.property[i])
-                keywords.attribute(node, this.property[i], true)
-                }
-            }; return node.await() // await just for safety
+        return node.await() // await just for safety
         };
 
    /* LOAD */
@@ -131,7 +125,7 @@
             read.last_iteration = null; // this string very important to avoid reading the same symbol multiple times
             if(response) { console.log(read.data[read.pos], read.iteration) } // if needed show symbol and iteration
             if(read.iteration && read.iteration.end( read.data[read.pos], read.pos-read.started ) ) {
-                /* 
+                /*
                  This happens when the iteration has started and met the termination symbol.
                  New iteration starts by the next step in order to access chain iteration.
                */
@@ -238,7 +232,7 @@
                 try{ margin=eval(res); res = "" } catch {} // margin
                 }
             else if(command[i] == " " && cnt == 2) { cnt++;
-                try{ prop=eval(res); res = "" } catch {} // property
+                try{ prop=eval(res); res = "" } catch {} // proportion
                 }
             else if(command[i] == " " && cnt == 3) { cnt++; // quantity
                 try{ num=eval(res); res = "" } catch {}
@@ -290,22 +284,16 @@
         parent.appendChild(header) // finally append new element with clones
         };
 
-   keywords.attribute = function(element, res, oneprop) { // read attributes
-        if(!element.property) { element.property = [] } // create list for element properties
-        if(!oneprop) { // eject attributes from command (res)
-            var atr = "" // let's build the attribute
-            for(var i = 0; i < res.length; i++) { // read given value
-                if(res[i] == ",") { make(atr); atr="" } // "," used to separate arguments
-                else { atr += res[i] } // build the attribute
-                }; if(atr) { make(atr) }
-            } else { make(res) }
-        function make(a) { // create attribute via 'eval'
-            // const att = document.createAttribute("class");
-            // att.value = "democlass"
-            element.property.push(a) // remember that element have property is important for cloning
-            try { eval("element." + a) } 
-            catch { console.error(`failed to attribute -->`, element, res) } // large scary error
-            } 
+   keywords.attribute = function(element, res) { // read attributes
+        var i = 0; var name = ""; var value = ""
+        if(res[0] == " ") { while(res[i] != " " && i < res.length) { i++ }; i++ }
+        while(res[i] != " " && i < res.length) { name += res[i]; i++ }; i++
+        while(res[i] != '"' && i < res.length) { i++ }; i++
+        while(res[i] != '"' && i < res.length) { value += res[i]; i++ }   
+        try {
+            let attribute = element.createAttribute(name)
+            attribute.value = value
+           } catch { console.error(`failed to attribute --> `, element, res)  }
         };
 
    keywords.importitem = function(command, late) { // import external files
