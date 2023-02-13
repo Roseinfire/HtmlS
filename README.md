@@ -64,10 +64,11 @@ style block "width: 100px; height: 100px"
  > Don't forget attributes  
 ### Attributes
 ```javascript
- # *img { src="example.png", id="image" }
+ # *img { src "example.png" } { id "image" }
 ```
-* between brackets `{` and `}` specify attributes. Separate with `,`
-* remember about properties, not classical attributes
+* between brackets `{` and `}` specify attributes
+* separate id and value with `space`
+* element may have any number of attributes
 
 > Access more complexity with
 ### Nodes
@@ -104,7 +105,7 @@ File action defined automatically by its extension.
 * `js` files become scripts 
 * `css` files become styles
 * `later` word means don't stop building while loading script
-*  `css` files are always loadeding quietly
+*  `css` files are always loading quietly
 
 ## Setup
 > Macro parameters setting via attributes
