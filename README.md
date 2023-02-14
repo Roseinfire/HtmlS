@@ -105,7 +105,7 @@ File action defined automatically by its extension.
 * `js` files become scripts 
 * `css` files become styles
 * `later` word means don't stop building while loading script
-*  `css` files are always loading quietly
+* `note` css files are always working like with `later` keyword
 
 ## Setup
 > Macro parameters setting via attributes
