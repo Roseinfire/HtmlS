@@ -30,7 +30,7 @@
         };
 
    /* LOAD */
-   /* 
+    /* 
      This part contains a single function and provides a preview.
      The main idea is to call function every time when we want to load heavy source
      and call with endkey, when the source is loaded. 
@@ -65,7 +65,7 @@
                     console.timeEnd("building")
                     }, 0)
                 } catch { console.warn("iterations run was not standart") }
-            console.log("Compilation finished. Run `write.about()` to find out taken global names.") 
+            console.log(`Compilation finished. Run 'write.about()' to find out taken global names`) 
             console.groupEnd("compilation")
             }
         };
@@ -77,11 +77,13 @@
      The most important and hard to understand part.
      Core algorithm reads the text value and compilates it into syntax functions.
      Divided in two parts: keyword {} and read(){}
-     Language based on start/end symbols not complete keywords.
-     It gives flexibility, but defines low syntax diversity.
-     keyword - class of objects, each contains data about what symbols 
+     Language based on start/end symbols which are defined by keywords.
+     keyword - class of objects, each contains data about what symbols
      start iteration, where end iteration and what happens with text between those symbols.
      read - function which divides text into keywords and gives every keyword data between its keys.
+     Whether we found an iteration, we give it the value between its keys.
+     Whether the result is true we just continue reading, as iteration is completed. 
+     Whether the result is false, we go back to the start of iteration and search over the others.
    */
     
     class keyword {
@@ -95,13 +97,13 @@
                 if(start.includes(compl)) { return this } // return keyword
                 return false
                 }
-            this.end = function(compl, moves) { // moves - difference between positions when iteration started and ended
-                if(end.includes(compl) && moves ) { return this } // if iteration not empty return keyword
+            this.end = function(compl) {
+                if( end.includes(compl) ) { return this } // if iteration not empty return keyword
                 return false
                 }
             this.recall = function(event, response) { // event - value between keys
                 if(response) { console.log(event) } // important for debag
-                recall(event) // run syntax
+                return recall(event) ? true : false // run syntax
                 }
             }
         };
@@ -113,44 +115,54 @@
          encode - perspective function for code editor
        */
         if(!read.pos) { read.pos = -1; awaitload() } // pos = -1, because will be called before it's value needed
-        read.data = data // remember the data for case of stop reading
-        read.response = response // log everything in console or not
-        read.iteration = null // current iteration NULL
-        read.last_iteration = null // here will be iteration that executed before current
-        read.res = "" // let's build value to give for iteration
-        while(read.data[read.pos+1]) { // go through the data until possible
+        read.data = data 
+        read.response = response
+        read.iteration = null
+        read.last_iteration = null 
+        read.res = ""
+        while(read.data[read.pos+1]) {
             if(read.await) { console.log("reading paused"); break } // when needed break reading
-            read.pos++; // remember changed position
-            read.change = null; // need to catch the iteration changes
+            read.pos++
+            read.change = null
             read.last_iteration = null; // this string very important to avoid reading the same symbol multiple times
             if(response) { console.log(read.data[read.pos], read.iteration) } // if needed show symbol and iteration
-            if(read.iteration && read.iteration.end( read.data[read.pos], read.pos-read.started ) ) {
+            if(read.iteration && read.iteration.end( read.data[read.pos] ) && read.shield(read.data, read.pos, true) ) {
                 /*
                  This happens when the iteration has started and met the termination symbol.
                  New iteration starts by the next step in order to access chain iteration.
                */
                 var draw = encode(read.started, read.pos-read.started, read.iteration.name); // if needed encode
-                if(draw) { // sometimes it's needed only encode, but do not execute language
-                    read.iteration.recall(read.res, response);
-                    }
-                read.res = ""; read.started = null; // update progression
-                read.last_iteration = read.iteration; read.iteration = null // remember iteration and declare that no current iteration
+                if(draw) { } // prepare  for encoding
+                let execution = read.iteration.recall(read.res, response)
+                if(execution == false) {             
+                    if(read.response) { console.log(execution, "iteration delayed", read.iteration) }
+                    read.selection = read.iteration
+                    read.pos = read.started-1
+                    read.iteration = null
+                    read.res = ""
+                    } 
+                else {
+                    read.res = ""; read.started = null;
+                    read.last_iteration = read.iteration;
+                    read.iteration = null
+                    read.selection = null
+                    } 
                 }
-            for(var i = 0; i < keywords.length; i++) { // search over keywords
-                let key = keywords[i].start( read.data[read.pos] ) // if returned iteration which not previos - begin new
-                // this is important because of it's bad whether iteration which has same symbols for close and open just starts again 
+            /* Begin new iteration */
+            read.select(function(iteration) {
+                let key = iteration.start( read.data[read.pos] ) 
                 if(!read.iteration && key && key != read.last_iteration) {
-                    read.iteration = keywords[i]  // declare iteration
-                    read.change = true // remember that NEW iteration started
-                    read.started = read.pos // remember position it's started
-                    break // stop searching for iterations
+                    read.iteration = iteration
+                    read.change = true
+                    read.started = read.pos
+                    return true
                     }
-                }
-            if(read.iteration && !read.change) { read.res += read.data[read.pos] } // whether we have current iteration building a value for it
+                })
+            if(read.iteration && !read.change) { read.res += read.shield(read.data, read.pos) }
             if(read.change) { read.change = null } // clear parameter for the next move of while loop
             }
-        // This happens when reading is completed
-        if(!read.await) { // if reading was not paused
+        /* This happens when reading is completed. */
+        if(!read.await) {
             if(read.iteration) { read.iteration.recall(read.res, response) } // recall the last iteration
             awaitload(true) // call endkey
             };
@@ -163,11 +175,29 @@
         };
 
    read.continueReading = function() {
-        console.log("reading continued")
-        awaitload(true) // call endkey after awaiting was declared when reading stopped
+        console.log(`reading continued`)
+        awaitload(true)
         read.await = false // unlock reading
         read.pos += 1 // go to the next symbol
         read(read.data, read.response) // continue reading
+        };
+
+   read.select = function(keywordhandler=function(i) {}, res) {
+        var selfound = (read.selection) ? true : false
+        if(!read.iteration) {
+            for(var i = 0; i < keywords.length; i++) {
+                if(read.selection && keywords[i] == read.selection) { selfound = false }
+                else if(!selfound) { keywordhandler(keywords[i]) }
+                }
+            }
+        };
+
+   read.shield = function(data, pos, hidden) {
+        if(data[pos] == "<" && data[pos+2] == ">") {  return ""  }
+        else if(data[pos] == ">" && data[pos-2] == "<") { return "" }
+        else if(hidden && data[pos-1] == "<" && data[pos+1] == ">") { return false }
+        else if(hidden) { return true }
+        else { return data[pos] }
         };
 
    /* SYNTAX */
@@ -294,7 +324,7 @@
             let attribute = document.createAttribute(name)
             attribute.value = value
             element.setAttributeNode(attribute)
-           } catch { console.error(`failed to attribute --> `, element, res)  }
+            } catch { console.error(`failed to attribute --> `, element, res)  }
         };
 
    keywords.importitem = function(command, late) { // import external files
@@ -327,17 +357,18 @@
         write.truewrite() // append right now
         };
 
-   keywords.readword = function(res, code) { // read keywords with arguments
-        var factcode = "" // code wich given by command (res)
+   keywords.readword = function(res, code) {
+        var factcode = ""
         for(var i = 0; i < code.length; i++) {
-            factcode += res[i] // building
+            factcode += res[i]
             }
-        if(factcode == code) { // whether real word is the same as code, therefore build an argument
-            var arg = "" // get the argument and remember fo future operations
+        if(factcode == code) {
+            var arg = ""
             for(var i = code.length; i < res.length; i++) {
-                if(res[i]!=" ") { arg += res[i] } // spaces always used to separate arguments
-                };  keywords.word =  { code: code, argument: arg } // remember the argument and word to build the value later
-            }; return keywords.word // return result
+                if(res[i]!=" ") { arg += res[i] }
+                };  keywords.word =  { code: code, argument: arg }
+            return true
+            }; 
         };
 
    keywords.value = function(res) { // build the value
@@ -402,25 +433,25 @@
             }; return res // return edited text
         };
 
-   /* 
-       Creating keywords. Names are not required, but very helpful for debugging.
-       Not all the words can be used as keys, because of principles of compilation.
-       For more information see the CORE part. (No 'Example' and 'Exmp' existing together)
-  */
-    keywords.push(new keyword(["~"], ["~"], function(res) { console.log(res) }, "comment")) 
-    keywords.push(new keyword(['"'], ['"'], function(res) { keywords.value(res) }, "value"))
-    keywords.push(new keyword(["`"], ["`"], function(res) { keywords.readcode(res) }, "code"))
-    keywords.push(new keyword(["-"], ["!", "#"], function(res) { keywords.child(res) }, "child"))
-    keywords.push(new keyword(["!"], ["#"], function(res) { keywords.spacing = true }, "spacing"))
-    keywords.push(new keyword(["s"], ['"'], function(res) { keywords.readword(res, "tyle ") }, "style"))
-    keywords.push(new keyword(["p"], ["`"], function(res) { keywords.readword(res, "arse ") }, "parse"))
-    keywords.push(new keyword(["i"], ['"'], function(res) { keywords.readword(res, "mport ") }, "import"))
-    keywords.push(new keyword(["["], ["]"], function(res) { keywords.groupitem(keywords.tempowrite, res) }, "group"))
-    keywords.push(new keyword(["*"], [" ", "@", "\n", ".", "{", "["], function(res) { keywords.draw(res) }, "creation"))
-    keywords.push(new keyword(["{"], ["}"], function(res) { keywords.attribute(keywords.tempowrite.node, res) }, "attribute"))
-    keywords.push(new keyword(["#"], ["*"], function(res) { keywords.tempotext = keywords.br(res, keywords.spacing) }, "innerHTML"))
-    keywords.push(new keyword(["@"], [" ", "\n", "{", ".", "["], function(res) { keywords.style(keywords.tempowrite.node, res) }, "style"))
-    keywords.push(new keyword(["."], [" ", "\n", "{", "@", "["], function(res) { keywords.className(keywords.tempowrite.node, res) }, "class"))
+   /*
+      Creating keywords. Names are not required, but very helpful for debugging.
+      Every keyword returns true value whether get value that was expected and returns false in else case,
+      then CORE tryes another keywords.
+   */
+    keywords.push(new keyword(['"'], ['"'], function(res) { keywords.value(res); return true }, "value"))
+    keywords.push(new keyword(["~"], ["~"], function(res) { console.log(res); return true }, "comment")) 
+    keywords.push(new keyword(["-"], ["!", "#"], function(res) { keywords.child(res); return true }, "child"))
+    keywords.push(new keyword(["`"], ["`"], function(res) { keywords.readcode(res); return true }, "code"))
+    keywords.push(new keyword(["s"], ['"'], function(res) { return keywords.readword(res, "tyle ") }, "style"))
+    keywords.push(new keyword(["!"], ["#"], function(res) { keywords.spacing = true; return true }, "spacing"))
+    keywords.push(new keyword(["p"], ["`"], function(res) { return keywords.readword(res, "arse ") }, "parse"))
+    keywords.push(new keyword(["i"], ['"'], function(res) { return keywords.readword(res, "mport ") }, "import"))
+    keywords.push(new keyword(["*"], [" ", "@", "\n", ".", "{", "["], function(res) { keywords.draw(res); return true }, "creation"))
+    keywords.push(new keyword(["["], ["]"], function(res) { keywords.groupitem(keywords.tempowrite, res); return true }, "group"))
+    keywords.push(new keyword(["{"], ["}"], function(res) { keywords.attribute(keywords.tempowrite.node, res); return true }, "attribute"))
+    keywords.push(new keyword(["@"], [" ", "\n", "{", ".", "["], function(res) { keywords.style(keywords.tempowrite.node, res); return true }, "style"))
+    keywords.push(new keyword(["#"], ["*"], function(res) { keywords.tempotext = keywords.br(res, keywords.spacing); return true }, "innerHTML"))
+    keywords.push(new keyword(["."], [" ", "\n", "{", "@", "["], function(res) { keywords.className(keywords.tempowrite.node, res); return true  }, "class"))
     
     /* WRITING */
     /* 
@@ -479,17 +510,17 @@
             } catch { console.error(`failed to create child -->`, nodes[i]) }
         };
 
-   nodes.push(new DataNode(hand, 0, 0)) // let the first node will be #paper element
+   nodes.push(new DataNode((hand) ? hand : document.body, 0, 0)) // let the first node will be #paper element
     
     /* provide the information about taken names or taken time, memory e.t.c */
     write.about = function() {
         let names = ["fetches", "ExtendFetch", "syncFetch", "onlyNumbers", "getouter", "loadtheme", "Layout",
-         "searchlayouts", "estable", "setlayout", "__data__", "__metadata__",
-         "__head__", "__body__", "__host__", "__layout__", "__scripts__", "createDocument", "onResize", "awaitload",
-         "keyword", "read", "keywords", "nodes", "styles", "DataNode", "write"]
+        "searchlayouts", "estable", "setlayout", "__data__", "__metadata__",
+        "__head__", "__body__", "__host__", "__layout__", "__scripts__", "createDocument", "onResize", "awaitload",
+        "keyword", "read", "keywords", "nodes", "styles", "DataNode", "write"]
         console.group("taken global names")
         for(var i = 0; i < names.length; i++) { console.log(names[i], eval(names[i])) }
         console.groupEnd("taken global names")
         };
 
-  
+   
