@@ -69,7 +69,7 @@
                  }
              }; if(dispatchEvt) { dispatchEvent(new Event('resize')) }
            }
-        }; window.addEventListener("resize", __resize) // add resize listener
+        }; window.addEventListener("resize", function() { __resize() }) // add resize listener
     
     onResize([hand], function(e) {
         __layout__.js.content(e, __layout__.argument) // give a layout his argument
