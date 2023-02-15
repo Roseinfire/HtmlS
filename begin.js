@@ -136,6 +136,7 @@
 
    function estable(__iterations__) {
         let script = document.createElement("script")
+        script.type = "text/javascript"
         script.innerHTML = __iterations__
         document.body.append(script)
         console.group("compilation")
