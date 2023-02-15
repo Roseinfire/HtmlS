@@ -63,7 +63,7 @@
                     dispatchEvent(new Event('load')) // call for onload event
                     __resize(2, true); // call for resize event
                     console.timeEnd("building")
-                    }, 0)
+                    }, 10)
                 } catch { console.warn("iterations run was not standart") }
             console.log(`Compilation finished. Run 'write.about()' to find out taken global names`) 
             console.groupEnd("compilation")
