@@ -43,6 +43,7 @@
     function awaitload(endkey) {
         if(!endkey) { awaitload.loads++ }
         else if(endkey) { awaitload.loads-- }
+        if(__loading__) { __loading__.innerHTML = "Loading" + (".").repeat(awaitload.loads) }
         if(!awaitload.loads) {
             try {
                 __resize(2, true) // build a layout
