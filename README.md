@@ -35,9 +35,9 @@ Htmls compilates inside any `<script>` specified as `text/htmls` or just `htmls`
 ```javascript
 # Hello World! *tag
 ```
-* after `#` goes innerHTML, takes any value exclude `*`
+* write text between `#` and `*`, to write a star use `<*>`
 * `tag` takes classic tag name like `p` or `div`
-* add `!` before a command to not discard spaces from string
+* add `!` before `#` to read all the spaces in text
 
  > Specify class 
 ### Classes
@@ -79,7 +79,7 @@ style block "width: 100px; height: 100px"
 ```
 * to specify child node, begin command from minus
 * the element appends to first node witch have one minus less
-* any number of spaces can be used between "-"
+* any number of spaces can be used between `-`
 
 > And much more complexity with
 ### Groups
@@ -176,6 +176,64 @@ Note that you also need to set localhost to test your site locally.
 ### About performance
 Loading of Htmls usually takes about (0,3) sec. <br>
 However, building a site may take significantly more time.
+
+### Examples
+#### [Graph-Editor](https://github.com/Roseinfire/Graph-Editor/blob/main/index.html)
+```html
+ <html>
+   <head layout="fullscreen"> 
+      <title>Graph-Editor</title>
+      <script type="text/htmls">
+           import "graph-editor.css"
+           import later "graph-editor.js"
+           style littlecanv "margin-top: 4px"
+           # *div { id "cont" }
+           - # *div { id "TextArea" }
+           -- # *textarea
+           -- # Draw *div .button
+           -- # *canvas { id "child" } { width "260" } { height "8" } @littlecanv
+           -- # Clear *div .button { style "margin-top: 12px" }
+           -- # Points *div .button { id "values" }
+      </script>
+    </head>
+    <body image="cover(250x250).png">
+     <script src="https://roseinfire.github.io/HtmlS/begin.js"></script>
+   </body>
+ </html>
+```
+#### [EasyStats](https://github.com/Roseinfire/EasyStats/blob/main/index.html)
+```html
+<html>
+<head layout="relative 0.8">
+<title>EasyStats</title>
+</head>
+<body style="padding-bottom: 90px">
+  <script type="htmls">
+    ~ Roseinfire early projects ~
+    ~ Unlisenced content ~
+     import "easystats.css"
+     import "easystats.js"
+     style inp "margin-top: 80px"
+     style firstdiv "margin-top: 40px"
+     style firstp "margin-top: 50px"
+     style width "width: 100%"
+     # *div @width
+    - # *input @inp { type "number" } { id "inputer" } { placeholder " Enter number.." }
+    - # Continue *div @firstdiv .ooc { onclick "nextNumb()" }
+    - # Get Result *div .ooc { onclick "getRes()" }
+    - # Replay *div .ooc { onclick "rld()" }
+    # *p @firstp .output { id "started" }
+    # output *p .output { id "mod" }
+    # length *p .output { id "len" }
+    # sum *p .output { id "sum" }
+    # range *p .output { id "ran" }
+    # average *p .output { id "ave" }
+    # dispersion *p .output { id "dis" }
+  </script>
+  <script src="https://roseinfire.github.io/HtmlS/begin.js"></script>
+ </body>
+</html>
+```
 
 # Contact
 * [Roseinfire](https://github.com/Roseinfire)
