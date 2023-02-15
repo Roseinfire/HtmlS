@@ -45,6 +45,7 @@
         else if(endkey) { awaitload.loads-- }
         if(!awaitload.loads) {
             try {
+                __resize(2, true) // build a layout
                 setTimeout(function() {
                     onResize([hand], function(e) { // add layout to the end of resize list 
                         __layout__.js.content(e, __layout__.argument)
@@ -59,7 +60,6 @@
                     if(nodes.length ==1 ) { // nothing appended before
                         hand.innerHTML = `<p id="docempty">Document is empty</p>`
                         };
-                    __resize(2, true) // build a layout
                     dispatchEvent(new Event('load')) // call for onload event
                     __resize(2, true); // call for resize event
                     console.timeEnd("building")
