@@ -95,7 +95,10 @@
         };
 
    function loadtheme() { // provide a preview, while content is loading
-        document.body.innerHTML = ""
+        let doc = document.body.children
+        for(var i = 0; i < doc.length; i++) {
+          if(doc[i].tagName != "SCRIPT") { document.body.removeChild(doc[i]) }
+         }
         window.__loading__ = document.createElement("div")
         if(document.body) { document.body.append(__loading__) }
         __loading__ .innerHTML = "Loading.."
@@ -104,7 +107,7 @@
         __loading__.style.marginTop = (innerHeight-__loading__.offsetHeight)/2 + "px"
         };
 
-   class Layout { // a class of future layouts
+   class Layout { // a class of future layout
         constructor(reaction=function() {}, name) {
             this.content = reaction
             this.name = name
