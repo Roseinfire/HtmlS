@@ -184,7 +184,7 @@ Loading of Htmls usually takes about (0,3) sec. <br>
 However, building a site may take significantly more time.
 
 ### Examples
-#### [Graph-Editor](https://github.com/Roseinfire/Graph-Editor/blob/main/index.html)
+#### [Graph-Editor](https://github.com/Roseinfire/Graph-Editor)
 ```html
  <html>
    <head layout="fullscreen"> 
@@ -207,7 +207,7 @@ However, building a site may take significantly more time.
    </body>
  </html>
 ```
-#### [EasyStats](https://github.com/Roseinfire/EasyStats/blob/main/index.html)
+#### [EasyStats](https://github.com/Roseinfire/EasyStats)
 ```html
 <html>
 <head layout="relative 0.8">
