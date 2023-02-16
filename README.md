@@ -108,36 +108,40 @@ File action defined automatically by its extension.
 * `note` css files are always working like with `later` keyword
 
 ## Setup
-> Macro parameters setting via attributes
+> Let's set attributes
 ```HTML
 <head layout="fullscreen">
   <script type="htmlscript" fetch="root/site.json"></script>
 </head>
 ```
 ### `layout`
-General plan of your site. Related to `<head>`<br>
+General plan of your site. <br>
+Related to `<head>` <br>
 Currently support three layouts:
 * static `number`<br>
 number shows width of content in pixels.
-* relative `number` <br>
+* relative `number`<br>
 number shows screen percentage occupied by content.
 * fullscreen <br>
- Means content occupies all the screen and not scrolling.
+ Means content occupies all the screen and not scrolling. <br>
+#### By default set `relative 0.6`
 ### `theme` 
-Indicates color of `Loading..` string<br>
-Related to `<head>`. By default set to `rgba(217, 210, 210, 0.6)`
+Indicates color of `Loading..` string <br>
+Related to `<head>`  <br> 
+#### By default set to `rgba(217, 210, 210, 0.6)`
 ### `image`
 Attribute takes a url and indicates the background-image of your page. <br>
 background-image also comes from style, but `image` is visible only after load. <br>
-Related to `<body>`. By default not set.
+Related to `<body>` <br>
+#### By default not set
 ### `fetch`
-Specific attribute related to `<script type="htmls">`. <br>
-Fetch contains a link to code, if you would like to store it separately.<br>
-By default not set.
-
-## Congratulations! 
-You finished a short study. Give the project a star, if you like to support the project. <br>
-Your support is really important!
+Specific attribute related to `<script type="htmls">` <br>
+Fetch contains a link to code, if you would like to store it separately. <br>
+#### By default not set
+> And finally 
+## Congratulations! 📣
+You finished a short study. Give the project a `star`, if you like to support the project. <br>
+Your support is very important! ⭐💝
 
 # Development
 The best way to take part in this project - `leave a comment` <br>
@@ -145,11 +149,11 @@ Just go to the discussions and write about what features you would like to see. 
 Of course, there are no such things that never need to be better. <br>
 So, you can take any part of the project and develop it. <br>
 `Read` the `Contribution.js` file for the detailed information.
-
 # Learn more
-### About safety
+### About privacy
+We `never tracking` nobody and never contribute to your website. <br>
 You build a site with htmls, not htmls build a site for you. This is our rule. <br>
-If your site is built from a local file, it stays local. `No data shared` from local files.<br>
+If your site is built from a local file, it stays local. `No data shared` from local files. <br>
 If your site is hosted on a public server, then it is public. <br>
 Keep in mind that HtmlS will not take responsibility, <br>
 if you publish confidential information on the public server.<br>
@@ -157,15 +161,17 @@ When connect external scripts (include this one) you give it access to all your 
 Be sure that you can trust the connected script. That's why the HtmlS `open source` project.
   
 ### About advertisement
-HtmlS itself `never use advertisement`. <br>
+HtmlS itself `never use advertisement` 🔕 <br>
 Everyone can use advertisements on his own site when it is built with htmls. <br>
 We believe that best support is to join the project or just give it a star. <br>
 
 ### About installation
 If your site is built with a cross-site script, it will not work when the script isn't accessible. <br>
-So, the better idea is to download htmls to your project's folder. <br>
-To run script from a folder, you need a special attribute `host` set to HtmlS path including the domain. <br>
-Note that you also need to set localhost to test your site locally.
+So, the better idea is to download htmls to your project's folder 📩 <br>
+It accesses to load quicker and not depend from us 🚀 <br>
+To run script from a folder, you need a special attribute `host`<br>
+set to HtmlS path including the domain. <br>
+Note that you also may need to set localhost to test your site locally.
 ```HTML
 <html host="https://website.com/path">
   <head>
@@ -210,7 +216,7 @@ However, building a site may take significantly more time.
 <body style="padding-bottom: 90px">
   <script type="htmls">
     ~ Roseinfire early projects ~
-    ~ Unlisenced content ~
+    ~ Unlisensed content ~
      import "easystats.css"
      import "easystats.js"
      style inp "margin-top: 80px"
