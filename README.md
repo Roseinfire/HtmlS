@@ -108,10 +108,10 @@ File action defined automatically by its extension.
 * `note` css files are always working like with `later` keyword
 
 ## Setup
-> Let's set attributes
+> Let's personalize your style
 ```HTML
 <head layout="fullscreen">
-  <script type="htmlscript" fetch="root/site.json"></script>
+  <script type="text/htmls" fetch="root/site.json"></script>
 </head>
 ```
 ### `layout`
@@ -124,20 +124,24 @@ number shows width of content in pixels.
 number shows screen percentage occupied by content.
 * fullscreen <br>
  Means content occupies all the screen and not scrolling. <br>
-#### By default set `relative 0.6`
+#### Set to `relative 0.6`
+ #
 ### `theme` 
 Indicates color of `Loading..` string <br>
-Related to `<head>`  <br> 
-#### By default set to `rgba(217, 210, 210, 0.6)`
+Related to `<head>`  <br>
+#### Set to `rgba(217, 210, 210, 0.6)`
+#
 ### `image`
 Attribute takes a url and indicates the background-image of your page. <br>
 background-image also comes from style, but `image` is visible only after load. <br>
 Related to `<body>` <br>
 #### By default not set
+#
 ### `fetch`
-Specific attribute related to `<script type="htmls">` <br>
+Specific attribute related to `htmls code` <br>
 Fetch contains a link to code, if you would like to store it separately. <br>
 #### By default not set
+#
 > And finally 
 ## Congratulations! 📣
 You finished a short study. Give the project a `star`, if you like to support the project. <br>
