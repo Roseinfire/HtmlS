@@ -14,7 +14,7 @@ And does not require long installation
 * Fast css connection 🐇 
 * Grouped elements 📚
 * Automatically setting new stroke 🎬
-* Just one symbol adds spaces before stroke 🔭 
+* Just one symbol adds spaces to stroke 🔭 
   
 # Installation
 Connect the script and let it do all the dirty jobs for you. <br>
