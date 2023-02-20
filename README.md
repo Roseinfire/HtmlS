@@ -22,8 +22,10 @@ Htmls compilates inside any `<script>` specified as `text/htmls` or just `htmls`
 ```HTML
 <script src="https://roseinfire.github.io/HtmlS/begin.js"></script>
 ```
-# Syntax
+# Guide
 > Let's begin from
+## Syntax
+> and first look
 ### Comments
 ```javascript
 ~ Hello comments ~
@@ -108,15 +110,15 @@ File action defined automatically by its extension.
 * `note` css files are always working like with `later` keyword
 
 ## Setup
-> Let's personalize your style
+> Let's personalize your site
 ```HTML
 <head layout="fullscreen">
   <script type="text/htmls" fetch="root/site.json"></script>
 </head>
 ```
 ### `layout`
-General plan of your site. <br>
-Related to `<head>` <br>
+#
+Resize plan of your site, css grids and other. <br>
 Currently support three layouts:
 * static `number`<br>
 number shows width of content in pixels.
@@ -124,51 +126,100 @@ number shows width of content in pixels.
 number shows screen percentage occupied by content.
 * fullscreen <br>
  Means content occupies all the screen and not scrolling. <br>
-#### Set to `relative 0.6`
- #
-### `theme` 
-Indicates color of `Loading..` string <br>
-Related to `<head>`  <br>
-#### Set to `rgba(217, 210, 210, 0.6)`
+#
+ Attribute related to `<head>` <br>
+#
+ By default set to `relative 0.6`
+#
+ ```html
+<!-- layout example --!>
+<head layout="relative 0.6"></head>
+```
 #
 ### `image`
+#
 Attribute takes a url and indicates the background-image of your page. <br>
 background-image also comes from style, but `image` is visible only after load. <br>
-Related to `<body>` <br>
-#### By default not set
+#
+Attribute related to `<body>`
+# 
+By default not set
+#
+ ```html
+<!-- image example --!>
+<body image="background.png"></body>
+```
 #
 ### `fetch`
+#
 Specific attribute related to `htmls code` <br>
 Fetch contains a link to code, if you would like to store it separately. <br>
-#### By default not set
+Code from fetch builds elements like any other htmls code. <br>
 #
+Attribute related to `<script>`
+#
+By default not set
+#
+ ```html
+<!-- fetch example --!>
+<script fetch="index.json"></script>
+```
+#
+> Add even more personality with
+## Styles
+> htmls generated elements are styling with css
+### Main container
+Available with `.paper` css command
+#
+```css
+.paper {
+  background-color: white;
+  border: 1px solid orange;
+}
+```
+#
+### Loading string 
+Available with `.loading` css command
+#
+```css
+.loading {
+  color: pink;
+  font-size: 14px;
+}
+```
+#
+
+
 > And finally 
 ## Congratulations! 📣
-You finished a short study. Give the project a `star`, if you like to support the project. <br>
-Your support is very important! ⭐💝
+You finished a short study. Give the project a `star`, if you like the project. <br>
+We are working for free, so your support is important ⭐💝
+#
 
-# Development
+# Learn more
+### About development
 The best way to take part in this project - `leave a comment` <br>
 Just go to the discussions and write about what features you would like to see. <br>
 Of course, there are no such things that never need to be better. <br>
 So, you can take any part of the project and develop it. <br>
 `Read` the `Contribution.js` file for the detailed information.
+# 
 # Learn more
 ### About privacy
 We `never tracking` nobody and never contribute to your website. <br>
 You build a site with htmls, not htmls build a site for you. This is our rule. <br>
-If your site is built from a local file, it stays local. `No data shared` from local files. <br>
+If your site is built from a local file, `no data shared` from local files. <br>
 If your site is hosted on a public server, then it is public. <br>
 Keep in mind that HtmlS will not take responsibility, <br>
 if you publish confidential information on the public server.<br>
 When connect external scripts (include this one) you give it access to all your page.<br>
 Be sure that you can trust the connected script. That's why the HtmlS `open source` project.
-  
+#
 ### About advertisement
 HtmlS itself `never use advertisement` 🔕 <br>
 Everyone can use advertisements on his own site when it is built with htmls. <br>
 We believe that best support is to join the project or just give it a star. <br>
-
+#
 ### About installation
 If your site is built with a cross-site script, it will not work when the script isn't accessible. <br>
 So, the better idea is to download htmls to your project's folder 📩 <br>
@@ -183,67 +234,11 @@ Note that you also may need to set localhost to test your site locally.
   </head>
 </html>
 ```
+#
 ### About performance
 Loading of Htmls usually takes about (0,3) sec. <br>
 However, building a site may take significantly more time.
-
-### Examples
-#### [Graph-Editor](https://github.com/Roseinfire/Graph-Editor)
-```html
- <html>
-   <head layout="fullscreen"> 
-      <title>Graph-Editor</title>
-      <script type="text/htmls">
-           import "graph-editor.css"
-           import later "graph-editor.js"
-           style littlecanv "margin-top: 4px"
-           # *div { id "cont" }
-           - # *div { id "TextArea" }
-           -- # *textarea
-           -- # Draw *div .button
-           -- # *canvas { id "child" } { width "260" } { height "8" } @littlecanv
-           -- # Clear *div .button { style "margin-top: 12px" }
-           -- # Points *div .button { id "values" }
-      </script>
-    </head>
-    <body image="cover(250x250).png">
-     <script src="https://roseinfire.github.io/HtmlS/begin.js"></script>
-   </body>
- </html>
-```
-#### [EasyStats](https://github.com/Roseinfire/EasyStats)
-```html
-<html>
-<head layout="relative 0.8">
-<title>EasyStats</title>
-</head>
-<body style="padding-bottom: 90px">
-  <script type="htmls">
-    ~ Roseinfire early projects ~
-    ~ Unlisensed content ~
-     import "easystats.css"
-     import "easystats.js"
-     style inp "margin-top: 80px"
-     style firstdiv "margin-top: 40px"
-     style firstp "margin-top: 50px"
-     style width "width: 100%"
-     # *div @width
-    - # *input @inp { type "number" } { id "inputer" } { placeholder " Enter number.." }
-    - # Continue *div @firstdiv .ooc { onclick "nextNumb()" }
-    - # Get Result *div .ooc { onclick "getRes()" }
-    - # Replay *div .ooc { onclick "rld()" }
-    # *p @firstp .output { id "started" }
-    # output *p .output { id "mod" }
-    # length *p .output { id "len" }
-    # sum *p .output { id "sum" }
-    # range *p .output { id "ran" }
-    # average *p .output { id "ave" }
-    # dispersion *p .output { id "dis" }
-  </script>
-  <script src="https://roseinfire.github.io/HtmlS/begin.js"></script>
- </body>
-</html>
-```
+#
 
 # Contact
 * [Roseinfire](https://github.com/Roseinfire)
