@@ -393,14 +393,16 @@
         /* 
         function called from htmls class as well as from classes and styles.
         When it's called with the attribute command, it will send an error.
-        Whether it's called from other syntax functions, it results an error and therefore main function error is visible */
+        Whether it's called from other syntax functions, it results an error and therefore main function error is visible
         */
         var i = 0; var name = ""; var value = ""
         if(res[0] == " ") { while(res[i] != " " && i < res.length) { i++ }; i++ }
         while(res[i] != " " && i < res.length) { name += res[i]; i++ }; i++
         while(res[i] != '"' && i < res.length) { i++ }; i++
         while(res[i] != '"' && i < res.length) { value += res[i]; i++ }
-        /* Separate name from value and set attribute */
+        /* 
+        Separate name from value and set attribute.
+        */
         if(debug) { 
             try { set() } catch { console.error(`failed to attribute --> `, element, res)  }
             }
