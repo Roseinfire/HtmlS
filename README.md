@@ -23,15 +23,14 @@ Htmls compilates inside any `<script>` specified as `text/htmls` or just `htmls`
 <script src="https://roseinfire.github.io/HtmlS/begin.js"></script>
 ```
 # Guide
-> Let's begin from
-## Syntax
-> and first look
+> and first look at
 ### Comments
 ```javascript
-~ Hello comments ~
+~ Hello Htmls ~
 ```
 * Comments should not be a part of another syntax
 * Comments also appear in the console
+#
 > Create first element
 ### Elements
 ```javascript
@@ -40,7 +39,7 @@ Htmls compilates inside any `<script>` specified as `text/htmls` or just `htmls`
 * write text between `#` and `*`, to write a star use `<*>`
 * `tag` takes classic tag name like `p` or `div`
 * add `!` before `#` to read all the spaces in text
-
+#
  > Specify class 
 ### Classes
 ```javascript
@@ -49,7 +48,7 @@ Htmls compilates inside any `<script>` specified as `text/htmls` or just `htmls`
 * add `.name` and element will have class attribute set to name
 * exclude spaces from your class name
 * one element may have any number of classes
-    
+#
 > Add a style
 ### Styles
 ```javascript
@@ -62,16 +61,16 @@ style block "width: 100px; height: 100px"
 * styles are reusable
 * element may have any number of styles
 * good practice is defining styles before begin the script
-    
- > Don't forget attributes  
-### Attributes
+#   
+ > Don't forget about 
+### Attributes 
 ```javascript
  # *img { src "example.png" } { id "image" }
 ```
 * between brackets `{` and `}` specify attributes
 * separate id and value with `space`
 * element may have any number of attributes
-
+#
 > Access more complexity with
 ### Nodes
 ```javascript
@@ -82,7 +81,7 @@ style block "width: 100px; height: 100px"
 * to specify child node, begin command from minus
 * the element appends to first node witch have one minus less
 * any number of spaces can be used between `-`
-
+#
 > And much more complexity with
 ### Groups
 ```javascript
@@ -94,9 +93,9 @@ style block "width: 100px; height: 100px"
 * quantity - how many elements in group (`1` by default)
 * first class related to a single element
 * second class related to container
-
-> Connect other files
-### External resources
+#
+> Connecting scripts
+### External files
 To connect an external file, init source with `import` keyword. <br>
 File action defined automatically by its extension.
 ```javascript
@@ -117,7 +116,7 @@ File action defined automatically by its extension.
 </head>
 ```
 ### `layout`
-#
+# 📝
 Resize plan of your site, css grids and other. <br>
 Currently support three layouts:
 * static `number`<br>
@@ -191,9 +190,9 @@ Available with `.loading` css command
 
 
 > And finally 
-## Congratulations! 📣
-You finished a short study. Give the project a `star`, if you like the project. <br>
-We are working for free, so your support is important ⭐💝
+## Congratulations!
+You finished a short study. We are happy to help you create websites. <br>
+Give the project a `star`, if you like the project!
 #
 
 # Learn more 
@@ -208,7 +207,7 @@ When connect external scripts (include this one) you give it access to all your 
 Be sure that you can trust the connected script. That's why the HtmlS `open source` project.
 #
 ### About advertisement
-HtmlS itself `never use advertisement` 🔕 <br>
+HtmlS itself `never use advertisement` <br>
 Everyone can use advertisements on his own site when it is built with htmls. <br>
 We believe that best support is to join the project or just give it a star. <br>
 #
