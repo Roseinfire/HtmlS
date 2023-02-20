@@ -102,8 +102,16 @@
         window.__loading__ = document.createElement("div")
         if(document.body) { document.body.append(__loading__) }
         __loading__ .innerHTML = getouter("theme", document.head, "Loading..")
-        let className = document.createAttribute("class"); className.value = "loading Loading"
+        let className = document.createAttribute("class"); className.value = "loading"
         __loading__.setAttributeNode(className)
+        __loading__.style = `
+           position: fixed; 
+           width: 100%; 
+           font-size: 35px; 
+           text-align: center; 
+           top: 0; left: 0;
+           background-color: rgba(217, 210, 210, 0.6);
+         `
         __loading__.style.marginTop = (innerHeight-__loading__.offsetHeight)/2 + "px"
         };
 
