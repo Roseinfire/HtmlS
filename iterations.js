@@ -314,19 +314,6 @@
         parent.appendChild(header) // finally append new element with clones
         };
 
-   keywords.attribute = function(element, res) { // read attributes
-        var i = 0; var name = ""; var value = ""
-        if(res[0] == " ") { while(res[i] != " " && i < res.length) { i++ }; i++ }
-        while(res[i] != " " && i < res.length) { name += res[i]; i++ }; i++
-        while(res[i] != '"' && i < res.length) { i++ }; i++
-        while(res[i] != '"' && i < res.length) { value += res[i]; i++ }
-        try {
-            let attribute = document.createAttribute(name)
-            attribute.value = value
-            element.setAttributeNode(attribute)
-            } catch { console.error(`failed to attribute --> `, element, res)  }
-        };
-
    keywords.importitem = function(command, late) { // import external files
         console.warn(`importing --> `, command)
         var ext = "" // define the extension
@@ -388,17 +375,6 @@
             }; keywords.childhood = result // remember childhood
         };
 
-   keywords.style = function(node, res) { // build the style from variable
-        if(node && res) {
-            /* External property 'styling' is used, because element style is not a string. */
-            if(!node.styling && keywords.getvalue(res)) {
-                node.styling = keywords.getvalue(res)
-                } 
-            else if(keywords.getvalue(res)) { node.styling = node.styling + keywords.getvalue(res) }
-            else { console.error(`can't find style -->`, "@" + res) }
-            }; node.style = node.styling // but we can just give a string style
-        };
-
    keywords.readcode = function(res) { // special function for parsing because it uses quotes different from keywords.value
         if(keywords.word.argument == "css") { 
             var style = document.createElement("style") // create style
@@ -413,13 +389,49 @@
         keywords.word = null // no need to remember keyword anymore
         };
 
+   keywords.attribute = function(element, res, debug=true) { // read attributes
+        /* 
+        function called from htmls class as well as from classes and styles.
+        When it's called with the attribute command, it will send an error.
+        Whether it's called from other syntax functions, it results an error and therefore main function error is visible */
+        */
+        var i = 0; var name = ""; var value = ""
+        if(res[0] == " ") { while(res[i] != " " && i < res.length) { i++ }; i++ }
+        while(res[i] != " " && i < res.length) { name += res[i]; i++ }; i++
+        while(res[i] != '"' && i < res.length) { i++ }; i++
+        while(res[i] != '"' && i < res.length) { value += res[i]; i++ }
+        /* Separate name from value and set attribute */
+        if(debug) { 
+            try { set() } catch { console.error(`failed to attribute --> `, element, res)  }
+            }
+        else { set() } // fall when given value incorrect
+        function set() {
+            let attribute = document.createAttribute(name)
+            attribute.value = value
+            element.setAttributeNode(attribute)
+            }
+        };
+
+   keywords.style = function(node, res) { // build the style from variable
+        if(node && res) {
+            let style =  node.getAttributeNode("style")
+            if(!style.value && keywords.getvalue(res)) {
+                style.value = keywords.getvalue(res)
+                } 
+            else if(keywords.getvalue(res)) { style.value = `${style.value} ${keywords.getvalue(res)}`  }
+            else { console.error(`can't find style -->`, "@" + res) }
+            }
+        };
+
    keywords.className = function(node, res) {
         if(res) {
-            if(!node.className) {
-                node.className = res // give className
-                }
-            else {
-                node.className = node.className + " " + res // give more than one className
+            try {
+                var attr = node.getAttributeNode("class")
+                if(attr) { keywords.attribute(node, "class " + res, false) }
+                else { var attr = node.getAttributeNode("class"); attr.value = `${attr.value} ${res}` }
+                } 
+            catch {
+                console.error(`failed to set a class -->`, node, res)
                 }
             }
         };
@@ -510,9 +522,12 @@
             } catch { console.error(`failed to create child -->`, nodes[i]) }
         };
 
-   nodes.push(new DataNode((hand) ? hand : document.body, 0, 0)) // let the first node will be #paper element
+   nodes.push(new DataNode((window.hand) ? hand : document.body, 0, 0)) // let the first node will be #paper element
     
-    /* provide the information about taken names or taken time, memory e.t.c */
+    /* 
+     Provide the information about taken names or taken time, memory and so.
+     It helps to avoid names collision with other connected scripts.
+    */
     write.about = function() {
         let names = ["fetches", "ExtendFetch", "syncFetch", "onlyNumbers", "getouter", "loadtheme", "Layout",
         "searchlayouts", "estable", "setlayout", "__data__", "__metadata__",
