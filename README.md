@@ -164,6 +164,20 @@ By default not set
 <script fetch="index.json"></script>
 ```
 #
+### `theme`
+#
+Attribute defines text of preload. You can put any message including emoji.
+#
+Attribute related to `<head>`
+#
+By default set to `Loading..`
+#
+ ```html
+<!-- theme example --!>
+<head theme="loading website"></head>
+```
+#
+
 > Add even more personality with
 ## Styles
 > htmls generated elements are styling with css
@@ -187,7 +201,6 @@ Available with `.loading` css command
 }
 ```
 #
-
 
 > And finally 
 ## Congratulations!
