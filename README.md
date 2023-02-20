@@ -230,8 +230,7 @@ Note that you also may need to set localhost to test your site locally.
 ### About performance
 Loading of Htmls usually takes about (0,3) sec. <br>
 However, building a site may take significantly more time.
-#
-### About development
+## Development
 The best way to take part in this project - `leave a comment` <br>
 Just go to the discussions and write about what features you would like to see. <br>
 Of course, there are no such things that never need to be better. <br>
