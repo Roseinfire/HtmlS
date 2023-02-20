@@ -196,15 +196,7 @@ You finished a short study. Give the project a `star`, if you like the project. 
 We are working for free, so your support is important ⭐💝
 #
 
-# Learn more
-### About development
-The best way to take part in this project - `leave a comment` <br>
-Just go to the discussions and write about what features you would like to see. <br>
-Of course, there are no such things that never need to be better. <br>
-So, you can take any part of the project and develop it. <br>
-`Read` the `Contribution.js` file for the detailed information.
-# 
-# Learn more
+# Learn more 
 ### About privacy
 We `never tracking` nobody and never contribute to your website. <br>
 You build a site with htmls, not htmls build a site for you. This is our rule. <br>
@@ -239,7 +231,13 @@ Note that you also may need to set localhost to test your site locally.
 Loading of Htmls usually takes about (0,3) sec. <br>
 However, building a site may take significantly more time.
 #
-
+### About development
+The best way to take part in this project - `leave a comment` <br>
+Just go to the discussions and write about what features you would like to see. <br>
+Of course, there are no such things that never need to be better. <br>
+So, you can take any part of the project and develop it. <br>
+`Read` the `Contribution.js` file for the detailed information.
+#
 # Contact
 * [Roseinfire](https://github.com/Roseinfire)
 * [ko-fi.com/Roseinfire](https://ko-fi.com/roseinfire)
