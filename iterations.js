@@ -523,10 +523,17 @@
                 }
             } catch { console.error(`failed to create child -->`, nodes[i]) }
         };
+   /* 
+    Let the first node be a ‘hand` element. Avoid error whether the name `hand` is not defined.
+  */
+   try {
+        nodes.push(new DataNode(hand, 0, 0))
+        }
+   catch {
+        nodes.push(new DataNode(document.body, 0, 0))
+        }
 
-   nodes.push(new DataNode((window.hand) ? hand : document.body, 0, 0)) // let the first node will be #paper element
-    
-    /* 
+   /* 
      Provide the information about taken names or taken time, memory and so.
      It helps to avoid names collision with other connected scripts.
     */
