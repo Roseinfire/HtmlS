@@ -4,6 +4,13 @@ body {
 .paper {
    padding: 0;
 }
+.Loading {
+   position: fixed; 
+   width: 100%; 
+   font-size: 35px; 
+   text-align: center; 
+   top: 0; left: 0;
+}
 #docempty {
   font-size: 35px; 
   text-align: center;
