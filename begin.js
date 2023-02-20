@@ -1,4 +1,5 @@
-   /* 
+
+      /* 
      This working script. It loads form of the future document
      and creates basic functions and constants. 
      Do not use it without "iterations.js" and network connection.
@@ -6,7 +7,7 @@
    */
     
     /* FETCHES */
-   /* This part is preparing special functions, which help to optimize loading of the project main functionality */
+    /* This part is preparing special functions, which help to optimize loading of the project main functionality */
     
     let fetches = new Array() // Let's create an array of needed  fetches
     class ExtendFetch {
@@ -41,7 +42,7 @@
             }
         function exeChains() { // let's execute all the loaded fetches
             var order = chains.sort(function(a, b) { if(a.index > b.index) { return 1 } else { return -1 } })
-             /* sort array in order to execute functions in sequence that they had in extendFetchList */
+            /* sort array in order to execute functions in sequence that they had in extendFetchList */
             for(var i = 0; i < order.length; i++) {  // go through the functions and call
                 var pointer = (order[i+1]) ? (order[i+1].item) : ( null ) // give pointer to the next function
                 order[i].item(order[i].text, pointer) // call with value and pointer
@@ -50,8 +51,8 @@
         };
 
    /* CODESPACE */
-   /* List of notable functions, which help here and there */
-     
+    /* List of notable functions, which help here and there */
+    
     let hand = document.createElement("div")
     let content = document.createElement("div")
     
@@ -61,15 +62,17 @@
         };
 
    function __resize(times=1, dispatchEvt) { // here is what's happening when window resized
-       while(times > 0) {
+        while(times > 0) {
             times--
             for(var i = 0; i < resizebase.length; i++) {
                 for(var e = 0; e < resizebase[i].elem.length; e++) {
-                   resizebase[i].func(resizebase[i].elem[e]) // call item with its object
-                 }
-             }; if(dispatchEvt) { dispatchEvent(new Event('resize')) }
-           }
-        }; window.addEventListener("resize", function() { __resize() }) // add resize listener
+                    resizebase[i].func(resizebase[i].elem[e]) // call item with its object
+                    }
+                }; if(dispatchEvt) { dispatchEvent(new Event('resize')) }
+            }
+        };
+
+   window.addEventListener("resize", function() { __resize() }) // add resize listener
     
     onResize([hand], function(e) {
         __layout__.js.content(e, __layout__.argument) // give a layout his argument
@@ -97,23 +100,27 @@
    function loadtheme() { // provide a preview, while content is loading
         let doc = document.body.children
         for(var i = 0; i < doc.length; i++) {
-          if(doc[i].tagName != "SCRIPT") { document.body.removeChild(doc[i]) }
-         }
+            if(doc[i].tagName != "SCRIPT") { document.body.removeChild(doc[i]) }
+            }
         window.__loading__ = document.createElement("div")
         if(document.body) { document.body.append(__loading__) }
         __loading__ .innerHTML = getouter("theme", document.head, "Loading..")
-        let className = document.createAttribute("class"); className.value = "loading"
+        let className = document.createAttribute("class"); className.value = "loading Loading"
         __loading__.setAttributeNode(className)
         /* Style not placed in universal.css in order to load quicker */
-        __loading__.style = `
-           position: fixed; 
-           width: 100%; 
-           font-size: 35px; 
-           text-align: center; 
-           top: 0; left: 0;
-           color: rgba(217, 210, 210, 0.6);
-         `
-        __loading__.style.marginTop = (innerHeight-__loading__.offsetHeight)/2 + "px"
+        let styletag = document.createElement("style")
+        styletag.innerHTML = `.Loading { position: fixed; width: 100%; text-align: center; top: 0; left: 0;` // complete stylesheet further
+        var style = getComputedStyle(__loading__) // get real stylesheet
+        var test = document.createElement("div") // create empty div to understand the default stylesheet
+        document.body.append(test) // append to let read the real stylesheet of `test`
+        var defstyle = getComputedStyle(test) // read style
+        var defcolor =  defstyle.getPropertyValue("color") // get deafult color
+        var deffont = defstyle.getPropertyValue("font-size") // and font size
+        var color = style.getPropertyValue("color"); color = (color!=defcolor) ? color : "rgba(217, 210, 210, 0.6)" // replace defaults
+        var font = style.getPropertyValue("font-size"); font = (font!=deffont) ? font : "35px" // replace defaults
+        styletag.innerHTML += ("font-size:" + font + ";" + "color: "+ color + "; }") // create new style
+        document.head.append(styletag); document.body.removeChild(test) // append style and remove emty div
+        __loading__.style.marginTop = (innerHeight-__loading__.offsetHeight)/2 + "px" // take center
         };
 
    class Layout { // a class of future layout
@@ -161,7 +168,7 @@
         };
 
    /* LOADING */
-   /* List of commands which initialize loading Htmls */
+    /* List of commands which initialize loading Htmls */
     
     window.addEventListener("DOMContentLoaded", function() { // all the html data is available
         window.__data__ = "" // create list of needed global variables
@@ -212,4 +219,4 @@
             } else { createDocument.establed = true }
         };    
     
-    
+     
