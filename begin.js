@@ -111,7 +111,7 @@
            font-size: 35px; 
            text-align: center; 
            top: 0; left: 0;
-           background-color: rgba(217, 210, 210, 0.6);
+           color: rgba(217, 210, 210, 0.6);
          `
         __loading__.style.marginTop = (innerHeight-__loading__.offsetHeight)/2 + "px"
         };
