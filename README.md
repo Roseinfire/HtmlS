@@ -116,7 +116,7 @@ File action defined automatically by its extension.
 </head>
 ```
 ### `layout`
-# 📝
+#
 Resize plan of your site, css grids and other. <br>
 Currently support three layouts:
 * static `number`<br>
