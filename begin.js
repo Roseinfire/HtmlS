@@ -104,6 +104,7 @@
         __loading__ .innerHTML = getouter("theme", document.head, "Loading..")
         let className = document.createAttribute("class"); className.value = "loading"
         __loading__.setAttributeNode(className)
+        /* Style not placed in universal.css in order to load quicker */
         __loading__.style = `
            position: fixed; 
            width: 100%; 
