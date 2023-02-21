@@ -12,7 +12,7 @@
     /* This part is preparing methods future syntax operations */
     
     HTMLElement.prototype.await  = function() { // hide content while complex elements are loading (see LOAD part)
-        let tags = ["IMG", "FRAME", "IFRAME", "SCRIPT"] // images and frames
+        let tags = ["IMG", "FRAME", "IFRAME", "SCRIPT", "LINK"] // images and frames
         for(var i = 0; i < tags.length; i++) {
             if(tags[i] == this.tagName) { // go through the tags
                 awaitload() // awaitload
@@ -333,6 +333,7 @@
             var link = document.createElement("link") // just create link to style
             link.rel = "stylesheet" // give rel
             link.href = command // load
+            link.await() // exclude situations when style loaded after resize
             document.head.append(link) // append
             } 
         else { console.warn(`unknown file extension -->`, ext) } // at this time only two extensions are supported
