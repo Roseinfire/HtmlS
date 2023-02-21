@@ -45,7 +45,7 @@
         else if(endkey) { awaitload.loads-- }
         if(!awaitload.loads) {
             try {
-                __resize(2, true) // build a layout
+                __resize(1, true) // build a layout
                 setTimeout(function() {
                     onResize([hand], function(e) { // add layout to the end of resize list 
                         __layout__.js.content(e, __layout__.argument)
@@ -61,7 +61,7 @@
                         hand.innerHTML = `<p id="docempty">Document is empty</p>`
                         };
                     dispatchEvent(new Event('load')) // call for onload event
-                    __resize(2, true); // call for resize event
+                    __resize(1, true); // call for resize event
                     console.timeEnd("building")
                     }, 10)
                 } catch { console.warn("iterations run was not standart") }
