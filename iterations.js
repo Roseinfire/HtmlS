@@ -432,8 +432,9 @@
         if(res) {
           //  try {
                 var attr = node.getAttributeNode("class")
-                if(attr) { keywords.attribute(node, 'class "' + res + '" ', false) }
-                else { var attr = node.getAttributeNode("class"); attr.value = `${attr.value} ${res}` }
+                if(!attr) { keywords.attribute(node, 'class "' + res + '" ', false) }
+                else if(attr && attr.value) { attr.value = `${attr.value} ${res}` }
+                else if(attr) { attr.value = res }
             //    } 
            // catch {
                // console.error(`failed to set a class -->`, node, res)
