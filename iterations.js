@@ -417,9 +417,12 @@
    keywords.style = function(node, res) { // build the style from variable
         if(node && res) {
             let style =  node.getAttributeNode("style")
-            if(!style && keywords.getvalue(res)) {
-                style.value = keywords.getvalue(res)
+            if( !style && keywords.getvalue(res)) {
+                var stl = document.createAttribute("style")
+                stl.value = keywords.getvalue(res)
+                node.setAttributeNode(stl)
                 }
+            else if(style && !style.value && keywords.getvalue(res)) { style.value = keywords.getvalue(res) }
             else if(keywords.getvalue(res)) { style.value = `${style.value} ${keywords.getvalue(res)}`  }
             else { console.error(`can't find style -->`, "@" + res) }
             }
@@ -429,7 +432,7 @@
         if(res) {
           //  try {
                 var attr = node.getAttributeNode("class")
-                if(attr) { keywords.attribute(node, "class " + res, false) }
+                if(attr) { keywords.attribute(node, 'class "' + res + '" ', false) }
                 else { var attr = node.getAttributeNode("class"); attr.value = `${attr.value} ${res}` }
             //    } 
            // catch {
