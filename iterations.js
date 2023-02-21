@@ -430,15 +430,15 @@
 
    keywords.className = function(node, res) {
         if(res) {
-          //  try {
+             try {
                 var attr = node.getAttributeNode("class")
                 if(!attr) { keywords.attribute(node, 'class "' + res + '" ', false) }
                 else if(attr && attr.value) { attr.value = `${attr.value} ${res}` }
                 else if(attr) { attr.value = res }
-            //    } 
-           // catch {
-               // console.error(`failed to set a class -->`, node, res)
-              //  }
+                } 
+            catch {
+               console.error(`failed to set a class -->`, node, res)
+               }
             }
         };
 
