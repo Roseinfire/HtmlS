@@ -417,9 +417,9 @@
    keywords.style = function(node, res) { // build the style from variable
         if(node && res) {
             let style =  node.getAttributeNode("style")
-            if(!style.value && keywords.getvalue(res)) {
+            if(!style && keywords.getvalue(res)) {
                 style.value = keywords.getvalue(res)
-                } 
+                }
             else if(keywords.getvalue(res)) { style.value = `${style.value} ${keywords.getvalue(res)}`  }
             else { console.error(`can't find style -->`, "@" + res) }
             }
@@ -427,14 +427,14 @@
 
    keywords.className = function(node, res) {
         if(res) {
-            try {
+          //  try {
                 var attr = node.getAttributeNode("class")
                 if(attr) { keywords.attribute(node, "class " + res, false) }
                 else { var attr = node.getAttributeNode("class"); attr.value = `${attr.value} ${res}` }
-                } 
-            catch {
-                console.error(`failed to set a class -->`, node, res)
-                }
+            //    } 
+           // catch {
+               // console.error(`failed to set a class -->`, node, res)
+              //  }
             }
         };
 
