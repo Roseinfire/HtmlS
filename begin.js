@@ -227,7 +227,7 @@
        loadtheme() // when scripts are defined, provide a preview
        document.title = (document.title) ? (document.title) : ("Untitled") // give name
        fetches.push(new ExtendFetch(__host__ + "/iterations.js", estable, function(err) {
-           __loading__.innerHTML = "Host Error :/" // Compiler available, but something went wrong
+           __loading__.innerHTML = "Host Error :/" // Begin.js is available, but something went wrong with futher requests
            }))  
        fetches.push(new ExtendFetch(__host__ +  "/layouts/" + __layout__.name + ".js", setlayout,  function() {})) // set a layout
        for(var i = 0; i < __scripts__.length; i++) { // merge htmls codes. Important to save the sequence between local and external
@@ -245,12 +245,12 @@
        });
    
    function createDocument(hsList) { // takes list of the htmls codes
-       if(createDocument.establed) { // function called two times just for safety
+       if(createDocument.establed) { // function called two times just for safety (avoid sequence deformation)
            hand.className = "paper"
            content.style.display = "none"
            content.append(hand); document.body.append(content)
            for(var i = 0; i < hsList.length; i++) { __data__ += hsList[i] } // create complete htmls code
-           read(__data__) // if all loaded successfully then start compilation
+           read(__data__) // if all loaded successfully then start a compilation
            } else { createDocument.establed = true }
        };    
    
