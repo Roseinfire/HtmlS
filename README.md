@@ -17,10 +17,13 @@ And does not require long installation
 * Just one symbol adds spaces to stroke 🔭 
   
 # Installation
-Connect the script and let it do all the dirty jobs for you. <br>
-Htmls compilates inside any `<script>` specified as `text/htmls` or just `htmls` <br>
+Language compilates inside any `<script>` specified as `text/htmls` or just `htmls` <br>
+When its package connected of course.
 ```HTML
 <script src="https://roseinfire.github.io/HtmlS/begin.js"></script>
+```
+```html
+<script type=”htmls”></script>
 ```
 # Guide
 > and first look at
@@ -37,7 +40,7 @@ Htmls compilates inside any `<script>` specified as `text/htmls` or just `htmls`
 # Hello World! *tag
 ```
 * write text between `#` and `*`, to write a star use `<*>`
-* `tag` takes classic tag name like `p` or `div`
+* `tag` takes classic tag names like `p` or `div`
 * add `!` before `#` to read all the spaces in text
 #
  > Specify class 
@@ -60,7 +63,7 @@ style block "width: 100px; height: 100px"
 ```
 * styles are reusable
 * element may have any number of styles
-* good practice is defining styles before begin the script
+* Good practice is defining styles before beginning the script
 #   
  > Don't forget about 
 ### Attributes 
@@ -78,8 +81,8 @@ style block "width: 100px; height: 100px"
  -  # *div .firstChild
   --  # *div .secondChild
 ```
-* to specify child node, begin command from minus
-* the element appends to first node witch have one minus less
+* to specify a child node, begin command from minus
+* the element appends to the first node which has one minus less
 * any number of spaces can be used between `-`
 #
 > And much more complexity with
@@ -87,26 +90,33 @@ style block "width: 100px; height: 100px"
 ```javascript
   # *div .square [margin proportion quantity] .container
 ```
-#### Between brackets `[` and `]` mark the conditions. Separate arguments with spaces
+#### Between brackets `[` and `]` mark the conditions, separate arguments with spaces
 * margin from parent border (`0` by default)
 * proportion - width/height (`1` by default)
-* quantity - how many elements in group (`1` by default)
+* quantity - how many elements in a group (`1` by default)
 * first class related to a single element
-* second class related to container
+* second class related to a container
 #
 > Connecting scripts
 ### External files
-To connect an external file, init source with `import` keyword. <br>
-File action defined automatically by its extension.
+To connect an external file, init source with `import` keyword <br>
+File action defined automatically by its extension, <br>
+While target of file defined by argument <br>
+
 ```javascript
- import "root/code.js"
  import "root/style.css"
- import later "root/analitics.js"
+ import module “modules/example.js”
+ import now "root/defines.js"
+ import later "scripts/analitics.js"
+ import chain “scripts/preload.js”
+ import chain “scripts/content.js”
 ```
-* `js` files become scripts 
+* `js` files become scripts
 * `css` files become styles
-* `later` word means don't stop building while loading script
-* `note` css files are always working like with `later` keyword
+* `later` word means don't stop building while loading the script, while `now` means so (beta)
+* `module` word declares load module with extension `.js` as well as `.mjs` (beta)
+* `chain` means to load scripts at the same time, but execute one after another (beta)
+
 
 ## Setup
 > Let's personalize your site
@@ -170,7 +180,7 @@ Attribute defines text of preload. You can put any message including emoji.
 #
 Attribute related to `<head>`
 #
-By default set to `Loading..`
+By default, it is set to `Loading..`
 #
  ```html
 <!-- theme example --!>
@@ -257,4 +267,6 @@ So, you can take any part of the project and develop it. <br>
 # License
 Distributed under `MIT` license.<br>
 For detailed information read License file.
+
+
 
