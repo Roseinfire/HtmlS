@@ -19,11 +19,11 @@ And does not require long installation
 # Installation
 Language compilates inside any `<script>` specified as `text/htmls` or just `htmls` <br>
 When its package connected of course.
-```HTML
-<script src="https://roseinfire.github.io/HtmlS/begin.js"></script>
-```
 ```html
 <script type=”htmls”></script>
+```
+```HTML
+<script src="https://roseinfire.github.io/HtmlS/begin.js"></script>
 ```
 # Guide
 > and first look at
