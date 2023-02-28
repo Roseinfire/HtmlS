@@ -105,11 +105,11 @@ While target of file defined by argument <br>
 
 ```javascript
  import "root/style.css"
- import module “modules/example.js”
+ import module "modules/example.js"
  import now "root/defines.js"
  import later "scripts/analitics.js"
- import chain “scripts/preload.js”
- import chain “scripts/content.js”
+ import chain "scripts/preload.js"
+ import chain "scripts/content.js"
 ```
 * `js` files become scripts
 * `css` files become styles
