@@ -107,12 +107,10 @@
 
    HTMLElement.prototype.setAttr = function(name, value, clear) {
        var attr = this.getAttribute(name)
-       
-           let attribute = document.createAttribute(name)
-           attribute.value = attr && !clear ? attr + value : value
-           this.removeAttribute(name)
-           this.setAttributeNode(attribute)
-
+       let attribute = document.createAttribute(name)
+       attribute.value = attr && !clear ? attr + value : value
+       this.removeAttribute(name)
+       this.setAttributeNode(attribute)
        };
 
    HTMLElement.prototype.insertStyle = function(name, value) {
@@ -124,7 +122,7 @@
            var defcolor = defstyle.getPropertyValue(name) // get deafult
            var color =  style.getPropertyValue(name) // get real color
            var result = (color!=defcolor) ? color : value // replace defaults
-           this.setAttr("style", `${name}: ${result};`, true)
+           this.setAttr("style", `${name}: ${result};`)
            this.parentElement.removeChild(test)
            return result
            } else { return null }
