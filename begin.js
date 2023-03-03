@@ -194,7 +194,8 @@
         fetches.push(new ExtendFetch(__host__ + "/iterations.js", estable, function(err) {
             __loading__.innerHTML = "Host Error :/" // Compiler available, but something went wrong
             }))  
-        fetches.push(new ExtendFetch(__host__ +  "/layouts/" + __layout__.name + ".js", function(r) { console.log(r); setlayout(r) }, function() {})) // set a layout
+        fetches.push(new ExtendFetch(__host__ +  "/layouts/" + __layout__.name + ".js",
+            function(r) { console.log(r); setlayout(r) }, function(e) { console.error(e) })) // set a layout
         for(var i = 0; i < __scripts__.length; i++) { // merge htmls codes. Important to save the sequence between local and external
             var source = getouter("fetch", __scripts__[i], null) // get to know whether file is external
             if(source) { // whether true, remember that there is at least one external script
