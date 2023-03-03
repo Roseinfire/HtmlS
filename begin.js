@@ -209,7 +209,7 @@
    /* List of commands which initialize loading Htmls */
    
    window.addEventListener("DOMContentLoaded", function() { // all the html data is available
-       document.body.style.margin = 0; // excude some bad default styles
+       document.body.insertStyle("margin", 0) // excude some bad default styles
        window.__data__ = "" // create list of needed global variables
        window.__metadata__ = new Array()
        window.__head__ = document.head
