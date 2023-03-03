@@ -159,12 +159,12 @@
         script.innerHTML = __iterations__
         document.body.append(script)
         console.group("compilation")
-        createDocument(__metadata__)
         };
 
    function setlayout(response) { // create layout 
         __layout__.js = new Layout(null, "default") // estable default value
         try { __layout__.js = eval(response) } catch { console.warn(`unexpected layout -->`, response) } // try to estable loaded layout
+        createDocument(__metadata__) // important to call when htmls package is loaded
         };
 
    /* LOADING */
