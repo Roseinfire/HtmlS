@@ -44,14 +44,14 @@
         if(!endkey) { awaitload.loads++ }
         else if(endkey) { awaitload.loads-- }
         if(!awaitload.loads) {
-            try {
+           // try {
                 __resize(1, true) // build a layout
                 setTimeout(function() {
                     onResize([hand], function(e) { // add layout to the end of resize list 
                         __layout__.js.content(e, __layout__.argument)
                         })
                     var source = getouter("image", __body__)
-                    if(source) { document.body.style.backgroundImage = "url('" + source + "')"  } // create background image
+                    if(source) { document.body.style.backgroundImage = `url('${source}')`  } // create background image
                     hand.style = getouter("style", __head__) // style the hand element
                     document.body.removeChild(__loading__)
                     content.style.display = "block"
@@ -64,7 +64,7 @@
                     __resize(1, true); // call for resize event
                     console.timeEnd("building")
                     }, 10)
-                } catch { console.warn("iterations run was not standart") }
+              //  } catch { console.warn("iterations run was not standart") }
             console.log(`Compilation finished. Run 'write.about()' to find out taken global names`) 
             console.groupEnd("compilation")
             }
