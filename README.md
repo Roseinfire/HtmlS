@@ -5,4 +5,4 @@ New features and bugs are here
 * Groups
 
 ### Latest version
-* February 27, 2023
+* March 3, 2023
