@@ -75,7 +75,7 @@
    window.addEventListener("resize", function() { __resize() }) // add resize listener
     
     onResize([hand], function(e) {
-        __layout__.js.content(e, __layout__.argument) // give a layout his argument
+        try { __layout__.js.content(e, __layout__.argument) } catch {} // give a layout his argument
         });
     
     function onlyNumbers(text="") {  // get number from text
