@@ -143,9 +143,6 @@
        };
 
    function loadtheme() {
-       let styletag = document.createElement("style"); styletag.type="text/css"
-       styletag.innerHTML = `.Loading { position: fixed; width: 100%; text-align: center; top: 0; left: 0; }`
-       document.head.append(styletag)
        let doc = document.body.children
        for(var i = 0; i < doc.length; i++) {
            if(doc[i].tagName != "SCRIPT") { 
@@ -153,9 +150,14 @@
                }
            }
        window.__loading__ = document.createElement("div")
-       if(document.body) { document.body.append(__loading__) } // not standart run 
+       if(document.body) { document.body.append(__loading__) }
        __loading__ .innerHTML = getouter("theme", document.head, "Loading..")
-       __loading__.setAttr("class", "loading Loading")
+       __loading__.setAttr("class", "loading")
+       __loading__.insertStyle("position", "fixed")
+       __loading__.insertStyle("width", "100%")
+       __loading__.insertStyle("text-align", "center")
+       __loading__.insertStyle("top", 0)
+       __loading__.insertStyle("left", 0)
        __loading__.insertStyle("color", "rgba(217, 210, 210, 0.6)")
        __loading__.insertStyle("font-size", "35px")
        __loading__.takeCenter(false)
@@ -216,7 +218,7 @@
        window.__body__ = document.body
        window.__host__ = getouter("host", document.body.parentElement, "https://roseinfire.github.io/HtmlS")
        window.__layout__ = searchlayouts("relative 0.6")
-       window.__scripts__  = (function() { // get all  specified htmls scripts
+       window.__scripts__  = (function() { // get all specified htmls scripts
            var res = []
            var scripts = document.getElementsByTagName("script")
            for(var i = 0; i < scripts.length; i++) {
@@ -228,6 +230,8 @@
        document.title = (document.title) ? (document.title) : ("Untitled") // give name
        fetches.push(new ExtendFetch(__host__ + "/iterations.js", estable, function(err) {
            __loading__.innerHTML = "Host Error :/" // Begin.js is available, but something went wrong with futher requests
+           console.error("visit `https://github.com/Roseinfire/HtmlS`")
+           console.groupEnd("compilation")
            }))  
        fetches.push(new ExtendFetch(__host__ +  "/layouts/" + __layout__.name + ".js", setlayout,  function() {})) // set a layout
        for(var i = 0; i < __scripts__.length; i++) { // merge htmls codes. Important to save the sequence between local and external
@@ -254,4 +258,3 @@
            } else { createDocument.establed = true }
        };    
    
-    

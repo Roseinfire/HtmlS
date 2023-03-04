@@ -1,0 +1,13 @@
+body {
+   margin: 0;
+}
+.paper {
+   padding: 0;
+}
+#docempty {
+  font-size: 35px; 
+  text-align: center;
+  color: maroon;
+}
+
+   

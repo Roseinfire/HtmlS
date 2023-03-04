@@ -491,11 +491,12 @@
            }; return res // return edited text
        };
 
+
    /*
       Creating keywords. Names are not required, but very helpful for debugging.
       Every keyword returns true value whether get value that was expected and returns false in else case,
       then CORE tryes another keywords.
-      */
+   */
    keywords.push(new keyword(['"'], ['"'], function(res) { keywords.value(res); return true }, "value"))
    keywords.push(new keyword(["~"], ["~"], function(res) { console.log(res); return true }, "comment")) 
    keywords.push(new keyword(["-"], ["!", "#"], function(res) { keywords.child(res); return true }, "child"))
@@ -570,8 +571,9 @@
 
    /* 
       Let the first node be a ‘hand` element. Avoid error whether the name `hand` is not defined.
-      */
-   (function(){  try {
+   */
+   (function(){ 
+       try {
            nodes.push(new DataNode(hand, 0, 0))
            }
        catch {
@@ -582,7 +584,7 @@
    /* 
       Provide the information about taken names or taken time, memory and so.
       It helps to avoid names collision with other connected scripts.
-      */
+   */
    write.about = function() {
        let names = ["fetches", "ExtendFetch", "syncFetch", "onlyNumbers", "getouter", "loadtheme", "Layout",
        "searchlayouts", "estable", "setlayout", "__data__", "__metadata__",
@@ -593,14 +595,3 @@
        console.groupEnd("taken global names")
        };
 
-   write.loadsimul = function() {
-       try {
-           document.getElementById("content").style.display = "none"
-           
-           } 
-       catch { 
-           console.warn("Iterations run was not standart")
-           }
-       };
-
-   
