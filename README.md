@@ -13,10 +13,7 @@
   
 # Installation
 Language compilates inside any `<script>` specified as `text/htmls` or just `htmls` <br>
-When its package connected of course.
-```html
-<script type=”htmls”></script>
-```
+When its package connected of course. We also prepared a [form](https://github.com/Roseinfire/HtmlS/blob/main/Form.html) to copy.
 ```HTML
 <script src="https://roseinfire.github.io/HtmlS/begin.js"></script>
 ```
