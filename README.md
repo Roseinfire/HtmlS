@@ -1,8 +1,3 @@
-# Intro
-Both decoration and scripting language, <br>
-Htmls is `more` `flexible` and more `comfortable` than html <br>
-And does not require long installation
-
 ## Advantages
 
 * Works nearly everywhere 🕸
@@ -113,8 +108,8 @@ While target of file defined by argument <br>
 ```
 * `js` files become scripts
 * `css` files become styles
-* `later` word means don't stop building while loading the script, while `now` means so (beta)
-* `module` word declares load module with extension `.js` as well as `.mjs` (beta)
+* `later` word means don't stop building while loading the script, while `now` means so
+* `module` word declares load module with extension `.js` as well as `.mjs
 * `chain` means to load scripts at the same time, but execute one after another (beta)
 
 
@@ -267,6 +262,4 @@ So, you can take any part of the project and develop it. <br>
 # License
 Distributed under `MIT` license.<br>
 For detailed information read License file.
-
-
 
