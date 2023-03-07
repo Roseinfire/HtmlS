@@ -4,7 +4,7 @@
       and creates basic functions and constants. 
       Do not use it without "iterations.js" and network connection.
       Licensed under MIT, Roseinfire, 2023
-      */
+    */
    
    /* FETCHES */
    /* This part is preparing special functions, which help to optimize loading of the project main functionality */
