@@ -116,12 +116,12 @@
    HTMLElement.prototype.insertStyle = function(name, value) {
        if(this.parentElement) {
            var style = getComputedStyle(this) // get real stylesheet
-           var test = document.createElement(this.tagName) // create an empty example to understand the default stylesheet
+           var test = this.cloneNode(1) // create an empty example to understand the default stylesheet
            this.parentElement.append(test) // append to let read the real stylesheet of `test`
            var defstyle = getComputedStyle(test) // read the default style
            var defcolor = defstyle.getPropertyValue(name) // get deafult
-           var color =  style.getPropertyValue(name) // get real color
-           var result = (color!=defcolor) ? color : value // replace defaults
+           var color = style.getPropertyValue(name) // get real color
+           var result = (color != defcolor) ? color : value // replace defaults
            this.setAttr("style", `${name}: ${result};`)
            this.parentElement.removeChild(test)
            return result
@@ -154,7 +154,7 @@
        __loading__ .innerHTML = getouter("theme", document.head, "Loading..")
        __loading__.setAttr("class", "loading")
        __loading__.insertStyle("position", "fixed")
-       __loading__.insertStyle("width", "100%")
+       __loading__.insertStyle("width", `${innerWidth}px`)
        __loading__.insertStyle("text-align", "center")
        __loading__.insertStyle("top", 0)
        __loading__.insertStyle("left", 0)
