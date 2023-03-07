@@ -153,13 +153,13 @@
        if(document.body) { document.body.append(__loading__) }
        __loading__ .innerHTML = getouter("theme", document.head, "Loading..")
        __loading__.setAttr("class", "loading")
-       __loading__.insertStyle("position", "fixed")
+  /*     __loading__.insertStyle("position", "fixed")
        __loading__.insertStyle("width", `${innerWidth}px`)
        __loading__.insertStyle("text-align", "center")
        __loading__.insertStyle("top", 0)
        __loading__.insertStyle("left", 0)
        __loading__.insertStyle("color", "rgba(217, 210, 210, 0.6)")
-       __loading__.insertStyle("font-size", "35px")
+       __loading__.insertStyle("font-size", "35px") */
        __loading__.takeCenter(false)
        console.group("compilation")
        };
