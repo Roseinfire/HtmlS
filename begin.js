@@ -230,10 +230,14 @@
        document.title = (document.title) ? (document.title) : ("Untitled") // give name
        fetches.push(new ExtendFetch(__host__ + "/iterations.js", estable, function(err) {
            __loading__.innerHTML = "Host Error :/" // Begin.js is available, but something went wrong with futher requests
-           console.error("visit `https://github.com/Roseinfire/HtmlS`")
+           console.error("compilation failed; visit `https://github.com/Roseinfire/HtmlS`")
            console.groupEnd("compilation")
            }))  
-       fetches.push(new ExtendFetch(__host__ +  "/layouts/" + __layout__.name + ".js", setlayout,  function() {})) // set a layout
+       fetches.push(new ExtendFetch(__host__ +  "/layouts/" + __layout__.name + ".js", setlayout,  function(err) {
+           __loading__.innerHTML = "Host Error :/" // The same case as previous
+           console.error("compilation failed; visit `https://github.com/Roseinfire/HtmlS`")
+           console.groupEnd("compilation")
+       }))
        for(var i = 0; i < __scripts__.length; i++) { // merge htmls codes. Important to save the sequence between local and external
            var source = getouter("fetch", __scripts__[i], null) // get to know whether file is external
            if(source) { // whether true, remember that there is at least one external script
@@ -241,7 +245,7 @@
                fetches.push(new ExtendFetch(source, function(res, pointer) { // push to the chain
                    __metadata__.push(res); if(!pointer) { createDocument(__metadata__) } 
                    /* whether no more scripts in the chain, init document creation */
-                   }, function() {}))
+                   }, function(e) { console.error(e) }))
                } else { __metadata__.push(__scripts__[i].innerHTML) } // whether no "fetch" attribute, just get the script value
            }
        if(!__metadata__.remote) { createDocument(__metadata__) } // whether no external scripts therefore all the values collected
