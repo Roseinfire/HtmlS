@@ -4,7 +4,7 @@
       and creates basic functions and constants. 
       Do not use it without "iterations.js" and network connection.
       Licensed under MIT, Roseinfire, 2023
-    */
+      */
    
    /* FETCHES */
    /* This part is preparing special functions, which help to optimize loading of the project main functionality */
@@ -113,18 +113,28 @@
        this.setAttributeNode(attribute)
        };
 
-   HTMLElement.prototype.insertStyle = function(name, value) {
+   HTMLElement.prototype.insertStyle = function(classname, ...grids) {
+       /*
+          Method which takes number of styles like `{ name: name, value, value }` and
+          insert style value to the element whether element have no css grid above given name,
+          and leaves the element as it is, whether css grid provided.
+          */
        if(this.parentElement) {
-           var style = getComputedStyle(this) // get real stylesheet
-           var test = this.cloneNode(1) // create an empty example to understand the default stylesheet
-           this.parentElement.append(test) // append to let read the real stylesheet of `test`
-           var defstyle = getComputedStyle(test) // read the default style
-           var defcolor = defstyle.getPropertyValue(name) // get deafult
-           var color = style.getPropertyValue(name) // get real color
-           var result = (color != defcolor) ? color : value // replace defaults
-           this.setAttr("style", `${name}: ${result};`)
-           this.parentElement.removeChild(test)
-           return result
+           var grid = document.createElement("style"); grid.type = "text/css"
+           var def = document.createElement(this.tagName) // create an empty example to understand the default stylesheet
+           this.parentElement.append(def) // append to let read the real stylesheet of `test`
+           var elem_style = getComputedStyle(this) // get the real stylesheet
+           var def_style = getComputedStyle(def) // read the default style
+           grids.forEach(function(item) { // across each given property
+               var defcolor = def_style.getPropertyValue(item[0]) // get default
+               var curcolor = elem_style.getPropertyValue(item[0]) // get real color
+               var result = ( curcolor != defcolor ) ? curcolor : item[1] // replace default
+               grid.innerHTML = (grid.innerHTML ? grid.innerHTML : "") + `${ item[0] }: ${ result };`// build a style
+               })  
+           this.parentElement.removeChild(def) // clear 'steps'
+           grid.innerHTML = `.${classname} { ${grid.innerHTML} }` // create CSS line
+           document.head.append(grid) // append CSS
+           return grid.innerHTML // return built value
            } else { return null }
        };
 
@@ -152,14 +162,11 @@
        window.__loading__ = document.createElement("div")
        if(document.body) { document.body.append(__loading__) }
        __loading__ .innerHTML = getouter("theme", document.head, "Loading..")
-       __loading__.setAttr("class", "loading")
-  /*     __loading__.insertStyle("position", "fixed")
-       __loading__.insertStyle("width", `${innerWidth}px`)
-       __loading__.insertStyle("text-align", "center")
-       __loading__.insertStyle("top", 0)
-       __loading__.insertStyle("left", 0)
-       __loading__.insertStyle("color", "rgba(217, 210, 210, 0.6)")
-       __loading__.insertStyle("font-size", "35px") */
+       __loading__.setAttr("class", "Loading loading")
+       __loading__.insertStyle("Loading",
+           ["position", "fixed"], ["width", `${innerWidth}px`], ["text-align", "center"], 
+           ["color", "rgba(217, 210, 210, 0.6)"], [ "font-size", "35px"]
+       )
        __loading__.takeCenter(false)
        console.group("compilation")
        };
@@ -233,11 +240,11 @@
            console.error("compilation failed; visit `https://github.com/Roseinfire/HtmlS`")
            console.groupEnd("compilation")
            }))  
-       fetches.push(new ExtendFetch(__host__ +  "/layouts/" + __layout__.name + ".js", setlayout,  function(err) {
-           __loading__.innerHTML = "Host Error :/" // The same case as previous
+       fetches.push(new ExtendFetch(__host__ +  "/layouts/" + __layout__.name + ".js", setlayout,  function(e) { console.error()
+            __loading__.innerHTML = "Host Error :/" // The same case as previous
            console.error("compilation failed; visit `https://github.com/Roseinfire/HtmlS`")
            console.groupEnd("compilation")
-       }))
+        })) // set a layout
        for(var i = 0; i < __scripts__.length; i++) { // merge htmls codes. Important to save the sequence between local and external
            var source = getouter("fetch", __scripts__[i], null) // get to know whether file is external
            if(source) { // whether true, remember that there is at least one external script
@@ -245,7 +252,7 @@
                fetches.push(new ExtendFetch(source, function(res, pointer) { // push to the chain
                    __metadata__.push(res); if(!pointer) { createDocument(__metadata__) } 
                    /* whether no more scripts in the chain, init document creation */
-                   }, function(e) { console.error(e) }))
+                   }, function() {}))
                } else { __metadata__.push(__scripts__[i].innerHTML) } // whether no "fetch" attribute, just get the script value
            }
        if(!__metadata__.remote) { createDocument(__metadata__) } // whether no external scripts therefore all the values collected
