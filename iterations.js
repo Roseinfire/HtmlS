@@ -352,7 +352,7 @@
                document.body.append(err)
                }
            else if(argument == "chain") {
-               console.log("Importing in chain mode -->", command)
+               console.log(`Importing in chain mode -->`, command)
                awaitload()
                keywords.chain.push(new ExtendFetch(command, function(res) {
                    var scr = document.createElement("script")
@@ -360,7 +360,7 @@
                    scr.innerHTML = res
                    document.body.append(scr)
                    awaitload(true)
-                   }, function(e) { console.error("chain failed -->", e); awaitload(true) }))
+                   }, function(e) { console.error(`chain failed -->`, e); awaitload(true) }))
                }
            }
        else if(ext == "ssc") {
@@ -400,16 +400,16 @@
 
    keywords.value = function(res) { // build the value
        if(keywords.word.code == "tyle ") { // style
-           keywords.setvalue(keywords.word.argument, res); keywords.word = null // create variable
+           keywords.setvalue(keywords.word.argument, res) // create variable
            }
        else if(keywords.word.code =="mport ") { // import
-           keywords.importitem(res, keywords.word.argument); keywords.word = null // import item
+           keywords.importitem(res, keywords.word.argument) // import item
            };
        };
 
    keywords.child = function(res) { // count node childhood
        var result = 2; // 1+1=2 
-       /* Any element is a child of #paper by default and if this function is called it means elements have another childhood. */
+       /* Any element is a child of .paper by default and if this function is called it means element have another childhood. */
        for(var i = 0; i < res.length; i++) { // explore the given value
            if(res[i] == "-") { result++ } // count the childhood
            }; keywords.childhood = result // remember childhood
@@ -502,7 +502,7 @@
    keywords.push(new keyword(["-"], ["!", "#"], function(res) { keywords.child(res); return true }, "child"))
    keywords.push(new keyword(["`"], ["`"], function(res) { keywords.readcode(res); return true }, "code"))
    keywords.push(new keyword(["s"], ['"'], function(res) { return keywords.readword(res, "tyle ") }, "style"))
-   keywords.push(new keyword(["!"], ["#"], function(res) { keywords.spacing = true; return true }, "spacing"))
+   keywords.push(new keyword(["!"], ["#"], function(res) { return keywords.spacing = true }, "spacing"))
    keywords.push(new keyword(["p"], ["`"], function(res) { return keywords.readword(res, "arse ") }, "parse"))
    keywords.push(new keyword(["i"], ['"'], function(res) { return keywords.readword(res, "mport ") }, "import"))
    keywords.push(new keyword(["*"], [" ", "@", "\n", ".", "{", "["], function(res) { keywords.draw(res); return true }, "creation"))
