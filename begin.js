@@ -113,7 +113,7 @@
        this.setAttributeNode(attribute)
        };
 
-   HTMLElement.prototype.insertStyle = function(classname, ...grids) {
+   HTMLElement.prototype.insertStyle = function(cssline, ...grids) {
        /*
           Method which takes number of styles like `{ name: name, value, value }` and
           insert style value to the element whether element have no css grid above given name,
@@ -132,7 +132,7 @@
                grid.innerHTML = (grid.innerHTML ? grid.innerHTML : "") + `${ item[0] }: ${ result };`// build a style
                })  
            this.parentElement.removeChild(def) // clear 'steps'
-           grid.innerHTML = `.${classname} { ${grid.innerHTML} }` // create CSS line
+           grid.innerHTML = `${cssline} { ${grid.innerHTML} }` // create CSS line
            document.head.append(grid) // append CSS
            return grid.innerHTML // return built value
            } else { return null }
@@ -163,7 +163,7 @@
        if(document.body) { document.body.append(__loading__) }
        __loading__ .innerHTML = getouter("theme", document.head, "Loading..")
        __loading__.setAttr("class", "Loading loading")
-       __loading__.insertStyle("Loading",
+       __loading__.insertStyle(".Loading",
            ["position", "fixed"], ["width", `${innerWidth}px`], ["text-align", "center"], 
            ["color", "rgba(217, 210, 210, 0.6)"], [ "font-size", "35px"]
        )
@@ -218,7 +218,7 @@
    /* List of commands which initialize loading Htmls */
    
    window.addEventListener("DOMContentLoaded", function() { // all the html data is available
-       document.body.insertStyle("margin", 0) // excude some bad default styles
+       document.body.insertStyle("body", ["margin", 0]) // excude some bad default styles from body
        window.__data__ = "" // create list of needed global variables
        window.__metadata__ = new Array()
        window.__head__ = document.head
